@@ -8,13 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SVGQuartzRenderer : NSObject {
-	NSXMLParser* xmlParser;
-	NSAffineTransform *transform;
-	NSAffineTransform *identity;
-	CGSize documentSize;
-	NSImage *canvas;
-	NSView *view;
+@interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate> {
+
 }
 
 - (NSImage *)imageFromSVGFile:(NSString *)file view:(NSView *)view;
