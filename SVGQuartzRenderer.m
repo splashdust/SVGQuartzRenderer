@@ -149,8 +149,8 @@ didStartElement:(NSString *)elementName
 		[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
 		
 		CGPoint curPoint = CGPointMake(0,0);
-		CGPoint curCtrlPoint1 = CGPointMake(0, 0);
-		CGPoint curCtrlPoint2 = CGPointMake(0, 0);
+		CGPoint curCtrlPoint1 = CGPointMake(-1,-1);
+		CGPoint curCtrlPoint2 = CGPointMake(-1,-1);
 		CGPoint firstPoint = CGPointMake(-1,-1);
 		NSString *curCmdType = nil;
 		
@@ -267,6 +267,52 @@ didStartElement:(NSString *)elementName
 							curCtrlPoint1.y = curPoint.y + [[param objectAtIndex:1] floatValue];
 							
 							prm_i++;
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
+							curCtrlPoint2.x = curPoint.x + [[param objectAtIndex:0] floatValue];
+							curCtrlPoint2.y = curPoint.y + [[param objectAtIndex:1] floatValue];
+							
+							prm_i++;
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
+							curPoint.x += [[param objectAtIndex:0] floatValue];
+							curPoint.y += [[param objectAtIndex:1] floatValue];
+						}
+						
+						// Shorthand curve to absolute coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"S"]) {
+							curCmdType = @"curve";
+							
+							if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
+								curCtrlPoint1.x = curCtrlPoint2.x;
+								curCtrlPoint1.y = curCtrlPoint2.y;
+							} else {
+								curCtrlPoint1.x = curPoint.x;
+								curCtrlPoint1.y = curPoint.y;
+							}
+							
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
+							curCtrlPoint2.x = [[param objectAtIndex:0] floatValue];
+							curCtrlPoint2.y = [[param objectAtIndex:1] floatValue];
+							
+							prm_i++;
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
+							curPoint.x = [[param objectAtIndex:0] floatValue];
+							curPoint.y = [[param objectAtIndex:1] floatValue];
+						}
+						
+						// Shorthand curve to relative coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"s"]) {
+							curCmdType = @"curve";
+							
+							if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
+								curCtrlPoint1.x = curPoint.x + curCtrlPoint2.x;
+								curCtrlPoint1.y = curPoint.y + curCtrlPoint2.x;
+							} else {
+								curCtrlPoint1.x = curPoint.x;
+								curCtrlPoint1.y = curPoint.y;
+							}
+							
 							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
 							curCtrlPoint2.x = curPoint.x + [[param objectAtIndex:0] floatValue];
 							curCtrlPoint2.y = curPoint.y + [[param objectAtIndex:1] floatValue];
