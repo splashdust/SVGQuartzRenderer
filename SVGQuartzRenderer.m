@@ -77,10 +77,16 @@ didStartElement:(NSString *)elementName
 		if([elementName isEqualToString:@"pattern"]) {
 			curPat = [[NSMutableDictionary alloc] init];
 		}
+			if([elementName isEqualToString:@"image"]) {
+				
+			}
 		
 		if([elementName isEqualToString:@"linearGradient"]) {
 			curLinGrad = [[NSMutableDictionary alloc] init];
 		}
+			if([elementName isEqualToString:@"stop"]) {
+				
+			}
 		
 		if([elementName isEqualToString:@"radialGradient"]) {
 			curRadGrad = [[NSMutableDictionary alloc] init];
@@ -89,7 +95,9 @@ didStartElement:(NSString *)elementName
 		if([elementName isEqualToString:@"filter"]) {
 			curFilter = [[NSMutableDictionary alloc] init];
 		}
-	
+			if([elementName isEqualToString:@"feGaussianBlur"]) {
+				
+			}
 	
 	// Graphics layer node
 	// -------------------------------------------------------------------------
@@ -141,12 +149,16 @@ didStartElement:(NSString *)elementName
 		[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
 		
 		CGPoint curPoint = CGPointMake(0,0);
+		CGPoint curCtrlPoint1 = CGPointMake(0, 0);
+		CGPoint curCtrlPoint2 = CGPointMake(0, 0);
 		CGPoint firstPoint = CGPointMake(-1,-1);
+		NSString *curCmdType = nil;
 		
+		NSCharacterSet *cmdCharSet = [NSCharacterSet characterSetWithCharactersInString:@"mMlLhHvVcCsSqQtTaAzZ"];
 		NSString *currentCommand = nil;
 		NSString *currentParams = nil;
-		while ([scanner scanCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"mMcCsSqQtTaAzZlLhHvV"] intoString:&currentCommand]) {
-			[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"mMcCsSqQtTaAzZlLhHvV"] intoString:&currentParams];
+		while ([scanner scanCharactersFromSet:cmdCharSet intoString:&currentCommand]) {
+			[scanner scanUpToCharactersFromSet:cmdCharSet intoString:&currentParams];
 			
 			NSArray *params = [currentParams componentsSeparatedByString:@" "];
 			
@@ -165,6 +177,7 @@ didStartElement:(NSString *)elementName
 						// Move to absolute coord
 						//-----------------------------------------
 						if([currentCommand isEqualToString:@"M"]) {
+							curCmdType = @"line";
 							curPoint.x = [[param objectAtIndex:0] floatValue];
 							curPoint.y = [[param objectAtIndex:1] floatValue];
 						}
@@ -172,6 +185,7 @@ didStartElement:(NSString *)elementName
 						// Move to relative coord
 						//-----------------------------------------
 						if([currentCommand isEqualToString:@"m"]) {
+							curCmdType = @"line";
 							curPoint.x += [[param objectAtIndex:0] floatValue];
 							
 							if(firstVertex) {
@@ -184,6 +198,7 @@ didStartElement:(NSString *)elementName
 						// Line to absolute coord
 						//-----------------------------------------
 						if([currentCommand isEqualToString:@"L"]) {
+							curCmdType = @"line";
 							curPoint.x = [[param objectAtIndex:0] floatValue];
 							curPoint.y = [[param objectAtIndex:1] floatValue];
 						}
@@ -191,6 +206,73 @@ didStartElement:(NSString *)elementName
 						// Line to relative coord
 						//-----------------------------------------
 						if([currentCommand isEqualToString:@"l"]) {
+							curCmdType = @"line";
+							curPoint.x += [[param objectAtIndex:0] floatValue];
+							curPoint.y += [[param objectAtIndex:1] floatValue];
+						}
+						
+						// Horizontal line to absolute coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"H"]) {
+							curCmdType = @"line";
+							curPoint.x = [[param objectAtIndex:0] floatValue];
+						}
+						
+						// Horizontal line to relative coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"h"]) {
+							curCmdType = @"line";
+							curPoint.x += [[param objectAtIndex:0] floatValue];
+						}
+						
+						// Vertical line to absolute coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"V"]) {
+							curCmdType = @"line";
+							curPoint.y = [[param objectAtIndex:0] floatValue];
+						}
+						
+						// Vertical line to relative coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"v"]) {
+							curCmdType = @"line";
+							curPoint.y += [[param objectAtIndex:0] floatValue];
+						}
+						
+						// Curve to absolute coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"C"]) {
+							curCmdType = @"curve";
+							
+							curCtrlPoint1.x = [[param objectAtIndex:0] floatValue];
+							curCtrlPoint1.y = [[param objectAtIndex:1] floatValue];
+							
+							prm_i++;
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
+							curCtrlPoint2.x = [[param objectAtIndex:0] floatValue];
+							curCtrlPoint2.y = [[param objectAtIndex:1] floatValue];
+							
+							prm_i++;
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
+							curPoint.x = [[param objectAtIndex:0] floatValue];
+							curPoint.y = [[param objectAtIndex:1] floatValue];
+						}
+						
+						// Curve to relative coord
+						//-----------------------------------------
+						if([currentCommand isEqualToString:@"c"]) {
+							curCmdType = @"curve";
+							
+							curCtrlPoint1.x = curPoint.x + [[param objectAtIndex:0] floatValue];
+							curCtrlPoint1.y = curPoint.y + [[param objectAtIndex:1] floatValue];
+							
+							prm_i++;
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
+							curCtrlPoint2.x = curPoint.x + [[param objectAtIndex:0] floatValue];
+							curCtrlPoint2.y = curPoint.y + [[param objectAtIndex:1] floatValue];
+							
+							prm_i++;
+							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
 							curPoint.x += [[param objectAtIndex:0] floatValue];
 							curPoint.y += [[param objectAtIndex:1] floatValue];
 						}
@@ -200,7 +282,13 @@ didStartElement:(NSString *)elementName
 							[path moveToPoint: firstPoint];
 						}
 						
-						[path lineToPoint: curPoint];
+						if(curCmdType) {
+							if([curCmdType isEqualToString:@"line"])
+								[path lineToPoint: curPoint];
+							
+							if([curCmdType isEqualToString:@"curve"])
+								[path curveToPoint:curPoint controlPoint1:curCtrlPoint1 controlPoint2:curCtrlPoint2];
+						}
 						
 						break;
 					}
@@ -408,6 +496,8 @@ didStartElement:(NSString *)elementName
 	[curLinGrad release];
 	[curRadGrad release];
 	[curFilter release];
+	
+	[super dealloc];
 }
 
 @end
