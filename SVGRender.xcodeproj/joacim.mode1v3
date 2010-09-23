@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51CE03D6124C065C00081E32</string>
+										<string>51CE04C0124C180A00081E32</string>
 										<key>history</key>
 										<array>
 											<string>51879D431249759B00603C7D</string>
@@ -335,11 +335,11 @@
 											<string>51879FBC124A35F900603C7D</string>
 											<string>51879FBD124A35F900603C7D</string>
 											<string>51879FC7124A361200603C7D</string>
-											<string>51CE01C3124AE1E800081E32</string>
 											<string>51CE0212124AE5A400081E32</string>
-											<string>51CE0388124BEFE100081E32</string>
-											<string>51CE03AE124C01FD00081E32</string>
-											<string>51CE03AF124C01FD00081E32</string>
+											<string>51CE044F124C0F0700081E32</string>
+											<string>51CE045D124C100000081E32</string>
+											<string>51CE045E124C100000081E32</string>
+											<string>51CE045F124C100000081E32</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -537,11 +537,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>51CE03D7124C065C00081E32</string>
+		<string>51CE04BF124C17FB00081E32</string>
 		<string>51CE00F7124AD86900081E32</string>
 		<string>51CE00F8124AD86900081E32</string>
-		<string>51879C401249694700603C7D</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>51879C401249694700603C7D</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/joacim/Documents/Projects/SVGRender/SVGRender.xcodeproj</string>
 	</array>
@@ -762,7 +762,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

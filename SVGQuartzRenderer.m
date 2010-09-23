@@ -10,6 +10,7 @@
 
 @interface SVGQuartzRenderer (hidden)
 
+	- (void)setStyleContext:(NSString *)style;
 	- (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style;
 
 @end
@@ -28,6 +29,34 @@ NSMutableDictionary *curPat;
 NSMutableDictionary *curLinGrad;
 NSMutableDictionary *curRadGrad;
 NSMutableDictionary *curFilter;
+
+// Variables for storing style data
+// -------------------------------------------------------------------------
+BOOL doFill;
+unsigned int fillColor;
+float fillOpacity;
+BOOL doStroke = NO;
+unsigned int strokeColor = 0;
+float strokeWidth = 1.0;
+float strokeOpacity;
+NSLineJoinStyle lineJoinStyle;
+NSLineCapStyle lineCapStyle;
+float miterLimit;
+// -------------------------------------------------------------------------
+
+- (void)resetStyleContext
+{
+	doFill = YES;
+	fillColor = 0;
+	fillOpacity = 1.0;
+	//doStroke = NO;
+	strokeColor = 0;
+	strokeWidth = 1.0;
+	strokeOpacity = 1.0;
+	lineJoinStyle = NSMiterLineJoinStyle;
+	lineCapStyle = NSButtLineCapStyle;
+	miterLimit = 4;
+}
 
 - (NSImage *)imageFromSVGFile:(NSString *)file view:(NSView *)aView
 {
@@ -66,6 +95,8 @@ didStartElement:(NSString *)elementName
 							   [[attrDict valueForKey:@"height"] floatValue]);
 		
 		[view setFrame:NSMakeRect(0, 0, documentSize.width, documentSize.height)];
+		
+		doStroke = NO;
 	}
 	
 	// Definitions
@@ -99,9 +130,14 @@ didStartElement:(NSString *)elementName
 				
 			}
 	
-	// Graphics layer node
+	// Group node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"g"]) {
+		
+		[self resetStyleContext];
+		
+		if([attrDict valueForKey:@"style"])
+			[self setStyleContext:[attrDict valueForKey:@"style"]];
 		
 		// Reset transformation matrix
 		[transform initWithTransform:identity];
@@ -155,190 +191,178 @@ didStartElement:(NSString *)elementName
 		NSString *curCmdType = nil;
 		
 		NSCharacterSet *cmdCharSet = [NSCharacterSet characterSetWithCharactersInString:@"mMlLhHvVcCsSqQtTaAzZ"];
+		NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" ,"];
 		NSString *currentCommand = nil;
 		NSString *currentParams = nil;
 		while ([scanner scanCharactersFromSet:cmdCharSet intoString:&currentCommand]) {
 			[scanner scanUpToCharactersFromSet:cmdCharSet intoString:&currentParams];
 			
-			NSArray *params = [currentParams componentsSeparatedByString:@" "];
+			NSArray *params = [currentParams componentsSeparatedByCharactersInSet:separatorSet];
 			
 			int paramCount = [params count];
 			NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
 			
-			for (int prm_i = 0; prm_i < paramCount; prm_i++) {
-				
-				NSArray *param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-				
-				for (int prm_ii = 0; prm_ii < [param count]; prm_ii++) {
-					if(![[param objectAtIndex:prm_ii] isEqualToString:@""]) {
-						
-						BOOL firstVertex = (firstPoint.x == -1 && firstPoint.y == -1);
-						
-						// Move to absolute coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"M"]) {
-							curCmdType = @"line";
-							curPoint.x = [[param objectAtIndex:0] floatValue];
-							curPoint.y = [[param objectAtIndex:1] floatValue];
-						}
-						
-						// Move to relative coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"m"]) {
-							curCmdType = @"line";
-							curPoint.x += [[param objectAtIndex:0] floatValue];
-							
-							if(firstVertex) {
-								curPoint.y = [[param objectAtIndex:1] floatValue];
-							} else {
-								curPoint.y += [[param objectAtIndex:1] floatValue];
-							}
-						}
-						
-						// Line to absolute coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"L"]) {
-							curCmdType = @"line";
-							curPoint.x = [[param objectAtIndex:0] floatValue];
-							curPoint.y = [[param objectAtIndex:1] floatValue];
-						}
-						
-						// Line to relative coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"l"]) {
-							curCmdType = @"line";
-							curPoint.x += [[param objectAtIndex:0] floatValue];
-							curPoint.y += [[param objectAtIndex:1] floatValue];
-						}
-						
-						// Horizontal line to absolute coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"H"]) {
-							curCmdType = @"line";
-							curPoint.x = [[param objectAtIndex:0] floatValue];
-						}
-						
-						// Horizontal line to relative coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"h"]) {
-							curCmdType = @"line";
-							curPoint.x += [[param objectAtIndex:0] floatValue];
-						}
-						
-						// Vertical line to absolute coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"V"]) {
-							curCmdType = @"line";
-							curPoint.y = [[param objectAtIndex:0] floatValue];
-						}
-						
-						// Vertical line to relative coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"v"]) {
-							curCmdType = @"line";
-							curPoint.y += [[param objectAtIndex:0] floatValue];
-						}
-						
-						// Curve to absolute coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"C"]) {
-							curCmdType = @"curve";
-							
-							curCtrlPoint1.x = [[param objectAtIndex:0] floatValue];
-							curCtrlPoint1.y = [[param objectAtIndex:1] floatValue];
-							
-							prm_i++;
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curCtrlPoint2.x = [[param objectAtIndex:0] floatValue];
-							curCtrlPoint2.y = [[param objectAtIndex:1] floatValue];
-							
-							prm_i++;
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curPoint.x = [[param objectAtIndex:0] floatValue];
-							curPoint.y = [[param objectAtIndex:1] floatValue];
-						}
-						
-						// Curve to relative coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"c"]) {
-							curCmdType = @"curve";
-							
-							curCtrlPoint1.x = curPoint.x + [[param objectAtIndex:0] floatValue];
-							curCtrlPoint1.y = curPoint.y + [[param objectAtIndex:1] floatValue];
-							
-							prm_i++;
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curCtrlPoint2.x = curPoint.x + [[param objectAtIndex:0] floatValue];
-							curCtrlPoint2.y = curPoint.y + [[param objectAtIndex:1] floatValue];
-							
-							prm_i++;
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curPoint.x += [[param objectAtIndex:0] floatValue];
-							curPoint.y += [[param objectAtIndex:1] floatValue];
-						}
-						
-						// Shorthand curve to absolute coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"S"]) {
-							curCmdType = @"curve";
-							
-							if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
-								curCtrlPoint1.x = curCtrlPoint2.x;
-								curCtrlPoint1.y = curCtrlPoint2.y;
-							} else {
-								curCtrlPoint1.x = curPoint.x;
-								curCtrlPoint1.y = curPoint.y;
-							}
-							
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curCtrlPoint2.x = [[param objectAtIndex:0] floatValue];
-							curCtrlPoint2.y = [[param objectAtIndex:1] floatValue];
-							
-							prm_i++;
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curPoint.x = [[param objectAtIndex:0] floatValue];
-							curPoint.y = [[param objectAtIndex:1] floatValue];
-						}
-						
-						// Shorthand curve to relative coord
-						//-----------------------------------------
-						if([currentCommand isEqualToString:@"s"]) {
-							curCmdType = @"curve";
-							
-							if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
-								curCtrlPoint1.x = curPoint.x + curCtrlPoint2.x;
-								curCtrlPoint1.y = curPoint.y + curCtrlPoint2.x;
-							} else {
-								curCtrlPoint1.x = curPoint.x;
-								curCtrlPoint1.y = curPoint.y;
-							}
-							
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curCtrlPoint2.x = curPoint.x + [[param objectAtIndex:0] floatValue];
-							curCtrlPoint2.y = curPoint.y + [[param objectAtIndex:1] floatValue];
-							
-							prm_i++;
-							param = [[params objectAtIndex:prm_i] componentsSeparatedByString:@","];
-							curPoint.x += [[param objectAtIndex:0] floatValue];
-							curPoint.y += [[param objectAtIndex:1] floatValue];
-						}
+			for (int prm_i = 0; prm_i < paramCount;) {
+				if(![[params objectAtIndex:prm_i] isEqualToString:@""]) {
+					
+					BOOL firstVertex = (firstPoint.x == -1 && firstPoint.y == -1);
+					
+					// Move to absolute coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"M"]) {
+						curCmdType = @"line";
+						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
+						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Move to relative coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"m"]) {
+						curCmdType = @"line";
+						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
 						
 						if(firstVertex) {
-							firstPoint = curPoint;
-							[path moveToPoint: firstPoint];
+							curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+						} else {
+							curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
 						}
-						
-						if(curCmdType) {
-							if([curCmdType isEqualToString:@"line"])
-								[path lineToPoint: curPoint];
-							
-							if([curCmdType isEqualToString:@"curve"])
-								[path curveToPoint:curPoint controlPoint1:curCtrlPoint1 controlPoint2:curCtrlPoint2];
-						}
-						
-						break;
 					}
+					
+					// Line to absolute coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"L"]) {
+						curCmdType = @"line";
+						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
+						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Line to relative coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"l"]) {
+						curCmdType = @"line";
+						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
+						if(firstVertex) {
+							curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+						} else {
+							curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
+						}
+					}
+					
+					// Horizontal line to absolute coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"H"]) {
+						curCmdType = @"line";
+						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Horizontal line to relative coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"h"]) {
+						curCmdType = @"line";
+						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Vertical line to absolute coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"V"]) {
+						curCmdType = @"line";
+						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Vertical line to relative coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"v"]) {
+						curCmdType = @"line";
+						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Curve to absolute coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"C"]) {
+						curCmdType = @"curve";
+						
+						curCtrlPoint1.x = [[params objectAtIndex:prm_i++] floatValue];
+						curCtrlPoint1.y = [[params objectAtIndex:prm_i++] floatValue];
+						
+						curCtrlPoint2.x = [[params objectAtIndex:prm_i++] floatValue];
+						curCtrlPoint2.y = [[params objectAtIndex:prm_i++] floatValue];
+						
+						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
+						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Curve to relative coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"c"]) {
+						curCmdType = @"curve";
+						
+						curCtrlPoint1.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
+						curCtrlPoint1.y = curPoint.y + [[params objectAtIndex:prm_i++] floatValue];
+						
+						curCtrlPoint2.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
+						curCtrlPoint2.y = curPoint.y + [[params objectAtIndex:prm_i++] floatValue];
+						
+						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
+						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Shorthand curve to absolute coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"S"]) {
+						curCmdType = @"curve";
+						
+						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
+							curCtrlPoint1.x = curCtrlPoint2.x;
+							curCtrlPoint1.y = curCtrlPoint2.y;
+						} else {
+							curCtrlPoint1.x = curPoint.x;
+							curCtrlPoint1.y = curPoint.y;
+						}
+						
+						curCtrlPoint2.x = [[params objectAtIndex:prm_i++] floatValue];
+						curCtrlPoint2.y = [[params objectAtIndex:prm_i++] floatValue];
+						
+						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
+						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Shorthand curve to relative coord
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"s"]) {
+						curCmdType = @"curve";
+						
+						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
+							curCtrlPoint1.x = curPoint.x + curCtrlPoint2.x;
+							curCtrlPoint1.y = curPoint.y + curCtrlPoint2.x;
+						} else {
+							curCtrlPoint1.x = curPoint.x;
+							curCtrlPoint1.y = curPoint.y;
+						}
+						
+						curCtrlPoint2.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
+						curCtrlPoint2.y = curPoint.y + [[params objectAtIndex:prm_i++] floatValue];
+						
+						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
+						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					if(firstVertex) {
+						firstPoint = curPoint;
+						[path moveToPoint: firstPoint];
+					}
+					
+					if(curCmdType) {
+						if([curCmdType isEqualToString:@"line"]) {
+							[path lineToPoint: curPoint];
+						}
+						
+						if([curCmdType isEqualToString:@"curve"])
+							[path curveToPoint:curPoint controlPoint1:curCtrlPoint1 controlPoint2:curCtrlPoint2];
+					}
+				} else {
+					prm_i++;
 				}
+
 			}
 			
 			[pool release];
@@ -398,23 +422,36 @@ didStartElement:(NSString *)elementName
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
 - (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style
+{		
+	if(style)
+		[self setStyleContext:style];
+	
+	// Do the drawing
+	// -------------------------------------------------------------------------
+	if(doFill) {
+		CGFloat red   = ((fillColor & 0xFF0000) >> 16) / 255.0f;
+		CGFloat green = ((fillColor & 0x00FF00) >>  8) / 255.0f;
+		CGFloat blue  =  (fillColor & 0x0000FF) / 255.0f;
+		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:fillOpacity] set];
+		[path fill];
+	}
+	
+	
+	if(doStroke) {
+		CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
+		CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
+		CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
+		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:strokeOpacity] set];
+		[path setLineWidth:strokeWidth];
+		[path setLineCapStyle:lineCapStyle];
+		[path setLineJoinStyle:lineJoinStyle];
+		[path setMiterLimit:miterLimit];
+		[path stroke];
+	}
+}
+
+- (void)setStyleContext:(NSString *)style
 {
-	// Variables for storing style data
-	// -------------------------------------------------------------------------
-	BOOL doFill = NO;
-	unsigned int fillColor = 0;
-	float fillOpacity = 1.0;
-	
-	BOOL doStroke = NO;
-	unsigned int strokeColor = 0;
-	float strokeWidth = 1.0;
-	float strokeOpacity = 1.0;
-	NSLineJoinStyle lineJoinStyle = NSButtLineCapStyle;
-	NSLineCapStyle lineCapStyle = NSButtLineCapStyle;
-	float miterLimit = 4;
-	// -------------------------------------------------------------------------
-	
-	
 	// Scan the style string and parse relevant data
 	// -------------------------------------------------------------------------
 	NSScanner *cssScanner = [NSScanner scannerWithString:style];
@@ -436,7 +473,10 @@ didStartElement:(NSString *)elementName
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				[hexScanner scanHexInt:&fillColor];
+			} else {
+				doFill = NO;
 			}
+
 		}
 		
 		// --------------------- FILL-OPACITY
@@ -453,7 +493,11 @@ didStartElement:(NSString *)elementName
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				[hexScanner scanHexInt:&strokeColor];
+				NSLog(@"%d", strokeColor);
+			} else {
+				doStroke = NO;
 			}
+
 		}
 		
 		// --------------------- STROKE-OPACITY
@@ -508,28 +552,6 @@ didStartElement:(NSString *)elementName
 		}
 		
 		[cssScanner scanString:@";" intoString:nil];
-	}
-	
-	// Do the drawing
-	// -------------------------------------------------------------------------
-	if(doFill) {
-		CGFloat red   = ((fillColor & 0xFF0000) >> 16) / 255.0f;
-		CGFloat green = ((fillColor & 0x00FF00) >>  8) / 255.0f;
-		CGFloat blue  =  (fillColor & 0x0000FF) / 255.0f;
-		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:fillOpacity] set];
-		[path fill];
-	}
-	
-	if(doStroke) {
-		CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
-		CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
-		CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
-		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:strokeOpacity] set];
-		[path setLineWidth:strokeWidth];
-		[path setLineCapStyle:lineCapStyle];
-		[path setLineJoinStyle:lineJoinStyle];
-		[path setMiterLimit:miterLimit];
-		[path stroke];
 	}
 }
 
