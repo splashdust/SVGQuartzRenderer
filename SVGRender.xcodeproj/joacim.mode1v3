@@ -296,7 +296,7 @@
 							<real>245</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 59 1440 819 0 0 1440 878 </string>
+						<string>2 59 1440 819 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51CE0302124AF92D00081E32</string>
+										<string>51CE038D124BF67800081E32</string>
 										<key>history</key>
 										<array>
 											<string>51879D431249759B00603C7D</string>
@@ -337,9 +337,9 @@
 											<string>51879FC7124A361200603C7D</string>
 											<string>51CE01C3124AE1E800081E32</string>
 											<string>51CE0212124AE5A400081E32</string>
-											<string>51CE023F124AE94100081E32</string>
-											<string>51CE0279124AEEF200081E32</string>
-											<string>51CE0298124AF1D700081E32</string>
+											<string>51CE0387124BEFE100081E32</string>
+											<string>51CE0388124BEFE100081E32</string>
+											<string>51CE0389124BEFE100081E32</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -353,7 +353,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1173, 773}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 59 1440 819 0 0 1440 878 </string>
+								<string>2 59 1440 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -373,7 +373,7 @@
 								<key>Frame</key>
 								<string>{{0, 778}, {1173, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 59 1440 819 0 0 1440 878 </string>
+								<string>2 59 1440 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -537,6 +537,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>51CE0386124BECBE00081E32</string>
 		<string>51CE00F7124AD86900081E32</string>
 		<string>51CE00F8124AD86900081E32</string>
 		<string>1CD10A99069EF8BA00B06720</string>
@@ -545,7 +546,7 @@
 		<string>/Users/joacim/Documents/Projects/SVGRender/SVGRender.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 59 1440 819 0 0 1440 878 </string>
+	<string>2 59 1440 819 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

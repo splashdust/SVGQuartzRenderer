@@ -8,13 +8,26 @@
 
 #import "SVGQuartzRenderer.h"
 
+@interface SVGQuartzRenderer (hidden)
 
-#define UIColorFromRGB(rgbValue) [UIColor \
-colorWithRed:((float)((rgbValue &amp; 0xFF0000) &gt;&gt; 16))/255.0 \
-green:((float)((rgbValue &amp; 0xFF00) &gt;&gt; 8))/255.0 \
-blue:((float)(rgbValue &amp; 0xFF))/255.0 alpha:1.0]
+	- (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style;
+
+@end
 
 @implementation SVGQuartzRenderer
+
+NSXMLParser* xmlParser;
+NSAffineTransform *transform;
+NSAffineTransform *identity;
+CGSize documentSize;
+NSImage *canvas;
+NSView *view;
+NSMutableDictionary *defDict;
+
+NSMutableDictionary *curPat;
+NSMutableDictionary *curLinGrad;
+NSMutableDictionary *curRadGrad;
+NSMutableDictionary *curFilter;
 
 - (NSImage *)imageFromSVGFile:(NSString *)file view:(NSView *)aView
 {
@@ -34,60 +47,99 @@ blue:((float)(rgbValue &amp; 0xFF))/255.0 alpha:1.0]
 	return canvas;
 }
 
+
+// Element began
+// -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser
 didStartElement:(NSString *)elementName 
   namespaceURI:(NSString *)namespaceURI
  qualifiedName:(NSString *)qualifiedName
-	attributes:(NSDictionary *)attributeDict
+	attributes:(NSDictionary *)attrDict
 {
+	// Path used for rendering
+	NSBezierPath * path = [NSBezierPath bezierPath];
 	
+	// Top level SVG node
+	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
-		documentSize = CGSizeMake([[attributeDict valueForKey:@"width"] floatValue],
-							   [[attributeDict valueForKey:@"height"] floatValue]);
+		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue],
+							   [[attrDict valueForKey:@"height"] floatValue]);
 		
 		[view setFrame:NSMakeRect(0, 0, documentSize.width, documentSize.height)];
 	}
 	
+	// Definitions
+	// -------------------------------------------------------------------------
+	if([elementName isEqualToString:@"defs"]) {
+		defDict = [[NSMutableDictionary alloc] init];
+	}
+	
+		if([elementName isEqualToString:@"pattern"]) {
+			curPat = [[NSMutableDictionary alloc] init];
+		}
+		
+		if([elementName isEqualToString:@"linearGradient"]) {
+			curLinGrad = [[NSMutableDictionary alloc] init];
+		}
+		
+		if([elementName isEqualToString:@"radialGradient"]) {
+			curRadGrad = [[NSMutableDictionary alloc] init];
+		}
+	
+		if([elementName isEqualToString:@"filter"]) {
+			curFilter = [[NSMutableDictionary alloc] init];
+		}
+	
+	
+	// Graphics layer node
+	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"g"]) {
 		
 		// Reset transformation matrix
 		[transform initWithTransform:identity];
 		
-		// Look for and apply transformations
-		NSString *transformAttribute = [attributeDict valueForKey:@"transform"];
+		// Look for and apply transformations to the current layer canvas
+		NSString *transformAttribute = [attrDict valueForKey:@"transform"];
 		if(transformAttribute != nil) {
-			NSScanner *scanner = [NSScanner scannerWithString:[attributeDict valueForKey:@"transform"]];
+			NSScanner *scanner = [NSScanner scannerWithString:[attrDict valueForKey:@"transform"]];
 			[scanner setCaseSensitive:YES];
 			[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
 			
-			NSString *tValue;
+			NSString *value;
 			
+			// Translate
 			[scanner scanString:@"translate(" intoString:nil];
-			[scanner scanUpToString:@")" intoString:&tValue];
+			[scanner scanUpToString:@")" intoString:&value];
 			
-			NSArray *tValues = [tValue componentsSeparatedByString:@","];
+			NSArray *values = [value componentsSeparatedByString:@","];
 			
-			if([tValues count] == 2) {
-				// Translate
-				[transform translateXBy:[[tValues objectAtIndex:0] floatValue] yBy:[[tValues objectAtIndex:1] floatValue]];
-			}
+			if([values count] == 2)
+				[transform translateXBy:[[values objectAtIndex:0] floatValue] yBy:[[values objectAtIndex:1] floatValue]];
+			
+			// Rotate
+			value = nil;
+			[scanner scanString:@"rotate(" intoString:nil];
+			[scanner scanUpToString:@")" intoString:&value];
+			
+			if(value)
+				[transform rotateByDegrees:[value floatValue]];
 		}
-		
-		//[transform rotateByDegrees:client.rotation];
 		
 		// Apply to graphics context
 		[transform concat];
 	}
 	
+	
+	// Path node
+	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"path"]) {
 		//[canvas lockFocus];
 		
 		// Create a scanner for parsing path data
-		NSScanner *scanner = [NSScanner scannerWithString:[attributeDict valueForKey:@"d"]];
+		NSScanner *scanner = [NSScanner scannerWithString:[attrDict valueForKey:@"d"]];
 		[scanner setCaseSensitive:YES];
 		[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
 		
-		NSBezierPath * path = [NSBezierPath bezierPath];
 		CGPoint curPoint = CGPointMake(0,0);
 		CGPoint firstPoint = CGPointMake(-1,-1);
 		
@@ -111,32 +163,36 @@ didStartElement:(NSString *)elementName
 						BOOL firstVertex = (firstPoint.x == -1 && firstPoint.y == -1);
 						
 						// Move to absolute coord
+						//-----------------------------------------
 						if([currentCommand isEqualToString:@"M"]) {
 							curPoint.x = [[param objectAtIndex:0] floatValue];
-							curPoint.y = documentSize.height-[[param objectAtIndex:1] floatValue];
+							curPoint.y = [[param objectAtIndex:1] floatValue];
 						}
 						
 						// Move to relative coord
+						//-----------------------------------------
 						if([currentCommand isEqualToString:@"m"]) {
 							curPoint.x += [[param objectAtIndex:0] floatValue];
 							
 							if(firstVertex) {
-								curPoint.y = documentSize.height-[[param objectAtIndex:1] floatValue];
+								curPoint.y = [[param objectAtIndex:1] floatValue];
 							} else {
-								curPoint.y += -[[param objectAtIndex:1] floatValue];
+								curPoint.y += [[param objectAtIndex:1] floatValue];
 							}
 						}
 						
 						// Line to absolute coord
+						//-----------------------------------------
 						if([currentCommand isEqualToString:@"L"]) {
 							curPoint.x = [[param objectAtIndex:0] floatValue];
-							curPoint.y = documentSize.height-[[param objectAtIndex:1] floatValue];
+							curPoint.y = [[param objectAtIndex:1] floatValue];
 						}
 						
-						// line to relative coord
+						// Line to relative coord
+						//-----------------------------------------
 						if([currentCommand isEqualToString:@"l"]) {
 							curPoint.x += [[param objectAtIndex:0] floatValue];
-							curPoint.y += -[[param objectAtIndex:1] floatValue];
+							curPoint.y += [[param objectAtIndex:1] floatValue];
 						}
 						
 						if(firstVertex) {
@@ -162,75 +218,36 @@ didStartElement:(NSString *)elementName
 			currentParams = nil;
 		}
 		
-		// Create a scanner for parsing style data
-		NSScanner *cssScanner = [NSScanner scannerWithString:[attributeDict valueForKey:@"style"]];
-		[cssScanner setCaseSensitive:YES];
-		[cssScanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+	}
+	
+	
+	// Rect node
+	// -------------------------------------------------------------------------
+	if([elementName isEqualToString:@"rect"]) {
+		float xPos = [[attrDict valueForKey:@"x"] floatValue];
+		float yPos = [[attrDict valueForKey:@"y"] floatValue];
+		float width = [[attrDict valueForKey:@"width"] floatValue];
+		float height = [[attrDict valueForKey:@"height"] floatValue];
+		float ry = [attrDict valueForKey:@"ry"]?[[attrDict valueForKey:@"ry"] floatValue]:-1.0;
+		float rx = [attrDict valueForKey:@"rx"]?[[attrDict valueForKey:@"rx"] floatValue]:-1.0;
 		
-		BOOL doFill = NO;
-		int fillColor = 0;
+		if (ry==-1.0) ry = rx;
+		if (rx==-1.0) rx = ry;
 		
-		BOOL doStroke = NO;
-		int strokeColor = 0;
-		float strokeWidth = 1.0;
+		[path appendBezierPathWithRoundedRect:CGRectMake(xPos,yPos,width,height)
+									  xRadius:rx
+									  yRadius:ry];
 		
-		NSString *currentAttribute;
-		while ([cssScanner scanUpToString:@";" intoString:&currentAttribute]) {
-			NSArray *attrAr = [currentAttribute componentsSeparatedByString:@":"];
-			
-			NSString *attrName = [attrAr objectAtIndex:0];
-			NSString *attrValue = [attrAr objectAtIndex:1];
-			
-			// --------------------- FILL
-			if([attrName isEqualToString:@"fill"]) {
-				if(![attrValue isEqualToString:@"none"] && [attrValue rangeOfString:@"url"].location == NSNotFound) {
-					doFill = YES;
-					NSScanner *hexScanner = [NSScanner scannerWithString:[attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
-					[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
-					[hexScanner scanHexInt:&fillColor];
-				}
-			}
-			
-			// --------------------- STROKE
-			if([attrName isEqualToString:@"stroke"]) {
-				if(![attrValue isEqualToString:@"none"]) {
-					doStroke = YES;
-					NSScanner *hexScanner = [NSScanner scannerWithString:[attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
-					[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
-					[hexScanner scanHexInt:&strokeColor];
-				}
-			}
-			
-			// --------------------- STROKE-WIDTH
-			if([attrName isEqualToString:@"stroke-width"]) {
-				NSScanner *floatScanner = [NSScanner scannerWithString:[attrValue stringByReplacingOccurrencesOfString:@"px" withString:@""]];
-				[floatScanner scanFloat:&strokeWidth];
-			}
-			
-			[cssScanner scanString:@";" intoString:nil];
-		}
-		
-		if(doFill) {
-			CGFloat red   = ((fillColor & 0xFF0000) >> 16) / 255.0f;
-			CGFloat green = ((fillColor & 0x00FF00) >>  8) / 255.0f;
-			CGFloat blue  =  (fillColor & 0x0000FF) / 255.0f;
-			[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:1.0] set];
-			[path fill];
-		}
-		
-		if(doStroke) {
-			CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
-			CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
-			CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
-			[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:1.0] set];
-			[path setLineWidth:strokeWidth];
-			[path stroke];
-		}
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
 	
 	//[canvas unlockFocus];
 }
 
+
+// Element ended
+// -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser
  didEndElement:(NSString *)elementName
   namespaceURI:(NSString *)namespaceURI
@@ -243,5 +260,154 @@ didStartElement:(NSString *)elementName
 	}
 }
 
+
+// Draw a path based on style information
+// -----------------------------------------------------------------------------
+- (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style
+{
+	// Variables for storing style data
+	// -------------------------------------------------------------------------
+	BOOL doFill = NO;
+	unsigned int fillColor = 0;
+	float fillOpacity = 1.0;
+	
+	BOOL doStroke = NO;
+	unsigned int strokeColor = 0;
+	float strokeWidth = 1.0;
+	float strokeOpacity = 1.0;
+	NSLineJoinStyle lineJoinStyle = NSButtLineCapStyle;
+	NSLineCapStyle lineCapStyle = NSButtLineCapStyle;
+	float miterLimit = 4;
+	// -------------------------------------------------------------------------
+	
+	
+	// Scan the style string and parse relevant data
+	// -------------------------------------------------------------------------
+	NSScanner *cssScanner = [NSScanner scannerWithString:style];
+	[cssScanner setCaseSensitive:YES];
+	[cssScanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
+	
+	NSString *currentAttribute;
+	while ([cssScanner scanUpToString:@";" intoString:&currentAttribute]) {
+		NSArray *attrAr = [currentAttribute componentsSeparatedByString:@":"];
+		
+		NSString *attrName = [attrAr objectAtIndex:0];
+		NSString *attrValue = [attrAr objectAtIndex:1];
+		
+		// --------------------- FILL
+		if([attrName isEqualToString:@"fill"]) {
+			if(![attrValue isEqualToString:@"none"] && [attrValue rangeOfString:@"url"].location == NSNotFound) {
+				doFill = YES;
+				NSScanner *hexScanner = [NSScanner scannerWithString:
+										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
+				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
+				[hexScanner scanHexInt:&fillColor];
+			}
+		}
+		
+		// --------------------- FILL-OPACITY
+		if([attrName isEqualToString:@"fill-opacity"]) {
+			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
+			[floatScanner scanFloat:&fillOpacity];
+		}
+		
+		// --------------------- STROKE
+		if([attrName isEqualToString:@"stroke"]) {
+			if(![attrValue isEqualToString:@"none"]) {
+				doStroke = YES;
+				NSScanner *hexScanner = [NSScanner scannerWithString:
+										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
+				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
+				[hexScanner scanHexInt:&strokeColor];
+			}
+		}
+		
+		// --------------------- STROKE-OPACITY
+		if([attrName isEqualToString:@"stroke-opacity"]) {
+			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
+			[floatScanner scanFloat:&strokeOpacity];
+		}
+		
+		// --------------------- STROKE-WIDTH
+		if([attrName isEqualToString:@"stroke-width"]) {
+			NSScanner *floatScanner = [NSScanner scannerWithString:
+									   [attrValue stringByReplacingOccurrencesOfString:@"px" withString:@""]];
+			[floatScanner scanFloat:&strokeWidth];
+		}
+		
+		// --------------------- STROKE-LINECAP
+		if([attrName isEqualToString:@"stroke-linecap"]) {
+			NSScanner *stringScanner = [NSScanner scannerWithString:attrValue];
+			NSString *lineCapValue;
+			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
+			
+			if([lineCapValue isEqualToString:@"butt"])
+				lineCapStyle = NSButtLineCapStyle;
+			
+			if([lineCapValue isEqualToString:@"round"])
+				lineCapStyle = NSRoundLineCapStyle;
+			
+			if([lineCapValue isEqualToString:@"square"])
+				lineCapStyle = NSSquareLineCapStyle;
+		}
+		
+		// --------------------- STROKE-LINEJOIN
+		if([attrName isEqualToString:@"stroke-linejoin"]) {
+			NSScanner *stringScanner = [NSScanner scannerWithString:attrValue];
+			NSString *lineCapValue;
+			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
+			
+			if([lineCapValue isEqualToString:@"miter"])
+				lineJoinStyle = NSMiterLineJoinStyle;
+			
+			if([lineCapValue isEqualToString:@"round"])
+				lineJoinStyle = NSRoundLineJoinStyle;
+			
+			if([lineCapValue isEqualToString:@"bevel"])
+				lineJoinStyle = NSBevelLineJoinStyle;
+		}
+		
+		// --------------------- STROKE-MITERLIMIT
+		if([attrName isEqualToString:@"stroke-miterlimit"]) {
+			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
+			[floatScanner scanFloat:&miterLimit];
+		}
+		
+		[cssScanner scanString:@";" intoString:nil];
+	}
+	
+	// Do the drawing
+	// -------------------------------------------------------------------------
+	if(doFill) {
+		CGFloat red   = ((fillColor & 0xFF0000) >> 16) / 255.0f;
+		CGFloat green = ((fillColor & 0x00FF00) >>  8) / 255.0f;
+		CGFloat blue  =  (fillColor & 0x0000FF) / 255.0f;
+		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:fillOpacity] set];
+		[path fill];
+	}
+	
+	if(doStroke) {
+		CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
+		CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
+		CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
+		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:strokeOpacity] set];
+		[path setLineWidth:strokeWidth];
+		[path setLineCapStyle:lineCapStyle];
+		[path setLineJoinStyle:lineJoinStyle];
+		[path setMiterLimit:miterLimit];
+		[path stroke];
+	}
+}
+
+- (void)dealloc
+{
+	[transform release];
+	[identity release];
+	[defDict release];
+	[curPat release];
+	[curLinGrad release];
+	[curRadGrad release];
+	[curFilter release];
+}
 
 @end

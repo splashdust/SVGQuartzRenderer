@@ -22,7 +22,7 @@
 - (void)drawRect:(NSRect)dirtyRect {
     
 	SVGQuartzRenderer *renderer = [[SVGQuartzRenderer alloc] init];
-	NSImage *rendered = [renderer imageFromSVGFile:@"/drawing.svg" view:(NSView *)self];
+	NSImage *rendered = [renderer imageFromSVGFile:@"/testlevel.svg" view:(NSView *)self];
 	
 	//[self setFrame:NSMakeRect(0, 0, rendered.size.width, rendered.size.height)];
 	
@@ -32,5 +32,7 @@
 	//			 fraction:1.0];
 	
 }
+
+- (BOOL)isFlipped {return YES;}
 
 @end
