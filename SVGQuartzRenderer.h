@@ -12,6 +12,6 @@
 
 }
 
-- (NSImage *)imageFromSVGFile:(NSString *)file view:(NSView *)view;
+- (void)imageFromSVGFile:(NSString *)file view:(NSView *)view;
 
 @end

@@ -11,18 +11,19 @@
 
 @implementation SVGRenderView
 
+SVGQuartzRenderer *renderer;
+
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        renderer = [[SVGQuartzRenderer alloc] init];
     }
     return self;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
     
-	SVGQuartzRenderer *renderer = [[SVGQuartzRenderer alloc] init];
-	NSImage *rendered = [renderer imageFromSVGFile:@"/testlevel.svg" view:(NSView *)self];
+	[renderer imageFromSVGFile:@"/drawing.svg" view:(NSView *)self];
 	
 	//[self setFrame:NSMakeRect(0, 0, rendered.size.width, rendered.size.height)];
 	
@@ -30,9 +31,15 @@
 	//			 fromRect:NSMakeRect( 0, 0, [origImage size].width, [origImage size].height )
 	//			operation:NSCompositeSourceOver
 	//			 fraction:1.0];
-	
+
 }
 
 - (BOOL)isFlipped {return YES;}
+
+-(void)dealloc
+{
+	[renderer release];
+	[super dealloc];
+}
 
 @end
