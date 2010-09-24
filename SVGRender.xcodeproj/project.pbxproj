@@ -12,6 +12,7 @@
 		51879D1B12496B1F00603C7D /* SVGRenderView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */; };
 		51879D6A1249769F00603C7D /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 51879D691249769F00603C7D /* libexpat.dylib */; };
 		51CE0096124AD24B00081E32 /* SVGQuartzRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */; };
+		51CE058B124CEB0500081E32 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CE058A124CEB0500081E32 /* NSData+Base64.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -33,6 +34,8 @@
 		51879D691249769F00603C7D /* libexpat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexpat.dylib; path = usr/lib/libexpat.dylib; sourceTree = SDKROOT; };
 		51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGQuartzRenderer.h; sourceTree = "<group>"; };
 		51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGQuartzRenderer.m; sourceTree = "<group>"; };
+		51CE0589124CEB0500081E32 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		51CE058A124CEB0500081E32 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGRender-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGRender-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SVGRender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVGRender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -59,6 +62,8 @@
 				51879D1A12496B1F00603C7D /* SVGRenderView.mm */,
 				51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */,
 				51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */,
+				51CE0589124CEB0500081E32 /* NSData+Base64.h */,
+				51CE058A124CEB0500081E32 /* NSData+Base64.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				256AC3DA0F4B6AC300CF3369 /* SVGRenderAppDelegate.m in Sources */,
 				51879D1B12496B1F00603C7D /* SVGRenderView.mm in Sources */,
 				51CE0096124AD24B00081E32 /* SVGQuartzRenderer.m in Sources */,
+				51CE058B124CEB0500081E32 /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
