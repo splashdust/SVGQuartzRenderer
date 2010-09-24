@@ -22,7 +22,7 @@
 - (void)drawRect:(NSRect)dirtyRect {
     
 	SVGQuartzRenderer *renderer = [[SVGQuartzRenderer alloc] init];
-	NSImage *rendered = [renderer imageFromSVGFile:@"/tiger.svg" view:(NSView *)self];
+	NSImage *rendered = [renderer imageFromSVGFile:@"/tux.svg" view:(NSView *)self];
 	
 	//[self setFrame:NSMakeRect(0, 0, rendered.size.width, rendered.size.height)];
 	
