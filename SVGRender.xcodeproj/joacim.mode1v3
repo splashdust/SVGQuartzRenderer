@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51CE0525124C218F00081E32</string>
+										<string>51CE05AE124CF26B00081E32</string>
 										<key>history</key>
 										<array>
 											<string>51879D431249759B00603C7D</string>
@@ -336,10 +336,12 @@
 											<string>51879FBD124A35F900603C7D</string>
 											<string>51879FC7124A361200603C7D</string>
 											<string>51CE0212124AE5A400081E32</string>
-											<string>51CE044F124C0F0700081E32</string>
 											<string>51CE045D124C100000081E32</string>
-											<string>51CE04D6124C1ABE00081E32</string>
-											<string>51CE0514124C1FB700081E32</string>
+											<string>51CE0534124C30E600081E32</string>
+											<string>51CE0590124CEB6E00081E32</string>
+											<string>51CE0597124CEBD200081E32</string>
+											<string>51CE0598124CEBD200081E32</string>
+											<string>51CE0599124CEBD200081E32</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -537,13 +539,13 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>51CE0526124C218F00081E32</string>
+		<string>51CE05AF124CF26B00081E32</string>
 		<string>51CE00F7124AD86900081E32</string>
 		<string>51CE00F8124AD86900081E32</string>
-		<string>51879C401249694700603C7D</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
+		<string>51879C401249694700603C7D</string>
 		<string>/Users/joacim/Documents/Projects/SVGRender/SVGRender.xcodeproj</string>
+		<string>1C78EAAD065D492600B07095</string>
 	</array>
 	<key>WindowString</key>
 	<string>2 59 1440 819 0 0 1440 878 </string>
@@ -762,7 +764,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -886,7 +888,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {836, 478}}</string>
 								<key>RubberWindowFrame</key>
-								<string>580 236 836 519 0 0 1440 878 </string>
+								<string>614 196 836 519 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -915,7 +917,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>580 236 836 519 0 0 1440 878 </string>
+			<string>614 196 836 519 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>

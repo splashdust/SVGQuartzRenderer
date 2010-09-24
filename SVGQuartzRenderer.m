@@ -7,12 +7,14 @@
 //
 
 #import "SVGQuartzRenderer.h"
+#import "NSData+Base64.h"
 
 @interface SVGQuartzRenderer (hidden)
 
 	- (void)setStyleContext:(NSString *)style;
 	- (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style;
 	- (void)applyTransformations:(NSString *)transformations;
+	- (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier;
 
 @end
 
@@ -30,6 +32,7 @@ NSMutableDictionary *curPat;
 NSMutableDictionary *curLinGrad;
 NSMutableDictionary *curRadGrad;
 NSMutableDictionary *curFilter;
+NSMutableDictionary *curLayer;
 
 // Variables for storing style data
 // -------------------------------------------------------------------------
@@ -43,6 +46,7 @@ float strokeOpacity;
 NSLineJoinStyle lineJoinStyle;
 NSLineCapStyle lineCapStyle;
 float miterLimit;
+NSImage *fillImage;
 // -------------------------------------------------------------------------
 
 - (void)resetStyleContext
@@ -57,6 +61,7 @@ float miterLimit;
 	lineJoinStyle = NSMiterLineJoinStyle;
 	lineCapStyle = NSButtLineCapStyle;
 	miterLimit = 4;
+	fillImage = nil;
 }
 
 - (NSImage *)imageFromSVGFile:(NSString *)file view:(NSView *)aView
@@ -69,6 +74,8 @@ float miterLimit;
 	
 	transform = [[NSAffineTransform transform] retain];
 	identity = [[NSAffineTransform transform] retain];
+	
+	defDict = [[NSMutableDictionary alloc] init];
 	
 	[xmlParser setDelegate:self];
 	[xmlParser setShouldResolveExternalEntities:YES];
@@ -108,16 +115,45 @@ didStartElement:(NSString *)elementName
 	
 		if([elementName isEqualToString:@"pattern"]) {
 			curPat = [[NSMutableDictionary alloc] init];
+			
+			NSEnumerator *enumerator = [attrDict keyEnumerator];
+			id key;
+			while ((key = [enumerator nextObject])) {
+				NSDictionary *obj = [attrDict objectForKey:key];
+				[curPat setObject:obj forKey:key];
+			}
+			[curPat setObject:[[NSMutableArray alloc] init] forKey:@"images"];
 		}
 			if([elementName isEqualToString:@"image"]) {
-				
+				NSMutableDictionary *imageDict = [[NSMutableDictionary alloc] init];
+				NSEnumerator *enumerator = [attrDict keyEnumerator];
+				id key;
+				while ((key = [enumerator nextObject])) {
+					NSDictionary *obj = [attrDict objectForKey:key];
+					[imageDict setObject:obj forKey:key];
+				}
+				[[curPat objectForKey:@"images"] addObject:imageDict];
 			}
 		
 		if([elementName isEqualToString:@"linearGradient"]) {
 			curLinGrad = [[NSMutableDictionary alloc] init];
+			NSEnumerator *enumerator = [attrDict keyEnumerator];
+			id key;
+			while ((key = [enumerator nextObject])) {
+				NSDictionary *obj = [attrDict objectForKey:key];
+				[curLinGrad setObject:obj forKey:key];
+			}
+			[curLinGrad setObject:[[NSMutableArray alloc] init] forKey:@"stops"];
 		}
 			if([elementName isEqualToString:@"stop"]) {
-				
+				NSMutableDictionary *stopDict = [[NSMutableDictionary alloc] init];
+				NSEnumerator *enumerator = [attrDict keyEnumerator];
+				id key;
+				while ((key = [enumerator nextObject])) {
+					NSDictionary *obj = [attrDict objectForKey:key];
+					[stopDict setObject:obj forKey:key];
+				}
+				[[curLinGrad objectForKey:@"stops"] addObject:stopDict];
 			}
 		
 		if([elementName isEqualToString:@"radialGradient"]) {
@@ -135,6 +171,15 @@ didStartElement:(NSString *)elementName
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"g"]) {
 		
+		curLayer = [[NSMutableDictionary alloc] init];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[curLayer setObject:obj forKey:key];
+		}
+		
+		
 		// Reset styles for each layer
 		[self resetStyleContext];
 		
@@ -149,7 +194,10 @@ didStartElement:(NSString *)elementName
 	// Path node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"path"]) {
-		//[canvas lockFocus];
+		
+		// For now, we'll ignore paths that are not children of a layer
+		if(!curLayer)
+			return;
 		
 		if([attrDict valueForKey:@"transform"])
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
@@ -386,8 +434,6 @@ didStartElement:(NSString *)elementName
 		
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
-	
-	//[canvas unlockFocus];
 }
 
 
@@ -403,6 +449,21 @@ didStartElement:(NSString *)elementName
 		[transform invert];
 		[transform concat];
 	}
+	
+	if([elementName isEqualToString:@"pattern"]) {
+		if([curPat objectForKey:@"id"])
+		[defDict setObject:curPat forKey:[curPat objectForKey:@"id"]];
+	}
+	
+	if([elementName isEqualToString:@"linearGradient"]) {
+		if([curLinGrad objectForKey:@"id"])
+		[defDict setObject:curLinGrad forKey:[curLinGrad objectForKey:@"id"]];
+	}
+	
+	if([elementName isEqualToString:@"radialGradient"]) {
+		if([curRadGrad objectForKey:@"id"])
+		[defDict setObject:curRadGrad forKey:[curRadGrad objectForKey:@"id"]];
+	}
 }
 
 
@@ -416,10 +477,15 @@ didStartElement:(NSString *)elementName
 	// Do the drawing
 	// -------------------------------------------------------------------------
 	if(doFill) {
-		CGFloat red   = ((fillColor & 0xFF0000) >> 16) / 255.0f;
-		CGFloat green = ((fillColor & 0x00FF00) >>  8) / 255.0f;
-		CGFloat blue  =  (fillColor & 0x0000FF) / 255.0f;
-		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:fillOpacity] set];
+		if(!fillImage) {
+			CGFloat red   = ((fillColor & 0xFF0000) >> 16) / 255.0f;
+			CGFloat green = ((fillColor & 0x00FF00) >>  8) / 255.0f;
+			CGFloat blue  =  (fillColor & 0x0000FF) / 255.0f;
+			[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:fillOpacity] set];
+		} else {
+			[[NSColor colorWithPatternImage:fillImage] set];
+		}
+
 		[path fill];
 	}
 	
@@ -460,6 +526,27 @@ didStartElement:(NSString *)elementName
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				[hexScanner scanHexInt:&fillColor];
+			} else if([attrValue rangeOfString:@"url"].location != NSNotFound) {
+				NSScanner *scanner = [NSScanner scannerWithString:attrValue];
+				[scanner setCaseSensitive:YES];
+				[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
+				
+				NSString *url;
+				[scanner scanString:@"url(" intoString:nil];
+				[scanner scanUpToString:@")" intoString:&url];
+				
+				if([url hasPrefix:@"#"]) {
+					// Get def by ID
+					NSDictionary *def = [self getCompleteDefinitionFromID:url];
+					if([def objectForKey:@"images"]) {
+						NSString *imgString = [[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"xlink:href"];
+						NSArray *mimeAndData = [imgString componentsSeparatedByString:@","];
+						NSData *imgData = [NSData dataWithBase64EncodedString:[mimeAndData objectAtIndex:1]];
+						NSBitmapImageRep *fillImageRep = [NSBitmapImageRep imageRepWithData:imgData];
+						fillImage = [[NSImage alloc] init];
+						[fillImage addRepresentation:fillImageRep];
+					}
+				}
 			} else {
 				doFill = NO;
 			}
@@ -592,6 +679,23 @@ didStartElement:(NSString *)elementName
 	
 	// Apply to graphics context
 	[transform concat];
+}
+
+- (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier
+{
+	NSString *theId = [identifier stringByReplacingOccurrencesOfString:@"#" withString:@""];
+	NSMutableDictionary *def = [defDict objectForKey:theId];
+	NSString *xlink = [def objectForKey:@"xlink:href"];
+	while(xlink){
+		NSMutableDictionary *linkedDef = [defDict objectForKey:
+										  [xlink stringByReplacingOccurrencesOfString:@"#" withString:@""]];
+		if([linkedDef objectForKey:@"images"])
+			[def setObject:[linkedDef objectForKey:@"images"] forKey:@"images"];
+		
+		xlink = [linkedDef objectForKey:@"xlink:href"];
+	}
+	
+	return def;
 }
 
 - (void)dealloc
