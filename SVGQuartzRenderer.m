@@ -12,6 +12,7 @@
 
 	- (void)setStyleContext:(NSString *)style;
 	- (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style;
+	- (void)applyTransformations:(NSString *)transformations;
 
 @end
 
@@ -134,43 +135,14 @@ didStartElement:(NSString *)elementName
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"g"]) {
 		
+		// Reset styles for each layer
 		[self resetStyleContext];
 		
 		if([attrDict valueForKey:@"style"])
 			[self setStyleContext:[attrDict valueForKey:@"style"]];
 		
-		// Reset transformation matrix
-		[transform initWithTransform:identity];
-		
-		// Look for and apply transformations to the current layer canvas
-		NSString *transformAttribute = [attrDict valueForKey:@"transform"];
-		if(transformAttribute != nil) {
-			NSScanner *scanner = [NSScanner scannerWithString:[attrDict valueForKey:@"transform"]];
-			[scanner setCaseSensitive:YES];
-			[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
-			
-			NSString *value;
-			
-			// Translate
-			[scanner scanString:@"translate(" intoString:nil];
-			[scanner scanUpToString:@")" intoString:&value];
-			
-			NSArray *values = [value componentsSeparatedByString:@","];
-			
-			if([values count] == 2)
-				[transform translateXBy:[[values objectAtIndex:0] floatValue] yBy:[[values objectAtIndex:1] floatValue]];
-			
-			// Rotate
-			value = nil;
-			[scanner scanString:@"rotate(" intoString:nil];
-			[scanner scanUpToString:@")" intoString:&value];
-			
-			if(value)
-				[transform rotateByDegrees:[value floatValue]];
-		}
-		
-		// Apply to graphics context
-		[transform concat];
+		if([attrDict valueForKey:@"transform"])
+			[self applyTransformations:[attrDict valueForKey:@"transform"]];
 	}
 	
 	
@@ -178,6 +150,9 @@ didStartElement:(NSString *)elementName
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"path"]) {
 		//[canvas lockFocus];
+		
+		if([attrDict valueForKey:@"transform"])
+			[self applyTransformations:[attrDict valueForKey:@"transform"]];
 		
 		// Create a scanner for parsing path data
 		NSScanner *scanner = [NSScanner scannerWithString:[attrDict valueForKey:@"d"]];
@@ -346,15 +321,32 @@ didStartElement:(NSString *)elementName
 						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
 					}
 					
+					
+					// Not yep implemented commands
+					if([currentCommand isEqualToString:@"q"] || [currentCommand isEqualToString:@"Q"]) {
+						prm_i++;
+					}
+					if([currentCommand isEqualToString:@"t"] || [currentCommand isEqualToString:@"T"]) {
+						prm_i++;
+					}
+					if([currentCommand isEqualToString:@"a"] || [currentCommand isEqualToString:@"A"]) {
+						prm_i++;
+					}
+					
+					
+					// Close path
+					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
+						prm_i++;
+					}
+					
 					if(firstVertex) {
 						firstPoint = curPoint;
 						[path moveToPoint: firstPoint];
 					}
 					
 					if(curCmdType) {
-						if([curCmdType isEqualToString:@"line"]) {
+						if([curCmdType isEqualToString:@"line"])
 							[path lineToPoint: curPoint];
-						}
 						
 						if([curCmdType isEqualToString:@"curve"])
 							[path curveToPoint:curPoint controlPoint1:curCtrlPoint1 controlPoint2:curCtrlPoint2];
@@ -366,11 +358,6 @@ didStartElement:(NSString *)elementName
 			}
 			
 			[pool release];
-			
-			// Close path
-			if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
-
-			}
 			
 			
 			currentParams = nil;
@@ -493,7 +480,6 @@ didStartElement:(NSString *)elementName
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				[hexScanner scanHexInt:&strokeColor];
-				NSLog(@"%d", strokeColor);
 			} else {
 				doStroke = NO;
 			}
@@ -553,6 +539,59 @@ didStartElement:(NSString *)elementName
 		
 		[cssScanner scanString:@";" intoString:nil];
 	}
+}
+
+- (void)applyTransformations:(NSString *)transformations
+{
+	// Reset transformation matrix
+	[transform initWithTransform:identity];
+	
+	NSScanner *scanner = [NSScanner scannerWithString:transformations];
+	[scanner setCaseSensitive:YES];
+	[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
+	
+	NSString *value;
+	
+	// Translate
+	[scanner scanString:@"translate(" intoString:nil];
+	[scanner scanUpToString:@")" intoString:&value];
+	
+	NSArray *values = [value componentsSeparatedByString:@","];
+	
+	if([values count] == 2)
+		[transform translateXBy:[[values objectAtIndex:0] floatValue] yBy:[[values objectAtIndex:1] floatValue]];
+	
+	// Rotate
+	value = [NSString string];
+	[scanner initWithString:transformations];
+	[scanner scanString:@"rotate(" intoString:nil];
+	[scanner scanUpToString:@")" intoString:&value];
+	
+	if(value)
+		[transform rotateByDegrees:[value floatValue]];
+	
+	// Matrix
+	/*value = [NSString string];
+	[scanner initWithString:transformations];
+	[scanner scanString:@"matrix(" intoString:nil];
+	[scanner scanUpToString:@")" intoString:&value];
+	
+	values = [value componentsSeparatedByString:@","];
+	
+	if([values count] == 6) {
+		NSAffineTransformStruct matrix;
+		matrix.m11 = [[values objectAtIndex:0] floatValue];
+		matrix.m12 = [[values objectAtIndex:1] floatValue];
+		matrix.m21 = [[values objectAtIndex:2] floatValue];
+		matrix.m22 = [[values objectAtIndex:3] floatValue];
+		matrix.tX = [[values objectAtIndex:4] floatValue];
+		matrix.tY = [[values objectAtIndex:5] floatValue];
+		[transform setTransformStruct:matrix];
+		NSLog(@"Matrix transform: %@", values);
+	}*/
+	
+	// Apply to graphics context
+	[transform concat];
 }
 
 - (void)dealloc

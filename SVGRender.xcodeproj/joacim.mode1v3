@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51CE04C0124C180A00081E32</string>
+										<string>51CE0525124C218F00081E32</string>
 										<key>history</key>
 										<array>
 											<string>51879D431249759B00603C7D</string>
@@ -338,8 +338,8 @@
 											<string>51CE0212124AE5A400081E32</string>
 											<string>51CE044F124C0F0700081E32</string>
 											<string>51CE045D124C100000081E32</string>
-											<string>51CE045E124C100000081E32</string>
-											<string>51CE045F124C100000081E32</string>
+											<string>51CE04D6124C1ABE00081E32</string>
+											<string>51CE0514124C1FB700081E32</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -537,11 +537,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>51CE04BF124C17FB00081E32</string>
+		<string>51CE0526124C218F00081E32</string>
 		<string>51CE00F7124AD86900081E32</string>
 		<string>51CE00F8124AD86900081E32</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>51879C401249694700603C7D</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/joacim/Documents/Projects/SVGRender/SVGRender.xcodeproj</string>
 	</array>
@@ -562,8 +562,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -586,6 +584,8 @@
 							<string>429pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -762,7 +762,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
