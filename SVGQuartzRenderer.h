@@ -6,12 +6,29 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+
+@protocol SVGQuartzRenderDelegate
+
+	- (void)svgRenderer:(id<SVGQuartzRenderDelegate>)renderer
+			didFinnishRenderingFile:(NSString *)file;
+
+	- (CGContextRef)svgRenderer:(id)renderer
+					requestedCGContextWidthSize:(CGSize)size;
+
+@end
+
 
 @interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate> {
-
+	CGSize documentSize;
+	id<SVGQuartzRenderDelegate> delegate;
 }
 
-- (void)drawSVGFile:(NSString *)file inCGContext:(CGContextRef)context;
+@property (readonly) CGSize documentSize;
+@property (readonly) id delegate;
+
+- (void)drawSVGFile:(NSString *)file;
+- (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
+- (CGContextRef)createBitmapContext;
 
 @end

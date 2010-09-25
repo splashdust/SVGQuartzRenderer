@@ -32,16 +32,9 @@ CGContextRef viewContext;
 
 - (void)drawRect:(NSRect)dirtyRect {
 	
-	viewContext = (CGContext *)[[NSGraphicsContext currentContext] graphicsPort];
+	viewContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
 	CGContextDrawImage(viewContext, [self frame], svgDrawing);
 
-}
-
-- (void)viewWillDraw
-{
-	
-	
-	[super viewWillDraw];
 }
 
 - (CGContextRef)svgRenderer:(id)renderer
@@ -49,7 +42,7 @@ CGContextRef viewContext;
 {
 	[self setFrame:NSMakeRect(0, 0, size.width, size.height)];
 	
-	CGContextRef ctx = CGBitmapContextCreate(NULL, int(size.width), int(size.height), 8, int(size.width)*4, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+	CGContextRef ctx = [renderer createBitmapContext];
 	
 	return ctx;
 }
