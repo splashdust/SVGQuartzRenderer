@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51CE07DE124D2CFA00081E32</string>
+										<string>51CE0A72124DAD1900081E32</string>
 										<key>history</key>
 										<array>
 											<string>51879D431249759B00603C7D</string>
@@ -335,13 +335,17 @@
 											<string>51879FBC124A35F900603C7D</string>
 											<string>51879FBD124A35F900603C7D</string>
 											<string>51879FC7124A361200603C7D</string>
-											<string>51CE045D124C100000081E32</string>
 											<string>51CE0597124CEBD200081E32</string>
-											<string>51CE05C7124CF89100081E32</string>
-											<string>51CE0690124D12FF00081E32</string>
-											<string>51CE07CB124D2C4A00081E32</string>
-											<string>51CE07DA124D2CE600081E32</string>
-											<string>51CE07DB124D2CE600081E32</string>
+											<string>51CE0812124D3BB500081E32</string>
+											<string>51CE0814124D3BB500081E32</string>
+											<string>51CE0816124D3BB500081E32</string>
+											<string>51CE0818124D3BB500081E32</string>
+											<string>51CE084C124D3F0600081E32</string>
+											<string>51CE08CB124D674D00081E32</string>
+											<string>51CE09B3124DA07A00081E32</string>
+											<string>51CE09C5124DA1C400081E32</string>
+											<string>51CE09D3124DA27500081E32</string>
+											<string>51CE0A0C124DA60500081E32</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -579,7 +583,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1389, 429}}</string>
 								<key>RubberWindowFrame</key>
-								<string>51 101 1389 777 0 0 1440 878 </string>
+								<string>418 101 1389 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -603,7 +607,7 @@
 								<key>Frame</key>
 								<string>{{0, 434}, {1389, 302}}</string>
 								<key>RubberWindowFrame</key>
-								<string>51 101 1389 777 0 0 1440 878 </string>
+								<string>418 101 1389 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -635,7 +639,7 @@
 			<key>WindowContentMinSize</key>
 			<string>486 300</string>
 			<key>WindowString</key>
-			<string>51 101 1389 777 0 0 1440 878 </string>
+			<string>418 101 1389 777 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>51879C401249694700603C7D</string>
 			<key>WindowToolIsVisible</key>

@@ -12,6 +12,6 @@
 
 }
 
-- (void)imageFromSVGFile:(NSString *)file view:(NSView *)view;
+- (void)drawSVGFile:(NSString *)file inCGContext:(CGContextRef)context;
 
 @end
