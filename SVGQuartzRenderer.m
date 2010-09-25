@@ -23,11 +23,20 @@
 
 @implementation SVGQuartzRenderer
 
+struct FillPatternDescriptor {
+	CGImageRef imgRef;
+	CGRect rect;
+}; typedef struct FillPatternDescriptor FillPatternDescriptor;
+
+typedef void (*CGPatternDrawPatternCallback) (void * info,
+											  CGContextRef context);
+
 NSXMLParser* xmlParser;
 CGAffineTransform transform;
 CGSize documentSize;
 CGContextRef cgContext;
 NSMutableDictionary *defDict;
+FillPatternDescriptor desc;
 
 NSMutableDictionary *curPat;
 NSMutableDictionary *curGradient;
@@ -35,17 +44,6 @@ NSMutableDictionary *curFilter;
 NSMutableDictionary *curLayer;
 
 BOOL inDefSection = NO;
-
-struct FillPatternDescriptor {
-	CGImageRef imgRef;
-	CGRect rect;
-};
-
-typedef void (*CGPatternDrawPatternCallback) (void * info,
-											  CGContextRef context
-											  );
-
-typedef struct FillPatternDescriptor FillPatternDescriptor;
 
 // Variables for storing style data
 // -------------------------------------------------------------------------
@@ -606,6 +604,14 @@ didStartElement:(NSString *)elementName
 			
 		} else if([fillType isEqualToString:@"pattern"]) {
 			
+			CGColorSpaceRef myColorSpace = CGColorSpaceCreatePattern(NULL);
+			CGContextSetFillColorSpace(cgContext, myColorSpace);
+			CGColorSpaceRelease(myColorSpace);
+			
+			float alpha = 1.0;
+			CGContextSetFillPattern (cgContext,
+									 fillPattern,
+									 &alpha);
 			
 			
 		} else if([fillType isEqualToString:@"linearGradient"]) {
@@ -701,13 +707,22 @@ didStartElement:(NSString *)elementName
 						NSArray *mimeAndData = [imgString componentsSeparatedByString:@","];
 						NSData *imgData = [[NSData dataWithBase64EncodedString:[mimeAndData objectAtIndex:1]] retain];
 						CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)imgData);
-						CGImageRef image = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
 						
-						FillPatternDescriptor desc;
-						desc.imgRef = image;
+						CGImageRef patternImage;
+						if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/jpeg;base64"])
+							patternImage = CGImageCreateWithJPEGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+						else if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/png;base64"])
+							patternImage = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+						
+						CGImageRetain(patternImage);
+						
+						desc.imgRef = patternImage;
 						desc.rect = CGRectMake(0, 0, 
 											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"width"] floatValue], 
 											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"height"] floatValue]);
+						CGPatternCallbacks callbacks = { 0, &drawImagePattern, NULL };
+						
+						NSLog(@"%d",	desc.imgRef);
 						
 						fillPattern = CGPatternCreate (
 											/* info */		&desc,
@@ -716,8 +731,8 @@ didStartElement:(NSString *)elementName
 											/* xStep */		desc.rect.size.width,
 											/* yStep */		desc.rect.size.height,
 											/* tiling */	kCGPatternTilingConstantSpacing,
-											/* isColored */	false,
-											/* callbacks */	drawImagePattern);
+											/* isColored */	true,
+											/* callbacks */	&callbacks);
 						
 						
 					} else if([def objectForKey:@"stops"] && [[def objectForKey:@"stops"] count] > 0) {
@@ -935,8 +950,9 @@ void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
 {
 	FillPatternDescriptor *patDesc;
 	patDesc = (FillPatternDescriptor *)fillPatDescriptor;
+	NSLog(@"%d", patDesc->imgRef);
 	CGContextDrawImage(context, patDesc->rect, patDesc->imgRef);
-	
+	CGImageRelease(patDesc->imgRef);
 }
 
 void CGContextAddRoundRect(CGContextRef context, CGRect rect, float radius)
