@@ -12,19 +12,21 @@
 @interface SVGQuartzRenderer (hidden)
 
 	- (void)setStyleContext:(NSString *)style;
-	- (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style;
+	- (void)drawCurrentPathWithStyle:(NSString *)style;
 	- (void)applyTransformations:(NSString *)transformations;
 	- (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier;
+	
+	void CGContextAddRoundRect(CGContextRef context, CGRect rect, float radius);
+	void drawImagePattern(void *fillPatDescriptor, CGContextRef context);
 
 @end
 
 @implementation SVGQuartzRenderer
 
 NSXMLParser* xmlParser;
-NSAffineTransform *transform;
-NSAffineTransform *identity;
+CGAffineTransform transform;
 CGSize documentSize;
-NSView *view;
+CGContextRef cgContext;
 NSMutableDictionary *defDict;
 
 NSMutableDictionary *curPat;
@@ -34,29 +36,41 @@ NSMutableDictionary *curLayer;
 
 BOOL inDefSection = NO;
 
+struct FillPatternDescriptor {
+	CGImageRef imgRef;
+	CGRect rect;
+};
+
+typedef void (*CGPatternDrawPatternCallback) (void * info,
+											  CGContextRef context
+											  );
+
+typedef struct FillPatternDescriptor FillPatternDescriptor;
+
 // Variables for storing style data
 // -------------------------------------------------------------------------
 BOOL doFill;
-NSColor *fillColor;
+float fillColor[4];
 float fillOpacity;
 BOOL doStroke = NO;
 unsigned int strokeColor = 0;
 float strokeWidth = 1.0;
 float strokeOpacity;
-NSLineJoinStyle lineJoinStyle;
-NSLineCapStyle lineCapStyle;
+CGLineJoin lineJoinStyle;
+CGLineCap lineCapStyle;
 float miterLimit;
-NSImage *fillImage;
+CGPatternRef fillPattern;
 NSString *fillType;
 NSGradient *fillGradient;
+int fillGradientAngle;
+CGPoint fillGradientCenterPoint;
 // -------------------------------------------------------------------------
 
 - (id)init {
     self = [super init];
     if (self) {
         xmlParser = [NSXMLParser alloc];
-		transform = [[NSAffineTransform transform] retain];
-		identity = [[NSAffineTransform transform] retain];
+		transform = CGAffineTransformIdentity;
 
 		defDict = [[NSMutableDictionary alloc] init];
     }
@@ -66,25 +80,28 @@ NSGradient *fillGradient;
 - (void)resetStyleContext
 {
 	doFill = YES;
-	fillColor = nil;
-	fillOpacity = 1.0;
+	fillColor[0]=0;
+	fillColor[1]=0;
+	fillColor[2]=0;
+	fillColor[3]=1;
 	doStroke = NO;
 	strokeColor = 0;
 	strokeWidth = 1.0;
 	strokeOpacity = 1.0;
-	lineJoinStyle = NSMiterLineJoinStyle;
-	lineCapStyle = NSButtLineCapStyle;
+	lineJoinStyle = kCGLineJoinMiter;
+	lineCapStyle = kCGLineCapButt;
 	miterLimit = 4;
-	fillImage = nil;
 	fillType = @"solid";
+	fillGradientAngle = 0;
+	fillGradientCenterPoint = CGPointMake(0, 0);
 }
 
-- (void)imageFromSVGFile:(NSString *)file view:(NSView *)aView
+- (void)drawSVGFile:(NSString *)file inCGContext:(CGContextRef)context
 {
 	NSData *xml = [[NSData dataWithContentsOfFile:file] autorelease];
 	xmlParser = [xmlParser initWithData:xml];
 	
-	view = aView;
+	cgContext = context;
 	
 	[xmlParser setDelegate:self];
 	[xmlParser setShouldResolveExternalEntities:NO];
@@ -102,16 +119,11 @@ didStartElement:(NSString *)elementName
 {
 	NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
 	
-	// Path used for rendering
-	NSBezierPath * path = [NSBezierPath bezierPath];
-	
 	// Top level SVG node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
 		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue],
 							   [[attrDict valueForKey:@"height"] floatValue]);
-		
-		[view setFrame:NSMakeRect(0, 0, documentSize.width, documentSize.height)];
 		
 		doStroke = NO;
 	}
@@ -181,8 +193,26 @@ didStartElement:(NSString *)elementName
 	
 		if([elementName isEqualToString:@"filter"]) {
 			curFilter = [[NSMutableDictionary alloc] init];
+			NSEnumerator *enumerator = [attrDict keyEnumerator];
+			id key;
+			while ((key = [enumerator nextObject])) {
+				NSDictionary *obj = [attrDict objectForKey:key];
+				[curFilter setObject:obj forKey:key];
+			}
 		}
 			if([elementName isEqualToString:@"feGaussianBlur"]) {
+				
+			}
+			if([elementName isEqualToString:@"feColorMatrix"]) {
+				
+			}
+			if([elementName isEqualToString:@"feFlood"]) {
+				
+			}
+			if([elementName isEqualToString:@"feBlend"]) {
+				
+			}
+			if([elementName isEqualToString:@"feComposite"]) {
 				
 			}
 	
@@ -229,6 +259,8 @@ didStartElement:(NSString *)elementName
 		CGPoint curPoint = CGPointMake(0,0);
 		CGPoint curCtrlPoint1 = CGPointMake(-1,-1);
 		CGPoint curCtrlPoint2 = CGPointMake(-1,-1);
+		CGPoint curArcPoint = CGPointMake(-1,-1);
+		CGPoint curArcRadius = CGPointMake(-1,-1);
 		CGPoint firstPoint = CGPointMake(-1,-1);
 		NSString *curCmdType = nil;
 		
@@ -242,6 +274,7 @@ didStartElement:(NSString *)elementName
 			NSArray *params = [currentParams componentsSeparatedByCharactersInSet:separatorSet];
 			
 			int paramCount = [params count];
+			int mCount = 0;
 			
 			for (int prm_i = 0; prm_i < paramCount;) {
 				if(![[params objectAtIndex:prm_i] isEqualToString:@""]) {
@@ -254,6 +287,7 @@ didStartElement:(NSString *)elementName
 						curCmdType = @"line";
 						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
 						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+						mCount++;
 					}
 					
 					// Move to relative coord
@@ -267,12 +301,14 @@ didStartElement:(NSString *)elementName
 						} else {
 							curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
 						}
+						mCount++;
 					}
 					
 					// Line to absolute coord
 					//-----------------------------------------
 					if([currentCommand isEqualToString:@"L"]) {
 						curCmdType = @"line";
+						mCount = 2;
 						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
 						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
 					}
@@ -281,6 +317,7 @@ didStartElement:(NSString *)elementName
 					//-----------------------------------------
 					if([currentCommand isEqualToString:@"l"]) {
 						curCmdType = @"line";
+						mCount = 2;
 						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
 						if(firstVertex) {
 							curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
@@ -293,6 +330,7 @@ didStartElement:(NSString *)elementName
 					//-----------------------------------------
 					if([currentCommand isEqualToString:@"H"]) {
 						curCmdType = @"line";
+						mCount = 2;
 						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
 					}
 					
@@ -300,6 +338,7 @@ didStartElement:(NSString *)elementName
 					//-----------------------------------------
 					if([currentCommand isEqualToString:@"h"]) {
 						curCmdType = @"line";
+						mCount = 2;
 						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
 					}
 					
@@ -307,6 +346,7 @@ didStartElement:(NSString *)elementName
 					//-----------------------------------------
 					if([currentCommand isEqualToString:@"V"]) {
 						curCmdType = @"line";
+						mCount = 2;
 						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
 					}
 					
@@ -314,6 +354,7 @@ didStartElement:(NSString *)elementName
 					//-----------------------------------------
 					if([currentCommand isEqualToString:@"v"]) {
 						curCmdType = @"line";
+						mCount = 2;
 						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
 					}
 					
@@ -387,37 +428,89 @@ didStartElement:(NSString *)elementName
 						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
 					}
 					
+					// Absolute elliptical arc
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"A"]) {
+						curArcRadius.x = [[params objectAtIndex:prm_i++] floatValue];
+						curArcRadius.y = [[params objectAtIndex:prm_i++] floatValue];
+						
+						//Ignore x-axis-rotation
+						prm_i++;;
+						
+						//Ignore large-arc-flag
+						prm_i++;
+						
+						//Ignore sweep-flag
+						prm_i++;
+						
+						curArcPoint.x = [[params objectAtIndex:prm_i++] floatValue];
+						curArcPoint.y = [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
+					// Relative elliptical arc
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"a"]) {
+						curCmdType = @"arc";
+						curArcRadius.x += [[params objectAtIndex:prm_i++] floatValue];
+						curArcRadius.y += [[params objectAtIndex:prm_i++] floatValue];
+						
+						//Ignore x-axis-rotation
+						prm_i++;;
+						
+						//Ignore large-arc-flag
+						prm_i++;
+						
+						//Ignore sweep-flag
+						prm_i++;
+						
+						curArcPoint.x += [[params objectAtIndex:prm_i++] floatValue];
+						curArcPoint.y += [[params objectAtIndex:prm_i++] floatValue];
+					}
+					
 					
 					// Not yet implemented commands
-					if([currentCommand isEqualToString:@"q"] || [currentCommand isEqualToString:@"Q"]) {
-						prm_i++;
-					}
-					if([currentCommand isEqualToString:@"t"] || [currentCommand isEqualToString:@"T"]) {
-						prm_i++;
-					}
-					if([currentCommand isEqualToString:@"a"] || [currentCommand isEqualToString:@"A"]) {
+					//-----------------------------------------
+					if([currentCommand isEqualToString:@"q"]
+					|| [currentCommand isEqualToString:@"Q"]
+					|| [currentCommand isEqualToString:@"t"]
+					|| [currentCommand isEqualToString:@"T"]) {
 						prm_i++;
 					}
 					
+					// Set initial point
 					if(firstVertex) {
 						firstPoint = curPoint;
-						[path moveToPoint: firstPoint];
+						CGContextMoveToPoint(cgContext,firstPoint.x,firstPoint.y);
 					}
 					
 					// Close path
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
-						curCmdType = @"line";
+						CGContextClosePath(cgContext);
 						curPoint = firstPoint;
 						firstVertex = YES;
 						prm_i++;
 					}
 					
 					if(curCmdType) {
-						if([curCmdType isEqualToString:@"line"])
-							[path lineToPoint: curPoint];
+						if([curCmdType isEqualToString:@"line"]) {
+							if(mCount>1) {
+								CGContextAddLineToPoint(cgContext,curPoint.x,curPoint.y);
+							} else {
+								CGContextBeginPath(cgContext);
+								CGContextMoveToPoint(cgContext,curPoint.x,curPoint.y);
+							}
+						}
 						
 						if([curCmdType isEqualToString:@"curve"])
-							[path curveToPoint:curPoint controlPoint1:curCtrlPoint1 controlPoint2:curCtrlPoint2];
+							CGContextAddCurveToPoint (cgContext,curCtrlPoint1.x, curCtrlPoint1.y,
+													  curCtrlPoint2.x, curCtrlPoint2.y,
+													  curPoint.x,curPoint.y);
+						
+						if([curCmdType isEqualToString:@"arc"]) {
+							// Ignore arcs for now
+							//NSLog(@"[path appendBezierPathWithArcFromPoint:%f,%f toPoint:%f,%f radius:%f];", curPoint.x, curPoint.y, curArcPoint.x, curArcPoint.y, curArcRadius.x);
+							//[path appendBezierPathWithArcFromPoint:curPoint toPoint:curArcPoint radius:curArcRadius.x];
+						}
 					}
 				} else {
 					prm_i++;
@@ -425,13 +518,11 @@ didStartElement:(NSString *)elementName
 
 			}
 			
-			
-			
-			
 			currentParams = nil;
 		}
 		
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		//CGContextClosePath(cgContext);
+		[self drawCurrentPathWithStyle:[attrDict valueForKey:@"style"]];
 	}
 	
 	
@@ -448,11 +539,9 @@ didStartElement:(NSString *)elementName
 		if (ry==-1.0) ry = rx;
 		if (rx==-1.0) rx = ry;
 		
-		[path appendBezierPathWithRoundedRect:CGRectMake(xPos,yPos,width,height)
-									  xRadius:rx
-									  yRadius:ry];
+		CGContextAddRoundRect(cgContext, CGRectMake(xPos,yPos,width,height), rx);
 		
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		[self drawCurrentPathWithStyle:[attrDict valueForKey:@"style"]];
 	}
 	
 	[pool release];
@@ -467,7 +556,6 @@ didStartElement:(NSString *)elementName
  qualifiedName:(NSString *)qName
 {
 	if([elementName isEqualToString:@"svg"]) {
-		[fillImage release];
 		[defDict release];
 	}
 	
@@ -483,8 +571,6 @@ didStartElement:(NSString *)elementName
 	}
 
 	if([elementName isEqualToString:@"path"]) {
-		[fillImage release];
-		fillImage = nil;
 	}
 	
 	if([elementName isEqualToString:@"pattern"]) {
@@ -506,36 +592,59 @@ didStartElement:(NSString *)elementName
 
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
-- (void)drawPath:(NSBezierPath *)path withStyle:(NSString *)style
+- (void)drawCurrentPathWithStyle:(NSString *)style
 {		
+	CGContextSaveGState(cgContext);
+	
 	if(style)
 		[self setStyleContext:style];
 	
-	// Do the drawing
-	// -------------------------------------------------------------------------
 	if(doFill) {
-		if ([fillType isEqualToString:@"solid"] || [fillType isEqualToString:@"pattern"]) {
-			[fillColor set];
-			[path fill];
+		if ([fillType isEqualToString:@"solid"]) {
+			
+			CGContextSetRGBFillColor(cgContext, fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
+			
+		} else if([fillType isEqualToString:@"pattern"]) {
+			
+			
+			
 		} else if([fillType isEqualToString:@"linearGradient"]) {
-			[fillGradient drawInBezierPath:path angle:0];
+			
+			//[fillGradient drawInBezierPath:path angle:fillGradientAngle];
+			
 		} else if([fillType isEqualToString:@"radialGradient"]) {
-			[fillGradient drawInBezierPath:path relativeCenterPosition:CGPointMake(0, 0)];
+			
+			//NSRect pathBounds = [path bounds];
+			//[fillGradient drawInBezierPath:path relativeCenterPosition:CGPointMake(
+			//										(fillGradientCenterPoint.x-pathBounds.origin.x)-pathBounds.size.width/2,
+			//										(fillGradientCenterPoint.y-pathBounds.origin.y)-pathBounds.size.height/2)];
+			
 		}
 	}
 	
-	
+	// Do the drawing
+	// -------------------------------------------------------------------------
 	if(doStroke) {
 		CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
 		CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
 		CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
-		[[NSColor colorWithDeviceRed:red green:green blue:blue alpha:strokeOpacity] set];
-		[path setLineWidth:strokeWidth];
-		[path setLineCapStyle:lineCapStyle];
-		[path setLineJoinStyle:lineJoinStyle];
-		[path setMiterLimit:miterLimit];
-		[path stroke];
+		CGContextSetLineWidth(cgContext, strokeWidth);
+		CGContextSetLineCap(cgContext, lineCapStyle);
+		CGContextSetLineJoin(cgContext, lineJoinStyle);
+		CGContextSetMiterLimit(cgContext, miterLimit);
+		CGContextSetRGBStrokeColor(cgContext, red, green, blue, strokeOpacity);
+		
 	}
+	
+	if(doFill && doStroke)
+		CGContextDrawPath(cgContext, kCGPathFillStroke);
+	else if(doFill)
+		CGContextFillPath(cgContext);
+	else if(doStroke)
+		CGContextStrokePath(cgContext);
+	
+	CGContextRestoreGState(cgContext);
+	
 }
 
 - (void)setStyleContext:(NSString *)style
@@ -566,10 +675,9 @@ didStartElement:(NSString *)elementName
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				unsigned int color;
 				[hexScanner scanHexInt:&color];
-				CGFloat red   = ((color & 0xFF0000) >> 16) / 255.0f;
-				CGFloat green = ((color & 0x00FF00) >>  8) / 255.0f;
-				CGFloat blue  =  (color & 0x0000FF) / 255.0f;
-				fillColor = [[NSColor colorWithDeviceRed:red green:green blue:blue alpha:fillOpacity] retain];
+				fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
+				fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
+				fillColor[2] =  (color & 0x0000FF) / 255.0f;
 				
 			} else if([attrValue rangeOfString:@"url"].location != NSNotFound) {
 				
@@ -592,14 +700,36 @@ didStartElement:(NSString *)elementName
 						NSString *imgString = [[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"xlink:href"];
 						NSArray *mimeAndData = [imgString componentsSeparatedByString:@","];
 						NSData *imgData = [[NSData dataWithBase64EncodedString:[mimeAndData objectAtIndex:1]] retain];
-						NSBitmapImageRep *fillImageRep = [NSBitmapImageRep imageRepWithData:imgData];
-						fillImage = [[NSImage alloc] init];
-						[fillImage addRepresentation:fillImageRep];
-						fillColor = [[NSColor colorWithPatternImage:fillImage] retain];
+						CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)imgData);
+						CGImageRef image = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+						
+						FillPatternDescriptor desc;
+						desc.imgRef = image;
+						desc.rect = CGRectMake(0, 0, 
+											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"width"] floatValue], 
+											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"height"] floatValue]);
+						
+						fillPattern = CGPatternCreate (
+											/* info */		&desc,
+											/* bounds */	desc.rect,
+											/* matrix */	CGAffineTransformIdentity,
+											/* xStep */		desc.rect.size.width,
+											/* yStep */		desc.rect.size.height,
+											/* tiling */	kCGPatternTilingConstantSpacing,
+											/* isColored */	false,
+											/* callbacks */	drawImagePattern);
+						
 						
 					} else if([def objectForKey:@"stops"] && [[def objectForKey:@"stops"] count] > 0) {
 						// Load gradient
 						fillType = [def objectForKey:@"type"];
+						if([def objectForKey:@"x1"])
+							fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
+																		([[def objectForKey:@"y1"] floatValue] - [[def objectForKey:@"y2"] floatValue])))*180)/M_PI)+90;
+						if([def objectForKey:@"cx"]) {
+							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue];
+							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue];
+						}
 						
 						NSArray *stops = [def objectForKey:@"stops"];
 						
@@ -650,7 +780,7 @@ didStartElement:(NSString *)elementName
 		// --------------------- FILL-OPACITY
 		if([attrName isEqualToString:@"fill-opacity"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
-			[floatScanner scanFloat:&fillOpacity];
+			[floatScanner scanFloat:&fillColor[3]];
 		}
 		
 		// --------------------- STROKE
@@ -688,13 +818,13 @@ didStartElement:(NSString *)elementName
 			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
 			
 			if([lineCapValue isEqualToString:@"butt"])
-				lineCapStyle = NSButtLineCapStyle;
+				lineCapStyle = kCGLineCapButt;
 			
 			if([lineCapValue isEqualToString:@"round"])
-				lineCapStyle = NSRoundLineCapStyle;
+				lineCapStyle = kCGLineCapRound;
 			
 			if([lineCapValue isEqualToString:@"square"])
-				lineCapStyle = NSSquareLineCapStyle;
+				lineCapStyle = kCGLineCapSquare;
 		}
 		
 		// --------------------- STROKE-LINEJOIN
@@ -704,13 +834,13 @@ didStartElement:(NSString *)elementName
 			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
 			
 			if([lineCapValue isEqualToString:@"miter"])
-				lineJoinStyle = NSMiterLineJoinStyle;
+				lineJoinStyle = kCGLineJoinMiter;
 			
 			if([lineCapValue isEqualToString:@"round"])
-				lineJoinStyle = NSRoundLineJoinStyle;
+				lineJoinStyle = kCGLineJoinRound;
 			
 			if([lineCapValue isEqualToString:@"bevel"])
-				lineJoinStyle = NSBevelLineJoinStyle;
+				lineJoinStyle = kCGLineJoinBevel;
 		}
 		
 		// --------------------- STROKE-MITERLIMIT
@@ -727,7 +857,8 @@ didStartElement:(NSString *)elementName
 - (void)applyTransformations:(NSString *)transformations
 {
 	// Reset transformation matrix
-	[transform initWithTransform:identity];
+	transform = CGAffineTransformIdentity;
+	
 	
 	NSScanner *scanner = [NSScanner scannerWithString:transformations];
 	[scanner setCaseSensitive:YES];
@@ -742,7 +873,9 @@ didStartElement:(NSString *)elementName
 	NSArray *values = [value componentsSeparatedByString:@","];
 	
 	if([values count] == 2)
-		[transform translateXBy:[[values objectAtIndex:0] floatValue] yBy:[[values objectAtIndex:1] floatValue]];
+		transform = CGAffineTransformTranslate (transform,
+									[[values objectAtIndex:0] floatValue],
+									[[values objectAtIndex:1] floatValue]);
 	
 	// Rotate
 	value = [NSString string];
@@ -751,7 +884,7 @@ didStartElement:(NSString *)elementName
 	[scanner scanUpToString:@")" intoString:&value];
 	
 	if(value)
-		[transform rotateByDegrees:[value floatValue]];
+		transform = CGAffineTransformRotate(transform, [value floatValue]);
 	
 	// Matrix
 	/*value = [NSString string];
@@ -774,7 +907,7 @@ didStartElement:(NSString *)elementName
 	}*/
 	
 	// Apply to graphics context
-	[transform concat];
+	CGContextConcatCTM(cgContext,transform);
 }
 
 - (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier
@@ -798,15 +931,38 @@ didStartElement:(NSString *)elementName
 	return def;
 }
 
+void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
+{
+	FillPatternDescriptor *patDesc;
+	patDesc = (FillPatternDescriptor *)fillPatDescriptor;
+	CGContextDrawImage(context, patDesc->rect, patDesc->imgRef);
+	
+}
+
+void CGContextAddRoundRect(CGContextRef context, CGRect rect, float radius)
+{
+	CGContextMoveToPoint(context, rect.origin.x, rect.origin.y + radius);
+	CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + rect.size.height - radius);
+	CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + rect.size.height - radius, 
+					radius, M_PI / 4, M_PI / 2, 1);
+	CGContextAddLineToPoint(context, rect.origin.x + rect.size.width - radius, 
+							rect.origin.y + rect.size.height);
+	CGContextAddArc(context, rect.origin.x + rect.size.width - radius, 
+					rect.origin.y + rect.size.height - radius, radius, M_PI / 2, 0.0f, 1);
+	CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, rect.origin.y + radius);
+	CGContextAddArc(context, rect.origin.x + rect.size.width - radius, rect.origin.y + radius, 
+					radius, 0.0f, -M_PI / 2, 1);
+	CGContextAddLineToPoint(context, rect.origin.x + radius, rect.origin.y);
+	CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + radius, radius, 
+					-M_PI / 2, M_PI, 1);
+}
+
 - (void)dealloc
 {
-	[transform release];
-	[identity release];
 	[defDict release];
 	[curPat release];
 	[curGradient release];
 	[curFilter release];
-	[fillImage release];
 	[xmlParser release];
 	
 	[super dealloc];

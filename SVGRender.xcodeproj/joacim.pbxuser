@@ -657,6 +657,204 @@
 			51CE07DB124D2CE600081E32 /* PBXTextBookmark */ = 51CE07DB124D2CE600081E32 /* PBXTextBookmark */;
 			51CE07DC124D2CE600081E32 /* PBXTextBookmark */ = 51CE07DC124D2CE600081E32 /* PBXTextBookmark */;
 			51CE07DE124D2CFA00081E32 /* PBXTextBookmark */ = 51CE07DE124D2CFA00081E32 /* PBXTextBookmark */;
+			51CE07E1124D317300081E32 /* PBXTextBookmark */ = 51CE07E1124D317300081E32 /* PBXTextBookmark */;
+			51CE07E5124D318400081E32 /* PBXTextBookmark */ = 51CE07E5124D318400081E32 /* PBXTextBookmark */;
+			51CE07E6124D318400081E32 /* PBXTextBookmark */ = 51CE07E6124D318400081E32 /* PBXTextBookmark */;
+			51CE07E8124D319800081E32 /* PBXTextBookmark */ = 51CE07E8124D319800081E32 /* PBXTextBookmark */;
+			51CE07E9124D319800081E32 /* PBXTextBookmark */ = 51CE07E9124D319800081E32 /* PBXTextBookmark */;
+			51CE07EA124D327800081E32 /* PBXTextBookmark */ = 51CE07EA124D327800081E32 /* PBXTextBookmark */;
+			51CE07EB124D357B00081E32 /* PBXTextBookmark */ = 51CE07EB124D357B00081E32 /* PBXTextBookmark */;
+			51CE07EC124D358F00081E32 /* PBXTextBookmark */ = 51CE07EC124D358F00081E32 /* PBXTextBookmark */;
+			51CE07ED124D361300081E32 /* PBXTextBookmark */ = 51CE07ED124D361300081E32 /* PBXTextBookmark */;
+			51CE07EE124D361300081E32 /* PBXTextBookmark */ = 51CE07EE124D361300081E32 /* PBXTextBookmark */;
+			51CE07EF124D361300081E32 /* PBXTextBookmark */ = 51CE07EF124D361300081E32 /* PBXTextBookmark */;
+			51CE07F0124D36AF00081E32 /* PBXTextBookmark */ = 51CE07F0124D36AF00081E32 /* PBXTextBookmark */;
+			51CE07F3124D36C400081E32 /* PBXTextBookmark */ = 51CE07F3124D36C400081E32 /* PBXTextBookmark */;
+			51CE07F7124D36F700081E32 /* PBXTextBookmark */ = 51CE07F7124D36F700081E32 /* PBXTextBookmark */;
+			51CE07F8124D36F700081E32 /* PBXTextBookmark */ = 51CE07F8124D36F700081E32 /* PBXTextBookmark */;
+			51CE07FC124D370E00081E32 /* PBXTextBookmark */ = 51CE07FC124D370E00081E32 /* PBXTextBookmark */;
+			51CE0800124D377900081E32 /* PBXTextBookmark */ = 51CE0800124D377900081E32 /* PBXTextBookmark */;
+			51CE0804124D37AC00081E32 /* PBXTextBookmark */ = 51CE0804124D37AC00081E32 /* PBXTextBookmark */;
+			51CE0808124D382300081E32 /* PBXTextBookmark */ = 51CE0808124D382300081E32 /* PBXTextBookmark */;
+			51CE0809124D382300081E32 /* PBXTextBookmark */ = 51CE0809124D382300081E32 /* PBXTextBookmark */;
+			51CE080A124D382300081E32 /* PBXTextBookmark */ = 51CE080A124D382300081E32 /* PBXTextBookmark */;
+			51CE080C124D38D500081E32 /* PBXTextBookmark */ = 51CE080C124D38D500081E32 /* PBXTextBookmark */;
+			51CE080D124D38D500081E32 /* PBXTextBookmark */ = 51CE080D124D38D500081E32 /* PBXTextBookmark */;
+			51CE0812124D3BB500081E32 /* PBXTextBookmark */ = 51CE0812124D3BB500081E32 /* PBXTextBookmark */;
+			51CE0814124D3BB500081E32 /* PBXTextBookmark */ = 51CE0814124D3BB500081E32 /* PBXTextBookmark */;
+			51CE0816124D3BB500081E32 /* PBXTextBookmark */ = 51CE0816124D3BB500081E32 /* PBXTextBookmark */;
+			51CE0818124D3BB500081E32 /* PBXTextBookmark */ = 51CE0818124D3BB500081E32 /* PBXTextBookmark */;
+			51CE081A124D3BB500081E32 /* PBXTextBookmark */ = 51CE081A124D3BB500081E32 /* PBXTextBookmark */;
+			51CE081B124D3BB500081E32 /* PBXTextBookmark */ = 51CE081B124D3BB500081E32 /* PBXTextBookmark */;
+			51CE081C124D3BB500081E32 /* PBXTextBookmark */ = 51CE081C124D3BB500081E32 /* PBXTextBookmark */;
+			51CE0821124D3C1C00081E32 /* PBXTextBookmark */ = 51CE0821124D3C1C00081E32 /* PBXTextBookmark */;
+			51CE0822124D3C1C00081E32 /* PBXTextBookmark */ = 51CE0822124D3C1C00081E32 /* PBXTextBookmark */;
+			51CE0823124D3C1C00081E32 /* PBXTextBookmark */ = 51CE0823124D3C1C00081E32 /* PBXTextBookmark */;
+			51CE0827124D3C5E00081E32 /* PBXTextBookmark */ = 51CE0827124D3C5E00081E32 /* PBXTextBookmark */;
+			51CE0828124D3C5E00081E32 /* PBXTextBookmark */ = 51CE0828124D3C5E00081E32 /* PBXTextBookmark */;
+			51CE0829124D3C5E00081E32 /* PBXTextBookmark */ = 51CE0829124D3C5E00081E32 /* PBXTextBookmark */;
+			51CE082D124D3C8600081E32 /* PBXTextBookmark */ = 51CE082D124D3C8600081E32 /* PBXTextBookmark */;
+			51CE082E124D3C8600081E32 /* PBXTextBookmark */ = 51CE082E124D3C8600081E32 /* PBXTextBookmark */;
+			51CE082F124D3C8600081E32 /* PBXTextBookmark */ = 51CE082F124D3C8600081E32 /* PBXTextBookmark */;
+			51CE0833124D3C9D00081E32 /* PBXTextBookmark */ = 51CE0833124D3C9D00081E32 /* PBXTextBookmark */;
+			51CE0837124D3DFB00081E32 /* PBXTextBookmark */ = 51CE0837124D3DFB00081E32 /* PBXTextBookmark */;
+			51CE0838124D3DFB00081E32 /* PBXTextBookmark */ = 51CE0838124D3DFB00081E32 /* PBXTextBookmark */;
+			51CE0839124D3DFB00081E32 /* PBXTextBookmark */ = 51CE0839124D3DFB00081E32 /* PBXTextBookmark */;
+			51CE083C124D3E2700081E32 /* PBXTextBookmark */ = 51CE083C124D3E2700081E32 /* PBXTextBookmark */;
+			51CE0840124D3E5800081E32 /* PBXTextBookmark */ = 51CE0840124D3E5800081E32 /* PBXTextBookmark */;
+			51CE0844124D3E8100081E32 /* PBXTextBookmark */ = 51CE0844124D3E8100081E32 /* PBXTextBookmark */;
+			51CE0848124D3EEE00081E32 /* PBXTextBookmark */ = 51CE0848124D3EEE00081E32 /* PBXTextBookmark */;
+			51CE084C124D3F0600081E32 /* PBXTextBookmark */ = 51CE084C124D3F0600081E32 /* PBXTextBookmark */;
+			51CE084D124D3F0600081E32 /* PBXTextBookmark */ = 51CE084D124D3F0600081E32 /* PBXTextBookmark */;
+			51CE084E124D3F0600081E32 /* PBXTextBookmark */ = 51CE084E124D3F0600081E32 /* PBXTextBookmark */;
+			51CE0852124D400B00081E32 /* PBXTextBookmark */ = 51CE0852124D400B00081E32 /* PBXTextBookmark */;
+			51CE0853124D400B00081E32 /* PBXTextBookmark */ = 51CE0853124D400B00081E32 /* PBXTextBookmark */;
+			51CE0855124D408100081E32 /* PBXTextBookmark */ = 51CE0855124D408100081E32 /* PBXTextBookmark */;
+			51CE0858124D422700081E32 /* PBXTextBookmark */ = 51CE0858124D422700081E32 /* PBXTextBookmark */;
+			51CE0859124D422700081E32 /* PBXTextBookmark */ = 51CE0859124D422700081E32 /* PBXTextBookmark */;
+			51CE085A124D422700081E32 /* PBXTextBookmark */ = 51CE085A124D422700081E32 /* PBXTextBookmark */;
+			51CE08CA124D674D00081E32 /* PBXTextBookmark */ = 51CE08CA124D674D00081E32 /* PBXTextBookmark */;
+			51CE08CB124D674D00081E32 /* PBXTextBookmark */ = 51CE08CB124D674D00081E32 /* PBXTextBookmark */;
+			51CE08CC124D674D00081E32 /* PBXTextBookmark */ = 51CE08CC124D674D00081E32 /* PBXTextBookmark */;
+			51CE08CD124D674D00081E32 /* PBXTextBookmark */ = 51CE08CD124D674D00081E32 /* PBXTextBookmark */;
+			51CE08CE124D674D00081E32 /* PBXTextBookmark */ = 51CE08CE124D674D00081E32 /* PBXTextBookmark */;
+			51CE08CF124D686A00081E32 /* PBXTextBookmark */ = 51CE08CF124D686A00081E32 /* PBXTextBookmark */;
+			51CE08D4124D6A6300081E32 /* PBXTextBookmark */ = 51CE08D4124D6A6300081E32 /* PBXTextBookmark */;
+			51CE08D5124D6A6300081E32 /* PBXTextBookmark */ = 51CE08D5124D6A6300081E32 /* PBXTextBookmark */;
+			51CE08D6124D6A6300081E32 /* PBXTextBookmark */ = 51CE08D6124D6A6300081E32 /* PBXTextBookmark */;
+			51CE08D9124D6AAB00081E32 /* PBXTextBookmark */ = 51CE08D9124D6AAB00081E32 /* PBXTextBookmark */;
+			51CE08DA124D6AAB00081E32 /* PBXTextBookmark */ = 51CE08DA124D6AAB00081E32 /* PBXTextBookmark */;
+			51CE08DB124D6AAB00081E32 /* PBXTextBookmark */ = 51CE08DB124D6AAB00081E32 /* PBXTextBookmark */;
+			51CE08DC124D6C7D00081E32 /* PBXTextBookmark */ = 51CE08DC124D6C7D00081E32 /* PBXTextBookmark */;
+			51CE08DD124D6C7D00081E32 /* PBXTextBookmark */ = 51CE08DD124D6C7D00081E32 /* PBXTextBookmark */;
+			51CE08DE124D6C7D00081E32 /* PBXTextBookmark */ = 51CE08DE124D6C7D00081E32 /* PBXTextBookmark */;
+			51CE08DF124D6F6500081E32 /* PBXTextBookmark */ = 51CE08DF124D6F6500081E32 /* PBXTextBookmark */;
+			51CE08E0124D6F8F00081E32 /* PBXTextBookmark */ = 51CE08E0124D6F8F00081E32 /* PBXTextBookmark */;
+			51CE08E1124D700D00081E32 /* PBXTextBookmark */ = 51CE08E1124D700D00081E32 /* PBXTextBookmark */;
+			51CE08E2124D707900081E32 /* PBXTextBookmark */ = 51CE08E2124D707900081E32 /* PBXTextBookmark */;
+			51CE08E3124D771300081E32 /* PBXTextBookmark */ = 51CE08E3124D771300081E32 /* PBXTextBookmark */;
+			51CE08E4124D771300081E32 /* PBXTextBookmark */ = 51CE08E4124D771300081E32 /* PBXTextBookmark */;
+			51CE08E5124D771300081E32 /* PBXTextBookmark */ = 51CE08E5124D771300081E32 /* PBXTextBookmark */;
+			51CE08EC124D786B00081E32 /* PBXTextBookmark */ = 51CE08EC124D786B00081E32 /* PBXTextBookmark */;
+			51CE08ED124D786B00081E32 /* PBXTextBookmark */ = 51CE08ED124D786B00081E32 /* PBXTextBookmark */;
+			51CE08EE124D786B00081E32 /* PBXTextBookmark */ = 51CE08EE124D786B00081E32 /* PBXTextBookmark */;
+			51CE08EF124D786B00081E32 /* PBXTextBookmark */ = 51CE08EF124D786B00081E32 /* PBXTextBookmark */;
+			51CE08F4124D7E8B00081E32 /* PBXTextBookmark */ = 51CE08F4124D7E8B00081E32 /* PBXTextBookmark */;
+			51CE08F5124D7FD400081E32 /* PBXTextBookmark */ = 51CE08F5124D7FD400081E32 /* PBXTextBookmark */;
+			51CE08F6124D7FD400081E32 /* PBXTextBookmark */ = 51CE08F6124D7FD400081E32 /* PBXTextBookmark */;
+			51CE08F7124D7FD400081E32 /* PBXTextBookmark */ = 51CE08F7124D7FD400081E32 /* PBXTextBookmark */;
+			51CE08FE124D82FD00081E32 /* PBXTextBookmark */ = 51CE08FE124D82FD00081E32 /* PBXTextBookmark */;
+			51CE08FF124D82FD00081E32 /* PBXTextBookmark */ = 51CE08FF124D82FD00081E32 /* PBXTextBookmark */;
+			51CE0900124D82FD00081E32 /* PBXTextBookmark */ = 51CE0900124D82FD00081E32 /* PBXTextBookmark */;
+			51CE0901124D82FD00081E32 /* PBXTextBookmark */ = 51CE0901124D82FD00081E32 /* PBXTextBookmark */;
+			51CE0908124D834900081E32 /* PBXTextBookmark */ = 51CE0908124D834900081E32 /* PBXTextBookmark */;
+			51CE0909124D836200081E32 /* PBXTextBookmark */ = 51CE0909124D836200081E32 /* PBXTextBookmark */;
+			51CE090C124D838E00081E32 /* XCBuildMessageTextBookmark */ = 51CE090C124D838E00081E32 /* XCBuildMessageTextBookmark */;
+			51CE090D124D838E00081E32 /* PBXTextBookmark */ = 51CE090D124D838E00081E32 /* PBXTextBookmark */;
+			51CE091A124D848600081E32 /* PBXTextBookmark */ = 51CE091A124D848600081E32 /* PBXTextBookmark */;
+			51CE0925124D850A00081E32 /* PBXTextBookmark */ = 51CE0925124D850A00081E32 /* PBXTextBookmark */;
+			51CE0926124D850A00081E32 /* PBXTextBookmark */ = 51CE0926124D850A00081E32 /* PBXTextBookmark */;
+			51CE0927124D850A00081E32 /* PBXTextBookmark */ = 51CE0927124D850A00081E32 /* PBXTextBookmark */;
+			51CE0928124D850A00081E32 /* PBXTextBookmark */ = 51CE0928124D850A00081E32 /* PBXTextBookmark */;
+			51CE0929124D850A00081E32 /* PBXTextBookmark */ = 51CE0929124D850A00081E32 /* PBXTextBookmark */;
+			51CE093A124D863100081E32 /* XCBuildMessageTextBookmark */ = 51CE093A124D863100081E32 /* XCBuildMessageTextBookmark */;
+			51CE093B124D863100081E32 /* PBXTextBookmark */ = 51CE093B124D863100081E32 /* PBXTextBookmark */;
+			51CE0958124D879300081E32 /* PBXTextBookmark */ = 51CE0958124D879300081E32 /* PBXTextBookmark */;
+			51CE0959124D879300081E32 /* PBXTextBookmark */ = 51CE0959124D879300081E32 /* PBXTextBookmark */;
+			51CE095A124D879300081E32 /* PBXTextBookmark */ = 51CE095A124D879300081E32 /* PBXTextBookmark */;
+			51CE095B124D879300081E32 /* PBXTextBookmark */ = 51CE095B124D879300081E32 /* PBXTextBookmark */;
+			51CE0962124D888800081E32 /* PBXTextBookmark */ = 51CE0962124D888800081E32 /* PBXTextBookmark */;
+			51CE0963124D888800081E32 /* PBXTextBookmark */ = 51CE0963124D888800081E32 /* PBXTextBookmark */;
+			51CE0964124D888800081E32 /* PBXTextBookmark */ = 51CE0964124D888800081E32 /* PBXTextBookmark */;
+			51CE0965124D888800081E32 /* PBXTextBookmark */ = 51CE0965124D888800081E32 /* PBXTextBookmark */;
+			51CE0968124D88A900081E32 /* PBXTextBookmark */ = 51CE0968124D88A900081E32 /* PBXTextBookmark */;
+			51CE096B124D893700081E32 /* PBXTextBookmark */ = 51CE096B124D893700081E32 /* PBXTextBookmark */;
+			51CE096F124D894D00081E32 /* PBXTextBookmark */ = 51CE096F124D894D00081E32 /* PBXTextBookmark */;
+			51CE0975124D8A7D00081E32 /* PBXTextBookmark */ = 51CE0975124D8A7D00081E32 /* PBXTextBookmark */;
+			51CE0976124D8A7D00081E32 /* PBXTextBookmark */ = 51CE0976124D8A7D00081E32 /* PBXTextBookmark */;
+			51CE0977124D8A7D00081E32 /* PBXTextBookmark */ = 51CE0977124D8A7D00081E32 /* PBXTextBookmark */;
+			51CE0978124D8A7D00081E32 /* PBXTextBookmark */ = 51CE0978124D8A7D00081E32 /* PBXTextBookmark */;
+			51CE097A124D8A8500081E32 /* PBXTextBookmark */ = 51CE097A124D8A8500081E32 /* PBXTextBookmark */;
+			51CE097B124D8A8500081E32 /* XCBuildMessageTextBookmark */ = 51CE097B124D8A8500081E32 /* XCBuildMessageTextBookmark */;
+			51CE097C124D8A8500081E32 /* PBXTextBookmark */ = 51CE097C124D8A8500081E32 /* PBXTextBookmark */;
+			51CE097F124D8AA800081E32 /* PBXTextBookmark */ = 51CE097F124D8AA800081E32 /* PBXTextBookmark */;
+			51CE0983124D8B1100081E32 /* PBXTextBookmark */ = 51CE0983124D8B1100081E32 /* PBXTextBookmark */;
+			51CE0987124D8B3600081E32 /* PBXTextBookmark */ = 51CE0987124D8B3600081E32 /* PBXTextBookmark */;
+			51CE098B124D8B5A00081E32 /* PBXTextBookmark */ = 51CE098B124D8B5A00081E32 /* PBXTextBookmark */;
+			51CE098F124D8B8A00081E32 /* PBXTextBookmark */ = 51CE098F124D8B8A00081E32 /* PBXTextBookmark */;
+			51CE0993124D8BDB00081E32 /* PBXTextBookmark */ = 51CE0993124D8BDB00081E32 /* PBXTextBookmark */;
+			51CE0999124D9E8300081E32 /* PBXTextBookmark */ = 51CE0999124D9E8300081E32 /* PBXTextBookmark */;
+			51CE099D124D9F6500081E32 /* PBXTextBookmark */ = 51CE099D124D9F6500081E32 /* PBXTextBookmark */;
+			51CE09A1124D9FA800081E32 /* PBXTextBookmark */ = 51CE09A1124D9FA800081E32 /* PBXTextBookmark */;
+			51CE09A5124D9FFE00081E32 /* PBXTextBookmark */ = 51CE09A5124D9FFE00081E32 /* PBXTextBookmark */;
+			51CE09A6124D9FFE00081E32 /* PBXTextBookmark */ = 51CE09A6124D9FFE00081E32 /* PBXTextBookmark */;
+			51CE09A7124D9FFE00081E32 /* PBXTextBookmark */ = 51CE09A7124D9FFE00081E32 /* PBXTextBookmark */;
+			51CE09AB124DA01C00081E32 /* PBXTextBookmark */ = 51CE09AB124DA01C00081E32 /* PBXTextBookmark */;
+			51CE09AF124DA04900081E32 /* PBXTextBookmark */ = 51CE09AF124DA04900081E32 /* PBXTextBookmark */;
+			51CE09B3124DA07A00081E32 /* PBXTextBookmark */ = 51CE09B3124DA07A00081E32 /* PBXTextBookmark */;
+			51CE09B4124DA07A00081E32 /* PBXTextBookmark */ = 51CE09B4124DA07A00081E32 /* PBXTextBookmark */;
+			51CE09B5124DA07A00081E32 /* PBXTextBookmark */ = 51CE09B5124DA07A00081E32 /* PBXTextBookmark */;
+			51CE09B9124DA08700081E32 /* PBXTextBookmark */ = 51CE09B9124DA08700081E32 /* PBXTextBookmark */;
+			51CE09BD124DA09700081E32 /* PBXTextBookmark */ = 51CE09BD124DA09700081E32 /* PBXTextBookmark */;
+			51CE09BF124DA14D00081E32 /* PBXTextBookmark */ = 51CE09BF124DA14D00081E32 /* PBXTextBookmark */;
+			51CE09C0124DA18E00081E32 /* PBXTextBookmark */ = 51CE09C0124DA18E00081E32 /* PBXTextBookmark */;
+			51CE09C5124DA1C400081E32 /* PBXTextBookmark */ = 51CE09C5124DA1C400081E32 /* PBXTextBookmark */;
+			51CE09C6124DA1C400081E32 /* PBXTextBookmark */ = 51CE09C6124DA1C400081E32 /* PBXTextBookmark */;
+			51CE09C7124DA1C400081E32 /* PBXTextBookmark */ = 51CE09C7124DA1C400081E32 /* PBXTextBookmark */;
+			51CE09C9124DA1CD00081E32 /* PBXTextBookmark */ = 51CE09C9124DA1CD00081E32 /* PBXTextBookmark */;
+			51CE09CA124DA1CD00081E32 /* XCBuildMessageTextBookmark */ = 51CE09CA124DA1CD00081E32 /* XCBuildMessageTextBookmark */;
+			51CE09CB124DA1CD00081E32 /* PBXTextBookmark */ = 51CE09CB124DA1CD00081E32 /* PBXTextBookmark */;
+			51CE09CC124DA1CF00081E32 /* PBXTextBookmark */ = 51CE09CC124DA1CF00081E32 /* PBXTextBookmark */;
+			51CE09CF124DA23F00081E32 /* PBXTextBookmark */ = 51CE09CF124DA23F00081E32 /* PBXTextBookmark */;
+			51CE09D3124DA27500081E32 /* PBXTextBookmark */ = 51CE09D3124DA27500081E32 /* PBXTextBookmark */;
+			51CE09D4124DA27500081E32 /* PBXTextBookmark */ = 51CE09D4124DA27500081E32 /* PBXTextBookmark */;
+			51CE09D5124DA27500081E32 /* PBXTextBookmark */ = 51CE09D5124DA27500081E32 /* PBXTextBookmark */;
+			51CE09D9124DA2CD00081E32 /* PBXTextBookmark */ = 51CE09D9124DA2CD00081E32 /* PBXTextBookmark */;
+			51CE09DD124DA2D600081E32 /* PBXTextBookmark */ = 51CE09DD124DA2D600081E32 /* PBXTextBookmark */;
+			51CE09E1124DA2F600081E32 /* PBXTextBookmark */ = 51CE09E1124DA2F600081E32 /* PBXTextBookmark */;
+			51CE09E3124DA32200081E32 /* PBXTextBookmark */ = 51CE09E3124DA32200081E32 /* PBXTextBookmark */;
+			51CE09E6124DA36A00081E32 /* PBXTextBookmark */ = 51CE09E6124DA36A00081E32 /* PBXTextBookmark */;
+			51CE09EA124DA3C900081E32 /* PBXTextBookmark */ = 51CE09EA124DA3C900081E32 /* PBXTextBookmark */;
+			51CE09EE124DA3E700081E32 /* PBXTextBookmark */ = 51CE09EE124DA3E700081E32 /* PBXTextBookmark */;
+			51CE09F2124DA41200081E32 /* PBXTextBookmark */ = 51CE09F2124DA41200081E32 /* PBXTextBookmark */;
+			51CE09F6124DA45F00081E32 /* PBXTextBookmark */ = 51CE09F6124DA45F00081E32 /* PBXTextBookmark */;
+			51CE09FA124DA48200081E32 /* PBXTextBookmark */ = 51CE09FA124DA48200081E32 /* PBXTextBookmark */;
+			51CE0A00124DA49A00081E32 /* XCBuildMessageTextBookmark */ = 51CE0A00124DA49A00081E32 /* XCBuildMessageTextBookmark */;
+			51CE0A01124DA49A00081E32 /* PBXTextBookmark */ = 51CE0A01124DA49A00081E32 /* PBXTextBookmark */;
+			51CE0A04124DA4A100081E32 /* PBXTextBookmark */ = 51CE0A04124DA4A100081E32 /* PBXTextBookmark */;
+			51CE0A08124DA60300081E32 /* XCBuildMessageTextBookmark */ = 51CE0A08124DA60300081E32 /* XCBuildMessageTextBookmark */;
+			51CE0A09124DA60300081E32 /* PBXTextBookmark */ = 51CE0A09124DA60300081E32 /* PBXTextBookmark */;
+			51CE0A0C124DA60500081E32 /* XCBuildMessageTextBookmark */ = 51CE0A0C124DA60500081E32 /* XCBuildMessageTextBookmark */;
+			51CE0A0D124DA60500081E32 /* PBXTextBookmark */ = 51CE0A0D124DA60500081E32 /* PBXTextBookmark */;
+			51CE0A11124DA61100081E32 /* PBXTextBookmark */ = 51CE0A11124DA61100081E32 /* PBXTextBookmark */;
+			51CE0A15124DA64B00081E32 /* PBXTextBookmark */ = 51CE0A15124DA64B00081E32 /* PBXTextBookmark */;
+			51CE0A17124DA65400081E32 /* PBXTextBookmark */ = 51CE0A17124DA65400081E32 /* PBXTextBookmark */;
+			51CE0A1A124DA6B000081E32 /* PBXTextBookmark */ = 51CE0A1A124DA6B000081E32 /* PBXTextBookmark */;
+			51CE0A1D124DA6B800081E32 /* PBXTextBookmark */ = 51CE0A1D124DA6B800081E32 /* PBXTextBookmark */;
+			51CE0A1F124DA6BE00081E32 /* XCBuildMessageTextBookmark */ = 51CE0A1F124DA6BE00081E32 /* XCBuildMessageTextBookmark */;
+			51CE0A20124DA6BE00081E32 /* PBXTextBookmark */ = 51CE0A20124DA6BE00081E32 /* PBXTextBookmark */;
+			51CE0A23124DA72A00081E32 /* PBXTextBookmark */ = 51CE0A23124DA72A00081E32 /* PBXTextBookmark */;
+			51CE0A27124DA79300081E32 /* PBXTextBookmark */ = 51CE0A27124DA79300081E32 /* PBXTextBookmark */;
+			51CE0A2B124DA79F00081E32 /* PBXTextBookmark */ = 51CE0A2B124DA79F00081E32 /* PBXTextBookmark */;
+			51CE0A2F124DA7B100081E32 /* PBXTextBookmark */ = 51CE0A2F124DA7B100081E32 /* PBXTextBookmark */;
+			51CE0A31124DA85C00081E32 /* PBXTextBookmark */ = 51CE0A31124DA85C00081E32 /* PBXTextBookmark */;
+			51CE0A34124DA8CB00081E32 /* PBXTextBookmark */ = 51CE0A34124DA8CB00081E32 /* PBXTextBookmark */;
+			51CE0A38124DA8FD00081E32 /* PBXTextBookmark */ = 51CE0A38124DA8FD00081E32 /* PBXTextBookmark */;
+			51CE0A3C124DA90800081E32 /* PBXTextBookmark */ = 51CE0A3C124DA90800081E32 /* PBXTextBookmark */;
+			51CE0A40124DA93D00081E32 /* PBXTextBookmark */ = 51CE0A40124DA93D00081E32 /* PBXTextBookmark */;
+			51CE0A44124DA94D00081E32 /* PBXTextBookmark */ = 51CE0A44124DA94D00081E32 /* PBXTextBookmark */;
+			51CE0A48124DA98000081E32 /* PBXTextBookmark */ = 51CE0A48124DA98000081E32 /* PBXTextBookmark */;
+			51CE0A4C124DA9C100081E32 /* PBXTextBookmark */ = 51CE0A4C124DA9C100081E32 /* PBXTextBookmark */;
+			51CE0A50124DA9CC00081E32 /* PBXTextBookmark */ = 51CE0A50124DA9CC00081E32 /* PBXTextBookmark */;
+			51CE0A54124DAA3800081E32 /* PBXTextBookmark */ = 51CE0A54124DAA3800081E32 /* PBXTextBookmark */;
+			51CE0A58124DAA4300081E32 /* PBXTextBookmark */ = 51CE0A58124DAA4300081E32 /* PBXTextBookmark */;
+			51CE0A5C124DAA5800081E32 /* PBXTextBookmark */ = 51CE0A5C124DAA5800081E32 /* PBXTextBookmark */;
+			51CE0A60124DAB1400081E32 /* PBXTextBookmark */ = 51CE0A60124DAB1400081E32 /* PBXTextBookmark */;
+			51CE0A64124DAB2600081E32 /* PBXTextBookmark */ = 51CE0A64124DAB2600081E32 /* PBXTextBookmark */;
+			51CE0A68124DACAE00081E32 /* PBXTextBookmark */ = 51CE0A68124DACAE00081E32 /* PBXTextBookmark */;
+			51CE0A6C124DACBC00081E32 /* PBXTextBookmark */ = 51CE0A6C124DACBC00081E32 /* PBXTextBookmark */;
+			51CE0A70124DACFE00081E32 /* PBXTextBookmark */ = 51CE0A70124DACFE00081E32 /* PBXTextBookmark */;
+			51CE0A72124DAD1900081E32 /* PBXTextBookmark */ = 51CE0A72124DAD1900081E32 /* PBXTextBookmark */;
 			51CEFE94124A6C0800081E32 = 51CEFE94124A6C0800081E32 /* PBXTextBookmark */;
 			51CEFE97124A6C8B00081E32 = 51CEFE97124A6C8B00081E32 /* PBXTextBookmark */;
 			51CEFE98124A6C8B00081E32 = 51CEFE98124A6C8B00081E32 /* PBXTextBookmark */;
@@ -765,16 +963,16 @@
 	};
 	51879D1912496B1F00603C7D /* SVGRenderView.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1112, 670}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 693}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 221}";
 		};
 	};
 	51879D1A12496B1F00603C7D /* SVGRenderView.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1112, 693}}";
-			sepNavSelRange = "{518, 0}";
-			sepNavVisRange = "{0, 957}";
+			sepNavIntBoundsRect = "{{0, 0}, {1328, 572}}";
+			sepNavSelRange = "{678, 0}";
+			sepNavVisRange = "{37, 930}";
 		};
 	};
 	51879D2812496C6B00603C7D /* PBXTextBookmark */ = {
@@ -949,15 +1147,15 @@
 	51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1112, 693}}";
-			sepNavSelRange = "{254, 0}";
-			sepNavVisRange = "{0, 316}";
+			sepNavSelRange = "{309, 0}";
+			sepNavVisRange = "{0, 325}";
 		};
 	};
 	51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1112, 10569}}";
-			sepNavSelRange = "{16580, 0}";
-			sepNavVisRange = "{25471, 1474}";
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 12649}}";
+			sepNavSelRange = "{20299, 0}";
+			sepNavVisRange = "{18871, 1683}";
 		};
 	};
 	51CE00E8124AD83400081E32 /* XCBuildMessageTextBookmark */ = {
@@ -974,7 +1172,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 15";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 334;
 		vrLoc = 0;
@@ -984,7 +1182,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 24";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 588;
 		vrLoc = 0;
@@ -1014,7 +1212,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 13";
 		rLen = 0;
-		rLoc = 1947;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1913;
 		vrLoc = 0;
@@ -1044,7 +1242,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 16";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 360;
 		vrLoc = 0;
@@ -1054,7 +1252,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 16";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 360;
 		vrLoc = 0;
@@ -1064,7 +1262,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 22";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1928;
 		vrLoc = 0;
@@ -1084,7 +1282,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 24";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 588;
 		vrLoc = 0;
@@ -1094,7 +1292,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 24";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 578;
 		vrLoc = 0;
@@ -1104,7 +1302,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 24";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 578;
 		vrLoc = 0;
@@ -1114,7 +1312,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 22";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1932;
 		vrLoc = 0;
@@ -1124,7 +1322,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 110";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1231;
 		vrLoc = 2412;
@@ -1134,7 +1332,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 15";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 307;
 		vrLoc = 0;
@@ -1144,7 +1342,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 112";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1449;
 		vrLoc = 2077;
@@ -1154,7 +1352,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 24";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 578;
 		vrLoc = 0;
@@ -1164,7 +1362,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 574;
 		vrLoc = 0;
@@ -1174,7 +1372,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 15";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 307;
 		vrLoc = 0;
@@ -1184,7 +1382,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 15";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 307;
 		vrLoc = 0;
@@ -1194,7 +1392,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 574;
 		vrLoc = 0;
@@ -1204,7 +1402,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 576;
 		vrLoc = 0;
@@ -1214,7 +1412,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1224,7 +1422,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 28";
 		rLen = 0;
-		rLoc = 956;
+		rLoc = 1089;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1234,7 +1432,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 112";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1602;
 		vrLoc = 1828;
@@ -1244,7 +1442,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 28";
 		rLen = 0;
-		rLoc = 956;
+		rLoc = 1089;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1254,7 +1452,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 27";
 		rLen = 0;
-		rLoc = 857;
+		rLoc = 990;
 		rType = 0;
 		vrLen = 921;
 		vrLoc = 0;
@@ -1264,7 +1462,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 857;
+		rLoc = 990;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1274,7 +1472,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 112";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1602;
 		vrLoc = 1828;
@@ -1284,7 +1482,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 22";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2308;
 		vrLoc = 43;
@@ -1294,7 +1492,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 112";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1548;
 		vrLoc = 2460;
@@ -1304,7 +1502,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 115";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1499;
 		vrLoc = 2510;
@@ -1314,7 +1512,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 44";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1514;
 		vrLoc = 2512;
@@ -1324,7 +1522,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 115";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1516;
 		vrLoc = 2512;
@@ -1334,7 +1532,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 115";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1514;
 		vrLoc = 2512;
@@ -1344,7 +1542,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 99";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1582;
 		vrLoc = 1825;
@@ -1354,7 +1552,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 77";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2062;
 		vrLoc = 1180;
@@ -1364,7 +1562,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 46";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2172;
 		vrLoc = 1059;
@@ -1374,7 +1572,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 115";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1640;
 		vrLoc = 2354;
@@ -1384,7 +1582,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 94";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1681;
 		vrLoc = 1750;
@@ -1394,7 +1592,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 94";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1722;
 		vrLoc = 1750;
@@ -1404,7 +1602,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 94";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1740;
 		vrLoc = 1750;
@@ -1414,7 +1612,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 94";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1740;
 		vrLoc = 1750;
@@ -1424,7 +1622,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 857;
+		rLoc = 990;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1434,7 +1632,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 558;
 		vrLoc = 0;
@@ -1444,7 +1642,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 558;
 		vrLoc = 0;
@@ -1454,7 +1652,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 94";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1740;
 		vrLoc = 1750;
@@ -1464,7 +1662,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 86";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1732;
 		vrLoc = 1750;
@@ -1474,7 +1672,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 86";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1732;
 		vrLoc = 1750;
@@ -1484,7 +1682,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1494,7 +1692,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1504,7 +1702,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 94";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1738;
 		vrLoc = 1750;
@@ -1524,7 +1722,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 558;
 		vrLoc = 0;
@@ -1534,7 +1732,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 120";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1455;
 		vrLoc = 3181;
@@ -1544,7 +1742,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 120";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1441;
 		vrLoc = 3181;
@@ -1554,7 +1752,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 114";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1509;
 		vrLoc = 2997;
@@ -1564,7 +1762,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 50";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2010;
 		vrLoc = 594;
@@ -1574,7 +1772,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 49";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2100;
 		vrLoc = 650;
@@ -1584,7 +1782,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 51";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2141;
 		vrLoc = 650;
@@ -1594,7 +1792,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 17";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 368;
 		vrLoc = 0;
@@ -1604,7 +1802,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2109;
 		vrLoc = 523;
@@ -1614,7 +1812,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 17";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 368;
 		vrLoc = 0;
@@ -1625,7 +1823,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 208;
+		rLoc = 238;
 		rType = 1;
 	};
 	51CE01BB124AE17200081E32 /* PBXTextBookmark */ = {
@@ -1633,7 +1831,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 51";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1012;
 		vrLoc = 1012;
@@ -1643,7 +1841,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 63";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1793;
 		vrLoc = 594;
@@ -1653,7 +1851,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 63";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1793;
 		vrLoc = 594;
@@ -1673,7 +1871,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1683,7 +1881,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 556;
 		vrLoc = 0;
@@ -1693,7 +1891,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 63";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1826;
 		vrLoc = 594;
@@ -1703,7 +1901,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 64";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1841;
 		vrLoc = 594;
@@ -1713,7 +1911,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 64";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1841;
 		vrLoc = 594;
@@ -1733,7 +1931,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 80";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2233;
 		vrLoc = 1204;
@@ -1743,7 +1941,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 36";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1878;
 		vrLoc = 385;
@@ -1753,7 +1951,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 36";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1878;
 		vrLoc = 385;
@@ -1793,7 +1991,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 36";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1803;
 		vrLoc = 385;
@@ -1803,7 +2001,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 113";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1709;
 		vrLoc = 2833;
@@ -1813,7 +2011,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 127";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1707;
 		vrLoc = 2833;
@@ -1823,7 +2021,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 64";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 862;
@@ -1833,7 +2031,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 127";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1791;
 		vrLoc = 2758;
@@ -1843,7 +2041,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 64";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 862;
@@ -1853,7 +2051,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 124";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1774;
 		vrLoc = 2758;
@@ -1863,7 +2061,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 127";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1866;
 		vrLoc = 2758;
@@ -1873,7 +2071,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 64";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 862;
@@ -1883,7 +2081,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 127";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1774;
 		vrLoc = 2758;
@@ -1893,7 +2091,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 64";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 862;
@@ -1903,7 +2101,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 104";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1410;
 		vrLoc = 2758;
@@ -1913,7 +2111,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 104";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1379;
 		vrLoc = 2758;
@@ -1923,7 +2121,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 64";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1006;
 		vrLoc = 862;
@@ -1933,7 +2131,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 107";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1774;
 		vrLoc = 2758;
@@ -1943,7 +2141,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 129";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1821;
 		vrLoc = 2758;
@@ -1953,7 +2151,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 129";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1821;
 		vrLoc = 2758;
@@ -1973,7 +2171,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 558;
 		vrLoc = 0;
@@ -1982,8 +2180,8 @@
 		isa = PBXTextBookmark;
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 13";
-		rLen = 41;
-		rLoc = 1885;
+		rLen = 0;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1624;
 		vrLoc = 0;
@@ -1993,7 +2191,7 @@
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
 		name = "SVGQuartzRenderer.h: 18";
 		rLen = 0;
-		rLoc = 308;
+		rLoc = 317;
 		rType = 0;
 		vrLen = 386;
 		vrLoc = 0;
@@ -2003,7 +2201,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 558;
 		vrLoc = 0;
@@ -2013,7 +2211,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 555;
 		vrLoc = 0;
@@ -2023,7 +2221,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 555;
 		vrLoc = 0;
@@ -2042,8 +2240,8 @@
 		isa = PBXTextBookmark;
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 13";
-		rLen = 41;
-		rLoc = 1885;
+		rLen = 0;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1624;
 		vrLoc = 0;
@@ -2053,7 +2251,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 27";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1735;
 		vrLoc = 217;
@@ -2063,7 +2261,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 27";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1735;
 		vrLoc = 217;
@@ -2073,7 +2271,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 555;
 		vrLoc = 0;
@@ -2083,7 +2281,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 27";
 		rLen = 0;
-		rLoc = 621;
+		rLoc = 754;
 		rType = 0;
 		vrLen = 885;
 		vrLoc = 0;
@@ -2093,7 +2291,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 66";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 932;
 		vrLoc = 1282;
@@ -2103,7 +2301,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 66";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 932;
 		vrLoc = 1282;
@@ -2113,7 +2311,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 27";
 		rLen = 0;
-		rLoc = 551;
+		rLoc = 684;
 		rType = 0;
 		vrLen = 887;
 		vrLoc = 0;
@@ -2123,7 +2321,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 66";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 932;
 		vrLoc = 1282;
@@ -2133,7 +2331,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 27";
 		rLen = 0;
-		rLoc = 551;
+		rLoc = 684;
 		rType = 0;
 		vrLen = 887;
 		vrLoc = 0;
@@ -2143,7 +2341,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 27";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1735;
 		vrLoc = 217;
@@ -2153,7 +2351,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 27";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2133;
 		vrLoc = 1952;
@@ -2173,7 +2371,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 907;
 		vrLoc = 0;
@@ -2183,7 +2381,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 21";
 		rLen = 0;
-		rLoc = 2076;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1692;
 		vrLoc = 90;
@@ -2193,7 +2391,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 42";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1643;
 		vrLoc = 0;
@@ -2203,7 +2401,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 66";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2108;
 		vrLoc = 1158;
@@ -2213,7 +2411,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 66";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2108;
 		vrLoc = 1158;
@@ -2223,7 +2421,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 18";
 		rLen = 0;
-		rLoc = 411;
+		rLoc = 459;
 		rType = 0;
 		vrLen = 880;
 		vrLoc = 0;
@@ -2233,7 +2431,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 879;
 		vrLoc = 0;
@@ -2243,7 +2441,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 66";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2022;
 		vrLoc = 1158;
@@ -2253,7 +2451,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 127";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2271;
 		vrLoc = 2201;
@@ -2263,7 +2461,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 121";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2069;
 		vrLoc = 2647;
@@ -2273,7 +2471,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 116";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2121;
 		vrLoc = 2647;
@@ -2283,7 +2481,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 110";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1792;
 		vrLoc = 3011;
@@ -2293,7 +2491,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 127";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1793;
 		vrLoc = 3011;
@@ -2303,7 +2501,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 120";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1769;
 		vrLoc = 3015;
@@ -2313,7 +2511,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 120";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1769;
 		vrLoc = 3015;
@@ -2323,7 +2521,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 879;
 		vrLoc = 0;
@@ -2333,7 +2531,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 877;
 		vrLoc = 0;
@@ -2344,7 +2542,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 433;
+		rLoc = 524;
 		rType = 1;
 	};
 	51CE0276124AEEE500081E32 /* PBXTextBookmark */ = {
@@ -2352,7 +2550,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 161";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 820;
 		vrLoc = 4613;
@@ -2362,7 +2560,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 877;
 		vrLoc = 0;
@@ -2372,7 +2570,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 166";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1405;
 		vrLoc = 4289;
@@ -2382,7 +2580,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 140";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1384;
 		vrLoc = 4289;
@@ -2392,7 +2590,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 160";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1388;
 		vrLoc = 4289;
@@ -2402,7 +2600,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 165";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1252;
 		vrLoc = 4512;
@@ -2412,7 +2610,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 169";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1254;
 		vrLoc = 4512;
@@ -2422,7 +2620,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 165";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1253;
 		vrLoc = 4512;
@@ -2432,7 +2630,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 160";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 681;
 		vrLoc = 4613;
@@ -2443,7 +2641,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 433;
+		rLoc = 524;
 		rType = 1;
 	};
 	51CE0299124AF1D700081E32 /* PBXTextBookmark */ = {
@@ -2451,7 +2649,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 177";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1487;
 		vrLoc = 4927;
@@ -2462,7 +2660,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 433;
+		rLoc = 524;
 		rType = 1;
 	};
 	51CE029B124AF1E500081E32 /* PBXTextBookmark */ = {
@@ -2470,7 +2668,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 177";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1013;
 		vrLoc = 5069;
@@ -2480,7 +2678,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 179";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1495;
 		vrLoc = 4927;
@@ -2490,7 +2688,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 177";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1549;
 		vrLoc = 4927;
@@ -2500,7 +2698,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 176";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1549;
 		vrLoc = 4927;
@@ -2510,7 +2708,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 176";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1549;
 		vrLoc = 4927;
@@ -2520,7 +2718,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 176";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1564;
 		vrLoc = 4927;
@@ -2530,7 +2728,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 181";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1470;
 		vrLoc = 4927;
@@ -2541,7 +2739,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 433;
+		rLoc = 524;
 		rType = 1;
 	};
 	51CE02C5124AF34800081E32 /* PBXTextBookmark */ = {
@@ -2549,7 +2747,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 188";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1145;
 		vrLoc = 5145;
@@ -2559,7 +2757,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 185";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1654;
 		vrLoc = 4927;
@@ -2569,7 +2767,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 183";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1552;
 		vrLoc = 4912;
@@ -2579,7 +2777,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 173";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1533;
 		vrLoc = 4912;
@@ -2589,7 +2787,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 180";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 4918;
@@ -2599,7 +2797,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 180";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1584;
 		vrLoc = 4918;
@@ -2609,7 +2807,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 171";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1659;
 		vrLoc = 4918;
@@ -2619,7 +2817,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 182";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1588;
 		vrLoc = 4918;
@@ -2629,7 +2827,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 184";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1668;
 		vrLoc = 4918;
@@ -2639,7 +2837,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 185";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1726;
 		vrLoc = 4892;
@@ -2649,7 +2847,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 174";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2041;
 		vrLoc = 5276;
@@ -2659,7 +2857,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 201";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2271;
 		vrLoc = 5276;
@@ -2669,7 +2867,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 205";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2305;
 		vrLoc = 5398;
@@ -2679,7 +2877,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 208";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2103;
 		vrLoc = 5276;
@@ -2689,7 +2887,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 208";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2105;
 		vrLoc = 5276;
@@ -2699,7 +2897,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 175";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2103;
 		vrLoc = 5276;
@@ -2709,7 +2907,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 207";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1704;
 		vrLoc = 6224;
@@ -2719,7 +2917,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 231";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1985;
 		vrLoc = 6561;
@@ -2729,7 +2927,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 213";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2462;
 		vrLoc = 5710;
@@ -2740,7 +2938,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 457;
+		rLoc = 546;
 		rType = 1;
 	};
 	51CE030D124BDDC000081E32 /* PBXTextBookmark */ = {
@@ -2748,7 +2946,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 236";
 		rLen = 0;
-		rLoc = 14775;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 808;
 		vrLoc = 7479;
@@ -2758,7 +2956,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 261";
 		rLen = 0;
-		rLoc = 14775;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1548;
 		vrLoc = 0;
@@ -2798,7 +2996,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 261";
 		rLen = 0;
-		rLoc = 14775;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1524;
 		vrLoc = 24;
@@ -2808,7 +3006,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 99";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1753;
 		vrLoc = 1521;
@@ -2819,7 +3017,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 81;
+		rLoc = 98;
 		rType = 1;
 	};
 	51CE0325124BE14B00081E32 /* PBXTextBookmark */ = {
@@ -2837,7 +3035,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 153";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1644;
 		vrLoc = 5495;
@@ -2847,7 +3045,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 268";
 		rLen = 0;
-		rLoc = 16176;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2330;
 		vrLoc = 7261;
@@ -2857,7 +3055,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 284";
 		rLen = 0;
-		rLoc = 16176;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2135;
 		vrLoc = 7745;
@@ -2867,7 +3065,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 296";
 		rLen = 0;
-		rLoc = 16176;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2040;
 		vrLoc = 8375;
@@ -2877,7 +3075,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 210";
 		rLen = 0;
-		rLoc = 16131;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1657;
 		vrLoc = 5504;
@@ -2887,7 +3085,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 327";
 		rLen = 0;
-		rLoc = 17098;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2001;
 		vrLoc = 8135;
@@ -2897,7 +3095,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 327";
 		rLen = 0;
-		rLoc = 17098;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1903;
 		vrLoc = 8135;
@@ -2908,7 +3106,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 511;
+		rLoc = 599;
 		rType = 1;
 	};
 	51CE0337124BE5CF00081E32 /* PBXTextBookmark */ = {
@@ -2916,7 +3114,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 297";
 		rLen = 0;
-		rLoc = 16176;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 935;
 		vrLoc = 9219;
@@ -2926,7 +3124,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 327";
 		rLen = 0;
-		rLoc = 17098;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2007;
 		vrLoc = 8730;
@@ -2936,7 +3134,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 193";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1254;
 		vrLoc = 5518;
@@ -2946,7 +3144,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 192";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1510;
 		vrLoc = 5283;
@@ -2956,7 +3154,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 199";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1510;
 		vrLoc = 5283;
@@ -2966,7 +3164,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 205";
 		rLen = 0;
-		rLoc = 2473;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1485;
 		vrLoc = 5283;
@@ -2976,7 +3174,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 199";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1505;
 		vrLoc = 5558;
@@ -2986,7 +3184,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14624;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1505;
 		vrLoc = 5558;
@@ -2996,7 +3194,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14624;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1505;
 		vrLoc = 5558;
@@ -3006,7 +3204,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14624;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1495;
 		vrLoc = 5558;
@@ -3016,7 +3214,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14624;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 5558;
@@ -3026,7 +3224,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14624;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1497;
 		vrLoc = 5558;
@@ -3036,7 +3234,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14637;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1497;
 		vrLoc = 5558;
@@ -3046,7 +3244,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14624;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1496;
 		vrLoc = 5558;
@@ -3056,7 +3254,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 198";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1497;
 		vrLoc = 5558;
@@ -3066,7 +3264,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14620;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1549;
 		vrLoc = 5488;
@@ -3076,7 +3274,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14624;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1558;
 		vrLoc = 5488;
@@ -3086,7 +3284,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 201";
 		rLen = 0;
-		rLoc = 14560;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1646;
 		vrLoc = 5655;
@@ -3096,7 +3294,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 877;
 		vrLoc = 0;
@@ -3106,7 +3304,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 36";
 		rLen = 0;
-		rLoc = 950;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3116,7 +3314,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 36";
 		rLen = 0;
-		rLoc = 950;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3126,7 +3324,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 201";
 		rLen = 0;
-		rLoc = 14560;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1646;
 		vrLoc = 5655;
@@ -3136,7 +3334,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 160";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1708;
 		vrLoc = 3794;
@@ -3146,7 +3344,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 203";
 		rLen = 0;
-		rLoc = 14620;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1450;
 		vrLoc = 5534;
@@ -3156,7 +3354,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 210";
 		rLen = 0;
-		rLoc = 14775;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1409;
 		vrLoc = 5476;
@@ -3166,7 +3364,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 36";
 		rLen = 0;
-		rLoc = 950;
+		rLoc = 1083;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3176,7 +3374,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 912;
 		vrLoc = 0;
@@ -3186,7 +3384,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 912;
 		vrLoc = 0;
@@ -3206,7 +3404,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 210";
 		rLen = 0;
-		rLoc = 14775;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1394;
 		vrLoc = 0;
@@ -3216,7 +3414,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 75";
 		rLen = 0;
-		rLoc = 4109;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1756;
 		vrLoc = 1100;
@@ -3226,7 +3424,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 78";
 		rLen = 0;
-		rLoc = 4969;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1731;
 		vrLoc = 1100;
@@ -3236,7 +3434,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 27";
 		rLen = 0;
-		rLoc = 743;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1203;
 		vrLoc = 0;
@@ -3246,7 +3444,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 91";
 		rLen = 0;
-		rLoc = 5419;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1841;
 		vrLoc = 1110;
@@ -3256,7 +3454,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 221";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1687;
 		vrLoc = 5801;
@@ -3266,7 +3464,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 249";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1909;
 		vrLoc = 5506;
@@ -3276,7 +3474,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 241";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2033;
 		vrLoc = 6808;
@@ -3287,7 +3485,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 232;
+		rLoc = 264;
 		rType = 1;
 	};
 	51CE0397124BFE6300081E32 /* PBXTextBookmark */ = {
@@ -3295,7 +3493,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 155";
 		rLen = 0;
-		rLoc = 6926;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1265;
 		vrLoc = 3964;
@@ -3305,7 +3503,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 256";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2008;
 		vrLoc = 7003;
@@ -3315,7 +3513,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 256";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2008;
 		vrLoc = 7003;
@@ -3325,7 +3523,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3335,7 +3533,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3345,7 +3543,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3355,7 +3553,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 256";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2152;
 		vrLoc = 6953;
@@ -3365,7 +3563,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 266";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1966;
 		vrLoc = 7541;
@@ -3376,7 +3574,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 329;
+		rLoc = 370;
 		rType = 1;
 	};
 	51CE03B4124C020100081E32 /* PBXTextBookmark */ = {
@@ -3384,7 +3582,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 275";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1220;
 		vrLoc = 7912;
@@ -3394,7 +3592,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 258";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1922;
 		vrLoc = 7600;
@@ -3404,7 +3602,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 277";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1950;
 		vrLoc = 7600;
@@ -3414,7 +3612,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 267";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2062;
 		vrLoc = 7356;
@@ -3424,7 +3622,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 267";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2062;
 		vrLoc = 7356;
@@ -3434,7 +3632,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 500";
 		rLen = 0;
-		rLoc = 26936;
+		rLoc = 32484;
 		rType = 0;
 		vrLen = 1581;
 		vrLoc = 14770;
@@ -3445,7 +3643,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 239;
+		rLoc = 271;
 		rType = 1;
 	};
 	51CE03CE124C049A00081E32 /* PBXTextBookmark */ = {
@@ -3453,7 +3651,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 162";
 		rLen = 0;
-		rLoc = 7376;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1289;
 		vrLoc = 4196;
@@ -3463,7 +3661,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 462";
 		rLen = 0;
-		rLoc = 16176;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1581;
 		vrLoc = 14776;
@@ -3473,7 +3671,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 315";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2184;
 		vrLoc = 9201;
@@ -3483,7 +3681,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 315";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1976;
 		vrLoc = 9442;
@@ -3493,7 +3691,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 315";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1722;
 		vrLoc = 9947;
@@ -3503,7 +3701,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3513,7 +3711,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -3523,7 +3721,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 162";
 		rLen = 0;
-		rLoc = 7376;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1268;
 		vrLoc = 4080;
@@ -3533,7 +3731,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -3544,7 +3742,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 246;
+		rLoc = 279;
 		rType = 1;
 	};
 	51CE03E6124C087C00081E32 /* PBXTextBookmark */ = {
@@ -3552,7 +3750,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 168";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1245;
 		vrLoc = 4271;
@@ -3563,15 +3761,15 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 246;
+		rLoc = 279;
 		rType = 1;
 	};
 	51CE03EA124C08CD00081E32 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 169";
-		rLen = 31;
-		rLoc = 7555;
+		rLen = 0;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1228;
 		vrLoc = 4271;
@@ -3582,7 +3780,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 382;
+		rLoc = 423;
 		rType = 1;
 	};
 	51CE03EE124C08E300081E32 /* PBXTextBookmark */ = {
@@ -3590,7 +3788,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 302";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1085;
 		vrLoc = 9495;
@@ -3600,7 +3798,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -3611,7 +3809,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 382;
+		rLoc = 423;
 		rType = 1;
 	};
 	51CE03F3124C08E500081E32 /* PBXTextBookmark */ = {
@@ -3619,7 +3817,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 301";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1763;
 		vrLoc = 8979;
@@ -3629,7 +3827,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -3639,7 +3837,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 301";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1822;
 		vrLoc = 8920;
@@ -3649,7 +3847,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 299";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1821;
 		vrLoc = 8920;
@@ -3659,7 +3857,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 302";
 		rLen = 0;
-		rLoc = 7586;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 985;
 		vrLoc = 9495;
@@ -3669,7 +3867,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 164";
 		rLen = 0;
-		rLoc = 7462;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2276;
 		vrLoc = 3872;
@@ -3689,7 +3887,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 164";
 		rLen = 0;
-		rLoc = 7462;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2276;
 		vrLoc = 3872;
@@ -3699,7 +3897,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 167";
 		rLen = 0;
-		rLoc = 7504;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2130;
 		vrLoc = 4481;
@@ -3709,7 +3907,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 169";
 		rLen = 0;
-		rLoc = 7504;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1960;
 		vrLoc = 4681;
@@ -3719,7 +3917,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 171";
 		rLen = 0;
-		rLoc = 7551;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1908;
 		vrLoc = 4748;
@@ -3729,7 +3927,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 319";
 		rLen = 0;
-		rLoc = 13636;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 9826;
@@ -3739,7 +3937,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 183";
 		rLen = 0;
-		rLoc = 7981;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2000;
 		vrLoc = 4274;
@@ -3749,7 +3947,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 179";
 		rLen = 0;
-		rLoc = 7924;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2114;
 		vrLoc = 4313;
@@ -3759,7 +3957,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 182";
 		rLen = 0;
-		rLoc = 7981;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2061;
 		vrLoc = 4405;
@@ -3769,7 +3967,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 179";
 		rLen = 0;
-		rLoc = 7981;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2037;
 		vrLoc = 4313;
@@ -3779,7 +3977,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 212";
 		rLen = 0;
-		rLoc = 9112;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1845;
 		vrLoc = 5223;
@@ -3789,7 +3987,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 327";
 		rLen = 0;
-		rLoc = 13818;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1427;
 		vrLoc = 9582;
@@ -3799,7 +3997,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 327";
 		rLen = 0;
-		rLoc = 13818;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1427;
 		vrLoc = 9582;
@@ -3809,7 +4007,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -3819,7 +4017,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -3829,7 +4027,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 327";
 		rLen = 0;
-		rLoc = 13818;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1427;
 		vrLoc = 9582;
@@ -3839,7 +4037,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 67";
 		rLen = 0;
-		rLoc = 2855;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1639;
 		vrLoc = 914;
@@ -3849,7 +4047,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 65";
 		rLen = 0;
-		rLoc = 2798;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1520;
 		vrLoc = 1050;
@@ -3859,7 +4057,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 508";
 		rLen = 0;
-		rLoc = 16666;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1352;
 		vrLoc = 16231;
@@ -3869,7 +4067,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 396";
 		rLen = 0;
-		rLoc = 16131;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2038;
 		vrLoc = 12928;
@@ -3879,7 +4077,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 421";
 		rLen = 0;
-		rLoc = 16176;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2033;
 		vrLoc = 13005;
@@ -3898,8 +4096,8 @@
 		isa = PBXTextBookmark;
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 431";
-		rLen = 41;
-		rLoc = 17123;
+		rLen = 0;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2013;
 		vrLoc = 12994;
@@ -3909,7 +4107,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 407";
 		rLen = 0;
-		rLoc = 16174;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1537;
 		vrLoc = 12424;
@@ -3919,7 +4117,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 123";
 		rLen = 0;
-		rLoc = 6043;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1688;
 		vrLoc = 3107;
@@ -3939,7 +4137,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -3949,7 +4147,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 123";
 		rLen = 0;
-		rLoc = 6043;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1343;
 		vrLoc = 0;
@@ -3959,7 +4157,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 40";
 		rLen = 0;
-		rLoc = 1047;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 376;
@@ -3969,7 +4167,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 50";
 		rLen = 0;
-		rLoc = 1637;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1277;
 		vrLoc = 511;
@@ -3979,7 +4177,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 1688;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1291;
 		vrLoc = 375;
@@ -3989,7 +4187,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 49";
 		rLen = 0;
-		rLoc = 1634;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1298;
 		vrLoc = 400;
@@ -3999,7 +4197,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 496";
 		rLen = 0;
-		rLoc = 22454;
+		rLoc = 26738;
 		rType = 0;
 		vrLen = 1835;
 		vrLoc = 15048;
@@ -4009,7 +4207,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 1688;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1338;
 		vrLoc = 430;
@@ -4019,7 +4217,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 135";
 		rLen = 0;
-		rLoc = 5922;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1626;
 		vrLoc = 2880;
@@ -4029,7 +4227,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 99";
 		rLen = 0;
-		rLoc = 3000;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1581;
 		vrLoc = 1791;
@@ -4039,7 +4237,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 135";
 		rLen = 0;
-		rLoc = 5922;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1567;
 		vrLoc = 3217;
@@ -4049,7 +4247,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 56";
 		rLen = 0;
-		rLoc = 1787;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1919;
 		vrLoc = 14107;
@@ -4059,7 +4257,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 491";
 		rLen = 0;
-		rLoc = 22165;
+		rLoc = 26449;
 		rType = 0;
 		vrLen = 1846;
 		vrLoc = 14782;
@@ -4069,7 +4267,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 503";
 		rLen = 0;
-		rLoc = 22562;
+		rLoc = 26846;
 		rType = 0;
 		vrLen = 1680;
 		vrLoc = 15329;
@@ -4079,7 +4277,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 495";
 		rLen = 0;
-		rLoc = 22423;
+		rLoc = 26707;
 		rType = 0;
 		vrLen = 1842;
 		vrLoc = 15049;
@@ -4089,7 +4287,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 488";
 		rLen = 0;
-		rLoc = 22072;
+		rLoc = 26356;
 		rType = 0;
 		vrLen = 1980;
 		vrLoc = 14300;
@@ -4099,7 +4297,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 513";
 		rLen = 0;
-		rLoc = 22959;
+		rLoc = 27243;
 		rType = 0;
 		vrLen = 1771;
 		vrLoc = 15329;
@@ -4109,7 +4307,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 439";
 		rLen = 0;
-		rLoc = 16689;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1804;
 		vrLoc = 13105;
@@ -4119,7 +4317,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 442";
 		rLen = 0;
-		rLoc = 16942;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1876;
 		vrLoc = 13127;
@@ -4129,7 +4327,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 442";
 		rLen = 0;
-		rLoc = 16922;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1864;
 		vrLoc = 13130;
@@ -4139,7 +4337,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 446";
 		rLen = 0;
-		rLoc = 17067;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1945;
 		vrLoc = 13133;
@@ -4149,7 +4347,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 1675;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1295;
 		vrLoc = 604;
@@ -4159,7 +4357,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 512";
 		rLen = 0;
-		rLoc = 22959;
+		rLoc = 27243;
 		rType = 0;
 		vrLen = 1732;
 		vrLoc = 15263;
@@ -4169,7 +4367,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 99";
 		rLen = 0;
-		rLoc = 3000;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1560;
 		vrLoc = 1798;
@@ -4179,7 +4377,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 510";
 		rLen = 0;
-		rLoc = 22774;
+		rLoc = 27058;
 		rType = 0;
 		vrLen = 1857;
 		vrLoc = 15777;
@@ -4189,7 +4387,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 40";
 		rLen = 0;
-		rLoc = 1066;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1272;
 		vrLoc = 542;
@@ -4199,7 +4397,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 53";
 		rLen = 0;
-		rLoc = 1691;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1306;
 		vrLoc = 604;
@@ -4209,7 +4407,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 1675;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1347;
 		vrLoc = 637;
@@ -4219,7 +4417,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 1675;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1349;
 		vrLoc = 637;
@@ -4229,7 +4427,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 1675;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1349;
 		vrLoc = 637;
@@ -4239,7 +4437,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -4249,7 +4447,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -4259,7 +4457,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -4269,7 +4467,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -4279,7 +4477,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 52";
 		rLen = 0;
-		rLoc = 1675;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1422;
 		vrLoc = 604;
@@ -4289,7 +4487,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 351";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1390;
 		vrLoc = 10658;
@@ -4299,7 +4497,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 357";
 		rLen = 0;
-		rLoc = 13175;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1682;
 		vrLoc = 10518;
@@ -4309,7 +4507,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 15";
 		rLen = 0;
-		rLoc = 361;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1262;
 		vrLoc = 3;
@@ -4319,7 +4517,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 158";
 		rLen = 0;
-		rLoc = 6433;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1918;
 		vrLoc = 3370;
@@ -4329,7 +4527,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 157";
 		rLen = 0;
-		rLoc = 6391;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1914;
 		vrLoc = 3370;
@@ -4339,7 +4537,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 548";
 		rLen = 0;
-		rLoc = 24471;
+		rLoc = 28732;
 		rType = 0;
 		vrLen = 1986;
 		vrLoc = 3439;
@@ -4350,7 +4548,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 772;
+		rLoc = 905;
 		rType = 1;
 	};
 	51CE04EE124C1DEB00081E32 /* PBXTextBookmark */ = {
@@ -4358,7 +4556,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 581";
 		rLen = 32;
-		rLoc = 25856;
+		rLoc = 30179;
 		rType = 0;
 		vrLen = 795;
 		vrLoc = 18079;
@@ -4368,7 +4566,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 581";
 		rLen = 0;
-		rLoc = 25502;
+		rLoc = 29825;
 		rType = 0;
 		vrLen = 1330;
 		vrLoc = 17698;
@@ -4379,7 +4577,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 772;
+		rLoc = 905;
 		rType = 1;
 	};
 	51CE04F1124C1E1600081E32 /* PBXTextBookmark */ = {
@@ -4387,7 +4585,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 582";
 		rLen = 343;
-		rLoc = 25534;
+		rLoc = 29857;
 		rType = 0;
 		vrLen = 831;
 		vrLoc = 18079;
@@ -4398,7 +4596,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 772;
+		rLoc = 905;
 		rType = 1;
 	};
 	51CE04F3124C1E2500081E32 /* PBXTextBookmark */ = {
@@ -4406,7 +4604,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 582";
 		rLen = 0;
-		rLoc = 25543;
+		rLoc = 29866;
 		rType = 0;
 		vrLen = 1348;
 		vrLoc = 17698;
@@ -4417,7 +4615,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 766;
+		rLoc = 899;
 		rType = 1;
 	};
 	51CE04F7124C1E7800081E32 /* PBXTextBookmark */ = {
@@ -4425,7 +4623,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 583";
 		rLen = 54;
-		rLoc = 25588;
+		rLoc = 29911;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 18079;
@@ -4436,7 +4634,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 765;
+		rLoc = 898;
 		rType = 1;
 	};
 	51CE04F9124C1E7900081E32 /* PBXTextBookmark */ = {
@@ -4444,7 +4642,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 582";
 		rLen = 54;
-		rLoc = 25534;
+		rLoc = 29857;
 		rType = 0;
 		vrLen = 1436;
 		vrLoc = 17698;
@@ -4454,7 +4652,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 588";
 		rLen = 0;
-		rLoc = 25938;
+		rLoc = 30261;
 		rType = 0;
 		vrLen = 1443;
 		vrLoc = 17769;
@@ -4464,7 +4662,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 589";
 		rLen = 0;
-		rLoc = 25936;
+		rLoc = 30259;
 		rType = 0;
 		vrLen = 1400;
 		vrLoc = 17876;
@@ -4474,7 +4672,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 583";
 		rLen = 0;
-		rLoc = 25640;
+		rLoc = 29963;
 		rType = 0;
 		vrLen = 1005;
 		vrLoc = 18079;
@@ -4484,7 +4682,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 579";
 		rLen = 0;
-		rLoc = 25472;
+		rLoc = 29795;
 		rType = 0;
 		vrLen = 1312;
 		vrLoc = 17983;
@@ -4494,7 +4692,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 573";
 		rLen = 0;
-		rLoc = 25317;
+		rLoc = 29640;
 		rType = 0;
 		vrLen = 1541;
 		vrLoc = 17626;
@@ -4504,7 +4702,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 566";
 		rLen = 0;
-		rLoc = 25069;
+		rLoc = 29372;
 		rType = 0;
 		vrLen = 1539;
 		vrLoc = 17667;
@@ -4515,7 +4713,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 748;
+		rLoc = 881;
 		rType = 1;
 	};
 	51CE0513124C1FA000081E32 /* PBXTextBookmark */ = {
@@ -4523,7 +4721,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 566";
 		rLen = 43;
-		rLoc = 25027;
+		rLoc = 29330;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 18181;
@@ -4534,7 +4732,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 748;
+		rLoc = 881;
 		rType = 1;
 	};
 	51CE0515124C1FB700081E32 /* PBXTextBookmark */ = {
@@ -4542,7 +4740,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 566";
 		rLen = 0;
-		rLoc = 25038;
+		rLoc = 29341;
 		rType = 0;
 		vrLen = 1587;
 		vrLoc = 17594;
@@ -4552,7 +4750,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 575";
 		rLen = 0;
-		rLoc = 25317;
+		rLoc = 29640;
 		rType = 0;
 		vrLen = 1564;
 		vrLoc = 17667;
@@ -4562,7 +4760,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 581";
 		rLen = 0;
-		rLoc = 25472;
+		rLoc = 29795;
 		rType = 0;
 		vrLen = 1665;
 		vrLoc = 17532;
@@ -4572,7 +4770,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 580";
 		rLen = 0;
-		rLoc = 25472;
+		rLoc = 29795;
 		rType = 0;
 		vrLen = 1658;
 		vrLoc = 17532;
@@ -4582,7 +4780,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 585";
 		rLen = 0;
-		rLoc = 25681;
+		rLoc = 30004;
 		rType = 0;
 		vrLen = 1655;
 		vrLoc = 17535;
@@ -4592,7 +4790,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 591";
 		rLen = 0;
-		rLoc = 25943;
+		rLoc = 30266;
 		rType = 0;
 		vrLen = 1617;
 		vrLoc = 17594;
@@ -4602,7 +4800,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 591";
 		rLen = 0;
-		rLoc = 25943;
+		rLoc = 30266;
 		rType = 0;
 		vrLen = 1500;
 		vrLoc = 17865;
@@ -4612,7 +4810,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 117";
 		rLen = 0;
-		rLoc = 4050;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1979;
 		vrLoc = 2390;
@@ -4622,7 +4820,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 114";
 		rLen = 0;
-		rLoc = 3529;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2064;
 		vrLoc = 2390;
@@ -4632,7 +4830,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 126";
 		rLen = 0;
-		rLoc = 4026;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2351;
 		vrLoc = 2522;
@@ -4642,7 +4840,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 912;
 		vrLoc = 0;
@@ -4662,7 +4860,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 482";
 		rLen = 0;
-		rLoc = 18752;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1924;
 		vrLoc = 15783;
@@ -4672,7 +4870,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 482";
 		rLen = 0;
-		rLoc = 18752;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1828;
 		vrLoc = 15856;
@@ -4682,7 +4880,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 143";
 		rLen = 0;
-		rLoc = 4645;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1846;
 		vrLoc = 2622;
@@ -4702,7 +4900,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 143";
 		rLen = 0;
-		rLoc = 4645;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2091;
 		vrLoc = 15145;
@@ -4712,7 +4910,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 519";
 		rLen = 0;
-		rLoc = 19465;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1991;
 		vrLoc = 15577;
@@ -4722,7 +4920,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 449";
 		rLen = 0;
-		rLoc = 15857;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1583;
 		vrLoc = 13731;
@@ -4732,7 +4930,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 439";
 		rLen = 0;
-		rLoc = 15519;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1766;
 		vrLoc = 13749;
@@ -4742,7 +4940,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 521";
 		rLen = 0;
-		rLoc = 19459;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1840;
 		vrLoc = 16283;
@@ -4752,7 +4950,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 667";
 		rLen = 0;
-		rLoc = 26536;
+		rLoc = 30880;
 		rType = 0;
 		vrLen = 1440;
 		vrLoc = 20963;
@@ -4762,7 +4960,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 433";
 		rLen = 0;
-		rLoc = 14775;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1652;
 		vrLoc = 11542;
@@ -4772,7 +4970,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 638";
 		rLen = 0;
-		rLoc = 25067;
+		rLoc = 29370;
 		rType = 0;
 		vrLen = 960;
 		vrLoc = 16470;
@@ -4782,7 +4980,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 638";
 		rLen = 0;
-		rLoc = 25067;
+		rLoc = 29370;
 		rType = 0;
 		vrLen = 960;
 		vrLoc = 16470;
@@ -4792,7 +4990,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 433";
 		rLen = 0;
-		rLoc = 14775;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1652;
 		vrLoc = 11542;
@@ -4802,7 +5000,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 533";
 		rLen = 0;
-		rLoc = 19465;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2005;
 		vrLoc = 16442;
@@ -4812,7 +5010,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 535";
 		rLen = 0;
-		rLoc = 19465;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1713;
 		vrLoc = 17358;
@@ -4822,7 +5020,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 535";
 		rLen = 0;
-		rLoc = 19568;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1967;
 		vrLoc = 16799;
@@ -4832,7 +5030,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 535";
 		rLen = 0;
-		rLoc = 19559;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2002;
 		vrLoc = 16904;
@@ -4842,7 +5040,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 536";
 		rLen = 0;
-		rLoc = 19568;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2034;
 		vrLoc = 16799;
@@ -4852,7 +5050,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 536";
 		rLen = 0;
-		rLoc = 19568;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1963;
 		vrLoc = 16922;
@@ -4862,7 +5060,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 535";
 		rLen = 0;
-		rLoc = 19502;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1847;
 		vrLoc = 17064;
@@ -4922,7 +5120,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 535";
 		rLen = 0;
-		rLoc = 19502;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1858;
 		vrLoc = 17144;
@@ -4976,7 +5174,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 535";
 		rLen = 0;
-		rLoc = 19502;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1917;
 		vrLoc = 17144;
@@ -5016,7 +5214,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 537";
 		rLen = 0;
-		rLoc = 19568;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2209;
 		vrLoc = 16499;
@@ -5026,7 +5224,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 537";
 		rLen = 0;
-		rLoc = 19560;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2119;
 		vrLoc = 16645;
@@ -5036,7 +5234,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 538";
 		rLen = 0;
-		rLoc = 19568;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2091;
 		vrLoc = 16697;
@@ -5046,7 +5244,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 538";
 		rLen = 0;
-		rLoc = 19568;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2049;
 		vrLoc = 16750;
@@ -5056,7 +5254,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 486";
 		rLen = 0;
-		rLoc = 16666;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1606;
 		vrLoc = 14738;
@@ -5066,7 +5264,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 653";
 		rLen = 0;
-		rLoc = 25067;
+		rLoc = 29370;
 		rType = 0;
 		vrLen = 1052;
 		vrLoc = 15722;
@@ -5076,7 +5274,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 486";
 		rLen = 0;
-		rLoc = 16666;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1679;
 		vrLoc = 14743;
@@ -5096,7 +5294,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 497";
 		rLen = 0;
-		rLoc = 16938;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1575;
 		vrLoc = 4410;
@@ -5106,7 +5304,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -5116,7 +5314,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -5126,7 +5324,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 57";
 		rLen = 0;
-		rLoc = 1675;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1350;
 		vrLoc = 556;
@@ -5136,7 +5334,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 190";
 		rLen = 0;
-		rLoc = 6095;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1622;
 		vrLoc = 4733;
@@ -5146,7 +5344,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 451";
 		rLen = 0;
-		rLoc = 15252;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1653;
 		vrLoc = 4143;
@@ -5166,7 +5364,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 451";
 		rLen = 0;
-		rLoc = 15252;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1562;
 		vrLoc = 4042;
@@ -5176,7 +5374,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -5186,7 +5384,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -5196,7 +5394,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 0;
@@ -5206,7 +5404,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 451";
 		rLen = 0;
-		rLoc = 15252;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1685;
 		vrLoc = 3997;
@@ -5216,7 +5414,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 166";
 		rLen = 0;
-		rLoc = 5249;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1875;
 		vrLoc = 3717;
@@ -5227,7 +5425,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 495;
+		rLoc = 581;
 		rType = 1;
 	};
 	51CE05D2124CFA5500081E32 /* PBXTextBookmark */ = {
@@ -5235,7 +5433,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 468";
 		rLen = 0;
-		rLoc = 15717;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 894;
 		vrLoc = 14708;
@@ -5246,7 +5444,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 805;
+		rLoc = 962;
 		rType = 1;
 	};
 	51CE05D8124CFA6800081E32 /* PBXTextBookmark */ = {
@@ -5254,7 +5452,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 714";
 		rLen = 0;
-		rLoc = 26826;
+		rLoc = 32396;
 		rType = 0;
 		vrLen = 785;
 		vrLoc = 22871;
@@ -5264,7 +5462,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -5275,7 +5473,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 495;
+		rLoc = 581;
 		rType = 1;
 	};
 	51CE05DD124CFA6B00081E32 /* PBXTextBookmark */ = {
@@ -5283,7 +5481,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 444";
 		rLen = 0;
-		rLoc = 14777;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1505;
 		vrLoc = 14244;
@@ -5293,7 +5491,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 549";
 		rLen = 0;
-		rLoc = 19195;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2028;
 		vrLoc = 17372;
@@ -5313,7 +5511,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 549";
 		rLen = 0;
-		rLoc = 19195;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1607;
 		vrLoc = 13997;
@@ -5323,7 +5521,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 539";
 		rLen = 0;
-		rLoc = 18688;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2189;
 		vrLoc = 16797;
@@ -5333,7 +5531,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 210";
 		rLen = 0;
-		rLoc = 6385;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 2016;
 		vrLoc = 5682;
@@ -5343,7 +5541,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 469";
 		rLen = 0;
-		rLoc = 15433;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1387;
 		vrLoc = 14183;
@@ -5353,7 +5551,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 213";
 		rLen = 0;
-		rLoc = 6385;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1534;
 		vrLoc = 5239;
@@ -5363,7 +5561,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 212";
 		rLen = 0;
-		rLoc = 6385;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1519;
 		vrLoc = 5239;
@@ -5373,7 +5571,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -5383,7 +5581,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -5393,7 +5591,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -5403,7 +5601,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 212";
 		rLen = 0;
-		rLoc = 6385;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1716;
 		vrLoc = 5249;
@@ -5413,7 +5611,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 210";
 		rLen = 0;
-		rLoc = 6385;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1883;
 		vrLoc = 5344;
@@ -5423,7 +5621,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 210";
 		rLen = 0;
-		rLoc = 6385;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1883;
 		vrLoc = 5344;
@@ -5433,7 +5631,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -5443,7 +5641,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -5453,7 +5651,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 910;
 		vrLoc = 0;
@@ -5463,7 +5661,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 590";
 		rLen = 0;
-		rLoc = 22423;
+		rLoc = 26707;
 		rType = 0;
 		vrLen = 1761;
 		vrLoc = 18695;
@@ -5473,7 +5671,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 590";
 		rLen = 0;
-		rLoc = 22423;
+		rLoc = 26707;
 		rType = 0;
 		vrLen = 1761;
 		vrLoc = 18695;
@@ -5483,7 +5681,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 0;
@@ -5493,7 +5691,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 481;
+		rLoc = 619;
 		rType = 0;
 		vrLen = 888;
 		vrLoc = 0;
@@ -5513,7 +5711,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 72";
 		rLen = 0;
-		rLoc = 2061;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1250;
 		vrLoc = 491;
@@ -5523,7 +5721,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 26";
 		rLen = 0;
-		rLoc = 635;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1293;
 		vrLoc = 40;
@@ -5533,7 +5731,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 481;
+		rLoc = 619;
 		rType = 0;
 		vrLen = 888;
 		vrLoc = 0;
@@ -5543,7 +5741,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 26";
 		rLen = 0;
-		rLoc = 635;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1293;
 		vrLoc = 40;
@@ -5553,7 +5751,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 67";
 		rLen = 0;
-		rLoc = 1892;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1400;
 		vrLoc = 1077;
@@ -5563,7 +5761,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 567";
 		rLen = 0;
-		rLoc = 21728;
+		rLoc = 26011;
 		rType = 0;
 		vrLen = 2208;
 		vrLoc = 17288;
@@ -5573,7 +5771,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 0;
@@ -5583,7 +5781,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 897;
 		vrLoc = 0;
@@ -5593,7 +5791,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 510;
+		rLoc = 643;
 		rType = 0;
 		vrLen = 909;
 		vrLoc = 0;
@@ -5603,7 +5801,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 510;
+		rLoc = 643;
 		rType = 0;
 		vrLen = 909;
 		vrLoc = 0;
@@ -5613,7 +5811,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 510;
+		rLoc = 643;
 		rType = 0;
 		vrLen = 909;
 		vrLoc = 0;
@@ -5623,7 +5821,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 567";
 		rLen = 0;
-		rLoc = 21728;
+		rLoc = 26011;
 		rType = 0;
 		vrLen = 2208;
 		vrLoc = 17288;
@@ -5633,7 +5831,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 394";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1576;
 		vrLoc = 11988;
@@ -5643,7 +5841,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 401";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1651;
 		vrLoc = 11799;
@@ -5653,7 +5851,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 396";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1757;
 		vrLoc = 11812;
@@ -5663,7 +5861,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 396";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1712;
 		vrLoc = 11903;
@@ -5673,7 +5871,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 393";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1640;
 		vrLoc = 11981;
@@ -5683,7 +5881,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 397";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1433;
 		vrLoc = 12246;
@@ -5693,7 +5891,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 398";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1459;
 		vrLoc = 12254;
@@ -5703,7 +5901,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 397";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1401;
 		vrLoc = 12261;
@@ -5713,7 +5911,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 398";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1323;
 		vrLoc = 12432;
@@ -5723,7 +5921,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 409";
 		rLen = 0;
-		rLoc = 13791;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1237;
 		vrLoc = 12562;
@@ -5733,7 +5931,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 395";
 		rLen = 0;
-		rLoc = 13330;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1276;
 		vrLoc = 12562;
@@ -5743,7 +5941,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 398";
 		rLen = 0;
-		rLoc = 13471;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1267;
 		vrLoc = 12562;
@@ -5763,7 +5961,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 399";
 		rLen = 0;
-		rLoc = 13489;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1362;
 		vrLoc = 12562;
@@ -5773,7 +5971,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 400";
 		rLen = 0;
-		rLoc = 13489;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1304;
 		vrLoc = 12569;
@@ -5783,7 +5981,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 401";
 		rLen = 0;
-		rLoc = 13524;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1357;
 		vrLoc = 12569;
@@ -5793,7 +5991,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 399";
 		rLen = 0;
-		rLoc = 13502;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1452;
 		vrLoc = 12261;
@@ -5803,7 +6001,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 399";
 		rLen = 0;
-		rLoc = 13502;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1452;
 		vrLoc = 12261;
@@ -5813,7 +6011,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 510;
+		rLoc = 643;
 		rType = 0;
 		vrLen = 909;
 		vrLoc = 0;
@@ -5823,7 +6021,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 0;
@@ -5833,7 +6031,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 0;
@@ -5853,7 +6051,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 40";
 		rLen = 0;
-		rLoc = 968;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1344;
 		vrLoc = 650;
@@ -5863,7 +6061,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 543";
 		rLen = 0;
-		rLoc = 18507;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2065;
 		vrLoc = 17383;
@@ -5873,7 +6071,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 572";
 		rLen = 0;
-		rLoc = 21590;
+		rLoc = 25873;
 		rType = 0;
 		vrLen = 2051;
 		vrLoc = 17383;
@@ -5883,7 +6081,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 559";
 		rLen = 0;
-		rLoc = 19114;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2017;
 		vrLoc = 17487;
@@ -5893,7 +6091,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 724";
 		rLen = 0;
-		rLoc = 26649;
+		rLoc = 30993;
 		rType = 0;
 		vrLen = 1575;
 		vrLoc = 22686;
@@ -5913,7 +6111,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 558";
 		rLen = 0;
-		rLoc = 19114;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2193;
 		vrLoc = 17241;
@@ -5923,7 +6121,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 580";
 		rLen = 0;
-		rLoc = 21590;
+		rLoc = 25873;
 		rType = 0;
 		vrLen = 2103;
 		vrLoc = 17962;
@@ -5933,7 +6131,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 589";
 		rLen = 0;
-		rLoc = 21556;
+		rLoc = 25839;
 		rType = 0;
 		vrLen = 1964;
 		vrLoc = 17708;
@@ -5943,7 +6141,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 756";
 		rLen = 0;
-		rLoc = 26916;
+		rLoc = 32464;
 		rType = 0;
 		vrLen = 1452;
 		vrLoc = 23342;
@@ -5953,7 +6151,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 544;
+		rLoc = 677;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 0;
@@ -5962,8 +6160,8 @@
 		isa = PBXTextBookmark;
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 756";
-		rLen = 20;
-		rLoc = 26874;
+		rLen = 0;
+		rLoc = 32442;
 		rType = 0;
 		vrLen = 1506;
 		vrLoc = 23288;
@@ -5973,7 +6171,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 459";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1453;
 		vrLoc = 14592;
@@ -5983,7 +6181,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 447";
 		rLen = 0;
-		rLoc = 14753;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1516;
 		vrLoc = 13710;
@@ -5993,7 +6191,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 97";
 		rLen = 0;
-		rLoc = 2620;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1649;
 		vrLoc = 1787;
@@ -6003,7 +6201,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 474";
 		rLen = 0;
-		rLoc = 15414;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1417;
 		vrLoc = 14520;
@@ -6013,7 +6211,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 461";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1337;
 		vrLoc = 14691;
@@ -6023,7 +6221,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 460";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1342;
 		vrLoc = 0;
@@ -6033,7 +6231,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 25";
 		rLen = 0;
-		rLoc = 544;
+		rLoc = 677;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 0;
@@ -6043,7 +6241,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 24";
 		rLen = 0;
-		rLoc = 479;
+		rLoc = 617;
 		rType = 0;
 		vrLen = 904;
 		vrLoc = 0;
@@ -6053,7 +6251,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 34";
 		rLen = 0;
-		rLoc = 856;
+		rLoc = 989;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 0;
@@ -6063,7 +6261,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 34";
 		rLen = 0;
-		rLoc = 856;
+		rLoc = 989;
 		rType = 0;
 		vrLen = 932;
 		vrLoc = 0;
@@ -6073,7 +6271,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 33";
 		rLen = 0;
-		rLoc = 856;
+		rLoc = 989;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 0;
@@ -6083,7 +6281,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 460";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1342;
 		vrLoc = 0;
@@ -6093,7 +6291,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 756";
 		rLen = 0;
-		rLoc = 26744;
+		rLoc = 32357;
 		rType = 0;
 		vrLen = 1472;
 		vrLoc = 23460;
@@ -6103,7 +6301,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 755";
 		rLen = 0;
-		rLoc = 26744;
+		rLoc = 32357;
 		rType = 0;
 		vrLen = 1450;
 		vrLoc = 23460;
@@ -6113,7 +6311,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 97";
 		rLen = 0;
-		rLoc = 2543;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1822;
 		vrLoc = 2062;
@@ -6123,7 +6321,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 83";
 		rLen = 0;
-		rLoc = 2157;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1443;
 		vrLoc = 1342;
@@ -6133,7 +6331,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 83";
 		rLen = 0;
-		rLoc = 2157;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1782;
 		vrLoc = 5181;
@@ -6143,7 +6341,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 42";
 		rLen = 0;
-		rLoc = 947;
+		rLoc = 1080;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6152,7 +6350,7 @@
 		isa = PBXTextBookmark;
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 16";
-		rLen = 169;
+		rLen = 217;
 		rLoc = 267;
 		rType = 0;
 		vrLen = 957;
@@ -6163,7 +6361,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 54";
 		rLen = 0;
-		rLoc = 1591;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1326;
 		vrLoc = 998;
@@ -6173,7 +6371,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 57";
 		rLen = 0;
-		rLoc = 1390;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1158;
 		vrLoc = 1018;
@@ -6183,7 +6381,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 59";
 		rLen = 0;
-		rLoc = 1518;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1278;
 		vrLoc = 1154;
@@ -6193,7 +6391,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 82";
 		rLen = 0;
-		rLoc = 2016;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1261;
 		vrLoc = 1329;
@@ -6203,7 +6401,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 84";
 		rLen = 0;
-		rLoc = 2059;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1286;
 		vrLoc = 1329;
@@ -6213,7 +6411,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 85";
 		rLen = 0;
-		rLoc = 2059;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1293;
 		vrLoc = 1315;
@@ -6223,7 +6421,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 85";
 		rLen = 0;
-		rLoc = 1949;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1356;
 		vrLoc = 1354;
@@ -6233,7 +6431,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 473";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1277;
 		vrLoc = 14708;
@@ -6243,7 +6441,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 474";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1294;
 		vrLoc = 14711;
@@ -6253,7 +6451,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 475";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1249;
 		vrLoc = 14780;
@@ -6263,7 +6461,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 567";
 		rLen = 0;
-		rLoc = 18587;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2462;
 		vrLoc = 17242;
@@ -6273,7 +6471,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 472";
 		rLen = 0;
-		rLoc = 15116;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1437;
 		vrLoc = 14351;
@@ -6283,7 +6481,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 69";
 		rLen = 0;
-		rLoc = 1635;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1275;
 		vrLoc = 1315;
@@ -6293,7 +6491,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 68";
 		rLen = 0;
-		rLoc = 1635;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1331;
 		vrLoc = 1329;
@@ -6303,7 +6501,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 85";
 		rLen = 0;
-		rLoc = 2015;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1267;
 		vrLoc = 1172;
@@ -6313,7 +6511,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 85";
 		rLen = 0;
-		rLoc = 2015;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1291;
 		vrLoc = 1212;
@@ -6323,7 +6521,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 57";
 		rLen = 0;
-		rLoc = 1409;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1351;
 		vrLoc = 1238;
@@ -6333,7 +6531,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 86";
 		rLen = 0;
-		rLoc = 2014;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1330;
 		vrLoc = 1316;
@@ -6343,7 +6541,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 87";
 		rLen = 0;
-		rLoc = 2058;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1344;
 		vrLoc = 1354;
@@ -6353,7 +6551,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 92";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1278;
 		vrLoc = 1316;
@@ -6363,7 +6561,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 91";
 		rLen = 0;
-		rLoc = 2179;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1304;
 		vrLoc = 1238;
@@ -6373,7 +6571,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 773";
 		rLen = 0;
-		rLoc = 26916;
+		rLoc = 32464;
 		rType = 0;
 		vrLen = 1472;
 		vrLoc = 23582;
@@ -6383,7 +6581,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 773";
 		rLen = 0;
-		rLoc = 26916;
+		rLoc = 32464;
 		rType = 0;
 		vrLen = 1474;
 		vrLoc = 23580;
@@ -6392,7 +6590,7 @@
 		isa = PBXTextBookmark;
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 16";
-		rLen = 169;
+		rLen = 217;
 		rLoc = 267;
 		rType = 0;
 		vrLen = 957;
@@ -6403,7 +6601,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 34";
 		rLen = 0;
-		rLoc = 855;
+		rLoc = 988;
 		rType = 0;
 		vrLen = 978;
 		vrLoc = 0;
@@ -6413,7 +6611,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 33";
 		rLen = 0;
-		rLoc = 855;
+		rLoc = 988;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6433,7 +6631,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 692";
 		rLen = 0;
-		rLoc = 24336;
+		rLoc = 28596;
 		rType = 0;
 		vrLen = 2095;
 		vrLoc = 18543;
@@ -6443,7 +6641,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 606";
 		rLen = 0;
-		rLoc = 21533;
+		rLoc = 25816;
 		rType = 0;
 		vrLen = 2009;
 		vrLoc = 18616;
@@ -6453,7 +6651,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 593";
 		rLen = 0;
-		rLoc = 19805;
+		rLoc = 23245;
 		rType = 0;
 		vrLen = 2084;
 		vrLoc = 18672;
@@ -6463,7 +6661,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 591";
 		rLen = 0;
-		rLoc = 19685;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1960;
 		vrLoc = 18466;
@@ -6473,7 +6671,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 590";
 		rLen = 0;
-		rLoc = 19643;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1949;
 		vrLoc = 18543;
@@ -6483,7 +6681,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 589";
 		rLen = 0;
-		rLoc = 19558;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2098;
 		vrLoc = 18616;
@@ -6493,7 +6691,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 589";
 		rLen = 0;
-		rLoc = 19558;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2140;
 		vrLoc = 18616;
@@ -6503,7 +6701,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 33";
 		rLen = 0;
-		rLoc = 855;
+		rLoc = 988;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6513,7 +6711,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 0;
@@ -6523,7 +6721,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 0;
@@ -6533,7 +6731,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 589";
 		rLen = 0;
-		rLoc = 19558;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2018;
 		vrLoc = 18616;
@@ -6543,7 +6741,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 593";
 		rLen = 0;
-		rLoc = 19805;
+		rLoc = 23245;
 		rType = 0;
 		vrLen = 2022;
 		vrLoc = 18124;
@@ -6553,7 +6751,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 567";
 		rLen = 0;
-		rLoc = 18586;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2346;
 		vrLoc = 17680;
@@ -6563,7 +6761,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 567";
 		rLen = 0;
-		rLoc = 18586;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2075;
 		vrLoc = 18278;
@@ -6573,7 +6771,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 955;
 		vrLoc = 0;
@@ -6583,7 +6781,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 520;
+		rLoc = 651;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6593,7 +6791,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 520;
+		rLoc = 651;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6603,7 +6801,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 567";
 		rLen = 0;
-		rLoc = 18586;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2075;
 		vrLoc = 18278;
@@ -6613,7 +6811,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 593";
 		rLen = 0;
-		rLoc = 19804;
+		rLoc = 23245;
 		rType = 0;
 		vrLen = 2007;
 		vrLoc = 18355;
@@ -6623,7 +6821,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 542";
 		rLen = 0;
-		rLoc = 17419;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 2132;
 		vrLoc = 16801;
@@ -6633,7 +6831,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 606";
 		rLen = 0;
-		rLoc = 20350;
+		rLoc = 24633;
 		rType = 0;
 		vrLen = 2039;
 		vrLoc = 18355;
@@ -6643,7 +6841,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 610";
 		rLen = 0;
-		rLoc = 21070;
+		rLoc = 25353;
 		rType = 0;
 		vrLen = 2145;
 		vrLoc = 18557;
@@ -6653,7 +6851,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 610";
 		rLen = 0;
-		rLoc = 21070;
+		rLoc = 25353;
 		rType = 0;
 		vrLen = 2086;
 		vrLoc = 18625;
@@ -6663,7 +6861,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 612";
 		rLen = 0;
-		rLoc = 21080;
+		rLoc = 25363;
 		rType = 0;
 		vrLen = 2135;
 		vrLoc = 18625;
@@ -6673,7 +6871,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 609";
 		rLen = 0;
-		rLoc = 20577;
+		rLoc = 24860;
 		rType = 0;
 		vrLen = 2056;
 		vrLoc = 18734;
@@ -6683,7 +6881,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 635";
 		rLen = 0;
-		rLoc = 21728;
+		rLoc = 26011;
 		rType = 0;
 		vrLen = 2127;
 		vrLoc = 19313;
@@ -6693,7 +6891,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 522";
 		rLen = 0;
-		rLoc = 16567;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1615;
 		vrLoc = 15420;
@@ -6703,7 +6901,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 523";
 		rLen = 0;
-		rLoc = 16659;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1686;
 		vrLoc = 15442;
@@ -6713,7 +6911,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 136";
 		rLen = 0;
-		rLoc = 3610;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1873;
 		vrLoc = 2984;
@@ -6723,7 +6921,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 136";
 		rLen = 0;
-		rLoc = 3610;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1873;
 		vrLoc = 2984;
@@ -6733,7 +6931,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 953;
 		vrLoc = 0;
@@ -6743,7 +6941,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6753,7 +6951,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 136";
 		rLen = 0;
-		rLoc = 3610;
+		rLoc = 305;
 		rType = 0;
 		vrLen = 1873;
 		vrLoc = 2984;
@@ -6763,7 +6961,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 524";
 		rLen = 0;
-		rLoc = 16580;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1837;
 		vrLoc = 15939;
@@ -6773,7 +6971,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 640";
 		rLen = 0;
-		rLoc = 21542;
+		rLoc = 25825;
 		rType = 0;
 		vrLen = 2181;
 		vrLoc = 19707;
@@ -6783,7 +6981,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 533";
 		rLen = 0;
-		rLoc = 16865;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1918;
 		vrLoc = 16145;
@@ -6793,7 +6991,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 637";
 		rLen = 0;
-		rLoc = 21473;
+		rLoc = 25756;
 		rType = 0;
 		vrLen = 2135;
 		vrLoc = 19749;
@@ -6813,7 +7011,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 637";
 		rLen = 0;
-		rLoc = 21457;
+		rLoc = 25740;
 		rType = 0;
 		vrLen = 2166;
 		vrLoc = 19749;
@@ -6823,7 +7021,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 637";
 		rLen = 0;
-		rLoc = 21457;
+		rLoc = 25740;
 		rType = 0;
 		vrLen = 2166;
 		vrLoc = 19749;
@@ -6843,7 +7041,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 637";
 		rLen = 0;
-		rLoc = 21534;
+		rLoc = 25817;
 		rType = 0;
 		vrLen = 2125;
 		vrLoc = 19749;
@@ -6853,7 +7051,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 606";
 		rLen = 0;
-		rLoc = 20029;
+		rLoc = 24312;
 		rType = 0;
 		vrLen = 2075;
 		vrLoc = 19799;
@@ -6863,7 +7061,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 606";
 		rLen = 0;
-		rLoc = 20029;
+		rLoc = 24312;
 		rType = 0;
 		vrLen = 2125;
 		vrLoc = 19749;
@@ -6873,7 +7071,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 27";
 		rLen = 0;
-		rLoc = 517;
+		rLoc = 644;
 		rType = 0;
 		vrLen = 956;
 		vrLoc = 0;
@@ -6883,7 +7081,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6893,7 +7091,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 26";
 		rLen = 0;
-		rLoc = 518;
+		rLoc = 649;
 		rType = 0;
 		vrLen = 957;
 		vrLoc = 0;
@@ -6903,7 +7101,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 606";
 		rLen = 0;
-		rLoc = 20029;
+		rLoc = 24312;
 		rType = 0;
 		vrLen = 2167;
 		vrLoc = 19707;
@@ -6913,7 +7111,7 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 639";
 		rLen = 0;
-		rLoc = 21542;
+		rLoc = 25825;
 		rType = 0;
 		vrLen = 2043;
 		vrLoc = 20092;
@@ -6923,17 +7121,2013 @@
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 522";
 		rLen = 0;
-		rLoc = 16580;
+		rLoc = 1015;
 		rType = 0;
 		vrLen = 1474;
 		vrLoc = 25471;
+	};
+	51CE07E1124D317300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 775";
+		rLen = 0;
+		rLoc = 29571;
+		rType = 0;
+		vrLen = 1794;
+		vrLoc = 25132;
+	};
+	51CE07E5124D318400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 775";
+		rLen = 0;
+		rLoc = 29571;
+		rType = 0;
+		vrLen = 1794;
+		vrLoc = 25132;
+	};
+	51CE07E6124D318400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE07E8124D319800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE07E9124D319800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 778";
+		rLen = 0;
+		rLoc = 29739;
+		rType = 0;
+		vrLen = 1870;
+		vrLoc = 25132;
+	};
+	51CE07EA124D327800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 415";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1703;
+		vrLoc = 12517;
+	};
+	51CE07EB124D357B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 251";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1908;
+		vrLoc = 6339;
+	};
+	51CE07EC124D358F00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 251";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1909;
+		vrLoc = 6339;
+	};
+	51CE07ED124D361300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 957;
+		vrLoc = 0;
+	};
+	51CE07EE124D361300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 251";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1909;
+		vrLoc = 6339;
+	};
+	51CE07EF124D361300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 251";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1786;
+		vrLoc = 12326;
+	};
+	51CE07F0124D36AF00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 467";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1349;
+		vrLoc = 13985;
+	};
+	51CE07F3124D36C400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 467";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1302;
+		vrLoc = 14034;
+	};
+	51CE07F7124D36F700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 467";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1302;
+		vrLoc = 14034;
+	};
+	51CE07F8124D36F700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 432";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1503;
+		vrLoc = 13697;
+	};
+	51CE07FC124D370E00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 426";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1602;
+		vrLoc = 13375;
+	};
+	51CE0800124D377900081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 481";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1487;
+		vrLoc = 14383;
+	};
+	51CE0804124D37AC00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 481";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1479;
+		vrLoc = 14398;
+	};
+	51CE0808124D382300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 481";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1550;
+		vrLoc = 14398;
+	};
+	51CE0809124D382300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 957;
+		vrLoc = 0;
+	};
+	51CE080A124D382300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE080C124D38D500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE080D124D38D500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 670";
+		rLen = 0;
+		rLoc = 23854;
+		rType = 0;
+		vrLen = 2551;
+		vrLoc = 21384;
+	};
+	51CE0812124D3BB500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0813124D3BB500081E32 /* CWEVertex.m */;
+		name = "CWEVertex.m: 15";
+		rLen = 0;
+		rLoc = 254;
+		rType = 0;
+		vrLen = 397;
+		vrLoc = 0;
+	};
+	51CE0813124D3BB500081E32 /* CWEVertex.m */ = {
+		isa = PBXFileReference;
+		name = CWEVertex.m;
+		path = /Users/joacim/Documents/Projects/CocoaWorldEditor/Classes/CWEVertex.m;
+		sourceTree = "<absolute>";
+	};
+	51CE0814124D3BB500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0815124D3BB500081E32 /* CWEDisplayObject.m */;
+		name = "CWEDisplayObject.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1307;
+		vrLoc = 2499;
+	};
+	51CE0815124D3BB500081E32 /* CWEDisplayObject.m */ = {
+		isa = PBXFileReference;
+		name = CWEDisplayObject.m;
+		path = /Users/joacim/Documents/Projects/CocoaWorldEditor/Classes/CWEDisplayObject.m;
+		sourceTree = "<absolute>";
+	};
+	51CE0816124D3BB500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0817124D3BB500081E32 /* CWEManipulationHandle.m */;
+		name = "CWEManipulationHandle.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1703;
+		vrLoc = 215;
+	};
+	51CE0817124D3BB500081E32 /* CWEManipulationHandle.m */ = {
+		isa = PBXFileReference;
+		name = CWEManipulationHandle.m;
+		path = /Users/joacim/Documents/Projects/CocoaWorldEditor/Classes/CWEManipulationHandle.m;
+		sourceTree = "<absolute>";
+	};
+	51CE0818124D3BB500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0819124D3BB500081E32 /* CWEShape.m */;
+		name = "CWEShape.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1149;
+		vrLoc = 379;
+	};
+	51CE0819124D3BB500081E32 /* CWEShape.m */ = {
+		isa = PBXFileReference;
+		name = CWEShape.m;
+		path = /Users/joacim/Documents/Projects/CocoaWorldEditor/Classes/CWEShape.m;
+		sourceTree = "<absolute>";
+	};
+	51CE081A124D3BB500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 254;
+		rType = 0;
+		vrLen = 316;
+		vrLoc = 0;
+	};
+	51CE081B124D3BB500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 675";
+		rLen = 0;
+		rLoc = 24230;
+		rType = 0;
+		vrLen = 2675;
+		vrLoc = 21017;
+	};
+	51CE081C124D3BB500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 671";
+		rLen = 0;
+		rLoc = 23854;
+		rType = 0;
+		vrLen = 2660;
+		vrLoc = 21017;
+	};
+	51CE0821124D3C1C00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 254;
+		rType = 0;
+		vrLen = 316;
+		vrLoc = 0;
+	};
+	51CE0822124D3C1C00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 671";
+		rLen = 0;
+		rLoc = 23854;
+		rType = 0;
+		vrLen = 2701;
+		vrLoc = 21355;
+	};
+	51CE0823124D3C1C00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 485";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1489;
+		vrLoc = 14483;
+	};
+	51CE0827124D3C5E00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 485";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1668;
+		vrLoc = 13928;
+	};
+	51CE0828124D3C5E00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE0829124D3C5E00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 957;
+		vrLoc = 0;
+	};
+	51CE082D124D3C8600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 957;
+		vrLoc = 0;
+	};
+	51CE082E124D3C8600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 485";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1601;
+		vrLoc = 13995;
+	};
+	51CE082F124D3C8600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 672";
+		rLen = 0;
+		rLoc = 24059;
+		rType = 0;
+		vrLen = 2558;
+		vrLoc = 21139;
+	};
+	51CE0833124D3C9D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 672";
+		rLen = 0;
+		rLoc = 24057;
+		rType = 0;
+		vrLen = 2609;
+		vrLoc = 21088;
+	};
+	51CE0837124D3DFB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 254;
+		rType = 0;
+		vrLen = 316;
+		vrLoc = 0;
+	};
+	51CE0838124D3DFB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 592";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1923;
+		vrLoc = 17810;
+	};
+	51CE0839124D3DFB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 592";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1923;
+		vrLoc = 17810;
+	};
+	51CE083C124D3E2700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 592";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1859;
+		vrLoc = 17888;
+	};
+	51CE0840124D3E5800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 591";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1941;
+		vrLoc = 17945;
+	};
+	51CE0844124D3E8100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 591";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1870;
+		vrLoc = 18059;
+	};
+	51CE0848124D3EEE00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 594";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1997;
+		vrLoc = 18062;
+	};
+	51CE084C124D3F0600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SVGRenderAppDelegate.m */;
+		name = "SVGRenderAppDelegate.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 383;
+		vrLoc = 0;
+	};
+	51CE084D124D3F0600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 590";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1923;
+		vrLoc = 18062;
+	};
+	51CE084E124D3F0600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE0852124D400B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE0853124D400B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 483";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1519;
+		vrLoc = 14575;
+	};
+	51CE0855124D408100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 349";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 2057;
+		vrLoc = 9981;
+	};
+	51CE0858124D422700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 349";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 2053;
+		vrLoc = 10844;
+	};
+	51CE0859124D422700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 953;
+		vrLoc = 0;
+	};
+	51CE085A124D422700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 976;
+		vrLoc = 0;
+	};
+	51CE08CA124D674D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 976;
+		vrLoc = 0;
+	};
+	51CE08CB124D674D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1912496B1F00603C7D /* SVGRenderView.h */;
+		name = "SVGRenderView.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 221;
+		vrLoc = 0;
+	};
+	51CE08CC124D674D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 18";
+		rLen = 0;
+		rLoc = 325;
+		rType = 0;
+		vrLen = 316;
+		vrLoc = 0;
+	};
+	51CE08CD124D674D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 511";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1447;
+		vrLoc = 15118;
+	};
+	51CE08CE124D674D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 25";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1361;
+		vrLoc = 24;
+	};
+	51CE08CF124D686A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 30";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1359;
+		vrLoc = 24;
+	};
+	51CE08D4124D6A6300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 18";
+		rLen = 0;
+		rLoc = 325;
+		rType = 0;
+		vrLen = 316;
+		vrLoc = 0;
+	};
+	51CE08D5124D6A6300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 30";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1359;
+		vrLoc = 24;
+	};
+	51CE08D6124D6A6300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 868";
+		rLen = 0;
+		rLoc = 30340;
+		rType = 0;
+		vrLen = 1865;
+		vrLoc = 27738;
+	};
+	51CE08D9124D6AAB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 18";
+		rLen = 0;
+		rLoc = 325;
+		rType = 0;
+		vrLen = 316;
+		vrLoc = 0;
+	};
+	51CE08DA124D6AAB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 868";
+		rLen = 0;
+		rLoc = 30300;
+		rType = 0;
+		vrLen = 1674;
+		vrLoc = 26497;
+	};
+	51CE08DB124D6AAB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 868";
+		rLen = 0;
+		rLoc = 30300;
+		rType = 0;
+		vrLen = 1633;
+		vrLoc = 28244;
+	};
+	51CE08DC124D6C7D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 317;
+		rType = 0;
+		vrLen = 327;
+		vrLoc = 0;
+	};
+	51CE08DD124D6C7D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 89";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1379;
+		vrLoc = 1448;
+	};
+	51CE08DE124D6C7D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 868";
+		rLen = 0;
+		rLoc = 30300;
+		rType = 0;
+		vrLen = 1830;
+		vrLoc = 27957;
+	};
+	51CE08DF124D6F6500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 484";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1589;
+		vrLoc = 14494;
+	};
+	51CE08E0124D6F8F00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 490";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1673;
+		vrLoc = 14494;
+	};
+	51CE08E1124D700D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 495";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1717;
+		vrLoc = 15437;
+	};
+	51CE08E2124D707900081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 475";
+		rLen = 0;
+		rLoc = 305;
+		rType = 0;
+		vrLen = 1760;
+		vrLoc = 14494;
+	};
+	51CE08E3124D771300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 317;
+		rType = 0;
+		vrLen = 327;
+		vrLoc = 0;
+	};
+	51CE08E4124D771300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 898";
+		rLen = 0;
+		rLoc = 31375;
+		rType = 0;
+		vrLen = 2237;
+		vrLoc = 28630;
+	};
+	51CE08E5124D771300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 41";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1442;
+		vrLoc = 248;
+	};
+	51CE08EC124D786B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0589124CEB0500081E32 /* NSData+Base64.h */;
+		name = "NSData+Base64.h: 5";
+		rLen = 0;
+		rLoc = 114;
+		rType = 0;
+		vrLen = 255;
+		vrLoc = 0;
+	};
+	51CE08ED124D786B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 317;
+		rType = 0;
+		vrLen = 327;
+		vrLoc = 0;
+	};
+	51CE08EE124D786B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 71";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 1375;
+		vrLoc = 1240;
+	};
+	51CE08EF124D786B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 672";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 2648;
+		vrLoc = 20619;
+	};
+	51CE08F4124D7E8B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 675";
+		rLen = 0;
+		rLoc = 1015;
+		rType = 0;
+		vrLen = 2331;
+		vrLoc = 20619;
+	};
+	51CE08F5124D7FD400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE08F6124D7FD400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 28";
+		rLen = 0;
+		rLoc = 755;
+		rType = 0;
+		vrLen = 1442;
+		vrLoc = 0;
+	};
+	51CE08F7124D7FD400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 20";
+		rLen = 0;
+		rLoc = 584;
+		rType = 0;
+		vrLen = 1854;
+		vrLoc = 14603;
+	};
+	51CE08FE124D82FD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE08FF124D82FD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0589124CEB0500081E32 /* NSData+Base64.h */;
+		name = "NSData+Base64.h: 5";
+		rLen = 0;
+		rLoc = 114;
+		rType = 0;
+		vrLen = 255;
+		vrLoc = 0;
+	};
+	51CE0900124D82FD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 679";
+		rLen = 0;
+		rLoc = 22836;
+		rType = 0;
+		vrLen = 2566;
+		vrLoc = 21204;
+	};
+	51CE0901124D82FD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 679";
+		rLen = 0;
+		rLoc = 22836;
+		rType = 0;
+		vrLen = 2566;
+		vrLoc = 21204;
+	};
+	51CE0908124D834900081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 39";
+		rLen = 0;
+		rLoc = 977;
+		rType = 0;
+		vrLen = 1328;
+		vrLoc = 0;
+	};
+	51CE0909124D836200081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 41";
+		rLen = 0;
+		rLoc = 1013;
+		rType = 0;
+		vrLen = 1329;
+		vrLoc = 0;
+	};
+	51CE090C124D838E00081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected '=', ',', ';', 'asm' or '__attribute__' before 'struct'";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 47;
+		rType = 1;
+	};
+	51CE090D124D838E00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 43";
+		rLen = 60;
+		rLoc = 1128;
+		rType = 0;
+		vrLen = 788;
+		vrLoc = 0;
+	};
+	51CE091A124D848600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 43";
+		rLen = 0;
+		rLoc = 1164;
+		rType = 0;
+		vrLen = 788;
+		vrLoc = 0;
+	};
+	51CE0925124D850A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0589124CEB0500081E32 /* NSData+Base64.h */;
+		name = "NSData+Base64.h: 5";
+		rLen = 0;
+		rLoc = 114;
+		rType = 0;
+		vrLen = 255;
+		vrLoc = 0;
+	};
+	51CE0926124D850A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 976;
+		vrLoc = 0;
+	};
+	51CE0927124D850A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE0928124D850A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 689";
+		rLen = 0;
+		rLoc = 23478;
+		rType = 0;
+		vrLen = 2518;
+		vrLoc = 20940;
+	};
+	51CE0929124D850A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 689";
+		rLen = 0;
+		rLoc = 23478;
+		rType = 0;
+		vrLen = 2518;
+		vrLoc = 20940;
+	};
+	51CE093A124D863100081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'fillOpacity' undeclared (first use in this function)";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 782;
+		rType = 1;
+	};
+	51CE093B124D863100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 54";
+		rLen = 11;
+		rLoc = 1341;
+		rType = 0;
+		vrLen = 842;
+		vrLoc = 1068;
+	};
+	51CE0958124D879300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0589124CEB0500081E32 /* NSData+Base64.h */;
+		name = "NSData+Base64.h: 5";
+		rLen = 0;
+		rLoc = 114;
+		rType = 0;
+		vrLen = 255;
+		vrLoc = 0;
+	};
+	51CE0959124D879300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE095A124D879300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 916";
+		rLen = 0;
+		rLoc = 31284;
+		rType = 0;
+		vrLen = 2080;
+		vrLoc = 30016;
+	};
+	51CE095B124D879300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1954;
+		vrLoc = 18300;
+	};
+	51CE0962124D888800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE0963124D888800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 99";
+		rLen = 62;
+		rLoc = 2309;
+		rType = 0;
+		vrLen = 1445;
+		vrLoc = 1944;
+	};
+	51CE0964124D888800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 976;
+		vrLoc = 0;
+	};
+	51CE0965124D888800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 27";
+		rLen = 0;
+		rLoc = 678;
+		rType = 0;
+		vrLen = 1050;
+		vrLoc = 0;
+	};
+	51CE0968124D88A900081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 17;
+		rLoc = 569;
+		rType = 0;
+		vrLen = 1050;
+		vrLoc = 0;
+	};
+	51CE096B124D893700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 26";
+		rLen = 0;
+		rLoc = 566;
+		rType = 0;
+		vrLen = 1063;
+		vrLoc = 0;
+	};
+	51CE096F124D894D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 27";
+		rLen = 0;
+		rLoc = 649;
+		rType = 0;
+		vrLen = 1042;
+		vrLoc = 0;
+	};
+	51CE0975124D8A7D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 29";
+		rLen = 0;
+		rLoc = 678;
+		rType = 0;
+		vrLen = 1048;
+		vrLoc = 0;
+	};
+	51CE0976124D8A7D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE0977124D8A7D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 603";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 2051;
+		vrLoc = 18513;
+	};
+	51CE0978124D8A7D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 603";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1976;
+		vrLoc = 18588;
+	};
+	51CE097A124D8A8500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 54";
+		rLen = 11;
+		rLoc = 1341;
+		rType = 0;
+		vrLen = 757;
+		vrLoc = 1188;
+	};
+	51CE097B124D8A8500081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'CG' was not declared in this scope";
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 27;
+		rType = 1;
+	};
+	51CE097C124D8A8500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 27";
+		rLen = 0;
+		rLoc = 678;
+		rType = 0;
+		vrLen = 904;
+		vrLoc = 37;
+	};
+	51CE097F124D8AA800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 2071;
+		vrLoc = 18593;
+	};
+	51CE0983124D8B1100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 520";
+		rLen = 0;
+		rLoc = 16593;
+		rType = 0;
+		vrLen = 1620;
+		vrLoc = 15281;
+	};
+	51CE0987124D8B3600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 489";
+		rLen = 0;
+		rLoc = 15555;
+		rType = 0;
+		vrLen = 1719;
+		vrLoc = 15008;
+	};
+	51CE098B124D8B5A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 486";
+		rLen = 0;
+		rLoc = 15440;
+		rType = 0;
+		vrLen = 1825;
+		vrLoc = 14853;
+	};
+	51CE098F124D8B8A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 521";
+		rLen = 0;
+		rLoc = 16589;
+		rType = 0;
+		vrLen = 1663;
+		vrLoc = 15045;
+	};
+	51CE0993124D8BDB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 520";
+		rLen = 0;
+		rLoc = 16589;
+		rType = 0;
+		vrLen = 1674;
+		vrLoc = 15452;
+	};
+	51CE0999124D9E8300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 497";
+		rLen = 0;
+		rLoc = 15767;
+		rType = 0;
+		vrLen = 1810;
+		vrLoc = 14805;
+	};
+	51CE099D124D9F6500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 526";
+		rLen = 0;
+		rLoc = 16659;
+		rType = 0;
+		vrLen = 1560;
+		vrLoc = 15335;
+	};
+	51CE09A1124D9FA800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 498";
+		rLen = 0;
+		rLoc = 15849;
+		rType = 0;
+		vrLen = 1485;
+		vrLoc = 15281;
+	};
+	51CE09A5124D9FFE00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 483";
+		rLen = 58;
+		rLoc = 15375;
+		rType = 0;
+		vrLen = 1791;
+		vrLoc = 14805;
+	};
+	51CE09A6124D9FFE00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE09A7124D9FFE00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 31";
+		rLen = 0;
+		rLoc = 678;
+		rType = 0;
+		vrLen = 1160;
+		vrLoc = 0;
+	};
+	51CE09AB124DA01C00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 29";
+		rLen = 0;
+		rLoc = 617;
+		rType = 0;
+		vrLen = 1158;
+		vrLoc = 0;
+	};
+	51CE09AF124DA04900081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 20";
+		rLen = 0;
+		rLoc = 459;
+		rType = 0;
+		vrLen = 1206;
+		vrLoc = 0;
+	};
+	51CE09B3124DA07A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 27";
+		rLen = 0;
+		rLoc = 617;
+		rType = 0;
+		vrLen = 1090;
+		vrLoc = 0;
+	};
+	51CE09B4124DA07A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 483";
+		rLen = 58;
+		rLoc = 15375;
+		rType = 0;
+		vrLen = 1791;
+		vrLoc = 14805;
+	};
+	51CE09B5124DA07A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 605";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1831;
+		vrLoc = 18278;
+	};
+	51CE09B9124DA08700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 603";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1912;
+		vrLoc = 18283;
+	};
+	51CE09BD124DA09700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1907;
+		vrLoc = 18338;
+	};
+	51CE09BF124DA14D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 53";
+		rLen = 0;
+		rLoc = 1333;
+		rType = 0;
+		vrLen = 1340;
+		vrLoc = 1111;
+	};
+	51CE09C0124DA18E00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 659";
+		rLen = 0;
+		rLoc = 21759;
+		rType = 0;
+		vrLen = 1814;
+		vrLoc = 17998;
+	};
+	51CE09C5124DA1C400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
+		name = "SVGQuartzRenderer.h: 15";
+		rLen = 0;
+		rLoc = 309;
+		rType = 0;
+		vrLen = 325;
+		vrLoc = 0;
+	};
+	51CE09C6124DA1C400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1823;
+		vrLoc = 17998;
+	};
+	51CE09C7124DA1C400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1818;
+		vrLoc = 18005;
+	};
+	51CE09C9124DA1CD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
+		name = "SVGRenderView.mm: 28";
+		rLen = 0;
+		rLoc = 678;
+		rType = 0;
+		vrLen = 930;
+		vrLoc = 37;
+	};
+	51CE09CA124DA1CD00081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'CGContext' undeclared (first use in this function)";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 103;
+		rType = 1;
+	};
+	51CE09CB124DA1CD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 102";
+		rLen = 0;
+		rLoc = 2507;
+		rType = 0;
+		vrLen = 735;
+		vrLoc = 1990;
+	};
+	51CE09CC124DA1CF00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1818;
+		vrLoc = 18005;
+	};
+	51CE09CF124DA23F00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 102";
+		rLen = 0;
+		rLoc = 2507;
+		rType = 0;
+		vrLen = 1426;
+		vrLoc = 1921;
+	};
+	51CE09D3124DA27500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0589124CEB0500081E32 /* NSData+Base64.h */;
+		name = "NSData+Base64.h: 5";
+		rLen = 0;
+		rLoc = 114;
+		rType = 0;
+		vrLen = 255;
+		vrLoc = 0;
+	};
+	51CE09D4124DA27500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 102";
+		rLen = 0;
+		rLoc = 2507;
+		rType = 0;
+		vrLen = 1442;
+		vrLoc = 1921;
+	};
+	51CE09D5124DA27500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1947;
+		vrLoc = 18178;
+	};
+	51CE09D9124DA2CD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1956;
+		vrLoc = 18183;
+	};
+	51CE09DD124DA2D600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1911;
+		vrLoc = 18231;
+	};
+	51CE09E1124DA2F600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1856;
+		vrLoc = 18330;
+	};
+	51CE09E3124DA32200081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 659";
+		rLen = 0;
+		rLoc = 21759;
+		rType = 0;
+		vrLen = 2571;
+		vrLoc = 20378;
+	};
+	51CE09E6124DA36A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1884;
+		vrLoc = 18129;
+	};
+	51CE09EA124DA3C900081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1960;
+		vrLoc = 18281;
+	};
+	51CE09EE124DA3E700081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1927;
+		vrLoc = 18283;
+	};
+	51CE09F2124DA41200081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1951;
+		vrLoc = 18377;
+	};
+	51CE09F6124DA45F00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 764";
+		rLen = 0;
+		rLoc = 26268;
+		rType = 0;
+		vrLen = 1771;
+		vrLoc = 25399;
+	};
+	51CE09FA124DA48200081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1955;
+		vrLoc = 18126;
+	};
+	51CE0A00124DA49A00081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Incompatible type for argument 2 of 'CGContextSetFillColor'";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 0;
+		rLoc = 625;
+		rType = 1;
+	};
+	51CE0A01124DA49A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1177;
+		vrLoc = 18512;
+	};
+	51CE0A04124DA4A100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 599";
+		rLen = 0;
+		rLoc = 19608;
+		rType = 0;
+		vrLen = 2003;
+		vrLoc = 18131;
+	};
+	51CE0A08124DA60300081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Too few arguments to function 'CGColorCreateGenericRGB'";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 679;
+		rType = 1;
+	};
+	51CE0A09124DA60300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 658";
+		rLen = 0;
+		rLoc = 21759;
+		rType = 0;
+		vrLen = 1278;
+		vrLoc = 20848;
+	};
+	51CE0A0C124DA60500081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Too few arguments to function 'CGColorCreateGenericRGB'";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 679;
+		rType = 1;
+	};
+	51CE0A0D124DA60500081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 658";
+		rLen = 0;
+		rLoc = 21759;
+		rType = 0;
+		vrLen = 2450;
+		vrLoc = 20238;
+	};
+	51CE0A11124DA61100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 658";
+		rLen = 0;
+		rLoc = 21759;
+		rType = 0;
+		vrLen = 2327;
+		vrLoc = 20378;
+	};
+	51CE0A15124DA64B00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 763";
+		rLen = 0;
+		rLoc = 26270;
+		rType = 0;
+		vrLen = 1792;
+		vrLoc = 24994;
+	};
+	51CE0A17124DA65400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 761";
+		rLen = 0;
+		rLoc = 26270;
+		rType = 0;
+		vrLen = 1800;
+		vrLoc = 24994;
+	};
+	51CE0A1A124DA6B000081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 763";
+		rLen = 0;
+		rLoc = 26270;
+		rType = 0;
+		vrLen = 1832;
+		vrLoc = 24994;
+	};
+	51CE0A1D124DA6B800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 763";
+		rLen = 0;
+		rLoc = 26270;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 25074;
+	};
+	51CE0A1F124DA6BE00081E32 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Incompatible types in initialization";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 782;
+		rType = 1;
+	};
+	51CE0A20124DA6BE00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 762";
+		rLen = 0;
+		rLoc = 26270;
+		rType = 0;
+		vrLen = 1051;
+		vrLoc = 25453;
+	};
+	51CE0A23124DA72A00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 604";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1901;
+		vrLoc = 18278;
+	};
+	51CE0A27124DA79300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 630";
+		rLen = 0;
+		rLoc = 19945;
+		rType = 0;
+		vrLen = 1784;
+		vrLoc = 18811;
+	};
+	51CE0A2B124DA79F00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 636";
+		rLen = 0;
+		rLoc = 20170;
+		rType = 0;
+		vrLen = 1772;
+		vrLoc = 18854;
+	};
+	51CE0A2F124DA7B100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 635";
+		rLen = 0;
+		rLoc = 20117;
+		rType = 0;
+		vrLen = 1899;
+		vrLoc = 18875;
+	};
+	51CE0A31124DA85C00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 91";
+		rLen = 0;
+		rLoc = 2155;
+		rType = 0;
+		vrLen = 1851;
+		vrLoc = 26317;
+	};
+	51CE0A34124DA8CB00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 634";
+		rLen = 0;
+		rLoc = 20093;
+		rType = 0;
+		vrLen = 1954;
+		vrLoc = 19130;
+	};
+	51CE0A38124DA8FD00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 624";
+		rLen = 0;
+		rLoc = 19705;
+		rType = 0;
+		vrLen = 1941;
+		vrLoc = 18857;
+	};
+	51CE0A3C124DA90800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 602";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1911;
+		vrLoc = 18935;
+	};
+	51CE0A40124DA93D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 606";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 18789;
+	};
+	51CE0A44124DA94D00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 606";
+		rLen = 0;
+		rLoc = 19704;
+		rType = 0;
+		vrLen = 1846;
+		vrLoc = 18804;
+	};
+	51CE0A48124DA98000081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 636";
+		rLen = 0;
+		rLoc = 20390;
+		rType = 0;
+		vrLen = 1887;
+		vrLoc = 18836;
+	};
+	51CE0A4C124DA9C100081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 611";
+		rLen = 0;
+		rLoc = 20170;
+		rType = 0;
+		vrLen = 1703;
+		vrLoc = 18613;
+	};
+	51CE0A50124DA9CC00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 611";
+		rLen = 0;
+		rLoc = 20170;
+		rType = 0;
+		vrLen = 1751;
+		vrLoc = 18615;
+	};
+	51CE0A54124DAA3800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 610";
+		rLen = 0;
+		rLoc = 20096;
+		rType = 0;
+		vrLen = 1851;
+		vrLoc = 18657;
+	};
+	51CE0A58124DAA4300081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 609";
+		rLen = 0;
+		rLoc = 20047;
+		rType = 0;
+		vrLen = 1840;
+		vrLoc = 18789;
+	};
+	51CE0A5C124DAA5800081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 610";
+		rLen = 0;
+		rLoc = 20096;
+		rType = 0;
+		vrLen = 1817;
+		vrLoc = 18804;
+	};
+	51CE0A60124DAB1400081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 639";
+		rLen = 0;
+		rLoc = 20390;
+		rType = 0;
+		vrLen = 1846;
+		vrLoc = 18838;
+	};
+	51CE0A64124DAB2600081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 624";
+		rLen = 0;
+		rLoc = 19606;
+		rType = 0;
+		vrLen = 1778;
+		vrLoc = 18614;
+	};
+	51CE0A68124DACAE00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 640";
+		rLen = 0;
+		rLoc = 20248;
+		rType = 0;
+		vrLen = 1720;
+		vrLoc = 18657;
+	};
+	51CE0A6C124DACBC00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 606";
+		rLen = 0;
+		rLoc = 19031;
+		rType = 0;
+		vrLen = 1592;
+		vrLoc = 18789;
+	};
+	51CE0A70124DACFE00081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 642";
+		rLen = 0;
+		rLoc = 20299;
+		rType = 0;
+		vrLen = 1631;
+		vrLoc = 18871;
+	};
+	51CE0A72124DAD1900081E32 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 642";
+		rLen = 0;
+		rLoc = 20299;
+		rType = 0;
+		vrLen = 1683;
+		vrLoc = 18871;
 	};
 	51CEFE94124A6C0800081E32 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 47";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 1332;
 		vrLoc = 764;
@@ -6943,7 +9137,7 @@
 		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */;
 		name = "SVGRenderView.mm: 57";
 		rLen = 0;
-		rLoc = 545;
+		rLoc = 678;
 		rType = 0;
 		vrLen = 1418;
 		vrLoc = 1341;

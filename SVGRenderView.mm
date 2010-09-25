@@ -17,13 +17,15 @@ SVGQuartzRenderer *renderer;
     self = [super initWithFrame:frame];
     if (self) {
         renderer = [[SVGQuartzRenderer alloc] init];
+		[self setFrame:NSMakeRect(0, 0, 2000, 2000)];
     }
     return self;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
     
-	[renderer imageFromSVGFile:@"/drawing.svg" view:(NSView *)self];
+	CGContextRef myContext = (CGContext *)[[NSGraphicsContext currentContext] graphicsPort];
+	[renderer drawSVGFile:@"/tiger.svg" inCGContext:myContext];
 	
 	//[self setFrame:NSMakeRect(0, 0, rendered.size.width, rendered.size.height)];
 	
