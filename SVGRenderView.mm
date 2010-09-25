@@ -25,7 +25,7 @@ SVGQuartzRenderer *renderer;
 - (void)drawRect:(NSRect)dirtyRect {
     
 	CGContextRef myContext = (CGContext *)[[NSGraphicsContext currentContext] graphicsPort];
-	[renderer drawSVGFile:@"/tiger.svg" inCGContext:myContext];
+	[renderer drawSVGFile:@"/drawing.svg" inCGContext:myContext];
 	
 	//[self setFrame:NSMakeRect(0, 0, rendered.size.width, rendered.size.height)];
 	

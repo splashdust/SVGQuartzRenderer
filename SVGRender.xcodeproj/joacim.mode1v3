@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51CE0A72124DAD1900081E32</string>
+										<string>51CE0AF0124E3DCE00081E32</string>
 										<key>history</key>
 										<array>
 											<string>51879D431249759B00603C7D</string>
@@ -340,12 +340,12 @@
 											<string>51CE0814124D3BB500081E32</string>
 											<string>51CE0816124D3BB500081E32</string>
 											<string>51CE0818124D3BB500081E32</string>
-											<string>51CE084C124D3F0600081E32</string>
 											<string>51CE08CB124D674D00081E32</string>
-											<string>51CE09B3124DA07A00081E32</string>
-											<string>51CE09C5124DA1C400081E32</string>
 											<string>51CE09D3124DA27500081E32</string>
-											<string>51CE0A0C124DA60500081E32</string>
+											<string>51CE0A78124E359F00081E32</string>
+											<string>51CE0A7D124E364500081E32</string>
+											<string>51CE0ACB124E3B5000081E32</string>
+											<string>51CE0ACC124E3B5000081E32</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -543,10 +543,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>51CE0AF1124E3DCE00081E32</string>
 		<string>51CE00F7124AD86900081E32</string>
 		<string>51CE00F8124AD86900081E32</string>
-		<string>51879C401249694700603C7D</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>51879C401249694700603C7D</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/joacim/Documents/Projects/SVGRender/SVGRender.xcodeproj</string>
 	</array>
@@ -583,7 +584,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1389, 429}}</string>
 								<key>RubberWindowFrame</key>
-								<string>418 101 1389 777 0 0 1440 878 </string>
+								<string>51 101 1389 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -607,7 +608,7 @@
 								<key>Frame</key>
 								<string>{{0, 434}, {1389, 302}}</string>
 								<key>RubberWindowFrame</key>
-								<string>418 101 1389 777 0 0 1440 878 </string>
+								<string>51 101 1389 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -639,11 +640,11 @@
 			<key>WindowContentMinSize</key>
 			<string>486 300</string>
 			<key>WindowString</key>
-			<string>418 101 1389 777 0 0 1440 878 </string>
+			<string>51 101 1389 777 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>51879C401249694700603C7D</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
