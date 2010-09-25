@@ -271,7 +271,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>7</integer>
+									<integer>5</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -314,7 +314,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>SVGQuartzRenderer.m</string>
+								<string>SVGRenderView.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -322,11 +322,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>SVGQuartzRenderer.m</string>
+										<string>SVGRenderView.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51CE0AF0124E3DCE00081E32</string>
+										<string>51CE0CDA124E666700081E32</string>
 										<key>history</key>
 										<array>
 											<string>51879D431249759B00603C7D</string>
@@ -340,12 +340,12 @@
 											<string>51CE0814124D3BB500081E32</string>
 											<string>51CE0816124D3BB500081E32</string>
 											<string>51CE0818124D3BB500081E32</string>
-											<string>51CE08CB124D674D00081E32</string>
-											<string>51CE09D3124DA27500081E32</string>
-											<string>51CE0A78124E359F00081E32</string>
-											<string>51CE0A7D124E364500081E32</string>
-											<string>51CE0ACB124E3B5000081E32</string>
-											<string>51CE0ACC124E3B5000081E32</string>
+											<string>51CE0B8E124E4E7E00081E32</string>
+											<string>51CE0CC4124E656500081E32</string>
+											<string>51CE0CD6124E666700081E32</string>
+											<string>51CE0CD7124E666700081E32</string>
+											<string>51CE0CD8124E666700081E32</string>
+											<string>51CE0CD9124E666700081E32</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -543,11 +543,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>51CE0AF1124E3DCE00081E32</string>
+		<string>51CE0CDB124E666700081E32</string>
 		<string>51CE00F7124AD86900081E32</string>
 		<string>51CE00F8124AD86900081E32</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>51879C401249694700603C7D</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/joacim/Documents/Projects/SVGRender/SVGRender.xcodeproj</string>
 	</array>
@@ -568,8 +568,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -592,6 +590,8 @@
 							<string>429pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -644,7 +644,7 @@
 			<key>WindowToolGUID</key>
 			<string>51879C401249694700603C7D</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

@@ -1,6 +1,6 @@
 //
-//  SVGWorldParser.m
-//  StuntBike X
+//  SVGQuartzRenderer.m
+//  SVGRender
 //
 //  Created by Joacim Magnusson on 2010-09-20.
 //  Copyright 2010 Joacim Magnusson. All rights reserved.
@@ -12,16 +12,19 @@
 @interface SVGQuartzRenderer (hidden)
 
 	- (void)setStyleContext:(NSString *)style;
-	- (void)drawCurrentPathWithStyle:(NSString *)style;
+	- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style;
 	- (void)applyTransformations:(NSString *)transformations;
 	- (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier;
 	
-	void CGContextAddRoundRect(CGContextRef context, CGRect rect, float radius);
+	void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius);
 	void drawImagePattern(void *fillPatDescriptor, CGContextRef context);
 
 @end
 
 @implementation SVGQuartzRenderer
+
+@synthesize documentSize;
+@synthesize delegate;
 
 struct FillPatternDescriptor {
 	CGImageRef imgRef;
@@ -32,8 +35,8 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 											  CGContextRef context);
 
 NSXMLParser* xmlParser;
+NSString *svgFileName;
 CGAffineTransform transform;
-CGSize documentSize;
 CGContextRef cgContext;
 NSMutableDictionary *defDict;
 FillPatternDescriptor desc;
@@ -59,7 +62,8 @@ CGLineCap lineCapStyle;
 float miterLimit;
 CGPatternRef fillPattern;
 NSString *fillType;
-NSGradient *fillGradient;
+CGGradientRef fillGradient;
+CGPoint fillGradientPoints[2];
 int fillGradientAngle;
 CGPoint fillGradientCenterPoint;
 // -------------------------------------------------------------------------
@@ -73,6 +77,11 @@ CGPoint fillGradientCenterPoint;
 		defDict = [[NSMutableDictionary alloc] init];
     }
     return self;
+}
+
+- (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate
+{
+	delegate = rendererDelegate;
 }
 
 - (void)resetStyleContext
@@ -94,12 +103,11 @@ CGPoint fillGradientCenterPoint;
 	fillGradientCenterPoint = CGPointMake(0, 0);
 }
 
-- (void)drawSVGFile:(NSString *)file inCGContext:(CGContextRef)context
+- (void)drawSVGFile:(NSString *)file
 {
+	svgFileName = file;
 	NSData *xml = [[NSData dataWithContentsOfFile:file] autorelease];
 	xmlParser = [xmlParser initWithData:xml];
-	
-	cgContext = context;
 	
 	[xmlParser setDelegate:self];
 	[xmlParser setShouldResolveExternalEntities:NO];
@@ -124,6 +132,9 @@ didStartElement:(NSString *)elementName
 							   [[attrDict valueForKey:@"height"] floatValue]);
 		
 		doStroke = NO;
+		
+		if(delegate)
+			cgContext = [delegate svgRenderer:self requestedCGContextWidthSize:documentSize];
 	}
 	
 	// Definitions
@@ -245,6 +256,8 @@ didStartElement:(NSString *)elementName
 		// For now, we'll ignore paths in definitions
 		if(inDefSection)
 			return;
+		
+		CGMutablePathRef path = CGPathCreateMutable();
 		
 		if([attrDict valueForKey:@"transform"])
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
@@ -478,12 +491,12 @@ didStartElement:(NSString *)elementName
 					// Set initial point
 					if(firstVertex) {
 						firstPoint = curPoint;
-						CGContextMoveToPoint(cgContext,firstPoint.x,firstPoint.y);
+						CGPathMoveToPoint(path, NULL, firstPoint.x, firstPoint.y);
 					}
 					
 					// Close path
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
-						CGContextClosePath(cgContext);
+						CGPathCloseSubpath(path);
 						curPoint = firstPoint;
 						firstVertex = YES;
 						prm_i++;
@@ -492,15 +505,14 @@ didStartElement:(NSString *)elementName
 					if(curCmdType) {
 						if([curCmdType isEqualToString:@"line"]) {
 							if(mCount>1) {
-								CGContextAddLineToPoint(cgContext,curPoint.x,curPoint.y);
+								CGPathAddLineToPoint(path, NULL, curPoint.x, curPoint.y);
 							} else {
-								CGContextBeginPath(cgContext);
-								CGContextMoveToPoint(cgContext,curPoint.x,curPoint.y);
+								CGPathMoveToPoint(path, NULL, curPoint.x, curPoint.y);
 							}
 						}
 						
 						if([curCmdType isEqualToString:@"curve"])
-							CGContextAddCurveToPoint (cgContext,curCtrlPoint1.x, curCtrlPoint1.y,
+							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x, curCtrlPoint1.y,
 													  curCtrlPoint2.x, curCtrlPoint2.y,
 													  curPoint.x,curPoint.y);
 						
@@ -520,7 +532,7 @@ didStartElement:(NSString *)elementName
 		}
 		
 		//CGContextClosePath(cgContext);
-		[self drawCurrentPathWithStyle:[attrDict valueForKey:@"style"]];
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
 	
 	
@@ -537,9 +549,10 @@ didStartElement:(NSString *)elementName
 		if (ry==-1.0) ry = rx;
 		if (rx==-1.0) rx = ry;
 		
-		CGContextAddRoundRect(cgContext, CGRectMake(xPos,yPos,width,height), rx);
+		CGMutablePathRef path = CGPathCreateMutable();
+		CGPathAddRoundRect(path, CGRectMake(xPos,yPos,width,height), rx);
 		
-		[self drawCurrentPathWithStyle:[attrDict valueForKey:@"style"]];
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
 	
 	[pool release];
@@ -555,6 +568,7 @@ didStartElement:(NSString *)elementName
 {
 	if([elementName isEqualToString:@"svg"]) {
 		[defDict release];
+		delegate?[delegate svgRenderer:self didFinnishRenderingFile:svgFileName inCGContext:cgContext]:nil;
 	}
 	
 	if([elementName isEqualToString:@"g"]) {
@@ -590,7 +604,7 @@ didStartElement:(NSString *)elementName
 
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
-- (void)drawCurrentPathWithStyle:(NSString *)style
+- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style
 {		
 	CGContextSaveGState(cgContext);
 	
@@ -608,22 +622,28 @@ didStartElement:(NSString *)elementName
 			CGContextSetFillColorSpace(cgContext, myColorSpace);
 			CGColorSpaceRelease(myColorSpace);
 			
-			float alpha = 1.0;
+			float alpha = fillColor[3];
 			CGContextSetFillPattern (cgContext,
 									 fillPattern,
 									 &alpha);
 			
-			
 		} else if([fillType isEqualToString:@"linearGradient"]) {
 			
-			//[fillGradient drawInBezierPath:path angle:fillGradientAngle];
+			doFill = NO;
+			CGContextAddPath(cgContext, path);
+			CGContextSaveGState(cgContext);
+			CGContextClip(cgContext);
+			CGContextDrawLinearGradient(cgContext, fillGradient, fillGradientPoints[0], fillGradientPoints[1], 1);
+			CGContextRestoreGState(cgContext);
 			
 		} else if([fillType isEqualToString:@"radialGradient"]) {
 			
-			//NSRect pathBounds = [path bounds];
-			//[fillGradient drawInBezierPath:path relativeCenterPosition:CGPointMake(
-			//										(fillGradientCenterPoint.x-pathBounds.origin.x)-pathBounds.size.width/2,
-			//										(fillGradientCenterPoint.y-pathBounds.origin.y)-pathBounds.size.height/2)];
+			doFill = NO;
+			CGContextAddPath(cgContext, path);
+			CGContextSaveGState(cgContext);
+			CGContextClip(cgContext);
+			CGContextDrawRadialGradient(cgContext, fillGradient, fillGradientCenterPoint, 0, fillGradientCenterPoint, fillGradientPoints[0].y, 1);
+			CGContextRestoreGState(cgContext);
 			
 		}
 	}
@@ -641,6 +661,9 @@ didStartElement:(NSString *)elementName
 		CGContextSetRGBStrokeColor(cgContext, red, green, blue, strokeOpacity);
 		
 	}
+	
+	if(doFill || doStroke)
+		CGContextAddPath(cgContext, path);
 	
 	if(doFill && doStroke)
 		CGContextDrawPath(cgContext, kCGPathFillStroke);
@@ -722,8 +745,6 @@ didStartElement:(NSString *)elementName
 											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"height"] floatValue]);
 						CGPatternCallbacks callbacks = { 0, &drawImagePattern, NULL };
 						
-						NSLog(@"%d",	desc.imgRef);
-						
 						fillPattern = CGPatternCreate (
 											/* info */		&desc,
 											/* bounds */	desc.rect,
@@ -738,19 +759,21 @@ didStartElement:(NSString *)elementName
 					} else if([def objectForKey:@"stops"] && [[def objectForKey:@"stops"] count] > 0) {
 						// Load gradient
 						fillType = [def objectForKey:@"type"];
-						if([def objectForKey:@"x1"])
-							fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
-																		([[def objectForKey:@"y1"] floatValue] - [[def objectForKey:@"y2"] floatValue])))*180)/M_PI)+90;
-						if([def objectForKey:@"cx"]) {
+						if([def objectForKey:@"x1"]) {
+							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue],[[def objectForKey:@"y1"] floatValue]);
+							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue],[[def objectForKey:@"y2"] floatValue]);
+							//fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
+							//											([[def objectForKey:@"y1"] floatValue] - [[def objectForKey:@"y2"] floatValue])))*180)/M_PI)+90;
+						} if([def objectForKey:@"cx"]) {
 							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue];
 							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue];
 						}
 						
 						NSArray *stops = [def objectForKey:@"stops"];
 						
-						NSMutableArray *colors = [[NSMutableArray alloc] init];
+						CGFloat colors[[stops count]*4];
 						CGFloat locations[[stops count]];
-						
+						int ci=0;
 						for(int i=0;i<[stops count];i++) {
 							unsigned int stopColorRGB = 0;
 							CGFloat stopColorAlpha = 1;
@@ -775,15 +798,18 @@ didStartElement:(NSString *)elementName
 							CGFloat red   = ((stopColorRGB & 0xFF0000) >> 16) / 255.0f;
 							CGFloat green = ((stopColorRGB & 0x00FF00) >>  8) / 255.0f;
 							CGFloat blue  =  (stopColorRGB & 0x0000FF) / 255.0f;
-							NSColor *stopColorRGBA = [NSColor colorWithDeviceRed:red green:green blue:blue alpha:stopColorAlpha];
+							colors[ci++] = red;
+							colors[ci++] = green;
+							colors[ci++] = blue;
+							colors[ci++] = stopColorAlpha;
 							
-							[colors addObject:stopColorRGBA];
 							locations[i] = [[[stops objectAtIndex:i] objectForKey:@"offset"] floatValue];
 						}
 						
-						fillGradient = [[[NSGradient alloc] initWithColors:colors 
-															  atLocations:locations 
-															   colorSpace:[NSColorSpace deviceRGBColorSpace]] retain];
+						fillGradient = CGGradientCreateWithColorComponents(CGColorSpaceCreateDeviceRGB(),
+																		   colors, 
+																		   locations,
+																		   [stops count]);
 					}
 				}
 			} else {
@@ -946,6 +972,12 @@ didStartElement:(NSString *)elementName
 	return def;
 }
 
+- (CGContextRef)createBitmapContext
+{
+	CGContextRef ctx = CGBitmapContextCreate(NULL, (int)documentSize.width, (int)documentSize.height, 8, (int)documentSize.width*4, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+	return ctx;
+}
+
 void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
 {
 	FillPatternDescriptor *patDesc;
@@ -955,21 +987,25 @@ void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
 	CGImageRelease(patDesc->imgRef);
 }
 
-void CGContextAddRoundRect(CGContextRef context, CGRect rect, float radius)
+void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 {
-	CGContextMoveToPoint(context, rect.origin.x, rect.origin.y + radius);
-	CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + rect.size.height - radius);
-	CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + rect.size.height - radius, 
-					radius, M_PI / 4, M_PI / 2, 1);
-	CGContextAddLineToPoint(context, rect.origin.x + rect.size.width - radius, 
+	CGPathMoveToPoint(path, NULL, rect.origin.x, rect.origin.y + radius);
+	
+	CGPathAddLineToPoint(path, NULL, rect.origin.x, rect.origin.y + rect.size.height - radius);
+	CGPathAddArc(path, NULL, rect.origin.x + radius, rect.origin.y + rect.size.height - radius, 
+					radius, M_PI / 1, M_PI / 2, 1);
+	
+	CGPathAddLineToPoint(path, NULL, rect.origin.x + rect.size.width - radius, 
 							rect.origin.y + rect.size.height);
-	CGContextAddArc(context, rect.origin.x + rect.size.width - radius, 
+	CGPathAddArc(path, NULL, rect.origin.x + rect.size.width - radius, 
 					rect.origin.y + rect.size.height - radius, radius, M_PI / 2, 0.0f, 1);
-	CGContextAddLineToPoint(context, rect.origin.x + rect.size.width, rect.origin.y + radius);
-	CGContextAddArc(context, rect.origin.x + rect.size.width - radius, rect.origin.y + radius, 
+	
+	CGPathAddLineToPoint(path, NULL, rect.origin.x + rect.size.width, rect.origin.y + radius);
+	CGPathAddArc(path, NULL, rect.origin.x + rect.size.width - radius, rect.origin.y + radius, 
 					radius, 0.0f, -M_PI / 2, 1);
-	CGContextAddLineToPoint(context, rect.origin.x + radius, rect.origin.y);
-	CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + radius, radius, 
+	
+	CGPathAddLineToPoint(path, NULL, rect.origin.x + radius, rect.origin.y);
+	CGPathAddArc(path, NULL, rect.origin.x + radius, rect.origin.y + radius, radius, 
 					-M_PI / 2, M_PI, 1);
 }
 

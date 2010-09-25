@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="29"/>
 			<integer value="534"/>
+			<integer value="29"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1336,7 +1336,7 @@
 										<bool key="EncodedWithXMLCoder">YES</bool>
 										<object class="NSCustomView" id="139618162">
 											<reference key="NSNextResponder" ref="1047092071"/>
-											<int key="NSvFlags">268</int>
+											<int key="NSvFlags">292</int>
 											<string key="NSFrameSize">{641, 423}</string>
 											<reference key="NSSuperview" ref="1047092071"/>
 											<string key="NSClassName">SVGRenderView</string>
@@ -1355,7 +1355,7 @@
 								<object class="NSScroller" id="797396284">
 									<reference key="NSNextResponder" ref="267697179"/>
 									<int key="NSvFlags">256</int>
-									<string key="NSFrame">{{642, 1}, {15, 423}}</string>
+									<string key="NSFrame">{{642, 1}, {15, 422}}</string>
 									<reference key="NSSuperview" ref="267697179"/>
 									<reference key="NSTarget" ref="267697179"/>
 									<string key="NSAction">_doScroller:</string>
@@ -3542,9 +3542,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{336, 309}, {656, 437}}</string>
+					<string>{{373, 210}, {656, 437}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{336, 309}, {656, 437}}</string>
+					<string>{{373, 210}, {656, 437}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>

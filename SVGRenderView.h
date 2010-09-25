@@ -7,10 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SVGQuartzRenderer.h"
 
-
-@interface SVGRenderView : NSView {
-
+@interface SVGRenderView : NSView <SVGQuartzRenderDelegate> {
+	
 }
 
 @end

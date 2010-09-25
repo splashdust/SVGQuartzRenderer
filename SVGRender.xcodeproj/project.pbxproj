@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* SVGRenderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* SVGRenderAppDelegate.m */; };
-		51879D1B12496B1F00603C7D /* SVGRenderView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 51879D1A12496B1F00603C7D /* SVGRenderView.mm */; };
+		51879D1B12496B1F00603C7D /* SVGRenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51879D1A12496B1F00603C7D /* SVGRenderView.m */; };
 		51CE0096124AD24B00081E32 /* SVGQuartzRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */; };
 		51CE058B124CEB0500081E32 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 51CE058A124CEB0500081E32 /* NSData+Base64.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -29,7 +29,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		51879D1912496B1F00603C7D /* SVGRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGRenderView.h; sourceTree = "<group>"; };
-		51879D1A12496B1F00603C7D /* SVGRenderView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SVGRenderView.mm; sourceTree = "<group>"; };
+		51879D1A12496B1F00603C7D /* SVGRenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGRenderView.m; sourceTree = "<group>"; };
 		51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGQuartzRenderer.h; sourceTree = "<group>"; };
 		51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGQuartzRenderer.m; sourceTree = "<group>"; };
 		51CE0589124CEB0500081E32 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 				256AC3D80F4B6AC300CF3369 /* SVGRenderAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* SVGRenderAppDelegate.m */,
 				51879D1912496B1F00603C7D /* SVGRenderView.h */,
-				51879D1A12496B1F00603C7D /* SVGRenderView.mm */,
+				51879D1A12496B1F00603C7D /* SVGRenderView.m */,
 				51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */,
 				51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */,
 				51CE0589124CEB0500081E32 /* NSData+Base64.h */,
@@ -195,7 +195,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* SVGRenderAppDelegate.m in Sources */,
-				51879D1B12496B1F00603C7D /* SVGRenderView.mm in Sources */,
+				51879D1B12496B1F00603C7D /* SVGRenderView.m in Sources */,
 				51CE0096124AD24B00081E32 /* SVGQuartzRenderer.m in Sources */,
 				51CE058B124CEB0500081E32 /* NSData+Base64.m in Sources */,
 			);
