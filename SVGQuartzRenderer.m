@@ -25,6 +25,7 @@
 
 @synthesize documentSize;
 @synthesize delegate;
+@synthesize scale;
 
 struct FillPatternDescriptor {
 	CGImageRef imgRef;
@@ -75,6 +76,8 @@ CGPoint fillGradientCenterPoint;
 		transform = CGAffineTransformIdentity;
 
 		defDict = [[NSMutableDictionary alloc] init];
+		
+		scale = 1.0;
     }
     return self;
 }
@@ -93,8 +96,8 @@ CGPoint fillGradientCenterPoint;
 	fillColor[3]=1;
 	doStroke = NO;
 	strokeColor = 0;
-	strokeWidth = 1.0;
-	strokeOpacity = 1.0;
+	strokeWidth = 1.0 * scale;
+	strokeOpacity = 1.0 * scale;
 	lineJoinStyle = kCGLineJoinMiter;
 	lineCapStyle = kCGLineCapButt;
 	miterLimit = 4;
@@ -128,8 +131,8 @@ didStartElement:(NSString *)elementName
 	// Top level SVG node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
-		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue],
-							   [[attrDict valueForKey:@"height"] floatValue]);
+		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue] * scale,
+							   [[attrDict valueForKey:@"height"] floatValue] * scale);
 		
 		doStroke = NO;
 		
@@ -491,7 +494,7 @@ didStartElement:(NSString *)elementName
 					// Set initial point
 					if(firstVertex) {
 						firstPoint = curPoint;
-						CGPathMoveToPoint(path, NULL, firstPoint.x, firstPoint.y);
+						CGPathMoveToPoint(path, NULL, firstPoint.x * scale, firstPoint.y * scale);
 					}
 					
 					// Close path
@@ -505,16 +508,16 @@ didStartElement:(NSString *)elementName
 					if(curCmdType) {
 						if([curCmdType isEqualToString:@"line"]) {
 							if(mCount>1) {
-								CGPathAddLineToPoint(path, NULL, curPoint.x, curPoint.y);
+								CGPathAddLineToPoint(path, NULL, curPoint.x * scale, curPoint.y * scale);
 							} else {
-								CGPathMoveToPoint(path, NULL, curPoint.x, curPoint.y);
+								CGPathMoveToPoint(path, NULL, curPoint.x * scale, curPoint.y * scale);
 							}
 						}
 						
 						if([curCmdType isEqualToString:@"curve"])
-							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x, curCtrlPoint1.y,
-													  curCtrlPoint2.x, curCtrlPoint2.y,
-													  curPoint.x,curPoint.y);
+							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x * scale, curCtrlPoint1.y * scale,
+													  curCtrlPoint2.x * scale, curCtrlPoint2.y * scale,
+													  curPoint.x * scale,curPoint.y * scale);
 						
 						if([curCmdType isEqualToString:@"arc"]) {
 							// Ignore arcs for now
@@ -550,7 +553,7 @@ didStartElement:(NSString *)elementName
 		if (rx==-1.0) rx = ry;
 		
 		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathAddRoundRect(path, CGRectMake(xPos,yPos,width,height), rx);
+		CGPathAddRoundRect(path, CGRectMake(xPos * scale,yPos * scale,width * scale,height * scale), rx * scale);
 		
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
@@ -760,13 +763,13 @@ didStartElement:(NSString *)elementName
 						// Load gradient
 						fillType = [def objectForKey:@"type"];
 						if([def objectForKey:@"x1"]) {
-							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue],[[def objectForKey:@"y1"] floatValue]);
-							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue],[[def objectForKey:@"y2"] floatValue]);
+							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue] * scale,[[def objectForKey:@"y1"] floatValue] * scale);
+							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue] * scale,[[def objectForKey:@"y2"] floatValue] * scale);
 							//fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
 							//											([[def objectForKey:@"y1"] floatValue] - [[def objectForKey:@"y2"] floatValue])))*180)/M_PI)+90;
 						} if([def objectForKey:@"cx"]) {
-							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue];
-							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue];
+							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue] * scale;
+							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue] * scale;
 						}
 						
 						NSArray *stops = [def objectForKey:@"stops"];
@@ -832,7 +835,7 @@ didStartElement:(NSString *)elementName
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				[hexScanner scanHexInt:&strokeColor];
-				strokeWidth = 1;
+				strokeWidth = 1 * scale;
 			} else {
 				doStroke = NO;
 			}
@@ -850,6 +853,7 @@ didStartElement:(NSString *)elementName
 			NSScanner *floatScanner = [NSScanner scannerWithString:
 									   [attrValue stringByReplacingOccurrencesOfString:@"px" withString:@""]];
 			[floatScanner scanFloat:&strokeWidth];
+			strokeWidth *= scale;
 		}
 		
 		// --------------------- STROKE-LINECAP
@@ -915,8 +919,8 @@ didStartElement:(NSString *)elementName
 	
 	if([values count] == 2)
 		transform = CGAffineTransformTranslate (transform,
-									[[values objectAtIndex:0] floatValue],
-									[[values objectAtIndex:1] floatValue]);
+									[[values objectAtIndex:0] floatValue] * scale,
+									[[values objectAtIndex:1] floatValue] * scale);
 	
 	// Rotate
 	value = [NSString string];
