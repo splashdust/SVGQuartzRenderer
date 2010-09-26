@@ -21,6 +21,7 @@ CGContextRef viewContext;
     if (self) {
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
+		[svgRenderer setScale:1.0];
 		[svgRenderer drawSVGFile:@"/Users/joacim/Desktop/skull.svg"];
     }
     return self;

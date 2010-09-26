@@ -3,7 +3,7 @@
 //  SVGRender
 //
 //  Created by Joacim Magnusson on 2010-09-23.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Copyright 2010 Joacim Magnusson. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -22,10 +22,12 @@
 @interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate> {
 	CGSize documentSize;
 	id<SVGQuartzRenderDelegate> delegate;
+	CGFloat scale;
 }
 
 @property (readonly) CGSize documentSize;
 @property (readonly) id delegate;
+@property (readwrite) CGFloat scale;
 
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
