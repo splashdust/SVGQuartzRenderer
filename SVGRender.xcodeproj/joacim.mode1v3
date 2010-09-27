@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -309,12 +307,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>SVGQuartzRenderer.m</string>
+								<string>SVGRenderView.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -322,11 +322,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>SVGQuartzRenderer.m</string>
+										<string>SVGRenderView.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>51448718124FE8BB00826062</string>
+										<string>514488B81251405E00826062</string>
 										<key>history</key>
 										<array>
 											<string>51879D631249766800603C7D</string>
@@ -338,9 +338,9 @@
 											<string>51CE0B8E124E4E7E00081E32</string>
 											<string>51CE0CC4124E656500081E32</string>
 											<string>514486FF124FE81000826062</string>
-											<string>5144870A124FE87D00826062</string>
-											<string>51448716124FE8BB00826062</string>
-											<string>51448717124FE8BB00826062</string>
+											<string>514488A712513FB600826062</string>
+											<string>514488B11251404F00826062</string>
+											<string>514488B21251404F00826062</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -540,9 +540,9 @@
 	<array>
 		<string>514486F9124FE7EF00826062</string>
 		<string>514486FA124FE7EF00826062</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>51879C401249694700603C7D</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/joacim/Documents/Projects/SVGRender/SVGRender.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -562,12 +562,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>SVGRenderView.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -576,7 +578,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1389, 429}}</string>
 								<key>RubberWindowFrame</key>
-								<string>51 101 1389 777 0 0 1440 878 </string>
+								<string>55 101 1389 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -600,7 +602,7 @@
 								<key>Frame</key>
 								<string>{{0, 434}, {1389, 302}}</string>
 								<key>RubberWindowFrame</key>
-								<string>51 101 1389 777 0 0 1440 878 </string>
+								<string>55 101 1389 777 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -632,7 +634,7 @@
 			<key>WindowContentMinSize</key>
 			<string>486 300</string>
 			<key>WindowString</key>
-			<string>51 101 1389 777 0 0 1440 878 </string>
+			<string>55 101 1389 777 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>51879C401249694700603C7D</string>
 			<key>WindowToolIsVisible</key>
@@ -870,6 +872,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -882,7 +886,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {836, 478}}</string>
 								<key>RubberWindowFrame</key>
-								<string>711 211 836 519 0 0 1440 878 </string>
+								<string>604 211 836 519 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
@@ -911,11 +915,11 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>711 211 836 519 0 0 1440 878 </string>
+			<string>604 211 836 519 0 0 1440 878 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

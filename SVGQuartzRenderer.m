@@ -636,7 +636,7 @@ didStartElement:(NSString *)elementName
 			CGContextAddPath(cgContext, path);
 			CGContextSaveGState(cgContext);
 			CGContextClip(cgContext);
-			CGContextDrawLinearGradient(cgContext, fillGradient, fillGradientPoints[0], fillGradientPoints[1], 1);
+			CGContextDrawLinearGradient(cgContext, fillGradient, fillGradientPoints[0], fillGradientPoints[1], 2);
 			CGContextRestoreGState(cgContext);
 			
 		} else if([fillType isEqualToString:@"radialGradient"]) {
@@ -645,7 +645,7 @@ didStartElement:(NSString *)elementName
 			CGContextAddPath(cgContext, path);
 			CGContextSaveGState(cgContext);
 			CGContextClip(cgContext);
-			CGContextDrawRadialGradient(cgContext, fillGradient, fillGradientCenterPoint, 0, fillGradientCenterPoint, fillGradientPoints[0].y, 1);
+			CGContextDrawRadialGradient(cgContext, fillGradient, fillGradientCenterPoint, 0, fillGradientCenterPoint, fillGradientPoints[0].y, 2);
 			CGContextRestoreGState(cgContext);
 			
 		}
