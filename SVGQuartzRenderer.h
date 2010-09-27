@@ -11,10 +11,11 @@
 @protocol SVGQuartzRenderDelegate
 
 	- (void)svgRenderer:(id<SVGQuartzRenderDelegate>)renderer
-			didFinnishRenderingFile:(NSString *)file;
+didFinnishRenderingFile:(NSString *)file
+			inCGContext:(CGContextRef)context;
 
 	- (CGContextRef)svgRenderer:(id)renderer
-					requestedCGContextWidthSize:(CGSize)size;
+	requestedCGContextWidthSize:(CGSize)size;
 
 @end
 

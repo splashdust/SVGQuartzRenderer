@@ -34,7 +34,10 @@ CGContextRef viewContext;
 - (void)drawRect:(NSRect)dirtyRect {
 	
 	viewContext = (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
-	CGContextDrawImage(viewContext, [self frame], svgDrawing);
+	CGContextDrawImage(viewContext, CGRectMake([self frame].origin.x, 
+											   [self frame].origin.y, 
+											   [self frame].size.width, 
+											   [self frame].size.height), svgDrawing);
 
 }
 
