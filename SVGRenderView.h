@@ -13,4 +13,6 @@
 	
 }
 
+- (IBAction)openFile:(id)sender;
+
 @end

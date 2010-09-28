@@ -22,9 +22,31 @@ CGContextRef viewContext;
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
 		[svgRenderer setScale:1.0];
-		[svgRenderer drawSVGFile:@"/Users/joacim/Desktop/skull.svg"];
     }
     return self;
+}
+
+- (IBAction)openFile:(id)sender
+{	
+	NSOpenPanel *chooseDirPanel = [NSOpenPanel openPanel];
+	[chooseDirPanel setTitle:@"Open SVG file"];
+	[chooseDirPanel setPrompt:@"Open"];
+	[chooseDirPanel setAllowedFileTypes:[NSArray arrayWithObject:@"SVG"]];
+	[chooseDirPanel setCanChooseDirectories:NO];
+	[chooseDirPanel setCanCreateDirectories:YES];
+	
+	int selected = [chooseDirPanel runModal];
+	
+	if(selected == NSOKButton) {
+		
+		[svgRenderer drawSVGFile:[chooseDirPanel filename]];
+		
+	} else if(selected == NSCancelButton) {
+		// Cancel
+		return;
+	} else {
+		return;
+	}
 }
 
 - (void)awakeFromNib
