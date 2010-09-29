@@ -44,15 +44,15 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 307451351;
-			PBXWorkspaceStateSaveDate = 307451351;
+			PBXPerProjectTemplateStateSaveDate = 307469741;
+			PBXWorkspaceStateSaveDate = 307469741;
 		};
 		perUserProjectItems = {
 			51448A7F1252A47400826062 = 51448A7F1252A47400826062 /* PBXTextBookmark */;
 			51448A801252A47400826062 = 51448A801252A47400826062 /* PBXTextBookmark */;
 			51448A811252A47400826062 = 51448A811252A47400826062 /* PBXTextBookmark */;
-			51448A821252A47400826062 = 51448A821252A47400826062 /* PBXTextBookmark */;
 			51448A831252A47400826062 = 51448A831252A47400826062 /* PBXTextBookmark */;
+			51448ABC12539C2C00826062 = 51448ABC12539C2C00826062 /* PBXTextBookmark */;
 			51879D631249766800603C7D = 51879D631249766800603C7D /* PBXTextBookmark */;
 			51CE0597124CEBD200081E32 = 51CE0597124CEBD200081E32 /* PBXTextBookmark */;
 			51CE0812124D3BB500081E32 = 51CE0812124D3BB500081E32 /* PBXTextBookmark */;
@@ -96,25 +96,25 @@
 		vrLen = 1183;
 		vrLoc = 791;
 	};
-	51448A821252A47400826062 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
-		name = "SVGQuartzRenderer.m: 113";
-		rLen = 0;
-		rLoc = 2696;
-		rType = 0;
-		vrLen = 3019;
-		vrLoc = 23339;
-	};
 	51448A831252A47400826062 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
 		name = "SVGQuartzRenderer.m: 742";
 		rLen = 0;
-		rLoc = 24422;
+		rLoc = 24471;
 		rType = 0;
 		vrLen = 1882;
 		vrLoc = 13733;
+	};
+	51448ABC12539C2C00826062 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 952";
+		rLen = 0;
+		rLoc = 32211;
+		rType = 0;
+		vrLen = 2100;
+		vrLoc = 30843;
 	};
 	51879C311249694200603C7D /* SVGRender */ = {
 		isa = PBXExecutable;
@@ -202,9 +202,9 @@
 	};
 	51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1279, 13429}}";
-			sepNavSelRange = "{24422, 0}";
-			sepNavVisRange = "{13733, 1882}";
+			sepNavIntBoundsRect = "{{0, 0}, {1559, 13351}}";
+			sepNavSelRange = "{32211, 0}";
+			sepNavVisRange = "{30843, 2100}";
 		};
 	};
 	51CE0589124CEB0500081E32 /* NSData+Base64.h */ = {
