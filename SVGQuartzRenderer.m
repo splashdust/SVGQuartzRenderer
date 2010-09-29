@@ -211,9 +211,17 @@ didStartElement:(NSString *)elementName
 				NSDictionary *obj = [attrDict objectForKey:key];
 				[curFilter setObject:obj forKey:key];
 			}
+			[curFilter setObject:[[NSMutableArray alloc] init] forKey:@"feGaussianBlurs"];
 		}
 			if([elementName isEqualToString:@"feGaussianBlur"]) {
-				
+				NSMutableDictionary *blurDict = [[NSMutableDictionary alloc] init];
+				NSEnumerator *enumerator = [attrDict keyEnumerator];
+				id key;
+				while ((key = [enumerator nextObject])) {
+					NSDictionary *obj = [attrDict objectForKey:key];
+					[blurDict setObject:obj forKey:key];
+				}
+				[[curFilter objectForKey:@"feGaussianBlurs"] addObject:blurDict];
 			}
 			if([elementName isEqualToString:@"feColorMatrix"]) {
 				
@@ -902,9 +910,10 @@ didStartElement:(NSString *)elementName
 
 - (void)applyTransformations:(NSString *)transformations
 {
+	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
+	
 	// Reset transformation matrix
 	transform = CGAffineTransformIdentity;
-	
 	
 	NSScanner *scanner = [NSScanner scannerWithString:transformations];
 	[scanner setCaseSensitive:YES];
