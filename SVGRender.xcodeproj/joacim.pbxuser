@@ -44,15 +44,15 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 307382623;
-			PBXWorkspaceStateSaveDate = 307382623;
+			PBXPerProjectTemplateStateSaveDate = 307451351;
+			PBXWorkspaceStateSaveDate = 307451351;
 		};
 		perUserProjectItems = {
-			514486FF124FE81000826062 = 514486FF124FE81000826062 /* PBXTextBookmark */;
-			514488A712513FB600826062 = 514488A712513FB600826062 /* PBXTextBookmark */;
-			514488B11251404F00826062 = 514488B11251404F00826062 /* PBXTextBookmark */;
-			514488B21251404F00826062 = 514488B21251404F00826062 /* PBXTextBookmark */;
-			514488B91251412800826062 = 514488B91251412800826062 /* PBXTextBookmark */;
+			51448A7F1252A47400826062 = 51448A7F1252A47400826062 /* PBXTextBookmark */;
+			51448A801252A47400826062 = 51448A801252A47400826062 /* PBXTextBookmark */;
+			51448A811252A47400826062 = 51448A811252A47400826062 /* PBXTextBookmark */;
+			51448A821252A47400826062 = 51448A821252A47400826062 /* PBXTextBookmark */;
+			51448A831252A47400826062 = 51448A831252A47400826062 /* PBXTextBookmark */;
 			51879D631249766800603C7D = 51879D631249766800603C7D /* PBXTextBookmark */;
 			51CE0597124CEBD200081E32 = 51CE0597124CEBD200081E32 /* PBXTextBookmark */;
 			51CE0812124D3BB500081E32 = 51CE0812124D3BB500081E32 /* PBXTextBookmark */;
@@ -66,53 +66,55 @@
 		userBuildSettings = {
 		};
 	};
-	514486FF124FE81000826062 /* PBXTextBookmark */ = {
+	51448A7F1252A47400826062 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 51879D1912496B1F00603C7D /* SVGRenderView.h */;
-		name = "SVGRenderView.h: 10";
+		name = "SVGRenderView.h: 16";
 		rLen = 0;
-		rLoc = 203;
+		rLoc = 304;
 		rType = 0;
-		vrLen = 277;
+		vrLen = 311;
 		vrLoc = 0;
 	};
-	514488A712513FB600826062 /* PBXTextBookmark */ = {
+	51448A801252A47400826062 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */;
-		name = "SVGQuartzRenderer.h: 18";
+		name = "SVGQuartzRenderer.h: 28";
 		rLen = 0;
-		rLoc = 405;
+		rLoc = 598;
 		rType = 0;
 		vrLen = 861;
 		vrLoc = 0;
 	};
-	514488B11251404F00826062 /* PBXTextBookmark */ = {
+	51448A811252A47400826062 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.m */;
+		name = "SVGRenderView.m: 66";
+		rLen = 218;
+		rLoc = 1460;
+		rType = 0;
+		vrLen = 1183;
+		vrLoc = 791;
+	};
+	51448A821252A47400826062 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
-		name = "SVGQuartzRenderer.m: 630";
+		name = "SVGQuartzRenderer.m: 113";
 		rLen = 0;
-		rLoc = 19982;
+		rLoc = 2696;
 		rType = 0;
-		vrLen = 2037;
-		vrLoc = 19244;
+		vrLen = 3019;
+		vrLoc = 23339;
 	};
-	514488B21251404F00826062 /* PBXTextBookmark */ = {
+	51448A831252A47400826062 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		comments = "Incompatible type for argument 2 of 'CGContextDrawImage'";
-		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.m */;
-		rLen = 1;
-		rLoc = 39;
-		rType = 1;
-	};
-	514488B91251412800826062 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 51879D1A12496B1F00603C7D /* SVGRenderView.m */;
-		name = "SVGRenderView.m: 37";
+		fRef = 51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */;
+		name = "SVGQuartzRenderer.m: 742";
 		rLen = 0;
-		rLoc = 755;
+		rLoc = 24422;
 		rType = 0;
-		vrLen = 1291;
-		vrLoc = 87;
+		vrLen = 1882;
+		vrLoc = 13733;
 	};
 	51879C311249694200603C7D /* SVGRender */ = {
 		isa = PBXExecutable;
@@ -163,15 +165,15 @@
 	51879D1912496B1F00603C7D /* SVGRenderView.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1112, 741}}";
-			sepNavSelRange = "{203, 0}";
-			sepNavVisRange = "{0, 277}";
+			sepNavSelRange = "{304, 0}";
+			sepNavVisRange = "{0, 311}";
 		};
 	};
 	51879D1A12496B1F00603C7D /* SVGRenderView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1328, 897}}";
-			sepNavSelRange = "{915, 0}";
-			sepNavVisRange = "{400, 778}";
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 1222}}";
+			sepNavSelRange = "{1460, 218}";
+			sepNavVisRange = "{791, 1183}";
 		};
 	};
 	51879D451249759B00603C7D /* svg_test.cpp */ = {
@@ -193,16 +195,16 @@
 	};
 	51CE0094124AD24B00081E32 /* SVGQuartzRenderer.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1112, 718}}";
-			sepNavSelRange = "{405, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {1112, 741}}";
+			sepNavSelRange = "{598, 0}";
 			sepNavVisRange = "{0, 861}";
 		};
 	};
 	51CE0095124AD24B00081E32 /* SVGQuartzRenderer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {880, 13377}}";
-			sepNavSelRange = "{18361, 0}";
-			sepNavVisRange = "{18046, 577}";
+			sepNavIntBoundsRect = "{{0, 0}, {1279, 13429}}";
+			sepNavSelRange = "{24422, 0}";
+			sepNavVisRange = "{13733, 1882}";
 		};
 	};
 	51CE0589124CEB0500081E32 /* NSData+Base64.h */ = {

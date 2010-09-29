@@ -500,7 +500,8 @@ didStartElement:(NSString *)elementName
 					// Close path
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
 						CGPathCloseSubpath(path);
-						curPoint = firstPoint;
+						curPoint = CGPointMake(-1, -1);
+						firstPoint = CGPointMake(-1, -1);
 						firstVertex = YES;
 						prm_i++;
 					}
@@ -932,7 +933,7 @@ didStartElement:(NSString *)elementName
 		transform = CGAffineTransformRotate(transform, [value floatValue]);
 	
 	// Matrix
-	/*value = [NSString string];
+	value = [NSString string];
 	[scanner initWithString:transformations];
 	[scanner scanString:@"matrix(" intoString:nil];
 	[scanner scanUpToString:@")" intoString:&value];
@@ -940,16 +941,14 @@ didStartElement:(NSString *)elementName
 	values = [value componentsSeparatedByString:@","];
 	
 	if([values count] == 6) {
-		NSAffineTransformStruct matrix;
-		matrix.m11 = [[values objectAtIndex:0] floatValue];
-		matrix.m12 = [[values objectAtIndex:1] floatValue];
-		matrix.m21 = [[values objectAtIndex:2] floatValue];
-		matrix.m22 = [[values objectAtIndex:3] floatValue];
-		matrix.tX = [[values objectAtIndex:4] floatValue];
-		matrix.tY = [[values objectAtIndex:5] floatValue];
-		[transform setTransformStruct:matrix];
-		NSLog(@"Matrix transform: %@", values);
-	}*/
+		CGAffineTransform matrixTransform = CGAffineTransformMake ([[values objectAtIndex:0] floatValue],
+																   [[values objectAtIndex:1] floatValue],
+																   [[values objectAtIndex:2] floatValue],
+																   [[values objectAtIndex:3] floatValue],
+																   [[values objectAtIndex:4] floatValue],
+																   [[values objectAtIndex:5] floatValue]);
+		transform = CGAffineTransformConcat(transform, matrixTransform);
+	}
 	
 	// Apply to graphics context
 	CGContextConcatCTM(cgContext,transform);
