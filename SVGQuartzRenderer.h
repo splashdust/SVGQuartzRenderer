@@ -10,7 +10,7 @@
 
 @protocol SVGQuartzRenderDelegate
 
-	- (void)svgRenderer:(id<SVGQuartzRenderDelegate>)renderer
+	- (void)svgRenderer:(id)renderer
 didFinnishRenderingFile:(NSString *)file
 			inCGContext:(CGContextRef)context;
 
