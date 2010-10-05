@@ -1,0 +1,5 @@
+README
+
+About SVGQuartzRenderer
+SVGQuartzRenderer is a basic SVG renderer written in Obj-C that uses CoreGraphics to render SVG files. The goal of SVGQuartzRenderer is to be a simple drop-in SVG renderer that is compatible with the iPhone platform.
+For the time being the idea is that it should consist of as few source files as poissible, so that the source can simple be dragged into an existing project.
