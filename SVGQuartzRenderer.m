@@ -49,6 +49,9 @@ NSMutableDictionary *curLayer;
 
 BOOL inDefSection = NO;
 
+CGAffineTransform gTransform;
+BOOL pathTrnsfrmReset = YES;
+
 // Variables for storing style data
 // -------------------------------------------------------------------------
 BOOL doFill;
@@ -138,6 +141,8 @@ didStartElement:(NSString *)elementName
 		
 		if(delegate)
 			cgContext = [delegate svgRenderer:self requestedCGContextWidthSize:documentSize];
+		
+		gTransform = CGAffineTransformIdentity;
 	}
 	
 	// Definitions
@@ -255,8 +260,11 @@ didStartElement:(NSString *)elementName
 		if([attrDict valueForKey:@"style"])
 			[self setStyleContext:[attrDict valueForKey:@"style"]];
 		
-		if([attrDict valueForKey:@"transform"])
+		if([attrDict valueForKey:@"transform"]) {
+			gTransform = CGAffineTransformIdentity;
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
+			gTransform = transform;
+		}
 	}
 	
 	
@@ -270,9 +278,6 @@ didStartElement:(NSString *)elementName
 		
 		CGMutablePathRef path = CGPathCreateMutable();
 		
-		if([attrDict valueForKey:@"transform"])
-			[self applyTransformations:[attrDict valueForKey:@"transform"]];
-		
 		// Create a scanner for parsing path data
 		NSScanner *scanner = [NSScanner scannerWithString:[attrDict valueForKey:@"d"]];
 		[scanner setCaseSensitive:YES];
@@ -283,6 +288,7 @@ didStartElement:(NSString *)elementName
 		CGPoint curCtrlPoint2 = CGPointMake(-1,-1);
 		CGPoint curArcPoint = CGPointMake(-1,-1);
 		CGPoint curArcRadius = CGPointMake(-1,-1);
+		CGFloat curArcXRotation = 0.0;
 		CGPoint firstPoint = CGPointMake(-1,-1);
 		NSString *curCmdType = nil;
 		
@@ -456,8 +462,7 @@ didStartElement:(NSString *)elementName
 						curArcRadius.x = [[params objectAtIndex:prm_i++] floatValue];
 						curArcRadius.y = [[params objectAtIndex:prm_i++] floatValue];
 						
-						//Ignore x-axis-rotation
-						prm_i++;;
+						curArcXRotation = [[params objectAtIndex:prm_i++] floatValue];
 						
 						//Ignore large-arc-flag
 						prm_i++;
@@ -476,8 +481,7 @@ didStartElement:(NSString *)elementName
 						curArcRadius.x += [[params objectAtIndex:prm_i++] floatValue];
 						curArcRadius.y += [[params objectAtIndex:prm_i++] floatValue];
 						
-						//Ignore x-axis-rotation
-						prm_i++;;
+						curArcXRotation = [[params objectAtIndex:prm_i++] floatValue];
 						
 						//Ignore large-arc-flag
 						prm_i++;
@@ -507,6 +511,8 @@ didStartElement:(NSString *)elementName
 					
 					// Close path
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
+						NSLog(@"Z!!!");
+						CGPathAddLineToPoint(path, NULL, firstPoint.x * scale, firstPoint.y * scale);
 						CGPathCloseSubpath(path);
 						curPoint = CGPointMake(-1, -1);
 						firstPoint = CGPointMake(-1, -1);
@@ -529,9 +535,13 @@ didStartElement:(NSString *)elementName
 													  curPoint.x * scale,curPoint.y * scale);
 						
 						if([curCmdType isEqualToString:@"arc"]) {
-							// Ignore arcs for now
-							//NSLog(@"[path appendBezierPathWithArcFromPoint:%f,%f toPoint:%f,%f radius:%f];", curPoint.x, curPoint.y, curArcPoint.x, curArcPoint.y, curArcRadius.x);
-							//[path appendBezierPathWithArcFromPoint:curPoint toPoint:curArcPoint radius:curArcRadius.x];
+							CGPathAddArc (path, NULL,
+										  curArcPoint.x,
+										  curArcPoint.y,
+										  curArcRadius.y,
+										  curArcXRotation,
+										  curArcXRotation,
+										  TRUE);							
 						}
 					}
 				} else {
@@ -541,6 +551,17 @@ didStartElement:(NSString *)elementName
 			}
 			
 			currentParams = nil;
+		}
+		
+		
+		if([attrDict valueForKey:@"transform"]) {
+			[self applyTransformations:[attrDict valueForKey:@"transform"]];
+			pathTrnsfrmReset = YES;
+		} else if(pathTrnsfrmReset) {
+			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
+			transform = gTransform;
+			CGContextConcatCTM(cgContext,transform);
+			pathTrnsfrmReset = NO;
 		}
 		
 		//CGContextClosePath(cgContext);
@@ -564,6 +585,16 @@ didStartElement:(NSString *)elementName
 		CGMutablePathRef path = CGPathCreateMutable();
 		CGPathAddRoundRect(path, CGRectMake(xPos * scale,yPos * scale,width * scale,height * scale), rx * scale);
 		
+		if([attrDict valueForKey:@"transform"]) {
+			[self applyTransformations:[attrDict valueForKey:@"transform"]];
+			pathTrnsfrmReset = YES;
+		} else if(pathTrnsfrmReset) {
+			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
+			transform = gTransform;
+			CGContextConcatCTM(cgContext,transform);
+			pathTrnsfrmReset = NO;
+		}
+		
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
 	
@@ -584,10 +615,6 @@ didStartElement:(NSString *)elementName
 	}
 	
 	if([elementName isEqualToString:@"g"]) {
-		// Set the coordinates back the way they were
-		//if(cur)
-		//[transform invert];
-		//[transform concat];
 	}
 	
 	if([elementName isEqualToString:@"defs"]) {
@@ -913,7 +940,8 @@ didStartElement:(NSString *)elementName
 	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
 	
 	// Reset transformation matrix
-	transform = CGAffineTransformIdentity;
+	//transform = CGAffineTransformIdentity;
+	transform = gTransform;
 	
 	NSScanner *scanner = [NSScanner scannerWithString:transformations];
 	[scanner setCaseSensitive:YES];
@@ -960,6 +988,7 @@ didStartElement:(NSString *)elementName
 	}
 	
 	// Apply to graphics context
+	//CGContextConcatCTM(cgContext,gTransform);
 	CGContextConcatCTM(cgContext,transform);
 }
 
