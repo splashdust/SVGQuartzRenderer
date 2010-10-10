@@ -187,15 +187,80 @@
          k2="1"
          result="result4" />
     </filter>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6028"
-       id="linearGradient6034"
-       x1="130.25"
-       y1="782.36218"
-       x2="193.75"
-       y2="824.11218"
-       gradientUnits="userSpaceOnUse" />
+    <filter
+       id="filter7430"
+       x="-0.15"
+       width="1.3"
+       y="-0.15"
+       height="1.3"
+       inkscape:menu-tooltip="Stone wall texture to use with not too saturated colors"
+       inkscape:menu="Textures"
+       inkscape:label="Stone wall"
+       color-interpolation-filters="sRGB">
+      <feTurbulence
+         id="feTurbulence7432"
+         type="turbulence"
+         numOctaves="5"
+         baseFrequency="0.08 0.175"
+         seed="25" />
+      <feColorMatrix
+         id="feColorMatrix7434"
+         result="result5"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 2 0 " />
+      <feComposite
+         id="feComposite7436"
+         in2="result5"
+         in="SourceGraphic"
+         operator="in" />
+      <feMorphology
+         id="feMorphology7438"
+         operator="dilate"
+         radius="0.65"
+         result="result3" />
+      <feTurbulence
+         id="feTurbulence7440"
+         numOctaves="7"
+         baseFrequency="0.05 0.09"
+         type="fractalNoise"
+         seed="25" />
+      <feGaussianBlur
+         id="feGaussianBlur7442"
+         stdDeviation="2"
+         result="result7" />
+      <feDisplacementMap
+         id="feDisplacementMap7444"
+         in2="result7"
+         in="result3"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="5"
+         result="result4" />
+      <feFlood
+         id="feFlood7446"
+         flood-opacity="1"
+         flood-color="rgb(255,255,255)"
+         result="result8" />
+      <feComposite
+         id="feComposite7448"
+         in2="result4"
+         k3="0.7"
+         k1="0.7"
+         result="result2"
+         operator="arithmetic" />
+      <feComposite
+         id="feComposite7450"
+         in2="SourceAlpha"
+         k2="1"
+         in="result2"
+         operator="arithmetic"
+         k1="1"
+         result="result6" />
+      <feBlend
+         id="feBlend7452"
+         in2="result6"
+         mode="multiply"
+         in="result6" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -212,8 +277,8 @@
      showgrid="false"
      inkscape:window-width="1154"
      inkscape:window-height="808"
-     inkscape:window-x="374"
-     inkscape:window-y="50"
+     inkscape:window-x="443"
+     inkscape:window-y="96"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5110">
@@ -241,13 +306,14 @@
        id="path2813"
        sodipodi:nodetypes="ccccccccccccccccc" />
     <rect
-       style="fill:url(#linearGradient5959);fill-opacity:1.0;fill-rule:nonzero;stroke:#000000;stroke-opacity:1"
+       style="fill:url(#linearGradient5959);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-opacity:1;filter:url(#filter7430)"
        id="rect3587"
        width="138"
        height="127"
        x="54"
        y="587.36218"
-       ry="37.937054" />
+       ry="37.937054"
+       transform="matrix(1.9683421,0,0,2.0097405,-67.606073,-638.20189)" />
     <path
        style="fill:url(#radialGradient5951);fill-opacity:1.0;stroke:#aca300;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:5, 5;stroke-dashoffset:0;marker-start:none"
        d="m 378.10982,565.57875 c 40.06765,50.23528 175.70481,85.89424 158.04575,29.11258 -17.65906,-56.78167 -50.1411,12.28292 -83.06652,-63.91365 -32.92541,-76.19657 -11.32154,-57.69595 64.16961,-73.636 75.49116,-15.94006 -93.6253,-113.04116 -93.6253,-113.04116 0,0 -54.86917,-36.89681 -82.93644,46.3632 -28.06727,83.26 -325.93557,106.50825 -156.427,151.63968 169.50856,45.13144 157.07412,-2.77874 193.8399,23.47535 z"
