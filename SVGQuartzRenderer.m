@@ -32,6 +32,7 @@
 	
 	void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius);
 	void drawImagePattern(void *fillPatDescriptor, CGContextRef context);
+	CGImageRef imageFromBase64(NSString *b64Data);
 
 @end
 
@@ -612,6 +613,40 @@ didStartElement:(NSString *)elementName
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
 	
+	// Image node
+	// Parse the image node only if it contains an xlink:href attribute with base64 data
+	// -------------------------------------------------------------------------
+	if([elementName isEqualToString:@"image"]
+	&& [[attrDict valueForKey:@"xlink:href"] rangeOfString:@"base64"].location != NSNotFound) {
+		
+		if(inDefSection)
+			return;
+		
+		float xPos = [[attrDict valueForKey:@"x"] floatValue];
+		float yPos = [[attrDict valueForKey:@"y"] floatValue];
+		float width = [[attrDict valueForKey:@"width"] floatValue];
+		float height = [[attrDict valueForKey:@"height"] floatValue];
+		
+		pathTrnsfrmReset = YES;
+		if([attrDict valueForKey:@"transform"]) {
+			[self applyTransformations:[attrDict valueForKey:@"transform"]];
+			pathTrnsfrmReset = YES;
+		} else if(pathTrnsfrmReset) {
+			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
+			transform = gTransform;
+			CGContextConcatCTM(cgContext,transform);
+			pathTrnsfrmReset = NO;
+		}
+		
+		yPos-=height/2;
+		CGImageRef theImage = imageFromBase64([attrDict valueForKey:@"xlink:href"]);
+		CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, height*scale);
+		CGContextConcatCTM(cgContext, flipVertical);
+		CGContextDrawImage(cgContext, CGRectMake(xPos*scale, yPos*scale, width*scale, height*scale), theImage);
+		CGContextConcatCTM(cgContext, CGAffineTransformInvert(flipVertical));
+		CGImageRelease(theImage);
+	}
+	
 	[pool release];
 }
 
@@ -780,15 +815,7 @@ didStartElement:(NSString *)elementName
 						// Load bitmap pattern
 						fillType = [def objectForKey:@"type"];
 						NSString *imgString = [[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"xlink:href"];
-						NSArray *mimeAndData = [imgString componentsSeparatedByString:@","];
-						NSData *imgData = [[NSData dataWithBase64EncodedString:[mimeAndData objectAtIndex:1]] retain];
-						CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)imgData);
-						
-						CGImageRef patternImage;
-						if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/jpeg;base64"])
-							patternImage = CGImageCreateWithJPEGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
-						else if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/png;base64"])
-							patternImage = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+						CGImageRef patternImage = imageFromBase64(imgString);
 						
 						CGImageRetain(patternImage);
 						
@@ -1037,9 +1064,23 @@ void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
 {
 	FillPatternDescriptor *patDesc;
 	patDesc = (FillPatternDescriptor *)fillPatDescriptor;
-	NSLog(@"%d", patDesc->imgRef);
 	CGContextDrawImage(context, patDesc->rect, patDesc->imgRef);
 	CGImageRelease(patDesc->imgRef);
+}
+
+CGImageRef imageFromBase64(NSString *b64Data)
+{
+	NSArray *mimeAndData = [b64Data componentsSeparatedByString:@","];
+	NSData *imgData = [[NSData dataWithBase64EncodedString:[mimeAndData objectAtIndex:1]] retain];
+	CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)imgData);
+	
+	CGImageRef img;
+	if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/jpeg;base64"])
+		img = CGImageCreateWithJPEGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+	else if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/png;base64"])
+		img = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+	
+	return img;
 }
 
 void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
