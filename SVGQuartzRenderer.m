@@ -162,6 +162,7 @@ didStartElement:(NSString *)elementName
 		
 		}
 		gTransform = CGAffineTransformIdentity;
+		transform = CGAffineTransformIdentity;
 	}
 	
 	// Definitions

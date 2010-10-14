@@ -1,3 +1,4 @@
 build/
 SVGRender.xcodeproj/*.mode1v3
 SVGRender.xcodeproj/*.pbxuser
+SVGRender.xcodeproj/*.perspectivev3
