@@ -294,7 +294,13 @@ didStartElement:(NSString *)elementName
 		CGMutablePathRef path = CGPathCreateMutable();
 		
 		// Create a scanner for parsing path data
-		NSScanner *scanner = [NSScanner scannerWithString:[attrDict valueForKey:@"d"]];
+		NSString *d = [attrDict valueForKey:@"d"];
+		
+		// Space before the first command messes stuff up.
+		if([d hasPrefix:@" "])
+			d = [d stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
+		
+		NSScanner *scanner = [NSScanner scannerWithString:d];
 		[scanner setCaseSensitive:YES];
 		[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
 		
@@ -579,6 +585,22 @@ didStartElement:(NSString *)elementName
 			pathTrnsfrmReset = NO;
 		}
 		
+		// Respect the 'fill' attribute
+		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
+		if([attrDict valueForKey:@"fill"]) {
+			doFill = YES;
+			fillType = @"solid";
+			NSScanner *hexScanner = [NSScanner scannerWithString:
+									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
+			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
+			unsigned int color;
+			[hexScanner scanHexInt:&color];
+			fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
+			fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
+			fillColor[2] =  (color & 0x0000FF) / 255.0f;
+			fillColor[3] = 1;
+		}
+		
 		//CGContextClosePath(cgContext);
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
 	}
@@ -608,6 +630,22 @@ didStartElement:(NSString *)elementName
 			transform = gTransform;
 			CGContextConcatCTM(cgContext,transform);
 			pathTrnsfrmReset = NO;
+		}
+		
+		// Respect the 'fill' attribute
+		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
+		if([attrDict valueForKey:@"fill"]) {
+			doFill = YES;
+			fillType = @"solid";
+			NSScanner *hexScanner = [NSScanner scannerWithString:
+									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
+			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
+			unsigned int color;
+			[hexScanner scanHexInt:&color];
+			fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
+			fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
+			fillColor[2] =  (color & 0x0000FF) / 255.0f;
+			fillColor[3] = 1;
 		}
 		
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
@@ -702,6 +740,7 @@ didStartElement:(NSString *)elementName
 	if(doFill) {
 		if ([fillType isEqualToString:@"solid"]) {
 			
+			//NSLog(@"Setting fill color R:%f, G:%f, B:%f, A:%f", fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
 			CGContextSetRGBFillColor(cgContext, fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
 			
 		} else if([fillType isEqualToString:@"pattern"]) {
@@ -750,15 +789,19 @@ didStartElement:(NSString *)elementName
 		
 	}
 	
-	if(doFill || doStroke)
+	if(doFill || doStroke) {
 		CGContextAddPath(cgContext, path);
+		//NSLog(@"Adding path to contextl");
+	}
 	
-	if(doFill && doStroke)
+	if(doFill && doStroke) {
 		CGContextDrawPath(cgContext, kCGPathFillStroke);
-	else if(doFill)
+	} else if(doFill) {
 		CGContextFillPath(cgContext);
-	else if(doStroke)
+		//NSLog(@"Filling path in contextl");
+	} else if(doStroke) {
 		CGContextStrokePath(cgContext);
+	}
 	
 	CGContextRestoreGState(cgContext);
 	
