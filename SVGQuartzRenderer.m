@@ -29,7 +29,8 @@
 	- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style;
 	- (void)applyTransformations:(NSString *)transformations;
 	- (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier;
-	
+	- (void) cleanupAfterFinishedParsing;
+
 	void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius);
 	void drawImagePattern(void *fillPatDescriptor, CGContextRef context);
 	CGImageRef imageFromBase64(NSString *b64Data);
@@ -53,7 +54,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 NSXMLParser* xmlParser;
 NSString *svgFileName;
 CGAffineTransform transform;
-CGContextRef cgContext;
+CGContextRef cgContext=NULL;
 NSMutableDictionary *defDict;
 FillPatternDescriptor desc;
 
@@ -127,7 +128,7 @@ CGPoint fillGradientCenterPoint;
 - (void)drawSVGFile:(NSString *)file
 {
 	svgFileName = file;
-	NSData *xml = [[NSData dataWithContentsOfFile:file] autorelease];
+	NSData *xml = [NSData dataWithContentsOfFile:file];
 	xmlParser = [xmlParser initWithData:xml];
 	
 	[xmlParser setDelegate:self];
@@ -154,9 +155,12 @@ didStartElement:(NSString *)elementName
 		
 		doStroke = NO;
 		
-		if(delegate)
+		if(delegate) {
+		    if (cgContext != nil) 
+				CGContextRelease(cgContext);			   				
 			cgContext = [delegate svgRenderer:self requestedCGContextWidthSize:documentSize];
 		
+		}
 		gTransform = CGAffineTransformIdentity;
 	}
 	
@@ -168,6 +172,7 @@ didStartElement:(NSString *)elementName
 	}
 	
 		if([elementName isEqualToString:@"pattern"]) {
+			[curPat release];
 			curPat = [[NSMutableDictionary alloc] init];
 			
 			NSEnumerator *enumerator = [attrDict keyEnumerator];
@@ -176,7 +181,9 @@ didStartElement:(NSString *)elementName
 				NSDictionary *obj = [attrDict objectForKey:key];
 				[curPat setObject:obj forKey:key];
 			}
-			[curPat setObject:[[NSMutableArray alloc] init] forKey:@"images"];
+			NSMutableArray* imagesArray = [NSMutableArray new];
+			[curPat setObject:imagesArray forKey:@"images"];
+			[imagesArray release];
 			[curPat setObject:@"pattern" forKey:@"type"];
 		}
 			if([elementName isEqualToString:@"image"]) {
@@ -188,9 +195,11 @@ didStartElement:(NSString *)elementName
 					[imageDict setObject:obj forKey:key];
 				}
 				[[curPat objectForKey:@"images"] addObject:imageDict];
+				[imageDict release];
 			}
 		
 		if([elementName isEqualToString:@"linearGradient"]) {
+			[curGradient release];
 			curGradient = [[NSMutableDictionary alloc] init];
 			NSEnumerator *enumerator = [attrDict keyEnumerator];
 			id key;
@@ -199,7 +208,9 @@ didStartElement:(NSString *)elementName
 				[curGradient setObject:obj forKey:key];
 			}
 			[curGradient setObject:@"linearGradient" forKey:@"type"];
-			[curGradient setObject:[[NSMutableArray alloc] init] forKey:@"stops"];
+			NSMutableArray* stopsArray = [NSMutableArray new];
+			[curGradient setObject:stopsArray forKey:@"stops"];
+			[stopsArray release];
 		}
 			if([elementName isEqualToString:@"stop"]) {
 				NSMutableDictionary *stopDict = [[NSMutableDictionary alloc] init];
@@ -210,9 +221,11 @@ didStartElement:(NSString *)elementName
 					[stopDict setObject:obj forKey:key];
 				}
 				[[curGradient objectForKey:@"stops"] addObject:stopDict];
+				[stopDict release];
 			}
 		
 		if([elementName isEqualToString:@"radialGradient"]) {
+			[curGradient release];
 			curGradient = [[NSMutableDictionary alloc] init];
 			NSEnumerator *enumerator = [attrDict keyEnumerator];
 			id key;
@@ -224,6 +237,7 @@ didStartElement:(NSString *)elementName
 		}
 	
 		if([elementName isEqualToString:@"filter"]) {
+			[curFilter release];
 			curFilter = [[NSMutableDictionary alloc] init];
 			NSEnumerator *enumerator = [attrDict keyEnumerator];
 			id key;
@@ -231,7 +245,9 @@ didStartElement:(NSString *)elementName
 				NSDictionary *obj = [attrDict objectForKey:key];
 				[curFilter setObject:obj forKey:key];
 			}
-			[curFilter setObject:[[NSMutableArray alloc] init] forKey:@"feGaussianBlurs"];
+			NSMutableArray* gaussianBlursArray = [NSMutableArray new];
+			[curFilter setObject:gaussianBlursArray forKey:@"feGaussianBlurs"];
+			[gaussianBlursArray release];
 		}
 			if([elementName isEqualToString:@"feGaussianBlur"]) {
 				NSMutableDictionary *blurDict = [[NSMutableDictionary alloc] init];
@@ -242,6 +258,7 @@ didStartElement:(NSString *)elementName
 					[blurDict setObject:obj forKey:key];
 				}
 				[[curFilter objectForKey:@"feGaussianBlurs"] addObject:blurDict];
+				[blurDict release];
 			}
 			if([elementName isEqualToString:@"feColorMatrix"]) {
 				
@@ -259,7 +276,7 @@ didStartElement:(NSString *)elementName
 	// Group node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"g"]) {
-		
+		[curLayer release];
 		curLayer = [[NSMutableDictionary alloc] init];
 		NSEnumerator *enumerator = [attrDict keyEnumerator];
 		id key;
@@ -684,7 +701,6 @@ didStartElement:(NSString *)elementName
 		CGContextConcatCTM(cgContext, CGAffineTransformInvert(flipVertical));
 		CGImageRelease(theImage);
 	}
-	
 	[pool release];
 }
 
@@ -697,8 +713,8 @@ didStartElement:(NSString *)elementName
  qualifiedName:(NSString *)qName
 {
 	if([elementName isEqualToString:@"svg"]) {
-		[defDict release];
 		delegate?[delegate svgRenderer:self didFinnishRenderingFile:svgFileName inCGContext:cgContext]:nil;
+		[self cleanupAfterFinishedParsing];
 	}
 	
 	if([elementName isEqualToString:@"g"]) {
@@ -749,7 +765,7 @@ didStartElement:(NSString *)elementName
 			CGContextSetFillColorSpace(cgContext, myColorSpace);
 			CGColorSpaceRelease(myColorSpace);
 			
-			float alpha = fillColor[3];
+			double alpha = fillColor[3];
 			CGContextSetFillPattern (cgContext,
 									 fillPattern,
 									 &alpha);
@@ -1046,7 +1062,7 @@ didStartElement:(NSString *)elementName
 	
 	// Rotate
 	value = [NSString string];
-	[scanner initWithString:transformations];
+	scanner = [NSScanner scannerWithString:transformations];
 	[scanner scanString:@"rotate(" intoString:nil];
 	[scanner scanUpToString:@")" intoString:&value];
 	
@@ -1055,7 +1071,7 @@ didStartElement:(NSString *)elementName
 	
 	// Matrix
 	value = [NSString string];
-	[scanner initWithString:transformations];
+	scanner = [NSScanner scannerWithString:transformations];
 	[scanner scanString:@"matrix(" intoString:nil];
 	[scanner scanUpToString:@")" intoString:&value];
 	
@@ -1099,7 +1115,9 @@ didStartElement:(NSString *)elementName
 
 - (CGContextRef)createBitmapContext
 {
-	CGContextRef ctx = CGBitmapContextCreate(NULL, (int)documentSize.width, (int)documentSize.height, 8, (int)documentSize.width*4, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGContextRef ctx = CGBitmapContextCreate(NULL, (int)documentSize.width, (int)documentSize.height, 8, (int)documentSize.width*4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
 	return ctx;
 }
 
@@ -1114,15 +1132,15 @@ void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
 CGImageRef imageFromBase64(NSString *b64Data)
 {
 	NSArray *mimeAndData = [b64Data componentsSeparatedByString:@","];
-	NSData *imgData = [[NSData dataWithBase64EncodedString:[mimeAndData objectAtIndex:1]] retain];
+	NSData *imgData = [NSData dataWithBase64EncodedString:[mimeAndData objectAtIndex:1]];
 	CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)imgData);
 	
-	CGImageRef img;
+	CGImageRef img=nil;
 	if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/jpeg;base64"])
 		img = CGImageCreateWithJPEGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
 	else if([[mimeAndData objectAtIndex:0] isEqualToString:@"data:image/png;base64"])
 		img = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
-	
+	CGDataProviderRelease(provider);
 	return img;
 }
 
@@ -1150,13 +1168,25 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 
 - (void)dealloc
 {
-	[defDict release];
-	[curPat release];
-	[curGradient release];
-	[curFilter release];
+	[self cleanupAfterFinishedParsing];
 	[xmlParser release];
 	
 	[super dealloc];
+}
+
+-(void) cleanupAfterFinishedParsing
+{
+	[defDict release];
+	defDict = nil;
+	[curPat release];
+	curPat = nil;
+	[curGradient release];
+	curGradient = nil;
+	[curFilter release];
+	curFilter = nil;
+	CGContextRelease(cgContext);
+	cgContext = nil;
+	
 }
 
 @end

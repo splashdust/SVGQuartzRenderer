@@ -1,2 +1,3 @@
 build/
-SVGRender.xcodeproj/joacim.*
+SVGRender.xcodeproj/*.mode1v3
+SVGRender.xcodeproj/*.pbxuser
