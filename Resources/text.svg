@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="398"
-     inkscape:cy="840"
+     inkscape:cx="278"
+     inkscape:cy="640"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -66,14 +66,15 @@
          id="flowPara2991">Hello, here is some text that wraps.</flowPara></flowRoot>    <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
-       x="62"
-       y="276.36218"
+       x="78"
+       y="275.36218"
        id="text2993"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2995"
-         x="62"
-         y="276.36218">This text won't wrap</tspan></text>
+         x="78"
+         y="275.36218"
+         style="-inkscape-font-specification:Times New Roman;font-family:Times New Roman;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">This text won't wrap</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
@@ -85,7 +86,7 @@
          id="tspan2999"
          x="72"
          y="385.36218"
-         style="font-style:oblique;-inkscape-font-specification:Bitstream Vera Sans Oblique">This text is italic</tspan></text>
+         style="font-style:italic;-inkscape-font-specification:Univers Italic;font-family:Univers;font-weight:normal;font-stretch:normal;font-variant:normal">This text is italic</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"

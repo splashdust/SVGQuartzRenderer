@@ -92,7 +92,7 @@ CGGradientRef fillGradient;
 CGPoint fillGradientPoints[2];
 int fillGradientAngle;
 CGPoint fillGradientCenterPoint;
-char *font;
+NSString *font;
 float fontSize;
 // -------------------------------------------------------------------------
 
@@ -780,7 +780,11 @@ didStartElement:(NSString *)elementName
 		NSLog(@"Font-size: %f", fontSize);
 		
 		CGContextSetRGBFillColor(cgContext, 0, 0, 0, 1);
-		CGContextSelectFont(cgContext, "Helvetica", fontSize, kCGEncodingMacRoman);
+		
+		if(!font)
+			font = @"Helvetica";
+		
+		CGContextSelectFont(cgContext, [font UTF8String], fontSize, kCGEncodingMacRoman);
 		// Next we set the text matrix to flip our text upside down. We do this because the context itself
 		// is flipped upside down relative to the expected orientation for drawing text (much like the case for drawing Images & PDF).
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
@@ -1167,7 +1171,9 @@ didStartElement:(NSString *)elementName
 		
 		// --------------------- FONT-FAMILY
 		if([attrName isEqualToString:@"font-family"]) {
-			
+			font = [attrValue retain];
+			if([font isEqualToString:@"Sans"])
+				font = @"Helvetica";
 		}
 		
 		[cssScanner scanString:@";" intoString:nil];
@@ -1326,6 +1332,8 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 	curFilter = nil;
 	[curText release];
 	curText = nil;
+	[font release];
+	font = nil;
 	CGContextRelease(cgContext);
 	cgContext = nil;
 	
