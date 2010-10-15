@@ -62,6 +62,8 @@ NSMutableDictionary *curPat;
 NSMutableDictionary *curGradient;
 NSMutableDictionary *curFilter;
 NSMutableDictionary *curLayer;
+NSDictionary *curText;
+NSDictionary *curFlowRegion;
 
 BOOL inDefSection = NO;
 
@@ -70,6 +72,10 @@ BOOL pathTrnsfrmReset = YES;
 
 // Variables for storing style data
 // -------------------------------------------------------------------------
+// TODO: This is very messy. Create a class that contains all of these values.
+// Then the styling for an element can be represented by a style object.
+// Also, the style object could be responsible for parsing CSS and for configuring
+// the CGContext according to it's style.
 BOOL doFill;
 float fillColor[4];
 float fillOpacity;
@@ -86,6 +92,8 @@ CGGradientRef fillGradient;
 CGPoint fillGradientPoints[2];
 int fillGradientAngle;
 CGPoint fillGradientCenterPoint;
+char *font;
+float fontSize;
 // -------------------------------------------------------------------------
 
 - (id)init {
@@ -550,7 +558,6 @@ didStartElement:(NSString *)elementName
 					
 					// Close path
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
-						NSLog(@"Z!!!");
 						CGPathAddLineToPoint(path, NULL, firstPoint.x * scale, firstPoint.y * scale);
 						CGPathCloseSubpath(path);
 						curPoint = CGPointMake(-1, -1);
@@ -627,6 +634,11 @@ didStartElement:(NSString *)elementName
 	// Rect node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"rect"]) {
+		
+		// Ignore rects in flow regions for now
+		if(curFlowRegion)
+			return;
+		
 		float xPos = [[attrDict valueForKey:@"x"] floatValue];
 		float yPos = [[attrDict valueForKey:@"y"] floatValue];
 		float width = [[attrDict valueForKey:@"width"] floatValue];
@@ -702,8 +714,85 @@ didStartElement:(NSString *)elementName
 		CGContextConcatCTM(cgContext, CGAffineTransformInvert(flipVertical));
 		CGImageRelease(theImage);
 	}
+	
+	// Text node
+	// -------------------------------------------------------------------------
+	if([elementName isEqualToString:@"text"]) {
+		
+		if(inDefSection)
+			return;
+		
+		if(curText)
+			[curText release];
+		
+		// TODO: This chunk of code appears in almost every node. It could probably
+		// be centralized
+		if([attrDict valueForKey:@"transform"]) {
+			[self applyTransformations:[attrDict valueForKey:@"transform"]];
+			pathTrnsfrmReset = YES;
+		} else if(pathTrnsfrmReset) {
+			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
+			transform = gTransform;
+			CGContextConcatCTM(cgContext,transform);
+			pathTrnsfrmReset = NO;
+		}
+		
+		curText = [[NSDictionary dictionaryWithObjectsAndKeys:
+				   [attrDict valueForKey:@"id"], @"id",
+				   [attrDict valueForKey:@"style"], @"style",
+				   [attrDict valueForKey:@"x"], @"x",
+				   [attrDict valueForKey:@"y"], @"y",
+				   [attrDict valueForKey:@"width"], @"width",
+				   [attrDict valueForKey:@"height"], @"height",
+				   nil] retain];
+		
+		[self setStyleContext:[attrDict valueForKey:@"style"]];
+	}
+	
+		// TSpan node
+		// Assumed to always be a child of a Text node
+		// ---------------------------------------------------------------------
+		if([elementName isEqualToString:@"tspan"]) {
+			
+			if(inDefSection)
+				return;
+			
+			[self setStyleContext:[attrDict valueForKey:@"style"]];
+		}
+	
+	// FlowRegion node
+	// -------------------------------------------------------------------------
+	if([elementName isEqualToString:@"flowRegion"]) {
+		if(curFlowRegion)
+			[curFlowRegion release];
+		
+		curFlowRegion = [[NSDictionary dictionary] retain];
+	}
+	
 	[pool release];
 }
+
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)chars
+{
+	if(curText) {
+		
+		NSLog(@"Font-size: %f", fontSize);
+		
+		CGContextSetRGBFillColor(cgContext, 0, 0, 0, 1);
+		CGContextSelectFont(cgContext, "Helvetica", fontSize, kCGEncodingMacRoman);
+		// Next we set the text matrix to flip our text upside down. We do this because the context itself
+		// is flipped upside down relative to the expected orientation for drawing text (much like the case for drawing Images & PDF).
+		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
+		CGContextSetTextDrawingMode(cgContext, kCGTextFill);
+		CGContextShowTextAtPoint(cgContext,
+								 [[curText valueForKey:@"x"] floatValue],
+								 [[curText valueForKey:@"y"] floatValue],
+								 [chars UTF8String],
+								 [chars length]);
+	}
+}
+
 
 
 // Element ended
@@ -726,6 +815,20 @@ didStartElement:(NSString *)elementName
 	}
 
 	if([elementName isEqualToString:@"path"]) {
+	}
+	
+	if([elementName isEqualToString:@"text"]) {
+		if(curText) {
+			[curText release];
+			curText = nil;
+		}
+	}
+	
+	if([elementName isEqualToString:@"flowRegion"]) {
+		if(curFlowRegion) {
+			[curFlowRegion release];
+			curFlowRegion = nil;
+		}
 	}
 	
 	if([elementName isEqualToString:@"pattern"]) {
@@ -1031,6 +1134,42 @@ didStartElement:(NSString *)elementName
 			[floatScanner scanFloat:&miterLimit];
 		}
 		
+		// --------------------- FONT-SIZE
+		if([attrName isEqualToString:@"font-size"]) {
+			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
+			[floatScanner scanFloat:&fontSize];
+		}
+		
+		// --------------------- FONT-STYLE
+		if([attrName isEqualToString:@"font-style"]) {
+			
+		}
+		
+		// --------------------- FONT-WEIGHT
+		if([attrName isEqualToString:@"font-weight"]) {
+			
+		}
+		
+		// --------------------- LINE-HEIGHT
+		if([attrName isEqualToString:@"line-height"]) {
+			
+		}
+		
+		// --------------------- LETTER-SPACING
+		if([attrName isEqualToString:@"letter-spacing"]) {
+			
+		}
+		
+		// --------------------- WORD-SPACING
+		if([attrName isEqualToString:@"word-spacing"]) {
+			
+		}
+		
+		// --------------------- FONT-FAMILY
+		if([attrName isEqualToString:@"font-family"]) {
+			
+		}
+		
 		[cssScanner scanString:@";" intoString:nil];
 	}
 	[pool release];
@@ -1185,6 +1324,8 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 	curGradient = nil;
 	[curFilter release];
 	curFilter = nil;
+	[curText release];
+	curText = nil;
 	CGContextRelease(cgContext);
 	cgContext = nil;
 	
