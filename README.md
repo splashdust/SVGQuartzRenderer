@@ -20,6 +20,7 @@ SVGQuartzRenderer is currently quite far from conforming to any SVG Profile at a
 * Pattern fills (Note: transformation of pattern fills is not yet implemented)
 
 Notable features that are NOT yet supported:
+
 * Arcs
 * Quadratic curves
 * Shapes other than rect
