@@ -777,16 +777,13 @@ didStartElement:(NSString *)elementName
 {
 	if(curText) {
 		
-		NSLog(@"Font-size: %f", fontSize);
-		
 		CGContextSetRGBFillColor(cgContext, 0, 0, 0, 1);
 		
 		if(!font)
 			font = @"Helvetica";
 		
 		CGContextSelectFont(cgContext, [font UTF8String], fontSize, kCGEncodingMacRoman);
-		// Next we set the text matrix to flip our text upside down. We do this because the context itself
-		// is flipped upside down relative to the expected orientation for drawing text (much like the case for drawing Images & PDF).
+		CGContextSetFontSize(cgContext, fontSize);
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
 		CGContextSetTextDrawingMode(cgContext, kCGTextFill);
 		CGContextShowTextAtPoint(cgContext,
