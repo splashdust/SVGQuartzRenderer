@@ -166,7 +166,7 @@ didStartElement:(NSString *)elementName
 		if(delegate) {
 		    if (cgContext != nil) 
 				CGContextRelease(cgContext);			   				
-			cgContext = [delegate svgRenderer:self requestedCGContextWidthSize:documentSize];
+			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		
 		}
 		gTransform = CGAffineTransformIdentity;

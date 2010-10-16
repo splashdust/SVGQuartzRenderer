@@ -34,4 +34,4 @@ Other than the above listed missing features, there are some issues with how SVG
 
 Text with nested TSpan elements won't work. That will happen if the style of one word is changed. The workaround is to use separate text nodes for each style change.
 
-If you decide to try SVGQuartzRenderer and run in to any other bugs, please let me know by creating an issue here on GitHub.
+If you run in to any other bugs, please create an issue here on GitHub.

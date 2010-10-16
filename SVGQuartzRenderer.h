@@ -29,7 +29,7 @@ didFinnishRenderingFile:(NSString *)file
 			inCGContext:(CGContextRef)context;
 
 	- (CGContextRef)svgRenderer:(id)renderer
-	requestedCGContextWidthSize:(CGSize)size;
+	requestedCGContextWithSize:(CGSize)size;
 
 @end
 
