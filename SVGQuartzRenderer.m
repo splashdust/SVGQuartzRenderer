@@ -135,7 +135,7 @@ float fontSize;
 
 - (void)drawSVGFile:(NSString *)file
 {
-	svgFileName = file;
+	svgFileName = [file retain];
 	NSData *xml = [NSData dataWithContentsOfFile:file];
 	xmlParser = [xmlParser initWithData:xml];
 	
@@ -165,9 +165,8 @@ didStartElement:(NSString *)elementName
 		
 		if(delegate) {
 		    if (cgContext != nil) 
-				CGContextRelease(cgContext);			   				
+				CGContextRelease(cgContext);
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
-		
 		}
 		gTransform = CGAffineTransformIdentity;
 		transform = CGAffineTransformIdentity;
@@ -782,13 +781,13 @@ didStartElement:(NSString *)elementName
 		if(!font)
 			font = @"Helvetica";
 		
-		CGContextSelectFont(cgContext, [font UTF8String], fontSize, kCGEncodingMacRoman);
-		CGContextSetFontSize(cgContext, fontSize);
+		CGContextSelectFont(cgContext, [font UTF8String], fontSize*scale, kCGEncodingMacRoman);
+		CGContextSetFontSize(cgContext, fontSize*scale);
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
 		CGContextSetTextDrawingMode(cgContext, kCGTextFill);
 		CGContextShowTextAtPoint(cgContext,
-								 [[curText valueForKey:@"x"] floatValue],
-								 [[curText valueForKey:@"y"] floatValue],
+								 [[curText valueForKey:@"x"] floatValue]*scale,
+								 [[curText valueForKey:@"y"] floatValue]*scale,
 								 [chars UTF8String],
 								 [chars length]);
 	}

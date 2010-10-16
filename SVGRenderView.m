@@ -29,6 +29,7 @@ BOOL hasRendered;
 
 SVGQuartzRenderer *svgRenderer;
 CGContextRef viewContext;
+NSString *svgFile;
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -53,7 +54,11 @@ CGContextRef viewContext;
 	
 	if(selected == NSOKButton) {
 		
-		[svgRenderer drawSVGFile:[chooseDirPanel filename]];
+		if(svgFile)
+			[svgFile release];
+		
+		svgFile = [chooseDirPanel filename];
+		[svgRenderer drawSVGFile:svgFile];
 		
 	} else if(selected == NSCancelButton) {
 		// Cancel
@@ -91,10 +96,22 @@ CGContextRef viewContext;
 		didFinnishRenderingFile:(NSString *)file
 		inCGContext:(CGContextRef)context
 {
-	NSLog(@"Finnished we are!");
+	if(svgDrawing != nil)
+		CGImageRelease(svgDrawing);
+	
 	svgDrawing = CGBitmapContextCreateImage(context);
 }
 
+- (IBAction)setScale:(id)sender
+{
+	if(sender == scaleTF)
+		[scaleSlider setFloatValue:[sender floatValue]];
+	else 
+		[scaleTF setFloatValue:[sender floatValue]];
+	
+	[svgRenderer setScale:[sender floatValue]];
+	[svgRenderer drawSVGFile:svgFile];
+}
 
 - (BOOL)isFlipped {return YES;}
 
