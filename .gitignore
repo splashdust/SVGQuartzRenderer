@@ -1,4 +1,10 @@
 build/
+Resources/Flowchart.svg
+
 SVGRender.xcodeproj/*.mode1v3
 SVGRender.xcodeproj/*.pbxuser
 SVGRender.xcodeproj/*.perspectivev3
+
+SVGRendererTouch/SVGRendererTouch.xcodeproj/*.mode1v3
+SVGRendererTouch/SVGRendererTouch.xcodeproj/*.pbxuser
+SVGRendererTouch/SVGRendererTouch.xcodeproj/*.perspectivev3
