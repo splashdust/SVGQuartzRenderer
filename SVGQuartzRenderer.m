@@ -1331,7 +1331,8 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 	curText = nil;
 	[font release];
 	font = nil;
-	CGContextRelease(cgContext);
+	if(cgContext)
+		CGContextRelease(cgContext);
 	cgContext = nil;
 	
 }
