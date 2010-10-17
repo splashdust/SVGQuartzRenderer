@@ -66,8 +66,10 @@
 
 }
 
+
+
 - (CGContextRef)svgRenderer:(id)renderer
-				requestedCGContextWidthSize:(CGSize)size
+				requestedCGContextWithSize:(CGSize)size
 {
 	[self setFrame:CGRectMake(0, 0, size.width, size.height)];
 	

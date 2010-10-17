@@ -77,7 +77,7 @@ BOOL pathTrnsfrmReset = YES;
 // Also, the style object could be responsible for parsing CSS and for configuring
 // the CGContext according to it's style.
 BOOL doFill;
-float fillColor[4];
+CGFloat fillColor[4];
 float fillOpacity;
 BOOL doStroke = NO;
 unsigned int strokeColor = 0;
@@ -86,9 +86,9 @@ float strokeOpacity;
 CGLineJoin lineJoinStyle;
 CGLineCap lineCapStyle;
 float miterLimit;
-CGPatternRef fillPattern;
+CGPatternRef fillPattern=NULL;
 NSString *fillType;
-CGGradientRef fillGradient;
+CGGradientRef fillGradient=NULL;
 CGPoint fillGradientPoints[2];
 int fillGradientAngle;
 CGPoint fillGradientCenterPoint;
@@ -164,8 +164,7 @@ didStartElement:(NSString *)elementName
 		doStroke = NO;
 		
 		if(delegate) {
-		    if (cgContext != nil) 
-				CGContextRelease(cgContext);
+			CGContextRelease(cgContext);
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		}
 		gTransform = CGAffineTransformIdentity;
@@ -627,6 +626,7 @@ didStartElement:(NSString *)elementName
 		
 		//CGContextClosePath(cgContext);
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		CGPathRelease(path);
 	}
 	
 	
@@ -678,6 +678,7 @@ didStartElement:(NSString *)elementName
 		}
 		
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		CGPathRelease(path);
 	}
 	
 	// Image node
@@ -736,7 +737,7 @@ didStartElement:(NSString *)elementName
 			pathTrnsfrmReset = NO;
 		}
 		
-		curText = [[NSDictionary dictionaryWithObjectsAndKeys:
+		curText = [[[NSDictionary alloc] initWithObjectsAndKeys:
 				   [attrDict valueForKey:@"id"], @"id",
 				   [attrDict valueForKey:@"style"], @"style",
 				   [attrDict valueForKey:@"x"], @"x",
@@ -762,10 +763,8 @@ didStartElement:(NSString *)elementName
 	// FlowRegion node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"flowRegion"]) {
-		if(curFlowRegion)
-			[curFlowRegion release];
-		
-		curFlowRegion = [[NSDictionary dictionary] retain];
+		[curFlowRegion release];		
+		curFlowRegion = [NSDictionary new];
 	}
 	
 	[pool release];
@@ -796,16 +795,14 @@ didStartElement:(NSString *)elementName
 		CGContextSetLineJoin(cgContext, lineJoinStyle);
 		CGContextSetMiterLimit(cgContext, miterLimit);
 		
-		CGTextDrawingMode drawingMode;
 		
-		if(doFill)
-			drawingMode = kCGTextFill;
-		
-		if(doStroke)
-			drawingMode = kCGTextStroke;
-		
+		CGTextDrawingMode drawingMode = kCGTextInvisible;			
 		if(doStroke && doFill)
 			drawingMode = kCGTextFillStroke;
+		else if(doFill)
+			drawingMode = kCGTextFill;				
+		else if(doStroke)
+			drawingMode = kCGTextStroke;
 		
 		CGContextSetTextDrawingMode(cgContext, drawingMode);
 		CGContextShowTextAtPoint(cgContext,
@@ -892,7 +889,7 @@ didStartElement:(NSString *)elementName
 			CGContextSetFillColorSpace(cgContext, myColorSpace);
 			CGColorSpaceRelease(myColorSpace);
 			
-			double alpha = fillColor[3];
+			CGFloat alpha = fillColor[3];
 			CGContextSetFillPattern (cgContext,
 									 fillPattern,
 									 &alpha);
@@ -1072,6 +1069,8 @@ didStartElement:(NSString *)elementName
 							locations[i] = [[[stops objectAtIndex:i] objectForKey:@"offset"] floatValue];
 						}
 						
+			
+						CGGradientRelease(fillGradient);
 						fillGradient = CGGradientCreateWithColorComponents(CGColorSpaceCreateDeviceRGB(),
 																		   colors, 
 																		   locations,
@@ -1087,7 +1086,9 @@ didStartElement:(NSString *)elementName
 		// --------------------- FILL-OPACITY
 		if([attrName isEqualToString:@"fill-opacity"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
-			[floatScanner scanFloat:&fillColor[3]];
+			float temp;
+			[floatScanner scanFloat:&temp];
+			fillColor[3] = temp;
 		}
 		
 		// --------------------- STROKE
@@ -1288,10 +1289,10 @@ didStartElement:(NSString *)elementName
 
 void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
 {
-	FillPatternDescriptor *patDesc;
-	patDesc = (FillPatternDescriptor *)fillPatDescriptor;
+	FillPatternDescriptor *patDesc = (FillPatternDescriptor *)fillPatDescriptor;
 	CGContextDrawImage(context, patDesc->rect, patDesc->imgRef);
 	CGImageRelease(patDesc->imgRef);
+	patDesc->imgRef = NULL;
 }
 
 CGImageRef imageFromBase64(NSString *b64Data)
@@ -1353,9 +1354,12 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 	curText = nil;
 	[font release];
 	font = nil;
-	if(cgContext)
-		CGContextRelease(cgContext);
-	cgContext = nil;
+	CGContextRelease(cgContext);
+	cgContext = NULL;
+	CGGradientRelease(fillGradient);
+	fillGradient = NULL;
+	[curFlowRegion release];
+	curFlowRegion = nil;
 	
 }
 
