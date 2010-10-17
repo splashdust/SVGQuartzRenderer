@@ -774,17 +774,40 @@ didStartElement:(NSString *)elementName
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)chars
 {
+	// TODO: Text rendering shouldn't occur in this method
 	if(curText) {
-		
-		CGContextSetRGBFillColor(cgContext, 0, 0, 0, 1);
 		
 		if(!font)
 			font = @"Helvetica";
 		
+		CGContextSetRGBFillColor(cgContext, fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
+		
 		CGContextSelectFont(cgContext, [font UTF8String], fontSize*scale, kCGEncodingMacRoman);
 		CGContextSetFontSize(cgContext, fontSize*scale);
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
-		CGContextSetTextDrawingMode(cgContext, kCGTextFill);
+		
+		// TODO: Messy! Centralize.
+		CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
+		CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
+		CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
+		CGContextSetRGBStrokeColor(cgContext, red, green, blue, strokeOpacity);
+		CGContextSetLineWidth(cgContext, strokeWidth);
+		CGContextSetLineCap(cgContext, lineCapStyle);
+		CGContextSetLineJoin(cgContext, lineJoinStyle);
+		CGContextSetMiterLimit(cgContext, miterLimit);
+		
+		CGTextDrawingMode drawingMode;
+		
+		if(doFill)
+			drawingMode = kCGTextFill;
+		
+		if(doStroke)
+			drawingMode = kCGTextStroke;
+		
+		if(doStroke && doFill)
+			drawingMode = kCGTextFillStroke;
+		
+		CGContextSetTextDrawingMode(cgContext, drawingMode);
 		CGContextShowTextAtPoint(cgContext,
 								 [[curText valueForKey:@"x"] floatValue]*scale,
 								 [[curText valueForKey:@"y"] floatValue]*scale,
