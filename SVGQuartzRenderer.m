@@ -1008,6 +1008,7 @@ didStartElement:(NSString *)elementName
 											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"height"] floatValue]);
 						CGPatternCallbacks callbacks = { 0, &drawImagePattern, NULL };
 						
+						CGPatternRelease(fillPattern);
 						fillPattern = CGPatternCreate (
 											/* info */		&desc,
 											/* bounds */	desc.rect,
@@ -1360,6 +1361,8 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 	fillGradient = NULL;
 	[curFlowRegion release];
 	curFlowRegion = nil;
+	CGPatternRelease(fillPattern);
+	fillPattern = NULL;
 	
 }
 

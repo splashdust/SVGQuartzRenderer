@@ -43,6 +43,9 @@
 		origin = frame.origin;
 		[self setMultipleTouchEnabled:YES];
 		initialDistance = -1;
+		initialScale = 1;
+		zoom = 1;
+		svgDrawing = NULL;
 		
     }
     return self;
@@ -59,10 +62,17 @@
 - (void)drawRect:(CGRect)dirtyRect {
 	
 	viewContext = UIGraphicsGetCurrentContext();
+	
+	//fill dirty rect with black
+	CGFloat black[4] = {0, 0, 0, 1};
+	CGContextSetFillColor(viewContext, black);
+	CGContextFillRect(viewContext, dirtyRect);
+	
+	//draw image
 	CGContextDrawImage(viewContext, CGRectMake(origin.x, 
 											   origin.y, 
-											   [self frame].size.width, 
-											   [self frame].size.height), svgDrawing);
+											   zoom*[self frame].size.width, 
+											   zoom*[self frame].size.height), svgDrawing);
 
 }
 
@@ -83,13 +93,9 @@
 		inCGContext:(CGContextRef)context
 {
 	NSLog(@"Finnished we are!");
+	CGImageRelease(svgDrawing);
 	svgDrawing = CGBitmapContextCreateImage(context);
 }
-
-
-- (BOOL)isFlipped {return YES;}
-
-
 
 
 - (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint {
@@ -106,7 +112,6 @@
 	switch ([allTouches count]) {
         case 1:
 			initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
-			[super touchesBegan:touches withEvent:event];
 			break;
 			
         default:
@@ -118,10 +123,13 @@
                                                      toPoint:[touch2 locationInView:self]];
 			if (initialDistance == 0)
 				initialDistance = -1;
+			initialScale = svgRenderer.scale;
+
             break;
         }
 			
     }
+	[super touchesBegan:touches withEvent:event];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
@@ -136,8 +144,8 @@
 			origin.x += newPoint.x - initialPoint.x;
 			origin.y += newPoint.y - initialPoint.y;
 			initialPoint = newPoint;
-				[self setNeedsDisplay];
-			[super touchesMoved:touches withEvent:event];	
+			[self setNeedsDisplay];
+
 			}
 			break;
         default:
@@ -149,17 +157,17 @@
 				UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
 				CGFloat currentDistance = [self distanceBetweenTwoPoints:[touch1 locationInView:self]
 																 toPoint:[touch2 locationInView:self]];
-				CGFloat zoom = currentDistance/initialDistance;
-				zoom = MIN(zoom,4);
-				zoom = MAX(0.5,zoom);
-				svgRenderer.scale = zoom;
-				[self open:filePath];				
+				zoom = currentDistance/initialDistance;
+				[self setNeedsDisplay];
 				
 				
 			}			
            
             break;
 	}
+				
+	
+	[super touchesMoved:touches withEvent:event];	
 		
    	
 }
@@ -167,13 +175,28 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	NSSet* allTouches =  [event allTouches];
+	switch ([allTouches count])
+	{
+        case 1:
 
-	if ([allTouches count] == 1) {
-		[super touchesEnded:touches withEvent:event];
-		return;
+			break;
+        default:
+			if (initialDistance > 0)
+			{
+				svgRenderer.scale = initialScale * zoom;
+
+				[self open:filePath];	
+				[self setNeedsDisplay];
+				
+			}
+			zoom = 1;
+			initialDistance = -1;			
+            break;
 	}
 	
-	initialDistance = -1;
+	[super touchesEnded:touches withEvent:event];
+
+
 }
 
 
@@ -181,6 +204,7 @@
 -(void)dealloc
 {
 	[svgRenderer release];
+	CGImageRelease(svgDrawing);
 	[super dealloc];
 }
 

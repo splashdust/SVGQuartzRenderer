@@ -24,7 +24,7 @@
 
 @implementation SVGRenderView
 
-CGImageRef svgDrawing;
+CGImageRef svgDrawing=NULL;
 BOOL hasRendered;
 
 SVGQuartzRenderer *svgRenderer;
@@ -96,9 +96,8 @@ NSString *svgFile;
 		didFinnishRenderingFile:(NSString *)file
 		inCGContext:(CGContextRef)context
 {
-	if(svgDrawing != nil)
-		CGImageRelease(svgDrawing);
-	
+
+	CGImageRelease(svgDrawing);	
 	svgDrawing = CGBitmapContextCreateImage(context);
 }
 
@@ -117,6 +116,7 @@ NSString *svgFile;
 
 -(void)dealloc
 {
+	CGImageRelease(svgDrawing);
 	[svgRenderer release];
 	[super dealloc];
 }
