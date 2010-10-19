@@ -37,14 +37,15 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+		[self setMultipleTouchEnabled:YES];
+	
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
-		[svgRenderer setScale:0.5];
+		[svgRenderer setScale:1];
 		origin = frame.origin;
-		[self setMultipleTouchEnabled:YES];
+
 		initialDistance = -1;
-		initialScale = 1;
-		zoom = 1;
+		zoom = svgRenderer.scale;
 		svgDrawing = NULL;
 		
     }
@@ -81,8 +82,7 @@
 - (CGContextRef)svgRenderer:(id)renderer
 				requestedCGContextWithSize:(CGSize)size
 {
-	[self setFrame:CGRectMake(0, 0, size.width, size.height)];
-	
+	imageSize = size;	
 	CGContextRef ctx = [renderer createBitmapContext];
 	
 	return ctx;
@@ -123,7 +123,6 @@
                                                      toPoint:[touch2 locationInView:self]];
 			if (initialDistance == 0)
 				initialDistance = -1;
-			initialScale = svgRenderer.scale;
 
             break;
         }
@@ -157,7 +156,7 @@
 				UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
 				CGFloat currentDistance = [self distanceBetweenTwoPoints:[touch1 locationInView:self]
 																 toPoint:[touch2 locationInView:self]];
-				zoom = currentDistance/initialDistance;
+				zoom = svgRenderer.scale * (currentDistance/initialDistance);
 				[self setNeedsDisplay];
 				
 				
@@ -183,13 +182,12 @@
         default:
 			if (initialDistance > 0)
 			{
-				svgRenderer.scale = initialScale * zoom;
+				svgRenderer.scale = zoom;
 
 				[self open:filePath];	
 				[self setNeedsDisplay];
 				
 			}
-			zoom = 1;
 			initialDistance = -1;			
             break;
 	}

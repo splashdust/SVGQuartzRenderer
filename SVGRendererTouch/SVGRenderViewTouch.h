@@ -28,8 +28,9 @@
 	CGImageRef svgDrawing;
 	CGFloat initialDistance;
 	CGPoint initialPoint;
-	CGFloat initialScale;
 	CGFloat zoom;
+	CGSize imageSize;
+
 	
 	
 	SVGQuartzRenderer *svgRenderer;

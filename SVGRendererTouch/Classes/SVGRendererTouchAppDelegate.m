@@ -21,10 +21,10 @@
     
     // Override point for customization after application launch.
     
-    [window makeKeyAndVisible];
+    [window makeKeyAndVisible];	
 	
 
-	 SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:CGRectMake(0,0,320,460)];
+	 SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:CGRectMake(0,0,320,480)];
 	[window addSubview:svgView];
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"tiger" ofType:@"svg"];
 	[svgView open:path];	
