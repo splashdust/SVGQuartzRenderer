@@ -41,7 +41,7 @@
 	
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
-		[svgRenderer setScale:1];
+		[svgRenderer setScale:0.5];
 		origin = frame.origin;
 
 		initialDistance = -1;
@@ -72,8 +72,8 @@
 	//draw image
 	CGContextDrawImage(viewContext, CGRectMake(origin.x, 
 											   origin.y, 
-											   zoom*[self frame].size.width, 
-											   zoom*[self frame].size.height), svgDrawing);
+											   zoom*imageSize.width, 
+											   zoom*imageSize.height), svgDrawing);
 
 }
 
@@ -111,11 +111,16 @@
 	NSSet* allTouches =  [event allTouches];
 	switch ([allTouches count]) {
         case 1:
-			initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
+			panning = NO;
+			if ( (zoom*imageSize.width > self.frame.size.width) || (zoom*imageSize.height > self.frame.size.height)  ) { 
+				initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
+				panning = YES;
+			}
 			break;
 			
         default:
         {
+			
             // handle multi touch
             UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
             UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
@@ -123,6 +128,8 @@
                                                      toPoint:[touch2 locationInView:self]];
 			if (initialDistance == 0)
 				initialDistance = -1;
+				
+
 
             break;
         }
@@ -138,6 +145,7 @@
 	switch ([allTouches count])
 	{
         case 1:
+			if (panning)
 		    {
 			CGPoint newPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
 			origin.x += newPoint.x - initialPoint.x;
@@ -177,7 +185,7 @@
 	switch ([allTouches count])
 	{
         case 1:
-
+            panning = NO;
 			break;
         default:
 			if (initialDistance > 0)

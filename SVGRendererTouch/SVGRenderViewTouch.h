@@ -30,6 +30,7 @@
 	CGPoint initialPoint;
 	CGFloat zoom;
 	CGSize imageSize;
+	BOOL panning;
 
 	
 	
