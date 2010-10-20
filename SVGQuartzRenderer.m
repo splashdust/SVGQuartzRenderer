@@ -105,6 +105,7 @@ float fontSize;
 		defDict = [[NSMutableDictionary alloc] init];
 		
 		scale = 1.0;
+		documentSize = CGSizeMake(0,0);
     }
     return self;
 }
@@ -1278,6 +1279,17 @@ didStartElement:(NSString *)elementName
 	}
 	
 	return def;
+}
+
+-(void) setScale:(CGFloat)newScale
+{
+   	if (newScale <= 0)
+		return;
+	
+	documentSize.width *= (newScale/scale);
+	documentSize.height *= (newScale/scale);
+	scale = newScale;
+	
 }
 
 - (CGContextRef)createBitmapContext

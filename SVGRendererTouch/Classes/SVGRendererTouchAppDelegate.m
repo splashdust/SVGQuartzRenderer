@@ -24,7 +24,7 @@
     [window makeKeyAndVisible];	
 	
 
-	 SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:CGRectMake(0,0,320,480)];
+	 SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:CGRectMake(0,20,320,460)];
 	[window addSubview:svgView];
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"tiger" ofType:@"svg"];
 	[svgView open:path];	

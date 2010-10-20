@@ -28,12 +28,10 @@
 	CGImageRef svgDrawing;
 	CGFloat initialDistance;
 	CGPoint initialPoint;
-	CGFloat zoom;
+	CGFloat initialScale;
 	CGSize imageSize;
 	BOOL panning;
-
-	
-	
+	BOOL firstRender;		
 	SVGQuartzRenderer *svgRenderer;
 	CGContextRef viewContext;
 	NSString* filePath;

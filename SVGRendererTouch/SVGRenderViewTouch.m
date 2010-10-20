@@ -41,12 +41,11 @@
 	
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
-		[svgRenderer setScale:0.5];
 		origin = frame.origin;
-
 		initialDistance = -1;
-		zoom = svgRenderer.scale;
 		svgDrawing = NULL;
+		initialScale = -1;
+		firstRender = YES;
 		
     }
     return self;
@@ -72,8 +71,8 @@
 	//draw image
 	CGContextDrawImage(viewContext, CGRectMake(origin.x, 
 											   origin.y, 
-											   zoom*imageSize.width, 
-											   zoom*imageSize.height), svgDrawing);
+											   svgRenderer.documentSize.width, 
+											   svgRenderer.documentSize.height), svgDrawing);
 
 }
 
@@ -83,6 +82,12 @@
 				requestedCGContextWithSize:(CGSize)size
 {
 	imageSize = size;	
+	//initialize zoom, and scale to fit window
+	if (firstRender) {
+		float scale = (float)self.frame.size.width/size.width;
+		[svgRenderer setScale:scale];
+		firstRender = NO;
+	}
 	CGContextRef ctx = [renderer createBitmapContext];
 	
 	return ctx;
@@ -112,7 +117,7 @@
 	switch ([allTouches count]) {
         case 1:
 			panning = NO;
-			if ( (zoom*imageSize.width > self.frame.size.width) || (zoom*imageSize.height > self.frame.size.height)  ) { 
+			if ( (svgRenderer.documentSize.width > self.frame.size.width) || (svgRenderer.documentSize.height > self.frame.size.height)  ) { 
 				initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
 				panning = YES;
 			}
@@ -128,8 +133,8 @@
                                                      toPoint:[touch2 locationInView:self]];
 			if (initialDistance == 0)
 				initialDistance = -1;
-				
-
+			
+			initialScale = svgRenderer.scale;				
 
             break;
         }
@@ -164,9 +169,8 @@
 				UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
 				CGFloat currentDistance = [self distanceBetweenTwoPoints:[touch1 locationInView:self]
 																 toPoint:[touch2 locationInView:self]];
-				zoom = svgRenderer.scale * (currentDistance/initialDistance);
-				[self setNeedsDisplay];
-				
+				svgRenderer.scale = initialScale * currentDistance/initialDistance;
+				[self setNeedsDisplay];				
 				
 			}			
            
@@ -190,10 +194,8 @@
         default:
 			if (initialDistance > 0)
 			{
-				svgRenderer.scale = zoom;
-
-				[self open:filePath];	
-				[self setNeedsDisplay];
+				[self open:filePath];
+				[self setNeedsDisplay];							
 				
 			}
 			initialDistance = -1;			
