@@ -117,7 +117,7 @@
 	switch ([allTouches count]) {
         case 1:
 			panning = NO;
-			if ( (svgRenderer.documentSize.width > self.frame.size.width) || (svgRenderer.documentSize.height > self.frame.size.height)  ) { 
+			if ( (svgRenderer.documentSize.width > self.frame.size.width+1) || (svgRenderer.documentSize.height > self.frame.size.height+1)  ) { 
 				initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
 				panning = YES;
 			}
