@@ -80,9 +80,8 @@
 
 - (CGContextRef)svgRenderer:(id)renderer
 				requestedCGContextWithSize:(CGSize)size
-{
-	imageSize = size;	
-	//initialize zoom, and scale to fit window
+{	
+	//initialize scale to fit window
 	if (firstRender) {
 		float scale = (float)self.frame.size.width/size.width;
 		[svgRenderer setScale:scale];
@@ -167,9 +166,26 @@
 			{
 				UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
 				UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
-				CGFloat currentDistance = [self distanceBetweenTwoPoints:[touch1 locationInView:self]
-																 toPoint:[touch2 locationInView:self]];
+				
+				CGPoint point1 = [touch1 locationInView:self];
+				CGPoint point2 = [touch2 locationInView:self];
+				
+				CGFloat currentDistance = [self distanceBetweenTwoPoints:point1
+																 toPoint:point2];
+				
+				float oldScale = svgRenderer.scale;
 				svgRenderer.scale = initialScale * currentDistance/initialDistance;
+				
+				//fix point in middle of two touches during zoom 
+				CGPoint middle;
+				middle.x = (point1.x + point2.x)/2;
+				middle.y = (point1.y + point2.y)/2;
+				
+				float factor = svgRenderer.scale/oldScale;
+				
+				origin.x = (1-factor)*middle.x + factor*origin.x;
+				origin.y = (1-factor)*middle.y + factor*origin.y;
+				
 				[self setNeedsDisplay];				
 				
 			}			

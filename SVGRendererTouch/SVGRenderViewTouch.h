@@ -29,7 +29,6 @@
 	CGFloat initialDistance;
 	CGPoint initialPoint;
 	CGFloat initialScale;
-	CGSize imageSize;
 	BOOL panning;
 	BOOL firstRender;		
 	SVGQuartzRenderer *svgRenderer;
