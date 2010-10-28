@@ -47,6 +47,7 @@
 		initialScale = -1;
 		firstRender = YES;
 		
+		
     }
     return self;
 }
@@ -83,7 +84,7 @@
 {	
 	//initialize scale to fit window
 	if (firstRender) {
-		float scale = (float)self.frame.size.width/size.width;
+		float scale = (float)self.frame.size.width/svgRenderer.documentSize.width;
 		[svgRenderer setScale:scale];
 		firstRender = NO;
 	}
@@ -112,6 +113,20 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	UITouch *touch = [touches anyObject];
+	NSUInteger tapCount = [touch tapCount];
+	if (tapCount == 2)
+	{
+		origin = CGPointMake(0,0);
+		float scale = (float)self.frame.size.width/(svgRenderer.documentSize.width/svgRenderer.scale);
+		[svgRenderer setScale:scale];
+		[self open:filePath];
+		[self setNeedsDisplay];	
+	    initialScale = -1;
+		panning = NO;
+		return;
+	}
+	
 	NSSet* allTouches =  [event allTouches];
 	switch ([allTouches count]) {
         case 1:
@@ -223,6 +238,19 @@
 
 }
 
+//location is (x,y) coordinate of point in unscaled image
+-(void) locate:(CGPoint)location withZoom:(float)zoom
+{
+	//assume frame.origin = (0,0)
+	//location*zoom + offset = frame.center
+	float x = self.frame.size.width - location.x*zoom;
+	float y = self.frame.size.height - location.y*zoom;
+	origin = CGPointMake(x,y);
+	[svgRenderer setScale:zoom];
+	[self open:filePath];
+	[self setNeedsDisplay];	
+	
+}
 
 
 -(void)dealloc
