@@ -34,6 +34,8 @@
 	SVGQuartzRenderer *svgRenderer;
 	CGContextRef viewContext;
 	NSString* filePath;
+	
+	CALayer* svgLayer;
 }
 
 -(void) open:(NSString*)path;

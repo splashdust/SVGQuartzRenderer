@@ -21,6 +21,7 @@
 *--------------------------------------------------*/
 
 #import "SVGRenderViewTouch.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SVGRenderViewTouch (private)
 
@@ -59,26 +60,6 @@
 }
 
 
-
-- (void)drawRect:(CGRect)dirtyRect {
-	
-	viewContext = UIGraphicsGetCurrentContext();
-	
-	//fill dirty rect with black
-	CGFloat black[4] = {0, 0, 0, 1};
-	CGContextSetFillColor(viewContext, black);
-	CGContextFillRect(viewContext, dirtyRect);
-	
-	//draw image
-	CGContextDrawImage(viewContext, CGRectMake(origin.x, 
-											   origin.y, 
-											   svgRenderer.documentSize.width, 
-											   svgRenderer.documentSize.height), svgDrawing);
-
-}
-
-
-
 - (CGContextRef)svgRenderer:(id)renderer
 				requestedCGContextWithSize:(CGSize)size
 {	
@@ -98,8 +79,23 @@
 		inCGContext:(CGContextRef)context
 {
 	NSLog(@"Finnished we are!");
-	CGImageRelease(svgDrawing);
+	
+	
+	[svgLayer removeAllAnimations];
+	[svgLayer removeFromSuperlayer];
+	[svgLayer release];
+	
+    svgLayer= [[CALayer layer] retain];
+    svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
+							svgRenderer.documentSize.height);
+	[svgLayer setAffineTransform:CGAffineTransformMake(1,0,0,-1,0,0)]; 	
 	svgDrawing = CGBitmapContextCreateImage(context);
+    svgLayer.contents = (id)svgDrawing;
+	CGImageRelease(svgDrawing);
+    [self.layer addSublayer:svgLayer];
+
+
+
 }
 
 
@@ -121,7 +117,6 @@
 		float scale = (float)self.frame.size.width/(svgRenderer.documentSize.width/svgRenderer.scale);
 		[svgRenderer setScale:scale];
 		[self open:filePath];
-		[self setNeedsDisplay];	
 	    initialScale = -1;
 		panning = NO;
 		return;
@@ -131,10 +126,10 @@
 	switch ([allTouches count]) {
         case 1:
 			panning = NO;
-			if ( (svgRenderer.documentSize.width > self.frame.size.width+1) || (svgRenderer.documentSize.height > self.frame.size.height+1)  ) { 
+			//if ( (svgRenderer.documentSize.width > self.frame.size.width+1) || (svgRenderer.documentSize.height > self.frame.size.height+1)  ) { 
 				initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
 				panning = YES;
-			}
+			//}
 			break;
 			
         default:
@@ -170,9 +165,9 @@
 			origin.x += newPoint.x - initialPoint.x;
 			origin.y += newPoint.y - initialPoint.y;
 			initialPoint = newPoint;
-			[self setNeedsDisplay];
-
-			}
+			svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
+											svgRenderer.documentSize.height);	
+			} 
 			break;
         default:
 
@@ -201,7 +196,9 @@
 				origin.x = (1-factor)*middle.x + factor*origin.x;
 				origin.y = (1-factor)*middle.y + factor*origin.y;
 				
-				[self setNeedsDisplay];				
+				svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
+											svgRenderer.documentSize.height);	
+				
 				
 			}			
            
@@ -225,9 +222,7 @@
         default:
 			if (initialDistance > 0)
 			{
-				[self open:filePath];
-				[self setNeedsDisplay];							
-				
+				[self open:filePath];									
 			}
 			initialDistance = -1;			
             break;
@@ -247,9 +242,7 @@
 	float y = self.frame.size.height - location.y*zoom;
 	origin = CGPointMake(x,y);
 	[svgRenderer setScale:zoom];
-	[self open:filePath];
-	[self setNeedsDisplay];	
-	
+	[self open:filePath];	
 }
 
 
@@ -257,6 +250,7 @@
 {
 	[svgRenderer release];
 	CGImageRelease(svgDrawing);
+	[svgLayer release];
 	[super dealloc];
 }
 
