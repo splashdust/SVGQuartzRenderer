@@ -682,6 +682,72 @@ didStartElement:(NSString *)elementName
 		CGPathRelease(path);
 	}
 	
+	
+	// Polygon node
+	// -------------------------------------------------------------------------
+	if([elementName isEqualToString:@"polygon"]) {
+		
+		// Ignore polygons in flow regions for now
+		if(curFlowRegion)
+		{
+			NSLog(@"In curFlowRegion");
+			return;
+		}
+		
+		NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
+		
+		// Extract the fill-rule attribute
+		NSString* fill_rule = [attrDict valueForKey:@"fill-rule"];
+		
+		
+		// Respect the 'fill' attribute
+		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
+		if([attrDict valueForKey:@"fill"]) {
+			doFill = YES;
+			fillType = @"solid";
+			NSScanner *hexScanner = [NSScanner scannerWithString:
+									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
+			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]];
+			unsigned int color;
+			[hexScanner scanHexInt:&color];
+			fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
+			fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
+			fillColor[2] =  (color & 0x0000FF) / 255.0f;
+			fillColor[3] = 1;
+		}
+		
+		// Extract the points attribute and parse into a CGMutablePath
+		CGMutablePathRef path = CGPathCreateMutable();
+		BOOL firstPoint = YES;
+		NSString *pointsString = [attrDict valueForKey:@"points"];
+		NSArray *pointPairs = [pointsString componentsSeparatedByCharactersInSet:charset];
+		for (NSString* pointPair in pointPairs)
+		{
+			if ([pointPair length] > 0)
+			{
+				NSArray *pointString = [pointPair componentsSeparatedByString:@","];
+				float x = [[pointString objectAtIndex:0] floatValue];
+				float y = [[pointString objectAtIndex:1] floatValue];
+				//NSLog(@"Polygon point: (%f, %f)", x, y);
+				
+				if (firstPoint)
+				{
+					firstPoint = NO;
+					CGPathMoveToPoint(path, NULL, scale*x, scale*y);
+				}
+				else
+				{
+					CGPathAddLineToPoint(path, NULL, scale*x, scale*y);
+				}
+			}
+		}
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		CGPathRelease(path);
+		
+	}
+	
+	
+	
 	// Image node
 	// Parse the image node only if it contains an xlink:href attribute with base64 data
 	// -------------------------------------------------------------------------

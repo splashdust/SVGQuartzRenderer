@@ -15,6 +15,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		F10D76D8126D51CC00D5CA7A /* text.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D7126D51CC00D5CA7A /* text.svg */; };
 		F10D76DA126D51D700D5CA7A /* skull.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D9126D51D700D5CA7A /* skull.svg */; };
+		F1625B061288DC10003129E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1625B051288DC10003129E2 /* QuartzCore.framework */; };
 		F1FE97681269523100F6D66F /* SVGRenderViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FE97671269523100F6D66F /* SVGRenderViewTouch.m */; };
 		F1FE976D1269524F00F6D66F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FE976A1269524F00F6D66F /* NSData+Base64.m */; };
 		F1FE976E1269524F00F6D66F /* SVGQuartzRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FE976C1269524F00F6D66F /* SVGQuartzRenderer.m */; };
@@ -34,6 +35,7 @@
 		8D1107310486CEB800E47090 /* SVGRendererTouch-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGRendererTouch-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		F10D76D7126D51CC00D5CA7A /* text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = text.svg; path = ../Resources/text.svg; sourceTree = SOURCE_ROOT; };
 		F10D76D9126D51D700D5CA7A /* skull.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = skull.svg; path = ../Resources/skull.svg; sourceTree = SOURCE_ROOT; };
+		F1625B051288DC10003129E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F1FE97661269523100F6D66F /* SVGRenderViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGRenderViewTouch.h; sourceTree = SOURCE_ROOT; };
 		F1FE97671269523100F6D66F /* SVGRenderViewTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGRenderViewTouch.m; sourceTree = SOURCE_ROOT; };
 		F1FE97691269524F00F6D66F /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "../NSData+Base64.h"; sourceTree = SOURCE_ROOT; };
@@ -51,6 +53,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				F1625B061288DC10003129E2 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +122,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				F1625B051288DC10003129E2 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
