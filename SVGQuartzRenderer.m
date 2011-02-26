@@ -35,13 +35,14 @@
 	void drawImagePattern(void *fillPatDescriptor, CGContextRef context);
 	CGImageRef imageFromBase64(NSString *b64Data);
 
+
 @end
 
 @implementation SVGQuartzRenderer
 
 @synthesize documentSize;
 @synthesize delegate;
-@synthesize scale;
+@synthesize scale, offsetX, offsetY;
 
 struct FillPatternDescriptor {
 	CGImageRef imgRef;
@@ -105,6 +106,8 @@ float fontSize;
 		defDict = [[NSMutableDictionary alloc] init];
 		
 		scale = 1.0;
+		offsetX = 0;
+		offsetY = 0;
 		documentSize = CGSizeMake(0,0);
     }
     return self;
@@ -159,8 +162,8 @@ didStartElement:(NSString *)elementName
 	// Top level SVG node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
-		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue] * scale,
-							   [[attrDict valueForKey:@"height"] floatValue] * scale);
+		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue],
+							   [[attrDict valueForKey:@"height"] floatValue] );
 		
 		doStroke = NO;
 		
@@ -890,7 +893,7 @@ didStartElement:(NSString *)elementName
  qualifiedName:(NSString *)qName
 {
 	if([elementName isEqualToString:@"svg"]) {
-		delegate?[delegate svgRenderer:self didFinnishRenderingFile:svgFileName inCGContext:cgContext]:nil;
+		delegate?[delegate svgRenderer:self didFinishRenderingFile:svgFileName inCGContext:cgContext]:nil;
 		[self cleanupAfterFinishedParsing];
 	}
 	
@@ -1274,7 +1277,6 @@ didStartElement:(NSString *)elementName
 	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
 	
 	// Reset transformation matrix
-	//transform = CGAffineTransformIdentity;
 	transform = gTransform;
 	
 	NSScanner *scanner = [NSScanner scannerWithString:transformations];
@@ -1321,8 +1323,9 @@ didStartElement:(NSString *)elementName
 		transform = CGAffineTransformConcat(transform, matrixTransform);
 	}
 	
+	transform = CGAffineTransformTranslate(transform, offsetX, offsetY);
+	
 	// Apply to graphics context
-	//CGContextConcatCTM(cgContext,gTransform);
 	CGContextConcatCTM(cgContext,transform);
 }
 
@@ -1351,11 +1354,8 @@ didStartElement:(NSString *)elementName
 {
    	if (newScale <= 0)
 		return;
-	
-	documentSize.width *= (newScale/scale);
-	documentSize.height *= (newScale/scale);
 	scale = newScale;
-	
+
 }
 
 - (CGContextRef)createBitmapContext

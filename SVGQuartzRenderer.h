@@ -25,7 +25,7 @@
 @protocol SVGQuartzRenderDelegate
 
 	- (void)svgRenderer:(id)renderer
-didFinnishRenderingFile:(NSString *)file
+didFinishRenderingFile:(NSString *)file
 			inCGContext:(CGContextRef)context;
 
 	- (CGContextRef)svgRenderer:(id)renderer
@@ -38,11 +38,15 @@ didFinnishRenderingFile:(NSString *)file
 	CGSize documentSize;
 	id<SVGQuartzRenderDelegate> delegate;
 	CGFloat scale;
+	CGFloat offsetX;
+	CGFloat offsetY;
 }
 
 @property (readonly) CGSize documentSize;
 @property (readonly) id delegate;
 @property (readwrite) CGFloat scale;
+@property (readwrite) CGFloat offsetX;
+@property (readwrite) CGFloat offsetY;
 
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;

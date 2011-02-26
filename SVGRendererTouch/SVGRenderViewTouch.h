@@ -30,6 +30,7 @@
 	CGPoint initialPoint;
 	CGFloat initialScale;
 	BOOL panning;
+	CGRect initialFrame;
 	BOOL firstRender;		
 	SVGQuartzRenderer *svgRenderer;
 	CGContextRef viewContext;

@@ -24,8 +24,8 @@
     [window makeKeyAndVisible];	
 	
 	CGRect bounds = [[UIScreen mainScreen] bounds];
-	bounds.origin.y = 20;
-	bounds.size.height -= 20;
+	//bounds.origin.y = 20;
+	//bounds.size.height -= 20;
 	 SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:bounds];
 	[window addSubview:svgView];
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"tiger" ofType:@"svg"];

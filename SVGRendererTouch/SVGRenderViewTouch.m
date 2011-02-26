@@ -42,10 +42,15 @@
 	
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
-		origin = frame.origin;
+		initialFrame = frame;
+		initialFrame.origin.y = 0;
+		origin = initialFrame.origin;
+		svgRenderer.offsetX = origin.x;
+		svgRenderer.offsetY = origin.y;
 		initialDistance = -1;
 		svgDrawing = NULL;
 		initialScale = -1;
+		panning = NO;
 		firstRender = YES;
 		
 		
@@ -75,10 +80,10 @@
 }
 
 - (void)svgRenderer:(id)renderer
-		didFinnishRenderingFile:(NSString *)file
+		didFinishRenderingFile:(NSString *)file
 		inCGContext:(CGContextRef)context
 {
-	NSLog(@"Finnished we are!");
+	NSLog(@"Finished we are!");
 	
 	
 	[svgLayer removeAllAnimations];
@@ -111,10 +116,13 @@
 {
 	UITouch *touch = [touches anyObject];
 	NSUInteger tapCount = [touch tapCount];
+	//reset to original scale
 	if (tapCount == 2)
 	{
-		origin = CGPointMake(0,0);
-		float scale = (float)self.frame.size.width/(svgRenderer.documentSize.width/svgRenderer.scale);
+		origin = self.frame.origin;
+		float scale = (float)self.frame.size.width/svgRenderer.documentSize.width;
+		svgRenderer.offsetX = initialFrame.origin.x;
+		svgRenderer.offsetY = initialFrame.origin.y;
 		[svgRenderer setScale:scale];
 		[self open:filePath];
 	    initialScale = -1;
@@ -125,11 +133,8 @@
 	NSSet* allTouches =  [event allTouches];
 	switch ([allTouches count]) {
         case 1:
-			panning = NO;
-			//if ( (svgRenderer.documentSize.width > self.frame.size.width+1) || (svgRenderer.documentSize.height > self.frame.size.height+1)  ) { 
-				initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
-				panning = YES;
-			//}
+			initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
+			panning = YES;
 			break;
 			
         default:
@@ -161,13 +166,14 @@
         case 1:
 			if (panning)
 		    {
-			CGPoint newPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
-			origin.x += newPoint.x - initialPoint.x;
-			origin.y += newPoint.y - initialPoint.y;
-			initialPoint = newPoint;
-			svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
-											svgRenderer.documentSize.height);	
+				CGPoint newPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
+				origin.x += newPoint.x - initialPoint.x;
+				origin.y += newPoint.y - initialPoint.y;
+				initialPoint = newPoint;
+				svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
+												svgRenderer.documentSize.height);	
 			} 
+			
 			break;
         default:
 
@@ -184,20 +190,24 @@
 																 toPoint:point2];
 				
 				float oldScale = svgRenderer.scale;
-				svgRenderer.scale = initialScale * currentDistance/initialDistance;
+				float pinchScale = currentDistance / initialDistance;
+				svgRenderer.scale = initialScale * pinchScale;
+		
+				 
+				 //fix point in middle of two touches during zoom 
+				 CGPoint middle;
+				 middle.x = (point1.x + point2.x)/2;
+				 middle.y = (point1.y + point2.y)/2;
 				
-				//fix point in middle of two touches during zoom 
-				CGPoint middle;
-				middle.x = (point1.x + point2.x)/2;
-				middle.y = (point1.y + point2.y)/2;
-				
+				 
 				float factor = svgRenderer.scale/oldScale;
 				
 				origin.x = (1-factor)*middle.x + factor*origin.x;
 				origin.y = (1-factor)*middle.y + factor*origin.y;
 				
-				svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
-											svgRenderer.documentSize.height);	
+				
+				svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width * pinchScale, 
+											svgRenderer.documentSize.height * pinchScale);	
 				
 				
 			}			
@@ -218,10 +228,53 @@
 	{
         case 1:
             panning = NO;
+			if (origin.x != initialFrame.origin.x || origin.y != initialFrame.origin.y)
+			{
+				
+				svgLayer.frame = CGRectMake(initialFrame.origin.x,initialFrame.origin.y, svgRenderer.documentSize.width, 
+											svgRenderer.documentSize.height);
+			
+				//shift origin in renderer
+				svgRenderer.offsetX += origin.x - initialFrame.origin.x;
+				svgRenderer.offsetY += origin.y - initialFrame.origin.y;
+				origin = initialFrame.origin;
+				
+			
+				[self open:filePath];	
+				
+			}
 			break;
         default:
 			if (initialDistance > 0)
 			{
+				
+				svgLayer.frame = CGRectMake(initialFrame.origin.x,initialFrame.origin.y, svgRenderer.documentSize.width, 
+											svgRenderer.documentSize.height);
+				
+				
+				UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+				UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
+				
+				CGPoint point1 = [touch1 locationInView:self];
+				CGPoint point2 = [touch2 locationInView:self];
+								
+				
+				//fix point in middle of two touches during zoom 
+				CGPoint middle;
+				middle.x = -(point1.x + point2.x)/2;
+				middle.y = -(point1.y + point2.y)/2;
+				
+				// (originBegin + middle)/initialScale = (originEnd + middle)/finalScale
+				// originBegin * finalScale + middle * finalScale = originEnd * initialScale + middle * initialScale
+				// (originBegin * finalScale + middle * ( finalScale - initialScale))/initialScale = originEnd
+								
+				
+				svgRenderer.offsetX = (svgRenderer.offsetX * svgRenderer.scale + middle.x * (svgRenderer.scale - initialScale))/initialScale;
+				svgRenderer.offsetY = (svgRenderer.offsetY * svgRenderer.scale + middle.y * (svgRenderer.scale - initialScale))/initialScale;
+				
+
+				origin = initialFrame.origin;
+				
 				[self open:filePath];									
 			}
 			initialDistance = -1;			
