@@ -163,7 +163,7 @@ didStartElement:(NSString *)elementName
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
 		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue],
-							   [[attrDict valueForKey:@"height"] floatValue] );
+								  [[attrDict valueForKey:@"height"] floatValue] );
 		
 		doStroke = NO;
 		
@@ -171,122 +171,122 @@ didStartElement:(NSString *)elementName
 			CGContextRelease(cgContext);
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		}
-		gTransform = CGAffineTransformIdentity;
-		transform = CGAffineTransformIdentity;
+		gTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, offsetX, offsetY);
+		transform = gTransform;
 	}
 	
 	// Definitions
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"defs"]) {
+	else if([elementName isEqualToString:@"defs"]) {
 		defDict = [[NSMutableDictionary alloc] init];
 		inDefSection = YES;
 	}
 	
-		if([elementName isEqualToString:@"pattern"]) {
-			[curPat release];
-			curPat = [[NSMutableDictionary alloc] init];
-			
-			NSEnumerator *enumerator = [attrDict keyEnumerator];
-			id key;
-			while ((key = [enumerator nextObject])) {
-				NSDictionary *obj = [attrDict objectForKey:key];
-				[curPat setObject:obj forKey:key];
-			}
-			NSMutableArray* imagesArray = [NSMutableArray new];
-			[curPat setObject:imagesArray forKey:@"images"];
-			[imagesArray release];
-			[curPat setObject:@"pattern" forKey:@"type"];
-		}
-			if([elementName isEqualToString:@"image"]) {
-				NSMutableDictionary *imageDict = [[NSMutableDictionary alloc] init];
-				NSEnumerator *enumerator = [attrDict keyEnumerator];
-				id key;
-				while ((key = [enumerator nextObject])) {
-					NSDictionary *obj = [attrDict objectForKey:key];
-					[imageDict setObject:obj forKey:key];
-				}
-				[[curPat objectForKey:@"images"] addObject:imageDict];
-				[imageDict release];
-			}
+	else if([elementName isEqualToString:@"pattern"]) {
+		[curPat release];
+		curPat = [[NSMutableDictionary alloc] init];
 		
-		if([elementName isEqualToString:@"linearGradient"]) {
-			[curGradient release];
-			curGradient = [[NSMutableDictionary alloc] init];
-			NSEnumerator *enumerator = [attrDict keyEnumerator];
-			id key;
-			while ((key = [enumerator nextObject])) {
-				NSDictionary *obj = [attrDict objectForKey:key];
-				[curGradient setObject:obj forKey:key];
-			}
-			[curGradient setObject:@"linearGradient" forKey:@"type"];
-			NSMutableArray* stopsArray = [NSMutableArray new];
-			[curGradient setObject:stopsArray forKey:@"stops"];
-			[stopsArray release];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[curPat setObject:obj forKey:key];
 		}
-			if([elementName isEqualToString:@"stop"]) {
-				NSMutableDictionary *stopDict = [[NSMutableDictionary alloc] init];
-				NSEnumerator *enumerator = [attrDict keyEnumerator];
-				id key;
-				while ((key = [enumerator nextObject])) {
-					NSDictionary *obj = [attrDict objectForKey:key];
-					[stopDict setObject:obj forKey:key];
-				}
-				[[curGradient objectForKey:@"stops"] addObject:stopDict];
-				[stopDict release];
-			}
-		
-		if([elementName isEqualToString:@"radialGradient"]) {
-			[curGradient release];
-			curGradient = [[NSMutableDictionary alloc] init];
-			NSEnumerator *enumerator = [attrDict keyEnumerator];
-			id key;
-			while ((key = [enumerator nextObject])) {
-				NSDictionary *obj = [attrDict objectForKey:key];
-				[curGradient setObject:obj forKey:key];
-			}
-			[curGradient setObject:@"radialGradient" forKey:@"type"];
+		NSMutableArray* imagesArray = [NSMutableArray new];
+		[curPat setObject:imagesArray forKey:@"images"];
+		[imagesArray release];
+		[curPat setObject:@"pattern" forKey:@"type"];
+	}
+	else if([elementName isEqualToString:@"image"]) {
+		NSMutableDictionary *imageDict = [[NSMutableDictionary alloc] init];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[imageDict setObject:obj forKey:key];
 		}
+		[[curPat objectForKey:@"images"] addObject:imageDict];
+		[imageDict release];
+	}
 	
-		if([elementName isEqualToString:@"filter"]) {
-			[curFilter release];
-			curFilter = [[NSMutableDictionary alloc] init];
-			NSEnumerator *enumerator = [attrDict keyEnumerator];
-			id key;
-			while ((key = [enumerator nextObject])) {
-				NSDictionary *obj = [attrDict objectForKey:key];
-				[curFilter setObject:obj forKey:key];
-			}
-			NSMutableArray* gaussianBlursArray = [NSMutableArray new];
-			[curFilter setObject:gaussianBlursArray forKey:@"feGaussianBlurs"];
-			[gaussianBlursArray release];
+	else if([elementName isEqualToString:@"linearGradient"]) {
+		[curGradient release];
+		curGradient = [[NSMutableDictionary alloc] init];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[curGradient setObject:obj forKey:key];
 		}
-			if([elementName isEqualToString:@"feGaussianBlur"]) {
-				NSMutableDictionary *blurDict = [[NSMutableDictionary alloc] init];
-				NSEnumerator *enumerator = [attrDict keyEnumerator];
-				id key;
-				while ((key = [enumerator nextObject])) {
-					NSDictionary *obj = [attrDict objectForKey:key];
-					[blurDict setObject:obj forKey:key];
-				}
-				[[curFilter objectForKey:@"feGaussianBlurs"] addObject:blurDict];
-				[blurDict release];
-			}
-			if([elementName isEqualToString:@"feColorMatrix"]) {
-				
-			}
-			if([elementName isEqualToString:@"feFlood"]) {
-				
-			}
-			if([elementName isEqualToString:@"feBlend"]) {
-				
-			}
-			if([elementName isEqualToString:@"feComposite"]) {
-				
-			}
+		[curGradient setObject:@"linearGradient" forKey:@"type"];
+		NSMutableArray* stopsArray = [NSMutableArray new];
+		[curGradient setObject:stopsArray forKey:@"stops"];
+		[stopsArray release];
+	}
+	else if([elementName isEqualToString:@"stop"]) {
+		NSMutableDictionary *stopDict = [[NSMutableDictionary alloc] init];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[stopDict setObject:obj forKey:key];
+		}
+		[[curGradient objectForKey:@"stops"] addObject:stopDict];
+		[stopDict release];
+	}
+	
+	else if([elementName isEqualToString:@"radialGradient"]) {
+		[curGradient release];
+		curGradient = [[NSMutableDictionary alloc] init];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[curGradient setObject:obj forKey:key];
+		}
+		[curGradient setObject:@"radialGradient" forKey:@"type"];
+	}
+	
+	else if([elementName isEqualToString:@"filter"]) {
+		[curFilter release];
+		curFilter = [[NSMutableDictionary alloc] init];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[curFilter setObject:obj forKey:key];
+		}
+		NSMutableArray* gaussianBlursArray = [NSMutableArray new];
+		[curFilter setObject:gaussianBlursArray forKey:@"feGaussianBlurs"];
+		[gaussianBlursArray release];
+	}
+	else if([elementName isEqualToString:@"feGaussianBlur"]) {
+		NSMutableDictionary *blurDict = [[NSMutableDictionary alloc] init];
+		NSEnumerator *enumerator = [attrDict keyEnumerator];
+		id key;
+		while ((key = [enumerator nextObject])) {
+			NSDictionary *obj = [attrDict objectForKey:key];
+			[blurDict setObject:obj forKey:key];
+		}
+		[[curFilter objectForKey:@"feGaussianBlurs"] addObject:blurDict];
+		[blurDict release];
+	}
+	else if([elementName isEqualToString:@"feColorMatrix"]) {
+		
+	}
+	else if([elementName isEqualToString:@"feFlood"]) {
+		
+	}
+	else if([elementName isEqualToString:@"feBlend"]) {
+		
+	}
+	else if([elementName isEqualToString:@"feComposite"]) {
+		
+	}
 	
 	// Group node
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"g"]) {
+	else if([elementName isEqualToString:@"g"]) {
 		[curLayer release];
 		curLayer = [[NSMutableDictionary alloc] init];
 		NSEnumerator *enumerator = [attrDict keyEnumerator];
@@ -313,7 +313,7 @@ didStartElement:(NSString *)elementName
 	
 	// Path node
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"path"]) {
+	else if([elementName isEqualToString:@"path"]) {
 		
 		// For now, we'll ignore paths in definitions
 		if(inDefSection)
@@ -546,9 +546,9 @@ didStartElement:(NSString *)elementName
 					// Not yet implemented commands
 					//-----------------------------------------
 					if([currentCommand isEqualToString:@"q"]
-					|| [currentCommand isEqualToString:@"Q"]
-					|| [currentCommand isEqualToString:@"t"]
-					|| [currentCommand isEqualToString:@"T"]) {
+					   || [currentCommand isEqualToString:@"Q"]
+					   || [currentCommand isEqualToString:@"t"]
+					   || [currentCommand isEqualToString:@"T"]) {
 						prm_i++;
 					}
 					
@@ -579,8 +579,8 @@ didStartElement:(NSString *)elementName
 						
 						if([curCmdType isEqualToString:@"curve"])
 							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x * scale, curCtrlPoint1.y * scale,
-													  curCtrlPoint2.x * scale, curCtrlPoint2.y * scale,
-													  curPoint.x * scale,curPoint.y * scale);
+												  curCtrlPoint2.x * scale, curCtrlPoint2.y * scale,
+												  curPoint.x * scale,curPoint.y * scale);
 						
 						if([curCmdType isEqualToString:@"arc"]) {
 							CGPathAddArc (path, NULL,
@@ -595,7 +595,7 @@ didStartElement:(NSString *)elementName
 				} else {
 					prm_i++;
 				}
-
+				
 			}
 			
 			currentParams = nil;
@@ -636,7 +636,7 @@ didStartElement:(NSString *)elementName
 	
 	// Rect node
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"rect"]) {
+	else if([elementName isEqualToString:@"rect"]) {
 		
 		// Ignore rects in flow regions for now
 		if(curFlowRegion)
@@ -688,7 +688,7 @@ didStartElement:(NSString *)elementName
 	
 	// Polygon node
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"polygon"]) {
+	else if([elementName isEqualToString:@"polygon"]) {
 		
 		// Ignore polygons in flow regions for now
 		if(curFlowRegion)
@@ -754,8 +754,8 @@ didStartElement:(NSString *)elementName
 	// Image node
 	// Parse the image node only if it contains an xlink:href attribute with base64 data
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"image"]
-	&& [[attrDict valueForKey:@"xlink:href"] rangeOfString:@"base64"].location != NSNotFound) {
+	else if([elementName isEqualToString:@"image"]
+	   && [[attrDict valueForKey:@"xlink:href"] rangeOfString:@"base64"].location != NSNotFound) {
 		
 		if(inDefSection)
 			return;
@@ -787,7 +787,7 @@ didStartElement:(NSString *)elementName
 	
 	// Text node
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"text"]) {
+	else if([elementName isEqualToString:@"text"]) {
 		
 		if(inDefSection)
 			return;
@@ -808,31 +808,31 @@ didStartElement:(NSString *)elementName
 		}
 		
 		curText = [[[NSDictionary alloc] initWithObjectsAndKeys:
-				   [attrDict valueForKey:@"id"], @"id",
-				   [attrDict valueForKey:@"style"], @"style",
-				   [attrDict valueForKey:@"x"], @"x",
-				   [attrDict valueForKey:@"y"], @"y",
-				   [attrDict valueForKey:@"width"], @"width",
-				   [attrDict valueForKey:@"height"], @"height",
-				   nil] retain];
+					[attrDict valueForKey:@"id"], @"id",
+					[attrDict valueForKey:@"style"], @"style",
+					[attrDict valueForKey:@"x"], @"x",
+					[attrDict valueForKey:@"y"], @"y",
+					[attrDict valueForKey:@"width"], @"width",
+					[attrDict valueForKey:@"height"], @"height",
+					nil] retain];
 		
 		[self setStyleContext:[attrDict valueForKey:@"style"]];
 	}
 	
-		// TSpan node
-		// Assumed to always be a child of a Text node
-		// ---------------------------------------------------------------------
-		if([elementName isEqualToString:@"tspan"]) {
-			
-			if(inDefSection)
-				return;
-			
-			[self setStyleContext:[attrDict valueForKey:@"style"]];
-		}
+	// TSpan node
+	// Assumed to always be a child of a Text node
+	// ---------------------------------------------------------------------
+	else if([elementName isEqualToString:@"tspan"]) {
+		
+		if(inDefSection)
+			return;
+		
+		[self setStyleContext:[attrDict valueForKey:@"style"]];
+	}
 	
 	// FlowRegion node
 	// -------------------------------------------------------------------------
-	if([elementName isEqualToString:@"flowRegion"]) {
+	else if([elementName isEqualToString:@"flowRegion"]) {
 		[curFlowRegion release];		
 		curFlowRegion = [NSDictionary new];
 	}
@@ -897,41 +897,41 @@ didStartElement:(NSString *)elementName
 		[self cleanupAfterFinishedParsing];
 	}
 	
-	if([elementName isEqualToString:@"g"]) {
+	else if([elementName isEqualToString:@"g"]) {
 	}
 	
-	if([elementName isEqualToString:@"defs"]) {
+	else if([elementName isEqualToString:@"defs"]) {
 		inDefSection = NO;
 	}
 
-	if([elementName isEqualToString:@"path"]) {
+	else if([elementName isEqualToString:@"path"]) {
 	}
 	
-	if([elementName isEqualToString:@"text"]) {
+	else if([elementName isEqualToString:@"text"]) {
 		if(curText) {
 			[curText release];
 			curText = nil;
 		}
 	}
 	
-	if([elementName isEqualToString:@"flowRegion"]) {
+	else if([elementName isEqualToString:@"flowRegion"]) {
 		if(curFlowRegion) {
 			[curFlowRegion release];
 			curFlowRegion = nil;
 		}
 	}
 	
-	if([elementName isEqualToString:@"pattern"]) {
+	else if([elementName isEqualToString:@"pattern"]) {
 		if([curPat objectForKey:@"id"])
 		[defDict setObject:curPat forKey:[curPat objectForKey:@"id"]];
 	}
 	
-	if([elementName isEqualToString:@"linearGradient"]) {
+	else if([elementName isEqualToString:@"linearGradient"]) {
 		if([curGradient objectForKey:@"id"])
 		[defDict setObject:curGradient forKey:[curGradient objectForKey:@"id"]];
 	}
 	
-	if([elementName isEqualToString:@"radialGradient"]) {
+	else if([elementName isEqualToString:@"radialGradient"]) {
 		if([curGradient objectForKey:@"id"])
 		[defDict setObject:curGradient forKey:[curGradient objectForKey:@"id"]];
 	}
@@ -943,6 +943,7 @@ didStartElement:(NSString *)elementName
 - (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style
 {		
 	CGContextSaveGState(cgContext);
+	CGContextConcatCTM(cgContext,transform);
 	
 	if(style)
 		[self setStyleContext:style];
