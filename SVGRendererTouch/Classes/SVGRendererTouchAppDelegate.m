@@ -28,7 +28,7 @@
 	//bounds.size.height -= 20;
 	 SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:bounds];
 	[window addSubview:svgView];
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"tiger" ofType:@"svg"];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"map" ofType:@"svg"];
 	[svgView open:path];	
 	[svgView release];
     

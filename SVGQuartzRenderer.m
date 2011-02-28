@@ -54,6 +54,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 
 NSXMLParser* xmlParser;
 NSString *svgFileName;
+NSData *svgXml;
 CGAffineTransform transform;
 CGContextRef cgContext=NULL;
 NSMutableDictionary *defDict;
@@ -70,6 +71,7 @@ BOOL inDefSection = NO;
 
 CGAffineTransform gTransform;
 BOOL pathTrnsfrmReset = YES;
+BOOL appliedTransform = NO;
 
 // Variables for storing style data
 // -------------------------------------------------------------------------
@@ -140,8 +142,9 @@ float fontSize;
 - (void)drawSVGFile:(NSString *)file
 {
 	svgFileName = [file retain];
-	NSData *xml = [NSData dataWithContentsOfFile:file];
-	xmlParser = [xmlParser initWithData:xml];
+	if (svgXml == nil)
+	    svgXml = [NSData dataWithContentsOfFile:file];
+	xmlParser = [xmlParser initWithData:svgXml];
 	
 	[xmlParser setDelegate:self];
 	[xmlParser setShouldResolveExternalEntities:NO];
@@ -171,7 +174,7 @@ didStartElement:(NSString *)elementName
 			CGContextRelease(cgContext);
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		}
-		gTransform = CGAffineTransformTranslate(CGAffineTransformIdentity, offsetX, offsetY);
+		gTransform = CGAffineTransformIdentity;
 		transform = gTransform;
 	}
 	
@@ -943,7 +946,9 @@ didStartElement:(NSString *)elementName
 - (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style
 {		
 	CGContextSaveGState(cgContext);
-	CGContextConcatCTM(cgContext,transform);
+	// do translation here, if no transform has been applied ( for example, in file with no groups)
+	if (!appliedTransform)
+	    CGContextConcatCTM(cgContext,CGAffineTransformTranslate(CGAffineTransformIdentity, offsetX, offsetY));
 	
 	if(style)
 		[self setStyleContext:style];
@@ -1275,6 +1280,8 @@ didStartElement:(NSString *)elementName
 
 - (void)applyTransformations:(NSString *)transformations
 {
+	appliedTransform = YES;
+	
 	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
 	
 	// Reset transformation matrix
@@ -1324,6 +1331,7 @@ didStartElement:(NSString *)elementName
 		transform = CGAffineTransformConcat(transform, matrixTransform);
 	}
 	
+	// translate of offset
 	transform = CGAffineTransformTranslate(transform, offsetX, offsetY);
 	
 	// Apply to graphics context
