@@ -948,7 +948,7 @@ didStartElement:(NSString *)elementName
 	CGContextSaveGState(cgContext);
 	// do translation here, if no transform has been applied ( for example, in file with no groups)
 	if (!appliedTransform)
-	    CGContextConcatCTM(cgContext,CGAffineTransformTranslate(CGAffineTransformIdentity, offsetX, offsetY));
+	    CGContextConcatCTM(cgContext,CGAffineTransformTranslate(CGAffineTransformIdentity, -offsetX, -offsetY));
 	
 	if(style)
 		[self setStyleContext:style];
@@ -1332,7 +1332,7 @@ didStartElement:(NSString *)elementName
 	}
 	
 	// translate of offset
-	transform = CGAffineTransformTranslate(transform, offsetX, offsetY);
+	transform = CGAffineTransformTranslate(transform, -offsetX, -offsetY);
 	
 	// Apply to graphics context
 	CGContextConcatCTM(cgContext,transform);

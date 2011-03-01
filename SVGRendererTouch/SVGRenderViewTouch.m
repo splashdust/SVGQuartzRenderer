@@ -234,8 +234,8 @@
 											svgRenderer.documentSize.height);
 			
 				//shift origin in renderer
-				svgRenderer.offsetX += origin.x - initialFrame.origin.x;
-				svgRenderer.offsetY += origin.y - initialFrame.origin.y;
+				svgRenderer.offsetX -= (origin.x - initialFrame.origin.x);
+				svgRenderer.offsetY -= (origin.y - initialFrame.origin.y);
 				origin = initialFrame.origin;
 				
 			
@@ -260,8 +260,8 @@
 				
 				//fix point in middle of two touches during zoom 
 				CGPoint middle;
-				middle.x = -(point1.x + point2.x)/2;
-				middle.y = -(point1.y + point2.y)/2;
+				middle.x = (point1.x + point2.x)/2;
+				middle.y = (point1.y + point2.y)/2;
 				
 				// (originBegin + middle)/initialScale = (originEnd + middle)/finalScale
 				// originBegin * finalScale + middle * finalScale = originEnd * initialScale + middle * initialScale
