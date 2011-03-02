@@ -24,10 +24,19 @@
     [window makeKeyAndVisible];	
 	
 	CGRect bounds = [[UIScreen mainScreen] bounds];
-	//bounds.origin.y = 20;
-	//bounds.size.height -= 20;
-	 SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:bounds];
-	[window addSubview:svgView];
+	
+	// shift below "carrier" window at top of screen
+	bounds.origin.y = 20;
+	bounds.size.height += 20;
+	UIView* topView = [[UIView alloc] initWithFrame:bounds];
+	[window addSubview:topView];
+	[topView release];
+
+	//set origin to (0,0)
+	bounds.origin.y = 0;
+	bounds.size.height -= 20;
+	SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:bounds];
+	[topView addSubview:svgView];
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"map" ofType:@"svg"];
 	[svgView open:path];	
 	[svgView release];

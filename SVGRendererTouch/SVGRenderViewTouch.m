@@ -42,8 +42,7 @@
 	
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
-		initialFrame = frame;
-		origin = initialFrame.origin;
+		origin = frame.origin;
 		svgRenderer.offsetX = origin.x;
 		svgRenderer.offsetY = origin.y;
 		initialDistance = -1;
@@ -120,8 +119,8 @@
 	{
 		origin = self.frame.origin;
 		float scale = (float)self.frame.size.width/svgRenderer.documentSize.width;
-		svgRenderer.offsetX = initialFrame.origin.x;
-		svgRenderer.offsetY = initialFrame.origin.y;
+		svgRenderer.offsetX = self.frame.origin.x;
+		svgRenderer.offsetY = self.frame.origin.y;
 		[svgRenderer setScale:scale];
 		[self open:filePath];
 	    initialScale = -1;
@@ -227,16 +226,16 @@
 	{
         case 1:
             panning = NO;
-			if (origin.x != initialFrame.origin.x || origin.y != initialFrame.origin.y)
+			if (origin.x != self.frame.origin.x || origin.y != self.frame.origin.y)
 			{
 				
-				svgLayer.frame = CGRectMake(initialFrame.origin.x,initialFrame.origin.y, svgRenderer.documentSize.width, 
+				svgLayer.frame = CGRectMake(self.frame.origin.x,self.frame.origin.y, svgRenderer.documentSize.width, 
 											svgRenderer.documentSize.height);
 			
 				//shift origin in renderer
-				svgRenderer.offsetX -= (origin.x - initialFrame.origin.x);
-				svgRenderer.offsetY -= (origin.y - initialFrame.origin.y);
-				origin = initialFrame.origin;
+				svgRenderer.offsetX -= (origin.x - self.frame.origin.x);
+				svgRenderer.offsetY -= (origin.y - self.frame.origin.y);
+				origin = self.frame.origin;
 				
 			
 				[self open:filePath];	
@@ -247,7 +246,7 @@
 			if (initialDistance > 0)
 			{
 				
-				svgLayer.frame = CGRectMake(initialFrame.origin.x,initialFrame.origin.y, svgRenderer.documentSize.width, 
+				svgLayer.frame = CGRectMake(self.frame.origin.x,self.frame.origin.y, svgRenderer.documentSize.width, 
 											svgRenderer.documentSize.height);
 				
 				
@@ -272,7 +271,7 @@
 				svgRenderer.offsetY = (svgRenderer.offsetY * svgRenderer.scale + middle.y * (svgRenderer.scale - initialScale))/initialScale;
 				
 
-				origin = initialFrame.origin;
+				origin = self.frame.origin;
 				
 				[self open:filePath];									
 			}
