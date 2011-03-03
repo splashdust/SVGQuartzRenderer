@@ -40,6 +40,7 @@ didFinishRenderingFile:(NSString *)file
 	CGFloat scale;
 	CGFloat offsetX;
 	CGFloat offsetY;
+	CGRect viewFrame;
 }
 
 @property (readonly) CGSize documentSize;
@@ -47,6 +48,7 @@ didFinishRenderingFile:(NSString *)file
 @property (readwrite) CGFloat scale;
 @property (readwrite) CGFloat offsetX;
 @property (readwrite) CGFloat offsetY;
+@property (readwrite) CGRect viewFrame;
 
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;

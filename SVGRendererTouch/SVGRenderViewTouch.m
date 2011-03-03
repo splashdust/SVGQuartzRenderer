@@ -42,6 +42,7 @@
 	
         svgRenderer = [[SVGQuartzRenderer alloc] init];
 		[svgRenderer setDelegate:self];
+		svgRenderer.viewFrame = frame;
 		origin = frame.origin;
 		svgRenderer.offsetX = origin.x;
 		svgRenderer.offsetY = origin.y;

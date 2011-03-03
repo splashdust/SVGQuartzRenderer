@@ -40,6 +40,7 @@
 
 @implementation SVGQuartzRenderer
 
+@synthesize viewFrame;
 @synthesize documentSize;
 @synthesize delegate;
 @synthesize scale, offsetX, offsetY;
@@ -165,8 +166,16 @@ didStartElement:(NSString *)elementName
 	// Top level SVG node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
-		documentSize = CGSizeMake([[attrDict valueForKey:@"width"] floatValue],
-								  [[attrDict valueForKey:@"height"] floatValue] );
+		float w = [[attrDict valueForKey:@"width"] floatValue];
+		float h = [[attrDict valueForKey:@"height"] floatValue];
+		float scaleW = 1;
+		if (w != 0)
+	      scaleW = (float)viewFrame.size.width/w;
+		float scaleH = 1;
+		if (h != 0)
+		   scaleH = (float)viewFrame.size.height/h;
+		float s = fmaxf(scaleW, scaleH);
+		documentSize = CGSizeMake(s*w,s*h);
 		
 		doStroke = NO;
 		
