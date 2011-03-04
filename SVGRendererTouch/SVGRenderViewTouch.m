@@ -48,7 +48,8 @@
 		svgRenderer.offsetY = origin.y;
 		initialDistance = -1;
 		svgDrawing = NULL;
-		initialScale = -1;
+		initialScaleX = -1;
+		initialScaleY = -1;
 		panning = NO;
 		firstRender = YES;
 		
@@ -70,7 +71,8 @@
 	//initialize scale to fit window
 	if (firstRender) {
 		float scale = (float)self.frame.size.width/svgRenderer.documentSize.width;
-		[svgRenderer setScale:scale];
+		[svgRenderer setScaleX:scale];
+		[svgRenderer setScaleY:scale];
 		firstRender = NO;
 	}
 	CGContextRef ctx = [renderer createBitmapContext];
@@ -122,9 +124,11 @@
 		float scale = (float)self.frame.size.width/svgRenderer.documentSize.width;
 		svgRenderer.offsetX = self.frame.origin.x;
 		svgRenderer.offsetY = self.frame.origin.y;
-		[svgRenderer setScale:scale];
+		[svgRenderer setScaleX:scale];
+		[svgRenderer setScaleY:scale];
 		[self open:filePath];
-	    initialScale = -1;
+	    initialScaleX = -1;
+		initialScaleY = -1;
 		panning = NO;
 		return;
 	}
@@ -147,7 +151,8 @@
 			if (initialDistance == 0)
 				initialDistance = -1;
 			
-			initialScale = svgRenderer.scale;				
+			initialScaleX = svgRenderer.scaleX;
+			initialScaleY = svgRenderer.scaleY;
 
             break;
         }
@@ -188,9 +193,11 @@
 				CGFloat currentDistance = [self distanceBetweenTwoPoints:point1
 																 toPoint:point2];
 				
-				float oldScale = svgRenderer.scale;
+				float oldScale = svgRenderer.scaleX;
 				float pinchScale = currentDistance / initialDistance;
-				svgRenderer.scale = initialScale * pinchScale;
+				svgRenderer.scaleX = initialScaleX * pinchScale;
+				svgRenderer.scaleY = initialScaleY * pinchScale;
+				
 		
 				 
 				 //fix point in middle of two touches during zoom 
@@ -199,7 +206,7 @@
 				 middle.y = (point1.y + point2.y)/2;
 				
 				 
-				float factor = svgRenderer.scale/oldScale;
+				float factor = svgRenderer.scaleX/oldScale;
 				
 				origin.x = (1-factor)*middle.x + factor*origin.x;
 				origin.y = (1-factor)*middle.y + factor*origin.y;
@@ -268,8 +275,8 @@
 				// (originBegin * finalScale + middle * ( finalScale - initialScale))/initialScale = originEnd
 								
 				
-				svgRenderer.offsetX = (svgRenderer.offsetX * svgRenderer.scale + middle.x * (svgRenderer.scale - initialScale))/initialScale;
-				svgRenderer.offsetY = (svgRenderer.offsetY * svgRenderer.scale + middle.y * (svgRenderer.scale - initialScale))/initialScale;
+				svgRenderer.offsetX = (svgRenderer.offsetX * svgRenderer.scaleX + middle.x * (svgRenderer.scaleX - initialScaleX))/initialScaleX;
+				svgRenderer.offsetY = (svgRenderer.offsetY * svgRenderer.scaleY + middle.y * (svgRenderer.scaleY - initialScaleY))/initialScaleY;
 				
 
 				origin = self.frame.origin;
@@ -293,7 +300,8 @@
 	float x = self.frame.size.width - location.x*zoom;
 	float y = self.frame.size.height - location.y*zoom;
 	origin = CGPointMake(x,y);
-	[svgRenderer setScale:zoom];
+	[svgRenderer setScaleX:zoom];
+	[svgRenderer setScaleY:zoom];
 	[self open:filePath];	
 }
 

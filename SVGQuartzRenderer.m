@@ -43,7 +43,7 @@
 @synthesize viewFrame;
 @synthesize documentSize;
 @synthesize delegate;
-@synthesize scale, offsetX, offsetY;
+@synthesize scaleX, scaleY, offsetX, offsetY;
 
 struct FillPatternDescriptor {
 	CGImageRef imgRef;
@@ -108,7 +108,8 @@ float fontSize;
 
 		defDict = [[NSMutableDictionary alloc] init];
 		
-		scale = 1.0;
+		scaleX = 1.0;
+		scaleY = 1.0;
 		offsetX = 0;
 		offsetY = 0;
 		documentSize = CGSizeMake(0,0);
@@ -130,8 +131,8 @@ float fontSize;
 	fillColor[3]=1;
 	doStroke = NO;
 	strokeColor = 0;
-	strokeWidth = 1.0 * scale;
-	strokeOpacity = 1.0 * scale;
+	strokeWidth = 1.0 * scaleX;
+	strokeOpacity = 1.0 * scaleX;
 	lineJoinStyle = kCGLineJoinMiter;
 	lineCapStyle = kCGLineCapButt;
 	miterLimit = 4;
@@ -567,12 +568,12 @@ didStartElement:(NSString *)elementName
 					// Set initial point
 					if(firstVertex) {
 						firstPoint = curPoint;
-						CGPathMoveToPoint(path, NULL, firstPoint.x * scale, firstPoint.y * scale);
+						CGPathMoveToPoint(path, NULL, firstPoint.x * scaleX, firstPoint.y * scaleY);
 					}
 					
 					// Close path
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
-						CGPathAddLineToPoint(path, NULL, firstPoint.x * scale, firstPoint.y * scale);
+						CGPathAddLineToPoint(path, NULL, firstPoint.x * scaleX, firstPoint.y * scaleY);
 						CGPathCloseSubpath(path);
 						curPoint = CGPointMake(-1, -1);
 						firstPoint = CGPointMake(-1, -1);
@@ -583,16 +584,16 @@ didStartElement:(NSString *)elementName
 					if(curCmdType) {
 						if([curCmdType isEqualToString:@"line"]) {
 							if(mCount>1) {
-								CGPathAddLineToPoint(path, NULL, curPoint.x * scale, curPoint.y * scale);
+								CGPathAddLineToPoint(path, NULL, curPoint.x * scaleX, curPoint.y * scaleY);
 							} else {
-								CGPathMoveToPoint(path, NULL, curPoint.x * scale, curPoint.y * scale);
+								CGPathMoveToPoint(path, NULL, curPoint.x * scaleX, curPoint.y * scaleY);
 							}
 						}
 						
 						if([curCmdType isEqualToString:@"curve"])
-							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x * scale, curCtrlPoint1.y * scale,
-												  curCtrlPoint2.x * scale, curCtrlPoint2.y * scale,
-												  curPoint.x * scale,curPoint.y * scale);
+							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x * scaleX, curCtrlPoint1.y * scaleY,
+												  curCtrlPoint2.x * scaleX, curCtrlPoint2.y * scaleY,
+												  curPoint.x * scaleX,curPoint.y * scaleY);
 						
 						if([curCmdType isEqualToString:@"arc"]) {
 							CGPathAddArc (path, NULL,
@@ -665,7 +666,7 @@ didStartElement:(NSString *)elementName
 		if (rx==-1.0) rx = ry;
 		
 		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathAddRoundRect(path, CGRectMake(xPos * scale,yPos * scale,width * scale,height * scale), rx * scale);
+		CGPathAddRoundRect(path, CGRectMake(xPos * scaleX,yPos * scaleY,width * scaleX,height * scaleY), rx * scaleX);
 		
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
@@ -748,11 +749,11 @@ didStartElement:(NSString *)elementName
 				if (firstPoint)
 				{
 					firstPoint = NO;
-					CGPathMoveToPoint(path, NULL, scale*x, scale*y);
+					CGPathMoveToPoint(path, NULL, scaleX*x, scaleY*y);
 				}
 				else
 				{
-					CGPathAddLineToPoint(path, NULL, scale*x, scale*y);
+					CGPathAddLineToPoint(path, NULL, scaleX*x, scaleY*y);
 				}
 			}
 		}
@@ -790,9 +791,9 @@ didStartElement:(NSString *)elementName
 		
 		yPos-=height/2;
 		CGImageRef theImage = imageFromBase64([attrDict valueForKey:@"xlink:href"]);
-		CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, height*scale);
+		CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, height*scaleY);
 		CGContextConcatCTM(cgContext, flipVertical);
-		CGContextDrawImage(cgContext, CGRectMake(xPos*scale, yPos*scale, width*scale, height*scale), theImage);
+		CGContextDrawImage(cgContext, CGRectMake(xPos*scaleX, yPos*scaleY, width*scaleX, height*scaleY), theImage);
 		CGContextConcatCTM(cgContext, CGAffineTransformInvert(flipVertical));
 		CGImageRelease(theImage);
 	}
@@ -863,8 +864,8 @@ didStartElement:(NSString *)elementName
 		
 		CGContextSetRGBFillColor(cgContext, fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
 		
-		CGContextSelectFont(cgContext, [font UTF8String], fontSize*scale, kCGEncodingMacRoman);
-		CGContextSetFontSize(cgContext, fontSize*scale);
+		CGContextSelectFont(cgContext, [font UTF8String], fontSize*scaleX, kCGEncodingMacRoman);
+		CGContextSetFontSize(cgContext, fontSize*scaleX);
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
 		
 		// TODO: Messy! Centralize.
@@ -888,8 +889,8 @@ didStartElement:(NSString *)elementName
 		
 		CGContextSetTextDrawingMode(cgContext, drawingMode);
 		CGContextShowTextAtPoint(cgContext,
-								 [[curText valueForKey:@"x"] floatValue]*scale,
-								 [[curText valueForKey:@"y"] floatValue]*scale,
+								 [[curText valueForKey:@"x"] floatValue]*scaleX,
+								 [[curText valueForKey:@"y"] floatValue]*scaleY,
 								 [chars UTF8String],
 								 [chars length]);
 	}
@@ -1109,13 +1110,13 @@ didStartElement:(NSString *)elementName
 						// Load gradient
 						fillType = [def objectForKey:@"type"];
 						if([def objectForKey:@"x1"]) {
-							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue] * scale,[[def objectForKey:@"y1"] floatValue] * scale);
-							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue] * scale,[[def objectForKey:@"y2"] floatValue] * scale);
+							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue] * scaleX,[[def objectForKey:@"y1"] floatValue] * scaleY);
+							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue] * scaleX,[[def objectForKey:@"y2"] floatValue] * scaleY);
 							//fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
 							//											([[def objectForKey:@"y1"] floatValue] - [[def objectForKey:@"y2"] floatValue])))*180)/M_PI)+90;
 						} if([def objectForKey:@"cx"]) {
-							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue] * scale;
-							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue] * scale;
+							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue] * scaleX;
+							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue] * scaleY;
 						}
 						
 						NSArray *stops = [def objectForKey:@"stops"];
@@ -1185,7 +1186,7 @@ didStartElement:(NSString *)elementName
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				[hexScanner scanHexInt:&strokeColor];
-				strokeWidth = 1 * scale;
+				strokeWidth = 1 * scaleX;
 			} else {
 				doStroke = NO;
 			}
@@ -1203,7 +1204,7 @@ didStartElement:(NSString *)elementName
 			NSScanner *floatScanner = [NSScanner scannerWithString:
 									   [attrValue stringByReplacingOccurrencesOfString:@"px" withString:@""]];
 			[floatScanner scanFloat:&strokeWidth];
-			strokeWidth *= scale;
+			strokeWidth *= scaleX;
 		}
 		
 		// --------------------- STROKE-LINECAP
@@ -1310,8 +1311,8 @@ didStartElement:(NSString *)elementName
 	
 	if([values count] == 2)
 		transform = CGAffineTransformTranslate (transform,
-									[[values objectAtIndex:0] floatValue] * scale,
-									[[values objectAtIndex:1] floatValue] * scale);
+									[[values objectAtIndex:0] floatValue] * scaleX,
+									[[values objectAtIndex:1] floatValue] * scaleY);
 	
 	// Rotate
 	value = [NSString string];
@@ -1368,13 +1369,6 @@ didStartElement:(NSString *)elementName
 	return def;
 }
 
--(void) setScale:(CGFloat)newScale
-{
-   	if (newScale <= 0)
-		return;
-	scale = newScale;
-
-}
 
 - (CGContextRef)createBitmapContext
 {

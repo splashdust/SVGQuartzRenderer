@@ -37,7 +37,8 @@ didFinishRenderingFile:(NSString *)file
 @interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate> {
 	CGSize documentSize;
 	id<SVGQuartzRenderDelegate> delegate;
-	CGFloat scale;
+	CGFloat scaleX;
+	CGFloat scaleY;
 	CGFloat offsetX;
 	CGFloat offsetY;
 	CGRect viewFrame;
@@ -45,7 +46,8 @@ didFinishRenderingFile:(NSString *)file
 
 @property (readonly) CGSize documentSize;
 @property (readonly) id delegate;
-@property (readwrite) CGFloat scale;
+@property (readwrite) CGFloat scaleX;
+@property (readwrite) CGFloat scaleY;
 @property (readwrite) CGFloat offsetX;
 @property (readwrite) CGFloat offsetY;
 @property (readwrite) CGRect viewFrame;

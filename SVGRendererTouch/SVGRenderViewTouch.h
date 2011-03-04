@@ -28,7 +28,8 @@
 	CGImageRef svgDrawing;
 	CGFloat initialDistance;
 	CGPoint initialPoint;
-	CGFloat initialScale;
+	CGFloat initialScaleX;
+	CGFloat initialScaleY;
 	BOOL panning;
 	BOOL firstRender;		
 	SVGQuartzRenderer *svgRenderer;
