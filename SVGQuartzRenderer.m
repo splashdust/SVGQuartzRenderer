@@ -28,6 +28,7 @@
 	- (void)setStyleContext:(NSString *)style;
 	- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style;
 	- (void)applyTransformations:(NSString *)transformations;
+     - (void) applyDefaultTransformations;
 	- (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier;
 	- (void) cleanupAfterFinishedParsing;
 
@@ -43,7 +44,7 @@
 @synthesize viewFrame;
 @synthesize documentSize;
 @synthesize delegate;
-@synthesize scaleX, scaleY, offsetX, offsetY;
+@synthesize scaleX, scaleY, offsetX, offsetY,rotation;
 
 struct FillPatternDescriptor {
 	CGImageRef imgRef;
@@ -112,6 +113,7 @@ float fontSize;
 		scaleY = 1.0;
 		offsetX = 0;
 		offsetY = 0;
+		rotation = 0;
 		documentSize = CGSizeMake(0,0);
     }
     return self;
@@ -956,12 +958,10 @@ didStartElement:(NSString *)elementName
 - (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style
 {		
 	CGContextSaveGState(cgContext);
-	// do translation here, if no transform has been applied ( for example, in file with no groups)
-	if (!appliedTransform)
-	    CGContextConcatCTM(cgContext,CGAffineTransformTranslate(CGAffineTransformIdentity, -offsetX, -offsetY));
-	
 	if(style)
 		[self setStyleContext:style];
+	
+	[self applyDefaultTransformations];
 	
 	if(doFill) {
 		if ([fillType isEqualToString:@"solid"]) {
@@ -1288,6 +1288,25 @@ didStartElement:(NSString *)elementName
 	[pool release];
 }
 
+-(void) applyDefaultTransformations
+{
+	// do translation here, if no transform has been applied ( for example, in file with no groups)
+	if (!appliedTransform)
+	{
+		CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
+		
+		// Reset transformation matrix
+		//transform = gTransform;
+		
+		if (rotation != 0)
+			transform = CGAffineTransformRotate(transform, rotation);	
+		transform = CGAffineTransformTranslate(transform, -offsetX, -offsetY);
+	    CGContextConcatCTM(cgContext,transform);
+	
+	}
+	
+}
+
 - (void)applyTransformations:(NSString *)transformations
 {
 	appliedTransform = YES;
@@ -1315,13 +1334,17 @@ didStartElement:(NSString *)elementName
 									[[values objectAtIndex:1] floatValue] * scaleY);
 	
 	// Rotate
+	float currentRotation = rotation;
 	value = [NSString string];
 	scanner = [NSScanner scannerWithString:transformations];
 	[scanner scanString:@"rotate(" intoString:nil];
 	[scanner scanUpToString:@")" intoString:&value];
 	
 	if(value)
-		transform = CGAffineTransformRotate(transform, [value floatValue]);
+		currentRotation += [value floatValue];
+	
+	if (currentRotation != 0)
+		transform = CGAffineTransformRotate(transform, currentRotation);
 	
 	// Matrix
 	value = [NSString string];

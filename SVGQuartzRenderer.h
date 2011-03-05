@@ -41,6 +41,7 @@ didFinishRenderingFile:(NSString *)file
 	CGFloat scaleY;
 	CGFloat offsetX;
 	CGFloat offsetY;
+	CGFloat rotation;
 	CGRect viewFrame;
 }
 
@@ -50,6 +51,7 @@ didFinishRenderingFile:(NSString *)file
 @property (readwrite) CGFloat scaleY;
 @property (readwrite) CGFloat offsetX;
 @property (readwrite) CGFloat offsetY;
+@property (readwrite) CGFloat rotation;
 @property (readwrite) CGRect viewFrame;
 
 - (void)drawSVGFile:(NSString *)file;
