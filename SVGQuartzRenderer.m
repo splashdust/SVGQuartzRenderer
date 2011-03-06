@@ -1296,7 +1296,7 @@ didStartElement:(NSString *)elementName
 		CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
 		
 		// Reset transformation matrix
-		//transform = gTransform;
+		//transform = CGAffineTransformIdentity;
 		
 		if (rotation != 0)
 			transform = CGAffineTransformRotate(transform, rotation);	
@@ -1314,7 +1314,7 @@ didStartElement:(NSString *)elementName
 	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
 	
 	// Reset transformation matrix
-	transform = gTransform;
+	transform = CGAffineTransformIdentity;
 	
 	NSScanner *scanner = [NSScanner scannerWithString:transformations];
 	[scanner setCaseSensitive:YES];
@@ -1327,11 +1327,18 @@ didStartElement:(NSString *)elementName
 	[scanner scanUpToString:@")" intoString:&value];
 	
 	NSArray *values = [value componentsSeparatedByString:@","];
+	float transX = -offsetX;
+	float transY = -offsetY;
 	
 	if([values count] == 2)
-		transform = CGAffineTransformTranslate (transform,
-									[[values objectAtIndex:0] floatValue] * scaleX,
-									[[values objectAtIndex:1] floatValue] * scaleY);
+	{
+	    transX += 	[[values objectAtIndex:0] floatValue] * scaleX ;
+		transY += [[values objectAtIndex:1] floatValue] * scaleY;
+		
+	}
+	if (transX != 0 & transY != 0)
+		transform = CGAffineTransformTranslate(transform, transX, transY);
+		
 	
 	// Rotate
 	float currentRotation = rotation;
@@ -1364,9 +1371,7 @@ didStartElement:(NSString *)elementName
 		transform = CGAffineTransformConcat(transform, matrixTransform);
 	}
 	
-	// translate of offset
-	transform = CGAffineTransformTranslate(transform, -offsetX, -offsetY);
-	
+
 	// Apply to graphics context
 	CGContextConcatCTM(cgContext,transform);
 }
