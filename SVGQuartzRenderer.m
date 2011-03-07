@@ -1286,9 +1286,58 @@ didStartElement:(NSString *)elementName
 	
 	NSString *value;
 	NSArray *values;
+	float sx = scaleX, sy = scaleY;
+	
+	// Matrix
+	BOOL hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
+	if (hasMatrix)
+	{
+		[scanner scanUpToString:@")" intoString:&value];
+		
+		values = [value componentsSeparatedByString:@","];
+		
+		if([values count] == 6) {
+			float a = [[values objectAtIndex:0] floatValue];
+			float b = [[values objectAtIndex:1] floatValue];
+			float c = [[values objectAtIndex:2] floatValue];
+			float d = [[values objectAtIndex:3] floatValue];
+			
+	
+			// local translation, with correction for global scale		
+			float tx = [[values objectAtIndex:4] floatValue]*sx;
+			float ty = [[values objectAtIndex:5] floatValue]*sy;
+
+			//move all scaling into separate transformation
+			float scl = sqrtf(a*d - b*c);  //!!!!!!!  assume sx = sy
+			a /= scl;
+			d /= scl;
+			if (sx != 1.0 || sy != 1.0)
+				transform = CGAffineTransformScale(transform, sx*scl, sy*scl);
+			
+			//global rotation
+			if (rotation != 0)
+				transform = CGAffineTransformRotate(transform, rotation);
+			
+			//correct for local scale
+			float globalTx = -offsetX;
+			float globalTy = -offsetY;
+				
+			
+			CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx+globalTx, ty+globalTy);
+
+			transform = CGAffineTransformConcat(transform, matrixTransform);
+			
+			// Apply to graphics context
+			CGContextConcatCTM(cgContext,transform);
+						
+			return;
+			
+		}
+		
+	}
+	
 	
 	// Scale
-	float sx = scaleX, sy = scaleY;
 	BOOL hasScale = [scanner scanString:@"scale(" intoString:nil];
 	if (hasScale)
 	{
@@ -1323,26 +1372,7 @@ didStartElement:(NSString *)elementName
 	if (currentRotation != 0)
 		transform = CGAffineTransformRotate(transform, currentRotation);
 	
-	// Matrix
-	BOOL hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
-	if (hasMatrix)
-	{
-		[scanner scanUpToString:@")" intoString:&value];
-		
-		values = [value componentsSeparatedByString:@","];
-		
-		if([values count] == 6) {
-			CGAffineTransform matrixTransform = CGAffineTransformMake ([[values objectAtIndex:0] floatValue],
-																	   [[values objectAtIndex:1] floatValue],
-																	   [[values objectAtIndex:2] floatValue],
-																	   [[values objectAtIndex:3] floatValue],
-																	   [[values objectAtIndex:4] floatValue],
-																	   [[values objectAtIndex:5] floatValue]);
-			transform = CGAffineTransformConcat(transform, matrixTransform);
 
-		}
-		
-	}
 	
 	// Translate
 	float transX = -offsetX/sx;
