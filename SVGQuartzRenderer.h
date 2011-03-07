@@ -54,6 +54,7 @@ didFinishRenderingFile:(NSString *)file
 @property (readwrite) CGFloat rotation;
 @property (readwrite) CGRect viewFrame;
 
+- (void) resetScale;
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
 - (CGContextRef)createBitmapContext;

@@ -121,11 +121,10 @@
 	if (tapCount == 2)
 	{
 		origin = self.frame.origin;
-		float scale = (float)self.frame.size.width/svgRenderer.documentSize.width;
 		svgRenderer.offsetX = self.frame.origin.x;
 		svgRenderer.offsetY = self.frame.origin.y;
-		[svgRenderer setScaleX:scale];
-		[svgRenderer setScaleY:scale];
+		[svgRenderer resetScale];
+
 		[self open:filePath];
 	    initialScaleX = -1;
 		initialScaleY = -1;

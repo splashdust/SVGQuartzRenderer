@@ -59,6 +59,8 @@ NSString *svgFileName;
 NSData *svgXml;
 CGAffineTransform transform;
 CGContextRef cgContext=NULL;
+float initialScaleX = -1;
+float initialScaleY = -1;
 NSMutableDictionary *defDict;
 FillPatternDescriptor desc;
 
@@ -153,6 +155,12 @@ float fontSize;
 	[xmlParser parse];
 }
 
+- (void) resetScale
+{
+	scaleX = initialScaleX;
+	scaleY = initialScaleY;
+	
+}
 
 // Element began
 // -----------------------------------------------------------------------------
@@ -181,9 +189,18 @@ didStartElement:(NSString *)elementName
 		doStroke = NO;
 		
 		if(delegate) {
-			CGContextRelease(cgContext);
+			
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		}
+		
+		if (initialScaleX == -1)
+		{
+			initialScaleX = s*scaleX;
+			initialScaleY = s*scaleY;
+			scaleX = initialScaleX;
+			scaleY = initialScaleY;
+		}
+		
 		transform = CGAffineTransformIdentity;
 			[self applyDefaultTransformations];
 	}
@@ -1344,8 +1361,8 @@ didStartElement:(NSString *)elementName
 
 		if([values count] == 2)
 		{
-			sx *= 	fabsf([[values objectAtIndex:0] floatValue]) ;
-			sy *= fabsf([[values objectAtIndex:1] floatValue]);		
+			sx *= 	[[values objectAtIndex:0] floatValue];
+			sy *=  [[values objectAtIndex:1] floatValue];		
 		}
 
 	}
