@@ -71,9 +71,7 @@ NSDictionary *curFlowRegion;
 
 BOOL inDefSection = NO;
 
-CGAffineTransform gTransform;
-BOOL pathTrnsfrmReset = YES;
-BOOL appliedTransform = NO;
+
 
 // Variables for storing style data
 // -------------------------------------------------------------------------
@@ -133,8 +131,8 @@ float fontSize;
 	fillColor[3]=1;
 	doStroke = NO;
 	strokeColor = 0;
-	strokeWidth = 1.0 * scaleX;
-	strokeOpacity = 1.0 * scaleX;
+	strokeWidth = 1.0;
+	strokeOpacity = 1.0;
 	lineJoinStyle = kCGLineJoinMiter;
 	lineCapStyle = kCGLineCapButt;
 	miterLimit = 4;
@@ -186,8 +184,8 @@ didStartElement:(NSString *)elementName
 			CGContextRelease(cgContext);
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		}
-		gTransform = CGAffineTransformIdentity;
-		transform = gTransform;
+		transform = CGAffineTransformIdentity;
+			[self applyDefaultTransformations];
 	}
 	
 	// Definitions
@@ -317,11 +315,9 @@ didStartElement:(NSString *)elementName
 		
 		if([attrDict valueForKey:@"style"])
 			[self setStyleContext:[attrDict valueForKey:@"style"]];
-		
+
 		if([attrDict valueForKey:@"transform"]) {
-			gTransform = CGAffineTransformIdentity;
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
-			gTransform = transform;
 		}
 	}
 	
@@ -570,12 +566,12 @@ didStartElement:(NSString *)elementName
 					// Set initial point
 					if(firstVertex) {
 						firstPoint = curPoint;
-						CGPathMoveToPoint(path, NULL, firstPoint.x * scaleX, firstPoint.y * scaleY);
+						CGPathMoveToPoint(path, NULL, firstPoint.x, firstPoint.y);
 					}
 					
 					// Close path
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
-						CGPathAddLineToPoint(path, NULL, firstPoint.x * scaleX, firstPoint.y * scaleY);
+						CGPathAddLineToPoint(path, NULL, firstPoint.x, firstPoint.y);
 						CGPathCloseSubpath(path);
 						curPoint = CGPointMake(-1, -1);
 						firstPoint = CGPointMake(-1, -1);
@@ -586,16 +582,16 @@ didStartElement:(NSString *)elementName
 					if(curCmdType) {
 						if([curCmdType isEqualToString:@"line"]) {
 							if(mCount>1) {
-								CGPathAddLineToPoint(path, NULL, curPoint.x * scaleX, curPoint.y * scaleY);
+								CGPathAddLineToPoint(path, NULL, curPoint.x, curPoint.y);
 							} else {
-								CGPathMoveToPoint(path, NULL, curPoint.x * scaleX, curPoint.y * scaleY);
+								CGPathMoveToPoint(path, NULL, curPoint.x, curPoint.y);
 							}
 						}
 						
 						if([curCmdType isEqualToString:@"curve"])
-							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x * scaleX, curCtrlPoint1.y * scaleY,
-												  curCtrlPoint2.x * scaleX, curCtrlPoint2.y * scaleY,
-												  curPoint.x * scaleX,curPoint.y * scaleY);
+							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x, curCtrlPoint1.y,
+												  curCtrlPoint2.x, curCtrlPoint2.y,
+												  curPoint.x,curPoint.y);
 						
 						if([curCmdType isEqualToString:@"arc"]) {
 							CGPathAddArc (path, NULL,
@@ -619,14 +615,8 @@ didStartElement:(NSString *)elementName
 		
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
-			pathTrnsfrmReset = YES;
-		} else if(pathTrnsfrmReset) {
-			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
-			transform = gTransform;
-			CGContextConcatCTM(cgContext,transform);
-			pathTrnsfrmReset = NO;
-		}
-		
+
+		} 		
 		// Respect the 'fill' attribute
 		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
 		if([attrDict valueForKey:@"fill"]) {
@@ -668,17 +658,11 @@ didStartElement:(NSString *)elementName
 		if (rx==-1.0) rx = ry;
 		
 		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathAddRoundRect(path, CGRectMake(xPos * scaleX,yPos * scaleY,width * scaleX,height * scaleY), rx * scaleX);
+		CGPathAddRoundRect(path, CGRectMake(xPos,yPos ,width,height), rx);
 		
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
-			pathTrnsfrmReset = YES;
-		} else if(pathTrnsfrmReset) {
-			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
-			transform = gTransform;
-			CGContextConcatCTM(cgContext,transform);
-			pathTrnsfrmReset = NO;
-		}
+		} 
 		
 		// Respect the 'fill' attribute
 		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
@@ -751,11 +735,11 @@ didStartElement:(NSString *)elementName
 				if (firstPoint)
 				{
 					firstPoint = NO;
-					CGPathMoveToPoint(path, NULL, scaleX*x, scaleY*y);
+					CGPathMoveToPoint(path, NULL, x, y);
 				}
 				else
 				{
-					CGPathAddLineToPoint(path, NULL, scaleX*x, scaleY*y);
+					CGPathAddLineToPoint(path, NULL, x, y);
 				}
 			}
 		}
@@ -780,22 +764,16 @@ didStartElement:(NSString *)elementName
 		float width = [[attrDict valueForKey:@"width"] floatValue];
 		float height = [[attrDict valueForKey:@"height"] floatValue];
 		
-		pathTrnsfrmReset = YES;
+	
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
-			pathTrnsfrmReset = YES;
-		} else if(pathTrnsfrmReset) {
-			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
-			transform = gTransform;
-			CGContextConcatCTM(cgContext,transform);
-			pathTrnsfrmReset = NO;
-		}
+		} 
 		
 		yPos-=height/2;
 		CGImageRef theImage = imageFromBase64([attrDict valueForKey:@"xlink:href"]);
-		CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, height*scaleY);
+		CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, height);
 		CGContextConcatCTM(cgContext, flipVertical);
-		CGContextDrawImage(cgContext, CGRectMake(xPos*scaleX, yPos*scaleY, width*scaleX, height*scaleY), theImage);
+		CGContextDrawImage(cgContext, CGRectMake(xPos, yPos, width, height), theImage);
 		CGContextConcatCTM(cgContext, CGAffineTransformInvert(flipVertical));
 		CGImageRelease(theImage);
 	}
@@ -814,13 +792,7 @@ didStartElement:(NSString *)elementName
 		// be centralized
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
-			pathTrnsfrmReset = YES;
-		} else if(pathTrnsfrmReset) {
-			CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
-			transform = gTransform;
-			CGContextConcatCTM(cgContext,transform);
-			pathTrnsfrmReset = NO;
-		}
+		} 
 		
 		curText = [[[NSDictionary alloc] initWithObjectsAndKeys:
 					[attrDict valueForKey:@"id"], @"id",
@@ -866,8 +838,8 @@ didStartElement:(NSString *)elementName
 		
 		CGContextSetRGBFillColor(cgContext, fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
 		
-		CGContextSelectFont(cgContext, [font UTF8String], fontSize*scaleX, kCGEncodingMacRoman);
-		CGContextSetFontSize(cgContext, fontSize*scaleX);
+		CGContextSelectFont(cgContext, [font UTF8String], fontSize, kCGEncodingMacRoman);
+		CGContextSetFontSize(cgContext, fontSize);
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
 		
 		// TODO: Messy! Centralize.
@@ -891,8 +863,8 @@ didStartElement:(NSString *)elementName
 		
 		CGContextSetTextDrawingMode(cgContext, drawingMode);
 		CGContextShowTextAtPoint(cgContext,
-								 [[curText valueForKey:@"x"] floatValue]*scaleX,
-								 [[curText valueForKey:@"y"] floatValue]*scaleY,
+								 [[curText valueForKey:@"x"] floatValue],
+								 [[curText valueForKey:@"y"] floatValue],
 								 [chars UTF8String],
 								 [chars length]);
 	}
@@ -961,7 +933,7 @@ didStartElement:(NSString *)elementName
 	if(style)
 		[self setStyleContext:style];
 	
-	[self applyDefaultTransformations];
+
 	
 	if(doFill) {
 		if ([fillType isEqualToString:@"solid"]) {
@@ -1110,13 +1082,13 @@ didStartElement:(NSString *)elementName
 						// Load gradient
 						fillType = [def objectForKey:@"type"];
 						if([def objectForKey:@"x1"]) {
-							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue] * scaleX,[[def objectForKey:@"y1"] floatValue] * scaleY);
-							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue] * scaleX,[[def objectForKey:@"y2"] floatValue] * scaleY);
+							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue] ,[[def objectForKey:@"y1"] floatValue] );
+							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue] ,[[def objectForKey:@"y2"] floatValue] );
 							//fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
 							//											([[def objectForKey:@"y1"] floatValue] - [[def objectForKey:@"y2"] floatValue])))*180)/M_PI)+90;
 						} if([def objectForKey:@"cx"]) {
-							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue] * scaleX;
-							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue] * scaleY;
+							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue] ;
+							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue] ;
 						}
 						
 						NSArray *stops = [def objectForKey:@"stops"];
@@ -1186,7 +1158,7 @@ didStartElement:(NSString *)elementName
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				[hexScanner scanHexInt:&strokeColor];
-				strokeWidth = 1 * scaleX;
+				strokeWidth = 1;
 			} else {
 				doStroke = NO;
 			}
@@ -1204,7 +1176,7 @@ didStartElement:(NSString *)elementName
 			NSScanner *floatScanner = [NSScanner scannerWithString:
 									   [attrValue stringByReplacingOccurrencesOfString:@"px" withString:@""]];
 			[floatScanner scanFloat:&strokeWidth];
-			strokeWidth *= scaleX;
+		
 		}
 		
 		// --------------------- STROKE-LINECAP
@@ -1290,26 +1262,18 @@ didStartElement:(NSString *)elementName
 
 -(void) applyDefaultTransformations
 {
-	// do translation here, if no transform has been applied ( for example, in file with no groups)
-	if (!appliedTransform)
-	{
-		CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
-		
-		// Reset transformation matrix
-		//transform = CGAffineTransformIdentity;
-		
+	    transform = CGAffineTransformIdentity;
+	    transform = CGAffineTransformScale(transform, scaleX, scaleY);	
 		if (rotation != 0)
 			transform = CGAffineTransformRotate(transform, rotation);	
-		transform = CGAffineTransformTranslate(transform, -offsetX, -offsetY);
+		transform = CGAffineTransformTranslate(transform, -offsetX/scaleX, -offsetY/scaleY);
 	    CGContextConcatCTM(cgContext,transform);
 	
-	}
 	
 }
 
 - (void)applyTransformations:(NSString *)transformations
 {
-	appliedTransform = YES;
 	
 	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
 	
@@ -1321,56 +1285,89 @@ didStartElement:(NSString *)elementName
 	[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
 	
 	NSString *value;
+	NSArray *values;
 	
-	// Translate
-	[scanner scanString:@"translate(" intoString:nil];
-	[scanner scanUpToString:@")" intoString:&value];
-	
-	NSArray *values = [value componentsSeparatedByString:@","];
-	float transX = -offsetX;
-	float transY = -offsetY;
-	
-	if([values count] == 2)
+	// Scale
+	float sx = scaleX, sy = scaleY;
+	BOOL hasScale = [scanner scanString:@"scale(" intoString:nil];
+	if (hasScale)
 	{
-	    transX += 	[[values objectAtIndex:0] floatValue] * scaleX ;
-		transY += [[values objectAtIndex:1] floatValue] * scaleY;
+			
+		[scanner scanUpToString:@")" intoString:&value];
 		
+		values = [value componentsSeparatedByString:@","];
+
+		if([values count] == 2)
+		{
+			sx *= 	fabsf([[values objectAtIndex:0] floatValue]) ;
+			sy *= fabsf([[values objectAtIndex:1] floatValue]);		
+		}
+
 	}
-	if (transX != 0 & transY != 0)
-		transform = CGAffineTransformTranslate(transform, transX, transY);
-		
+	if (sx != 1.0 || sy != 1.0)
+		transform = CGAffineTransformScale(transform, sx, sy);
+	
 	
 	// Rotate
 	float currentRotation = rotation;
-	value = [NSString string];
-	scanner = [NSScanner scannerWithString:transformations];
-	[scanner scanString:@"rotate(" intoString:nil];
-	[scanner scanUpToString:@")" intoString:&value];
-	
-	if(value)
-		currentRotation += [value floatValue];
+	BOOL hasRotate = [scanner scanString:@"rotate(" intoString:nil];
+	if (hasRotate)
+	{
+		[scanner scanUpToString:@")" intoString:&value];
+		
+		if(value)
+			currentRotation += [value floatValue];
+		
+	}
 	
 	if (currentRotation != 0)
 		transform = CGAffineTransformRotate(transform, currentRotation);
 	
 	// Matrix
-	value = [NSString string];
-	scanner = [NSScanner scannerWithString:transformations];
-	[scanner scanString:@"matrix(" intoString:nil];
-	[scanner scanUpToString:@")" intoString:&value];
-	
-	values = [value componentsSeparatedByString:@","];
-	
-	if([values count] == 6) {
-		CGAffineTransform matrixTransform = CGAffineTransformMake ([[values objectAtIndex:0] floatValue],
-																   [[values objectAtIndex:1] floatValue],
-																   [[values objectAtIndex:2] floatValue],
-																   [[values objectAtIndex:3] floatValue],
-																   [[values objectAtIndex:4] floatValue],
-																   [[values objectAtIndex:5] floatValue]);
-		transform = CGAffineTransformConcat(transform, matrixTransform);
+	BOOL hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
+	if (hasMatrix)
+	{
+		[scanner scanUpToString:@")" intoString:&value];
+		
+		values = [value componentsSeparatedByString:@","];
+		
+		if([values count] == 6) {
+			CGAffineTransform matrixTransform = CGAffineTransformMake ([[values objectAtIndex:0] floatValue],
+																	   [[values objectAtIndex:1] floatValue],
+																	   [[values objectAtIndex:2] floatValue],
+																	   [[values objectAtIndex:3] floatValue],
+																	   [[values objectAtIndex:4] floatValue],
+																	   [[values objectAtIndex:5] floatValue]);
+			transform = CGAffineTransformConcat(transform, matrixTransform);
+
+		}
+		
 	}
 	
+	// Translate
+	float transX = -offsetX/sx;
+	float transY = -offsetY/sy;
+	
+	BOOL hasTrans = [scanner scanString:@"translate(" intoString:nil];
+	if (hasTrans)
+	{
+		
+		[scanner scanUpToString:@")" intoString:&value];
+		
+		values = [value componentsSeparatedByString:@","];
+		
+		
+		if([values count] == 2)
+		{
+			transX += 	[[values objectAtIndex:0] floatValue] ;
+			transY += [[values objectAtIndex:1] floatValue];			
+			
+		}
+		
+	}
+	
+	if (transX != 0 || transY != 0)
+		transform = CGAffineTransformTranslate(transform, transX, transY);			
 
 	// Apply to graphics context
 	CGContextConcatCTM(cgContext,transform);
