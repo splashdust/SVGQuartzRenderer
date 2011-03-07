@@ -1308,7 +1308,7 @@ didStartElement:(NSString *)elementName
 			float ty = [[values objectAtIndex:5] floatValue]*sy;
 
 			//move all scaling into separate transformation
-			float scl = sqrtf(a*d - b*c);  //!!!!!!!  assume sx = sy
+			float scl = sqrtf(a*d - b*c);  //!!!!!!!  assume local x scale = local y scale
 			a /= scl;
 			d /= scl;
 			if (sx != 1.0 || sy != 1.0)
@@ -1318,12 +1318,8 @@ didStartElement:(NSString *)elementName
 			if (rotation != 0)
 				transform = CGAffineTransformRotate(transform, rotation);
 			
-			//correct for local scale
-			float globalTx = -offsetX;
-			float globalTy = -offsetY;
-				
 			
-			CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx+globalTx, ty+globalTy);
+			CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx - offsetX, ty - offsetY);
 
 			transform = CGAffineTransformConcat(transform, matrixTransform);
 			
