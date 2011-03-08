@@ -31,7 +31,6 @@
 	CGFloat initialScaleX;
 	CGFloat initialScaleY;
 	BOOL panning;
-	BOOL firstRender;		
 	SVGQuartzRenderer *svgRenderer;
 	CGContextRef viewContext;
 	NSString* filePath;

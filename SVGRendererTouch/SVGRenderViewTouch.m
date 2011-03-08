@@ -51,7 +51,6 @@
 		initialScaleX = -1;
 		initialScaleY = -1;
 		panning = NO;
-		firstRender = YES;
 		
 		
     }
@@ -68,13 +67,6 @@
 - (CGContextRef)svgRenderer:(id)renderer
 				requestedCGContextWithSize:(CGSize)size
 {	
-	//initialize scale to fit window
-	if (firstRender) {
-		float scale = (float)self.frame.size.width/svgRenderer.documentSize.width;
-		[svgRenderer setScaleX:scale];
-		[svgRenderer setScaleY:scale];
-		firstRender = NO;
-	}
 	CGContextRef ctx = [renderer createBitmapContext];
 	
 	return ctx;

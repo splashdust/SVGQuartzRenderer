@@ -59,8 +59,9 @@ NSString *svgFileName;
 NSData *svgXml;
 CGAffineTransform transform;
 CGContextRef cgContext=NULL;
-float initialScaleX = -1;
-float initialScaleY = -1;
+float initialScaleX = 1;
+float initialScaleY = 1;
+BOOL firstRender = YES;
 NSMutableDictionary *defDict;
 FillPatternDescriptor desc;
 
@@ -175,16 +176,23 @@ didStartElement:(NSString *)elementName
 	// Top level SVG node
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
-		float w = [[attrDict valueForKey:@"width"] floatValue];
-		float h = [[attrDict valueForKey:@"height"] floatValue];
-		float scaleW = 1;
-		if (w != 0)
-	      scaleW = (float)viewFrame.size.width/w;
-		float scaleH = 1;
-		if (h != 0)
-		   scaleH = (float)viewFrame.size.height/h;
-		float s = fmaxf(scaleW, scaleH);
-		documentSize = CGSizeMake(s*w,s*h);
+
+		if (firstRender)
+		{
+			float w = [[attrDict valueForKey:@"width"] floatValue];
+			float h = [[attrDict valueForKey:@"height"] floatValue];
+			float scaleW = (float)viewFrame.size.width/w;
+			float scaleH = (float)viewFrame.size.height/h;
+			float s = fmaxf(scaleW, scaleH);
+			documentSize = CGSizeMake(s*w,s*h);			
+			
+			float scale = (float)viewFrame.size.width/documentSize.width;
+			initialScaleX = s*scale;
+			initialScaleY = s*scale;
+			scaleX = initialScaleX;
+			scaleY = initialScaleY;
+			firstRender = NO;
+		} 
 		
 		doStroke = NO;
 		
@@ -193,16 +201,8 @@ didStartElement:(NSString *)elementName
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		}
 		
-		if (initialScaleX == -1)
-		{
-			initialScaleX = s*scaleX;
-			initialScaleY = s*scaleY;
-			scaleX = initialScaleX;
-			scaleY = initialScaleY;
-		}
-		
 		transform = CGAffineTransformIdentity;
-			[self applyDefaultTransformations];
+		[self applyDefaultTransformations];
 	}
 	
 	// Definitions
