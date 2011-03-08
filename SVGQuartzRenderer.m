@@ -28,7 +28,6 @@
 	- (void)setStyleContext:(NSString *)style;
 	- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style;
 	- (void)applyTransformations:(NSString *)transformations;
-     - (void) applyDefaultTransformations;
 	- (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier;
 	- (void) cleanupAfterFinishedParsing;
 
@@ -201,8 +200,12 @@ didStartElement:(NSString *)elementName
 			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
 		}
 		
-		transform = CGAffineTransformIdentity;
-		[self applyDefaultTransformations];
+		//default transformation
+	    transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleX, scaleY);	
+		if (rotation != 0)
+			transform = CGAffineTransformRotate(transform, rotation);	
+		transform = CGAffineTransformTranslate(transform, -offsetX/scaleX, -offsetY/scaleY);
+	    CGContextConcatCTM(cgContext,transform);
 	}
 	
 	// Definitions
@@ -1277,17 +1280,6 @@ didStartElement:(NSString *)elementName
 	[pool release];
 }
 
--(void) applyDefaultTransformations
-{
-	    transform = CGAffineTransformIdentity;
-	    transform = CGAffineTransformScale(transform, scaleX, scaleY);	
-		if (rotation != 0)
-			transform = CGAffineTransformRotate(transform, rotation);	
-		transform = CGAffineTransformTranslate(transform, -offsetX/scaleX, -offsetY/scaleY);
-	    CGContextConcatCTM(cgContext,transform);
-	
-	
-}
 
 - (void)applyTransformations:(NSString *)transformations
 {
