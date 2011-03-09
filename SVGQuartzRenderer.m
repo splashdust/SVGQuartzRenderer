@@ -162,21 +162,29 @@ float fontSize;
 
 -(CGPoint) relativeImagePointFrom:(CGPoint)viewPoint
 {
-    float x = ((offsetX + viewPoint.x)/scaleX)*initialScaleX/viewFrame.size.width;
-	float y = ((offsetY + viewPoint.y)/scaleY)*initialScaleY/viewFrame.size.height;
+    float x = (offsetX + viewPoint.x)*initialScaleX/(scaleX*viewFrame.size.width);
+	float y = (offsetY + viewPoint.y)*initialScaleY/(scaleY*viewFrame.size.height);
 	return CGPointMake(x,y);
 }
 
 -(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
 {
-	// image coordinate system
-	float offx = (location.x - box.width/2) * documentSize.width/initialScaleX;
-	float offy = (location.y - box.height/2) * documentSize.height/initialScaleY;
+	//reject locations outside of the image
+	if (location.x <0 || location.y < 0 || location.x > 1 || location.y > 1)
+		return;
+	
+	//reject bounding box that is not wholly contained in image
+	if (box.width <0 || box.height < 0 || box.width > 1 || box.height > 1)
+		return;
 	
 	scaleX = initialScaleX / box.width;
 	scaleY = initialScaleY / box.height;
-	offsetX = initialScaleX * offx;
-	offsetY = initialScaleY * offy;
+	
+	//reverse calculation from relativeImagePointFrom above, with viewPoint set to middle of screen
+	offsetX = (location.x * (scaleX*viewFrame.size.width)/initialScaleX) - viewFrame.size.width/2;
+	offsetY = (location.y * (scaleY*viewFrame.size.height)/initialScaleY) - viewFrame.size.height/2;
+	
+
 	
 	[self drawSVGFile:nil];
 }

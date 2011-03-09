@@ -113,24 +113,32 @@
 	
 	switch (touchCount) {
         case 1:
+		{
+			CGPoint pt = [[[allTouches allObjects] objectAtIndex:0] locationInView:self];
+			panning = NO;	
 			if (tapCount == 2)
 			{
-				origin = self.frame.origin;
-				svgRenderer.offsetX = self.frame.origin.x;
-				svgRenderer.offsetY = self.frame.origin.y;
-				[svgRenderer resetScale];
-				
-				[self open:filePath];
-				initialScaleX = -1;
-				initialScaleY = -1;
-				panning = NO;
-				
+				CGPoint relativeImagePoint = [svgRenderer relativeImagePointFrom:pt];
+				if (relativeImagePoint.x <= 1 && relativeImagePoint.y <= 1 && relativeImagePoint.x >= 0 && relativeImagePoint.y >= 0)
+				{
+					[self locate:relativeImagePoint withBoundingBox:CGSizeMake(0.3,0.3)];
+				} else {					
+					origin = self.frame.origin;
+					svgRenderer.offsetX = self.frame.origin.x;
+					svgRenderer.offsetY = self.frame.origin.y;
+					[svgRenderer resetScale];
+					
+					[self open:filePath];
+					initialScaleX = -1;
+					initialScaleY = -1;
+
+				}				
 				
 			} else {
-				initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
+				initialPoint =  pt;
 				panning = YES;
 			}
-
+		}
 
 			break;
 			
@@ -144,22 +152,14 @@
 			CGPoint viewPoint1 = [touch1 locationInView:self];
 			CGPoint viewPoint2 = [touch2 locationInView:self];
 			
-			if (tapCount == 2)
-			{
-				//locate midpoint
-				float x = (viewPoint1.x + viewPoint2.x)/2;
-				float y = (viewPoint1.y + viewPoint2.y)/2;
-				CGPoint relativeImagePoint = [svgRenderer relativeImagePointFrom:CGPointMake(160, 220)];
-				[self locate:relativeImagePoint withBoundingBox:CGSizeMake(0.2,0.2)];
-				
-			} else {
-				initialDistance = [self distanceBetweenTwoPoints:viewPoint1 toPoint:viewPoint2]; 	
-				
-				if (initialDistance == 0)
-					initialDistance = -1;
-				
-				initialScaleX = svgRenderer.scaleX;
-				initialScaleY = svgRenderer.scaleY;			}
+
+			initialDistance = [self distanceBetweenTwoPoints:viewPoint1 toPoint:viewPoint2]; 	
+			
+			if (initialDistance == 0)
+				initialDistance = -1;
+			
+			initialScaleX = svgRenderer.scaleX;
+			initialScaleY = svgRenderer.scaleY;			
 
 
 
