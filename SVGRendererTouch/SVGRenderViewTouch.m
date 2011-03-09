@@ -73,8 +73,7 @@
 }
 
 - (void)svgRenderer:(id)renderer
-		didFinishRenderingFile:(NSString *)file
-		inCGContext:(CGContextRef)context
+		finishedRenderingInCGContext:(CGContextRef)context
 {
 	NSLog(@"Finished we are!");
 	
@@ -109,26 +108,30 @@
 {
 	UITouch *touch = [touches anyObject];
 	NSUInteger tapCount = [touch tapCount];
-	//reset to original scale
-	if (tapCount == 2)
-	{
-		origin = self.frame.origin;
-		svgRenderer.offsetX = self.frame.origin.x;
-		svgRenderer.offsetY = self.frame.origin.y;
-		[svgRenderer resetScale];
-
-		[self open:filePath];
-	    initialScaleX = -1;
-		initialScaleY = -1;
-		panning = NO;
-		return;
-	}
-	
 	NSSet* allTouches =  [event allTouches];
-	switch ([allTouches count]) {
+	int touchCount = [allTouches count];
+	
+	switch (touchCount) {
         case 1:
-			initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
-			panning = YES;
+			if (tapCount == 2)
+			{
+				origin = self.frame.origin;
+				svgRenderer.offsetX = self.frame.origin.x;
+				svgRenderer.offsetY = self.frame.origin.y;
+				[svgRenderer resetScale];
+				
+				[self open:filePath];
+				initialScaleX = -1;
+				initialScaleY = -1;
+				panning = NO;
+				
+				
+			} else {
+				initialPoint = 	[[[allTouches allObjects] objectAtIndex:0] locationInView:self];
+				panning = YES;
+			}
+
+
 			break;
 			
         default:
@@ -137,13 +140,29 @@
             // handle multi touch
             UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
             UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
-            initialDistance = [self distanceBetweenTwoPoints:[touch1 locationInView:self]
-                                                     toPoint:[touch2 locationInView:self]];
-			if (initialDistance == 0)
-				initialDistance = -1;
 			
-			initialScaleX = svgRenderer.scaleX;
-			initialScaleY = svgRenderer.scaleY;
+			CGPoint viewPoint1 = [touch1 locationInView:self];
+			CGPoint viewPoint2 = [touch2 locationInView:self];
+			
+			if (tapCount == 2)
+			{
+				//locate midpoint
+				float x = (viewPoint1.x + viewPoint2.x)/2;
+				float y = (viewPoint1.y + viewPoint2.y)/2;
+				CGPoint relativeImagePoint = [svgRenderer relativeImagePointFrom:CGPointMake(160, 220)];
+				[self locate:relativeImagePoint withBoundingBox:CGSizeMake(0.2,0.2)];
+				
+			} else {
+				initialDistance = [self distanceBetweenTwoPoints:viewPoint1 toPoint:viewPoint2]; 	
+				
+				if (initialDistance == 0)
+					initialDistance = -1;
+				
+				initialScaleX = svgRenderer.scaleX;
+				initialScaleY = svgRenderer.scaleY;			}
+
+
+
 
             break;
         }
@@ -284,16 +303,9 @@
 }
 
 //location is (x,y) coordinate of point in unscaled image
--(void) locate:(CGPoint)location withZoom:(float)zoom
+-(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
 {
-	//assume frame.origin = (0,0)
-	//location*zoom + offset = frame.center
-	float x = self.frame.size.width - location.x*zoom;
-	float y = self.frame.size.height - location.y*zoom;
-	origin = CGPointMake(x,y);
-	[svgRenderer setScaleX:zoom];
-	[svgRenderer setScaleY:zoom];
-	[self open:filePath];	
+	[svgRenderer locate:location withBoundingBox:box];	
 }
 
 

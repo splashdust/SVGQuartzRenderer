@@ -25,8 +25,7 @@
 @protocol SVGQuartzRenderDelegate
 
 	- (void)svgRenderer:(id)renderer
-didFinishRenderingFile:(NSString *)file
-			inCGContext:(CGContextRef)context;
+			finishedRenderingInCGContext:(CGContextRef)context;
 
 	- (CGContextRef)svgRenderer:(id)renderer
 	requestedCGContextWithSize:(CGSize)size;
@@ -58,5 +57,7 @@ didFinishRenderingFile:(NSString *)file
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
 - (CGContextRef)createBitmapContext;
+-(CGPoint) relativeImagePointFrom:(CGPoint)viewPoint;
+-(void) locate:(CGPoint)location withBoundingBox:(CGSize)box;
 
 @end

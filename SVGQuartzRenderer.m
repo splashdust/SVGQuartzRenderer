@@ -54,7 +54,6 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 											  CGContextRef context);
 
 NSXMLParser* xmlParser;
-NSString *svgFileName;
 NSData *svgXml;
 CGAffineTransform transform;
 CGContextRef cgContext=NULL;
@@ -145,7 +144,6 @@ float fontSize;
 
 - (void)drawSVGFile:(NSString *)file
 {
-	svgFileName = [file retain];
 	if (svgXml == nil)
 	    svgXml = [NSData dataWithContentsOfFile:file];
 	xmlParser = [xmlParser initWithData:svgXml];
@@ -160,6 +158,27 @@ float fontSize;
 	scaleX = initialScaleX;
 	scaleY = initialScaleY;
 	
+}
+
+-(CGPoint) relativeImagePointFrom:(CGPoint)viewPoint
+{
+    float x = ((offsetX + viewPoint.x)/scaleX)*initialScaleX/viewFrame.size.width;
+	float y = ((offsetY + viewPoint.y)/scaleY)*initialScaleY/viewFrame.size.height;
+	return CGPointMake(x,y);
+}
+
+-(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
+{
+	// image coordinate system
+	float offx = (location.x - box.width/2) * documentSize.width/initialScaleX;
+	float offy = (location.y - box.height/2) * documentSize.height/initialScaleY;
+	
+	scaleX = initialScaleX / box.width;
+	scaleY = initialScaleY / box.height;
+	offsetX = initialScaleX * offx;
+	offsetY = initialScaleY * offy;
+	
+	[self drawSVGFile:nil];
 }
 
 // Element began
@@ -900,7 +919,7 @@ didStartElement:(NSString *)elementName
  qualifiedName:(NSString *)qName
 {
 	if([elementName isEqualToString:@"svg"]) {
-		delegate?[delegate svgRenderer:self didFinishRenderingFile:svgFileName inCGContext:cgContext]:nil;
+		delegate?[delegate svgRenderer:self finishedRenderingInCGContext:cgContext]:nil;
 		[self cleanupAfterFinishedParsing];
 	}
 	
@@ -1487,7 +1506,6 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 {
 	[self cleanupAfterFinishedParsing];
 	[xmlParser release];
-	
 	[super dealloc];
 }
 

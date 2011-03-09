@@ -39,7 +39,7 @@
 }
 
 -(void) open:(NSString*)path;
--(void) locate:(CGPoint)location withZoom:(float)zoom;
+-(void) locate:(CGPoint)location withBoundingBox:(CGSize)box;
 
 @property (nonatomic, copy) NSString* filePath;
 
