@@ -59,6 +59,8 @@ CGAffineTransform transform;
 CGContextRef cgContext=NULL;
 float initialScaleX = 1;
 float initialScaleY = 1;
+float width=0;
+float height=0;
 BOOL firstRender = YES;
 NSMutableDictionary *defDict;
 FillPatternDescriptor desc;
@@ -162,8 +164,8 @@ float fontSize;
 
 -(CGPoint) relativeImagePointFrom:(CGPoint)viewPoint
 {
-    float x = (offsetX + viewPoint.x)*initialScaleX/(scaleX*viewFrame.size.width);
-	float y = (offsetY + viewPoint.y)*initialScaleY/(scaleY*viewFrame.size.height);
+    float x = (offsetX + viewPoint.x)/(scaleX*width);
+	float y = (offsetY + viewPoint.y)/(scaleY*height);
 	return CGPointMake(x,y);
 }
 
@@ -181,8 +183,8 @@ float fontSize;
 	scaleY = initialScaleY / box.height;
 	
 	//reverse calculation from relativeImagePointFrom above, with viewPoint set to middle of screen
-	offsetX = (location.x * (scaleX*viewFrame.size.width)/initialScaleX) - viewFrame.size.width/2;
-	offsetY = (location.y * (scaleY*viewFrame.size.height)/initialScaleY) - viewFrame.size.height/2;
+	offsetX = (location.x * scaleX*width) - viewFrame.size.width/2;
+	offsetY = (location.y * scaleY*height) - viewFrame.size.height/2;
 	
 
 	
@@ -205,12 +207,12 @@ didStartElement:(NSString *)elementName
 
 		if (firstRender)
 		{
-			float w = [[attrDict valueForKey:@"width"] floatValue];
-			float h = [[attrDict valueForKey:@"height"] floatValue];
-			float scaleW = (float)viewFrame.size.width/w;
-			float scaleH = (float)viewFrame.size.height/h;
+			width = [[attrDict valueForKey:@"width"] floatValue];
+			height = [[attrDict valueForKey:@"height"] floatValue];
+			float scaleW = (float)viewFrame.size.width/width;
+			float scaleH = (float)viewFrame.size.height/height;
 			float s = fmaxf(scaleW, scaleH);
-			documentSize = CGSizeMake(s*w,s*h);			
+			documentSize = CGSizeMake(s*width,s*height);			
 			
 			float scale = (float)viewFrame.size.width/documentSize.width;
 			initialScaleX = s*scale;
