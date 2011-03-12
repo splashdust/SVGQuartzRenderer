@@ -61,6 +61,7 @@
 	
 	self.filePath = path;
 	[svgRenderer drawSVGFile:path];
+	
 }
 
 

@@ -35,6 +35,8 @@
 	void drawImagePattern(void *fillPatDescriptor, CGContextRef context);
 	CGImageRef imageFromBase64(NSString *b64Data);
 
+	-(BOOL) doLocate:(CGPoint)location withBoundingBox:(CGSize)box;
+
 
 @end
 
@@ -169,26 +171,33 @@ float fontSize;
 	return CGPointMake(x,y);
 }
 
--(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
+-(BOOL) doLocate:(CGPoint)location withBoundingBox:(CGSize)box
 {
 	//reject locations outside of the image
 	if (location.x <0 || location.y < 0 || location.x > 1 || location.y > 1)
-		return;
+		return NO;
 	
 	//reject bounding box that is not wholly contained in image
 	if (box.width <0 || box.height < 0 || box.width > 1 || box.height > 1)
-		return;
+		return NO;
 	
-	scaleX = initialScaleX / box.width;
-	scaleY = initialScaleY / box.height;
+	scaleX = initialScaleX/box.width;
+	scaleY = initialScaleY/box.height;
 	
 	//reverse calculation from relativeImagePointFrom above, with viewPoint set to middle of screen
-	offsetX = (location.x * scaleX*width) - viewFrame.size.width/2;
-	offsetY = (location.y * scaleY*height) - viewFrame.size.height/2;
+	offsetX = -viewFrame.size.width/2 +  location.x* scaleX* width;
+	offsetY = -viewFrame.size.height/2 + location.y * scaleY* height;
 	
+	
+	return YES;
+}
 
-	
-	[self drawSVGFile:nil];
+
+-(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
+{
+
+	if ([self doLocate:location withBoundingBox:box])
+	     [self drawSVGFile:nil];
 }
 
 // Element began
@@ -209,16 +218,17 @@ didStartElement:(NSString *)elementName
 		{
 			width = [[attrDict valueForKey:@"width"] floatValue];
 			height = [[attrDict valueForKey:@"height"] floatValue];
-			float scaleW = (float)viewFrame.size.width/width;
-			float scaleH = (float)viewFrame.size.height/height;
-			float s = fmaxf(scaleW, scaleH);
-			documentSize = CGSizeMake(s*width,s*height);			
+			documentSize = viewFrame.size;	
 			
-			float scale = (float)viewFrame.size.width/documentSize.width;
-			initialScaleX = s*scale;
-			initialScaleY = s*scale;
+			float sx = viewFrame.size.width/width;
+			float sy = viewFrame.size.height/height;
+			
+			float scale =  fmax(sx,sy);
+			initialScaleX =scale;
+			initialScaleY = scale;
 			scaleX = initialScaleX;
 			scaleY = initialScaleY;
+		
 			firstRender = NO;
 		} 
 		
@@ -235,6 +245,8 @@ didStartElement:(NSString *)elementName
 			transform = CGAffineTransformRotate(transform, rotation);	
 		transform = CGAffineTransformTranslate(transform, -offsetX/scaleX, -offsetY/scaleY);
 	    CGContextConcatCTM(cgContext,transform);
+	
+
 	}
 	
 	// Definitions
