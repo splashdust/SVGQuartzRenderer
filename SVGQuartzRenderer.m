@@ -162,6 +162,10 @@ float fontSize;
 	scaleX = initialScaleX;
 	scaleY = initialScaleY;
 	
+	
+	[self doLocate:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
+
+	
 }
 
 -(CGPoint) relativeImagePointFrom:(CGPoint)viewPoint
@@ -228,6 +232,8 @@ didStartElement:(NSString *)elementName
 			initialScaleY = scale;
 			scaleX = initialScaleX;
 			scaleY = initialScaleY;
+			
+			[self doLocate:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
 		
 			firstRender = NO;
 		} 
