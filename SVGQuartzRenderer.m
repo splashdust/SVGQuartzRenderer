@@ -22,6 +22,7 @@
 
 #import "SVGQuartzRenderer.h"
 #import "NSData+Base64.h"
+#import "SVGStyle.h"
 
 @interface SVGQuartzRenderer (hidden)
 
@@ -65,7 +66,8 @@ float width=0;
 float height=0;
 BOOL firstRender = YES;
 NSMutableDictionary *defDict;
-FillPatternDescriptor desc;
+
+
 
 NSMutableDictionary *curPat;
 NSMutableDictionary *curGradient;
@@ -76,33 +78,7 @@ NSDictionary *curFlowRegion;
 
 BOOL inDefSection = NO;
 
-
-
-// Variables for storing style data
-// -------------------------------------------------------------------------
-// TODO: This is very messy. Create a class that contains all of these values.
-// Then the styling for an element can be represented by a style object.
-// Also, the style object could be responsible for parsing CSS and for configuring
-// the CGContext according to it's style.
-BOOL doFill;
-CGFloat fillColor[4];
-float fillOpacity;
-BOOL doStroke = NO;
-unsigned int strokeColor = 0;
-float strokeWidth = 1.0;
-float strokeOpacity;
-CGLineJoin lineJoinStyle;
-CGLineCap lineCapStyle;
-float miterLimit;
-CGPatternRef fillPattern=NULL;
-NSString *fillType;
-CGGradientRef fillGradient=NULL;
-CGPoint fillGradientPoints[2];
-int fillGradientAngle;
-CGPoint fillGradientCenterPoint;
-NSString *font;
-float fontSize;
-// -------------------------------------------------------------------------
+SVGStyle* currentStyle;
 
 - (id)init {
     self = [super init];
@@ -118,6 +94,8 @@ float fontSize;
 		offsetY = 0;
 		rotation = 0;
 		documentSize = CGSizeMake(0,0);
+		
+		currentStyle = [SVGStyle new];
     }
     return self;
 }
@@ -129,21 +107,7 @@ float fontSize;
 
 - (void)resetStyleContext
 {
-	doFill = YES;
-	fillColor[0]=0;
-	fillColor[1]=0;
-	fillColor[2]=0;
-	fillColor[3]=1;
-	doStroke = NO;
-	strokeColor = 0;
-	strokeWidth = 1.0;
-	strokeOpacity = 1.0;
-	lineJoinStyle = kCGLineJoinMiter;
-	lineCapStyle = kCGLineCapButt;
-	miterLimit = 4;
-	fillType = @"solid";
-	fillGradientAngle = 0;
-	fillGradientCenterPoint = CGPointMake(0, 0);
+	[currentStyle reset];
 }
 
 - (void)drawSVGFile:(NSString *)file
@@ -238,7 +202,7 @@ didStartElement:(NSString *)elementName
 			firstRender = NO;
 		} 
 		
-		doStroke = NO;
+		currentStyle.doStroke = NO;
 		
 		if(delegate) {
 			
@@ -687,17 +651,14 @@ didStartElement:(NSString *)elementName
 		// Respect the 'fill' attribute
 		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
 		if([attrDict valueForKey:@"fill"]) {
-			doFill = YES;
-			fillType = @"solid";
+			currentStyle.doFill = YES;
+			currentStyle.fillType = @"solid";
 			NSScanner *hexScanner = [NSScanner scannerWithString:
 									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 			unsigned int color;
 			[hexScanner scanHexInt:&color];
-			fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
-			fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
-			fillColor[2] =  (color & 0x0000FF) / 255.0f;
-			fillColor[3] = 1;
+			[currentStyle setFillColorFromInt:color];
 		}
 		
 		//CGContextClosePath(cgContext);
@@ -734,17 +695,14 @@ didStartElement:(NSString *)elementName
 		// Respect the 'fill' attribute
 		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
 		if([attrDict valueForKey:@"fill"]) {
-			doFill = YES;
-			fillType = @"solid";
+			currentStyle.doFill = YES;
+			currentStyle.fillType = @"solid";
 			NSScanner *hexScanner = [NSScanner scannerWithString:
 									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 			unsigned int color;
 			[hexScanner scanHexInt:&color];
-			fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
-			fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
-			fillColor[2] =  (color & 0x0000FF) / 255.0f;
-			fillColor[3] = 1;
+			[currentStyle setFillColorFromInt:color];
 		}
 		
 		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
@@ -772,17 +730,14 @@ didStartElement:(NSString *)elementName
 		// Respect the 'fill' attribute
 		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
 		if([attrDict valueForKey:@"fill"]) {
-			doFill = YES;
-			fillType = @"solid";
+			currentStyle.doFill = YES;
+			currentStyle.fillType = @"solid";
 			NSScanner *hexScanner = [NSScanner scannerWithString:
 									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]];
 			unsigned int color;
 			[hexScanner scanHexInt:&color];
-			fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
-			fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
-			fillColor[2] =  (color & 0x0000FF) / 255.0f;
-			fillColor[3] = 1;
+			[currentStyle setFillColorFromInt:color];
 		}
 		
 		// Extract the points attribute and parse into a CGMutablePath
@@ -900,32 +855,32 @@ didStartElement:(NSString *)elementName
 	// TODO: Text rendering shouldn't occur in this method
 	if(curText) {
 		
-		if(!font)
-			font = @"Helvetica";
+		if(!currentStyle.font)
+			currentStyle.font = @"Helvetica";
 		
-		CGContextSetRGBFillColor(cgContext, fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
+		CGContextSetRGBFillColor(cgContext, currentStyle.fillColor.r, currentStyle.fillColor.g, currentStyle.fillColor.b, currentStyle.fillColor.a);
 		
-		CGContextSelectFont(cgContext, [font UTF8String], fontSize, kCGEncodingMacRoman);
-		CGContextSetFontSize(cgContext, fontSize);
+		CGContextSelectFont(cgContext, [currentStyle.font UTF8String], currentStyle.fontSize, kCGEncodingMacRoman);
+		CGContextSetFontSize(cgContext, currentStyle.fontSize);
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
 		
 		// TODO: Messy! Centralize.
-		CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
-		CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
-		CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
-		CGContextSetRGBStrokeColor(cgContext, red, green, blue, strokeOpacity);
-		CGContextSetLineWidth(cgContext, strokeWidth);
-		CGContextSetLineCap(cgContext, lineCapStyle);
-		CGContextSetLineJoin(cgContext, lineJoinStyle);
-		CGContextSetMiterLimit(cgContext, miterLimit);
+		CGFloat red   = ((currentStyle.strokeColor & 0xFF0000) >> 16) / 255.0f;
+		CGFloat green = ((currentStyle.strokeColor & 0x00FF00) >>  8) / 255.0f;
+		CGFloat blue  =  (currentStyle.strokeColor & 0x0000FF) / 255.0f;
+		CGContextSetRGBStrokeColor(cgContext, red, green, blue, currentStyle.strokeOpacity);
+		CGContextSetLineWidth(cgContext, currentStyle.strokeWidth);
+		CGContextSetLineCap(cgContext, currentStyle.lineCapStyle);
+		CGContextSetLineJoin(cgContext, currentStyle.lineJoinStyle);
+		CGContextSetMiterLimit(cgContext, currentStyle.miterLimit);
 		
 		
 		CGTextDrawingMode drawingMode = kCGTextInvisible;			
-		if(doStroke && doFill)
+		if(currentStyle.doStroke && currentStyle.doFill)
 			drawingMode = kCGTextFillStroke;
-		else if(doFill)
+		else if(currentStyle.doFill)
 			drawingMode = kCGTextFill;				
-		else if(doStroke)
+		else if(currentStyle.doStroke)
 			drawingMode = kCGTextStroke;
 		
 		CGContextSetTextDrawingMode(cgContext, drawingMode);
@@ -1002,39 +957,39 @@ didStartElement:(NSString *)elementName
 	
 
 	
-	if(doFill) {
-		if ([fillType isEqualToString:@"solid"]) {
+	if(currentStyle.doFill) {
+		if ([currentStyle.fillType isEqualToString:@"solid"]) {
 			
-			//NSLog(@"Setting fill color R:%f, G:%f, B:%f, A:%f", fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
-			CGContextSetRGBFillColor(cgContext, fillColor[0], fillColor[1], fillColor[2], fillColor[3]);
+			//NSLog(@"Setting fill color R:%f, G:%f, B:%f, A:%f", currentStyle.fillColor.r, currentStyle.fillColor.g, currentStyle.fillColor.b, currentStyle.fillColor.a);
+			CGContextSetRGBFillColor(cgContext, currentStyle.fillColor.r, currentStyle.fillColor.g, currentStyle.fillColor.b, currentStyle.fillColor.a);
 			
-		} else if([fillType isEqualToString:@"pattern"]) {
+		} else if([currentStyle.fillType isEqualToString:@"pattern"]) {
 			
 			CGColorSpaceRef myColorSpace = CGColorSpaceCreatePattern(NULL);
 			CGContextSetFillColorSpace(cgContext, myColorSpace);
 			CGColorSpaceRelease(myColorSpace);
 			
-			CGFloat alpha = fillColor[3];
+			CGFloat alpha = currentStyle.fillColor.a;
 			CGContextSetFillPattern (cgContext,
-									 fillPattern,
+									 currentStyle.fillPattern,
 									 &alpha);
 			
-		} else if([fillType isEqualToString:@"linearGradient"]) {
+		} else if([currentStyle.fillType isEqualToString:@"linearGradient"]) {
 			
-			doFill = NO;
+			currentStyle.doFill = NO;
 			CGContextAddPath(cgContext, path);
 			CGContextSaveGState(cgContext);
 			CGContextClip(cgContext);
-			CGContextDrawLinearGradient(cgContext, fillGradient, fillGradientPoints[0], fillGradientPoints[1], 3);
+			CGContextDrawLinearGradient(cgContext, currentStyle.fillGradient, currentStyle.fillGradientPoints.start, currentStyle.fillGradientPoints.end, 3);
 			CGContextRestoreGState(cgContext);
 			
-		} else if([fillType isEqualToString:@"radialGradient"]) {
+		} else if([currentStyle.fillType isEqualToString:@"radialGradient"]) {
 			
-			doFill = NO;
+			currentStyle.doFill = NO;
 			CGContextAddPath(cgContext, path);
 			CGContextSaveGState(cgContext);
 			CGContextClip(cgContext);
-			CGContextDrawRadialGradient(cgContext, fillGradient, fillGradientCenterPoint, 0, fillGradientCenterPoint, fillGradientPoints[0].y, 3);
+			CGContextDrawRadialGradient(cgContext, currentStyle.fillGradient, currentStyle.fillGradientCenterPoint, 0, currentStyle.fillGradientCenterPoint, currentStyle.fillGradientPoints.start.y, 3);
 			CGContextRestoreGState(cgContext);
 			
 		}
@@ -1042,29 +997,29 @@ didStartElement:(NSString *)elementName
 	
 	// Do the drawing
 	// -------------------------------------------------------------------------
-	if(doStroke) {
-		CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
-		CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
-		CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
-		CGContextSetLineWidth(cgContext, strokeWidth);
-		CGContextSetLineCap(cgContext, lineCapStyle);
-		CGContextSetLineJoin(cgContext, lineJoinStyle);
-		CGContextSetMiterLimit(cgContext, miterLimit);
-		CGContextSetRGBStrokeColor(cgContext, red, green, blue, strokeOpacity);
+	if(currentStyle.doStroke) {
+		CGFloat red   = ((currentStyle.strokeColor & 0xFF0000) >> 16) / 255.0f;
+		CGFloat green = ((currentStyle.strokeColor & 0x00FF00) >>  8) / 255.0f;
+		CGFloat blue  =  (currentStyle.strokeColor & 0x0000FF) / 255.0f;
+		CGContextSetLineWidth(cgContext, currentStyle.strokeWidth);
+		CGContextSetLineCap(cgContext, currentStyle.lineCapStyle);
+		CGContextSetLineJoin(cgContext, currentStyle.lineJoinStyle);
+		CGContextSetMiterLimit(cgContext, currentStyle.miterLimit);
+		CGContextSetRGBStrokeColor(cgContext, red, green, blue, currentStyle.strokeOpacity);
 		
 	}
 	
-	if(doFill || doStroke) {
+	if(currentStyle.doFill || currentStyle.doStroke) {
 		CGContextAddPath(cgContext, path);
 		//NSLog(@"Adding path to contextl");
 	}
 	
-	if(doFill && doStroke) {
+	if(currentStyle.doFill && currentStyle.doStroke) {
 		CGContextDrawPath(cgContext, kCGPathFillStroke);
-	} else if(doFill) {
+	} else if(currentStyle.doFill) {
 		CGContextFillPath(cgContext);
 		//NSLog(@"Filling path in contextl");
-	} else if(doStroke) {
+	} else if(currentStyle.doStroke) {
 		CGContextStrokePath(cgContext);
 	}
 	
@@ -1093,20 +1048,18 @@ didStartElement:(NSString *)elementName
 		if([attrName isEqualToString:@"fill"]) {
 			if(![attrValue isEqualToString:@"none"] && [attrValue rangeOfString:@"url"].location == NSNotFound) {
 				
-				doFill = YES;
-				fillType = @"solid";
+				currentStyle.doFill = YES;
+				currentStyle.fillType = @"solid";
 				NSScanner *hexScanner = [NSScanner scannerWithString:
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
 				unsigned int color;
 				[hexScanner scanHexInt:&color];
-				fillColor[0] = ((color & 0xFF0000) >> 16) / 255.0f;
-				fillColor[1] = ((color & 0x00FF00) >>  8) / 255.0f;
-				fillColor[2] =  (color & 0x0000FF) / 255.0f;
+				[currentStyle setFillColorFromInt:color];
 				
 			} else if([attrValue rangeOfString:@"url"].location != NSNotFound) {
 				
-				doFill = YES;
+				currentStyle.doFill = YES;
 				NSScanner *scanner = [NSScanner scannerWithString:attrValue];
 				[scanner setCaseSensitive:YES];
 				[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
@@ -1121,20 +1074,21 @@ didStartElement:(NSString *)elementName
 					if([def objectForKey:@"images"] && [[def objectForKey:@"images"] count] > 0) {
 						
 						// Load bitmap pattern
-						fillType = [def objectForKey:@"type"];
+						currentStyle.fillType = [def objectForKey:@"type"];
 						NSString *imgString = [[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"xlink:href"];
 						CGImageRef patternImage = imageFromBase64(imgString);
 						
 						CGImageRetain(patternImage);
 						
+						FillPatternDescriptor desc;
 						desc.imgRef = patternImage;
 						desc.rect = CGRectMake(0, 0, 
 											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"width"] floatValue], 
 											   [[[[def objectForKey:@"images"] objectAtIndex:0] objectForKey:@"height"] floatValue]);
 						CGPatternCallbacks callbacks = { 0, &drawImagePattern, NULL };
 						
-						CGPatternRelease(fillPattern);
-						fillPattern = CGPatternCreate (
+						CGPatternRelease(currentStyle.fillPattern);
+						currentStyle.fillPattern = CGPatternCreate (
 											/* info */		&desc,
 											/* bounds */	desc.rect,
 											/* matrix */	CGAffineTransformIdentity,
@@ -1147,15 +1101,16 @@ didStartElement:(NSString *)elementName
 						
 					} else if([def objectForKey:@"stops"] && [[def objectForKey:@"stops"] count] > 0) {
 						// Load gradient
-						fillType = [def objectForKey:@"type"];
+						currentStyle.fillType = [def objectForKey:@"type"];
 						if([def objectForKey:@"x1"]) {
-							fillGradientPoints[0] = CGPointMake([[def objectForKey:@"x1"] floatValue] ,[[def objectForKey:@"y1"] floatValue] );
-							fillGradientPoints[1] = CGPointMake([[def objectForKey:@"x2"] floatValue] ,[[def objectForKey:@"y2"] floatValue] );
-							//fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
+							FILL_GRADIENT_POINTS gradientPoints;
+							gradientPoints.start = CGPointMake([[def objectForKey:@"x1"] floatValue] ,[[def objectForKey:@"y1"] floatValue] );
+							gradientPoints.end = CGPointMake([[def objectForKey:@"x2"] floatValue] ,[[def objectForKey:@"y2"] floatValue] );
+							currentStyle.fillGradientPoints = gradientPoints;
+							//currentStyle.fillGradientAngle = (((atan2(([[def objectForKey:@"x1"] floatValue] - [[def objectForKey:@"x2"] floatValue]),
 							//											([[def objectForKey:@"y1"] floatValue] - [[def objectForKey:@"y2"] floatValue])))*180)/M_PI)+90;
 						} if([def objectForKey:@"cx"]) {
-							fillGradientCenterPoint.x = [[def objectForKey:@"cx"] floatValue] ;
-							fillGradientCenterPoint.y = [[def objectForKey:@"cy"] floatValue] ;
+							currentStyle.fillGradientCenterPoint = CGPointMake([[def objectForKey:@"cx"] floatValue], [[def objectForKey:@"cy"] floatValue]) ;
 						}
 						
 						NSArray *stops = [def objectForKey:@"stops"];
@@ -1196,15 +1151,15 @@ didStartElement:(NSString *)elementName
 						}
 						
 			
-						CGGradientRelease(fillGradient);
-						fillGradient = CGGradientCreateWithColorComponents(CGColorSpaceCreateDeviceRGB(),
+						CGGradientRelease(currentStyle.fillGradient);
+						currentStyle.fillGradient = CGGradientCreateWithColorComponents(CGColorSpaceCreateDeviceRGB(),
 																		   colors, 
 																		   locations,
 																		   [stops count]);
 					}
 				}
 			} else {
-				doFill = NO;
+				currentStyle.doFill = NO;
 			}
 
 		}
@@ -1214,20 +1169,22 @@ didStartElement:(NSString *)elementName
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
 			float temp;
 			[floatScanner scanFloat:&temp];
-			fillColor[3] = temp;
+			[currentStyle setFillColorAlpha:temp];
 		}
 		
 		// --------------------- STROKE
 		if([attrName isEqualToString:@"stroke"]) {
 			if(![attrValue isEqualToString:@"none"]) {
-				doStroke = YES;
+				currentStyle.doStroke = YES;
 				NSScanner *hexScanner = [NSScanner scannerWithString:
 										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
 				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
+				unsigned int strokeColor;
 				[hexScanner scanHexInt:&strokeColor];
-				strokeWidth = 1;
+				currentStyle.strokeColor = strokeColor;
+				currentStyle.strokeWidth = 1;
 			} else {
-				doStroke = NO;
+				currentStyle.doStroke = NO;
 			}
 
 		}
@@ -1235,14 +1192,18 @@ didStartElement:(NSString *)elementName
 		// --------------------- STROKE-OPACITY
 		if([attrName isEqualToString:@"stroke-opacity"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
+			float strokeOpacity;
 			[floatScanner scanFloat:&strokeOpacity];
+			currentStyle.strokeOpacity = strokeOpacity;
 		}
 		
 		// --------------------- STROKE-WIDTH
 		if([attrName isEqualToString:@"stroke-width"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:
 									   [attrValue stringByReplacingOccurrencesOfString:@"px" withString:@""]];
+			float strokeWidth;
 			[floatScanner scanFloat:&strokeWidth];
+			currentStyle.strokeWidth = strokeWidth;
 		
 		}
 		
@@ -1253,13 +1214,13 @@ didStartElement:(NSString *)elementName
 			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
 			
 			if([lineCapValue isEqualToString:@"butt"])
-				lineCapStyle = kCGLineCapButt;
+				currentStyle.lineCapStyle = kCGLineCapButt;
 			
 			if([lineCapValue isEqualToString:@"round"])
-				lineCapStyle = kCGLineCapRound;
+				currentStyle.lineCapStyle = kCGLineCapRound;
 			
 			if([lineCapValue isEqualToString:@"square"])
-				lineCapStyle = kCGLineCapSquare;
+				currentStyle.lineCapStyle = kCGLineCapSquare;
 		}
 		
 		// --------------------- STROKE-LINEJOIN
@@ -1269,34 +1230,38 @@ didStartElement:(NSString *)elementName
 			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
 			
 			if([lineCapValue isEqualToString:@"miter"])
-				lineJoinStyle = kCGLineJoinMiter;
+				currentStyle.lineJoinStyle = kCGLineJoinMiter;
 			
 			if([lineCapValue isEqualToString:@"round"])
-				lineJoinStyle = kCGLineJoinRound;
+				currentStyle.lineJoinStyle = kCGLineJoinRound;
 			
 			if([lineCapValue isEqualToString:@"bevel"])
-				lineJoinStyle = kCGLineJoinBevel;
+				currentStyle.lineJoinStyle = kCGLineJoinBevel;
 		}
 		
 		// --------------------- STROKE-MITERLIMIT
 		if([attrName isEqualToString:@"stroke-miterlimit"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
+			float miterLimit;
 			[floatScanner scanFloat:&miterLimit];
+			currentStyle.miterLimit = miterLimit;
 		}
 		
 		// --------------------- FONT-SIZE
-		if([attrName isEqualToString:@"font-size"]) {
+		if([attrName isEqualToString:@"currentStyle.font-size"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
+			float fontSize;
 			[floatScanner scanFloat:&fontSize];
+			currentStyle.fontSize = fontSize;
 		}
 		
 		// --------------------- FONT-STYLE
-		if([attrName isEqualToString:@"font-style"]) {
+		if([attrName isEqualToString:@"currentStyle.font-style"]) {
 			
 		}
 		
 		// --------------------- FONT-WEIGHT
-		if([attrName isEqualToString:@"font-weight"]) {
+		if([attrName isEqualToString:@"currentStyle.font-weight"]) {
 			
 		}
 		
@@ -1316,10 +1281,10 @@ didStartElement:(NSString *)elementName
 		}
 		
 		// --------------------- FONT-FAMILY
-		if([attrName isEqualToString:@"font-family"]) {
-			font = [attrValue retain];
-			if([font isEqualToString:@"Sans"])
-				font = @"Helvetica";
+		if([attrName isEqualToString:@"currentStyle.font-family"]) {
+			currentStyle.font = [attrValue retain];
+			if([currentStyle.font isEqualToString:@"Sans"])
+				currentStyle.font = @"Helvetica";
 		}
 		
 		[cssScanner scanString:@";" intoString:nil];
@@ -1549,16 +1514,16 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 	curFilter = nil;
 	[curText release];
 	curText = nil;
-	[font release];
-	font = nil;
+	[currentStyle.font release];
+	currentStyle.font = nil;
 	CGContextRelease(cgContext);
 	cgContext = NULL;
-	CGGradientRelease(fillGradient);
-	fillGradient = NULL;
+	CGGradientRelease(currentStyle.fillGradient);
+	currentStyle.fillGradient = NULL;
 	[curFlowRegion release];
 	curFlowRegion = nil;
-	CGPatternRelease(fillPattern);
-	fillPattern = NULL;
+	CGPatternRelease(currentStyle.fillPattern);
+	currentStyle.fillPattern = NULL;
 	
 }
 
