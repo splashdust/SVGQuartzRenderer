@@ -24,7 +24,14 @@ typedef struct
 	
 } FILL_GRADIENT_POINTS;
 
-@interface SVGStyle : NSObject {
+struct FillPatternDescriptor {
+	CGImageRef imgRef;
+	CGRect rect;
+}; 
+
+typedef struct FillPatternDescriptor FillPatternDescriptor;
+
+@interface SVGStyle : NSObject <NSCopying>  {
 
 	BOOL doFill;
 	FILL_COLOR fillColor;
@@ -68,6 +75,8 @@ typedef struct
 
 - (void)reset;
 -(void) setFillColorFromInt:(unsigned int)color;
--(void) setFillColorAlpha:(float)alpha;
+- (void)setStyleContext:(NSString *)style withDefDict:(NSDictionary*)defDict;
+
+CGImageRef imageFromBase64(NSString *b64Data);
 
 @end
