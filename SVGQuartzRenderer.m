@@ -948,11 +948,11 @@ didStartElement:(NSString *)elementName
 	}
 	
 	FILL_COLOR oldColor;
-	if (idStyle.isActive)
+	if (idStyle != nil && idStyle.isActive)
 		[currentStyle setFillColorFromInt:0x00FF0000];
 	
     [currentStyle drawPath:path withContext:cgContext];	
-	if (idStyle.isActive)
+	if (idStyle != nil && idStyle.isActive)
 	  currentStyle.fillColor = oldColor;
 	CGContextRestoreGState(cgContext);
 	
