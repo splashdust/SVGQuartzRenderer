@@ -11,7 +11,7 @@
 
 
 // Also, the style object could be responsible for parsing CSS and for configuring
-// the CGContext according to it's style.
+// the CGContext according to it's 
 
 
 @interface SVGStyle (private)
@@ -41,7 +41,7 @@
 @synthesize fillGradientCenterPoint; 
 @synthesize font; 
 @synthesize fontSize;
-
+@synthesize isActive;
 
 - (id)init {
     if (self = [super init]) {
@@ -50,6 +50,7 @@
 		 strokeWidth = 1.0;
 		fillPattern=NULL;
 		fillGradient=NULL;
+		isActive = NO;
     }
     return self;
 }
@@ -69,14 +70,15 @@
 	another.lineJoinStyle = lineJoinStyle;
 	another.lineCapStyle = lineCapStyle;
 	another.miterLimit = miterLimit;
-	another.fillPattern = CGPatternRetain(fillPattern);
+	another.fillPattern = NULL;
 	another.fillType = fillType;
-	another.fillGradient = CGGradientRetain(fillGradient);
+	another.fillGradient = NULL;
 	another.fillGradientPoints = fillGradientPoints;
 	another.fillGradientAngle = fillGradientAngle;
 	another.fillGradientCenterPoint = fillGradientCenterPoint;
 	another.font = font;
 	another.fontSize = fontSize;
+	another.isActive = isActive;
 	
 	return another;
 }
@@ -124,12 +126,7 @@
 				
 				doFill = YES;
 				fillType = @"solid";
-				NSScanner *hexScanner = [NSScanner scannerWithString:
-										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
-				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
-				unsigned int color;
-				[hexScanner scanHexInt:&color];
-				[self setFillColorFromInt:color];
+				[self setFillColorFromAttribute:attrValue];
 				
 			} else if([attrValue rangeOfString:@"url"].location != NSNotFound) {
 				
@@ -248,10 +245,7 @@
 		if([attrName isEqualToString:@"stroke"]) {
 			if(![attrValue isEqualToString:@"none"]) {
 				doStroke = YES;
-				NSScanner *hexScanner = [NSScanner scannerWithString:
-										 [attrValue stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
-				[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
-				[hexScanner scanHexInt:&strokeColor];
+				strokeColor = [SVGStyle extractColorFromAttribute:attrValue];
 				strokeWidth = 1;
 			} else {
 				doStroke = NO;
@@ -375,6 +369,95 @@
 	return def;
 }
 
+-(void) setUpStroke:(CGContextRef)context
+{
+	CGFloat red   = ((strokeColor & 0xFF0000) >> 16) / 255.0f;
+	CGFloat green = ((strokeColor & 0x00FF00) >>  8) / 255.0f;
+	CGFloat blue  =  (strokeColor & 0x0000FF) / 255.0f;
+	CGContextSetRGBStrokeColor(context, red, green, blue, strokeOpacity);
+	CGContextSetLineWidth(context, strokeWidth);
+	CGContextSetLineCap(context, lineCapStyle);
+	CGContextSetLineJoin(context, lineJoinStyle);
+	CGContextSetMiterLimit(context, miterLimit);
+	
+	
+}
+
++(unsigned int) extractColorFromAttribute:(NSString*)attr
+{
+	NSScanner *hexScanner = [NSScanner scannerWithString:
+							 [attr stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
+	[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
+	unsigned int color;
+	[hexScanner scanHexInt:&color];	
+	return color;
+}
+
+
+// Draw a path based on style information
+// -----------------------------------------------------------------------------
+- (void)drawPath:(CGMutablePathRef)path withContext:(CGContextRef)context
+{				
+	if(doFill) {
+		if ([fillType isEqualToString:@"solid"]) {
+			
+			//NSLog(@"Setting fill color R:%f, G:%f, B:%f, A:%f", fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+			CGContextSetRGBFillColor(context, fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+			
+		} else if([fillType isEqualToString:@"pattern"]) {
+			
+			CGColorSpaceRef myColorSpace = CGColorSpaceCreatePattern(NULL);
+			CGContextSetFillColorSpace(context, myColorSpace);
+			CGColorSpaceRelease(myColorSpace);
+			
+			CGFloat alpha = fillColor.a;
+			CGContextSetFillPattern (context,
+									 fillPattern,
+									 &alpha);
+			
+		} else if([fillType isEqualToString:@"linearGradient"]) {
+			
+			doFill = NO;
+			CGContextAddPath(context, path);
+			CGContextSaveGState(context);
+			CGContextClip(context);
+			CGContextDrawLinearGradient(context, fillGradient, fillGradientPoints.start, fillGradientPoints.end, 3);
+			CGContextRestoreGState(context);
+			
+		} else if([fillType isEqualToString:@"radialGradient"]) {
+			
+			doFill = NO;
+			CGContextAddPath(context, path);
+			CGContextSaveGState(context);
+			CGContextClip(context);
+			CGContextDrawRadialGradient(context, fillGradient, fillGradientCenterPoint, 0, fillGradientCenterPoint, fillGradientPoints.start.y, 3);
+			CGContextRestoreGState(context);
+			
+		}
+	}
+	
+	// Do the drawing
+	// -------------------------------------------------------------------------
+	if(doStroke) {
+		[self setUpStroke:context];		
+	}
+	
+	if(doFill || doStroke) {
+		CGContextAddPath(context, path);
+		//NSLog(@"Adding path to contextl");
+	}
+	
+	if(doFill && doStroke) {
+		CGContextDrawPath(context, kCGPathFillStroke);
+	} else if(doFill) {
+		CGContextFillPath(context);
+		//NSLog(@"Filling path in contextl");
+	} else if(doStroke) {
+		CGContextStrokePath(context);
+	}	
+	
+}
+
 
 void drawImagePattern(void * fillPatDescriptor, CGContextRef context)
 {
@@ -401,12 +484,20 @@ CGImageRef imageFromBase64(NSString *b64Data)
 }
 
 
--(void) setFillColorFromInt:(unsigned int)color
+-(void) setFillColorFromAttribute:(NSString*)attr
+{
+	unsigned int color = [SVGStyle extractColorFromAttribute:attr];
+	[self setFillColorFromInt:color];
+
+}
+
+- (void) setFillColorFromInt:(unsigned int)color
 {
     fillColor.r = ((color & 0xFF0000) >> 16) / 255.0f;
 	fillColor.g = ((color & 0x00FF00) >>  8) / 255.0f;
 	fillColor.b =  (color & 0x0000FF) / 255.0f;
-	fillColor.a = 1;
+	fillColor.a = 1;	
+	
 }
 
 - (void)dealloc

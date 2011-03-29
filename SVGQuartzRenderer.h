@@ -42,6 +42,7 @@
 	CGFloat offsetY;
 	CGFloat rotation;
 	CGRect viewFrame;
+	NSMutableDictionary* pathDict;
 }
 
 @property (readonly) CGSize documentSize;

@@ -26,8 +26,7 @@
 
 @interface SVGQuartzRenderer (hidden)
 
-	- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style;
-    - (void)drawPath:(CGMutablePathRef)path withSVGStyle:(SVGStyle *)style;
+- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style andIdentifier:(NSString*)identifier;
 	- (void)applyTransformations:(NSString *)transformations;
 	- (void) cleanupAfterFinishedParsing;
 
@@ -81,6 +80,7 @@ SVGStyle* currentStyle;
 		offsetX = 0;
 		offsetY = 0;
 		rotation = 0;
+		pathDict = [NSMutableDictionary new];
 		
     }
     return self;
@@ -343,6 +343,8 @@ didStartElement:(NSString *)elementName
 		if(inDefSection)
 			return;
 		
+		NSString* identifier = [attrDict valueForKey:@"id"]; 
+
 		CGMutablePathRef path = CGPathCreateMutable();
 		
 		// Create a scanner for parsing path data
@@ -635,16 +637,11 @@ didStartElement:(NSString *)elementName
 		if([attrDict valueForKey:@"fill"]) {
 			currentStyle.doFill = YES;
 			currentStyle.fillType = @"solid";
-			NSScanner *hexScanner = [NSScanner scannerWithString:
-									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
-			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
-			unsigned int color;
-			[hexScanner scanHexInt:&color];
-			[currentStyle setFillColorFromInt:color];
+			[currentStyle setFillColorFromAttribute:[attrDict valueForKey:@"fill"]];
 		}
 		
 		//CGContextClosePath(cgContext);
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"] andIdentifier:identifier];
 		CGPathRelease(path);
 	}
 	
@@ -656,6 +653,9 @@ didStartElement:(NSString *)elementName
 		// Ignore rects in flow regions for now
 		if(curFlowRegion)
 			return;
+		
+		NSString* identifier = [attrDict valueForKey:@"id"]; 
+
 		
 		float xPos = [[attrDict valueForKey:@"x"] floatValue];
 		float yPos = [[attrDict valueForKey:@"y"] floatValue];
@@ -679,15 +679,10 @@ didStartElement:(NSString *)elementName
 		if([attrDict valueForKey:@"fill"]) {
 			currentStyle.doFill = YES;
 			currentStyle.fillType = @"solid";
-			NSScanner *hexScanner = [NSScanner scannerWithString:
-									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
-			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]]; 
-			unsigned int color;
-			[hexScanner scanHexInt:&color];
-			[currentStyle setFillColorFromInt:color];
+			[currentStyle setFillColorFromAttribute:[attrDict valueForKey:@"fill"]];
 		}
 		
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"] andIdentifier:identifier];
 		CGPathRelease(path);
 	}
 	
@@ -703,6 +698,9 @@ didStartElement:(NSString *)elementName
 			return;
 		}
 		
+		NSString* identifier = [attrDict valueForKey:@"id"]; 
+
+		
 		NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
 		
 		// Extract the fill-rule attribute
@@ -714,12 +712,7 @@ didStartElement:(NSString *)elementName
 		if([attrDict valueForKey:@"fill"]) {
 			currentStyle.doFill = YES;
 			currentStyle.fillType = @"solid";
-			NSScanner *hexScanner = [NSScanner scannerWithString:
-									 [[attrDict valueForKey:@"fill"] stringByReplacingOccurrencesOfString:@"#" withString:@"0x"]];
-			[hexScanner setCharactersToBeSkipped:[NSCharacterSet symbolCharacterSet]];
-			unsigned int color;
-			[hexScanner scanHexInt:&color];
-			[currentStyle setFillColorFromInt:color];
+			[currentStyle setFillColorFromAttribute:[attrDict valueForKey:@"fill"]];
 		}
 		
 		// Extract the points attribute and parse into a CGMutablePath
@@ -747,7 +740,7 @@ didStartElement:(NSString *)elementName
 				}
 			}
 		}
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"]];
+		[self drawPath:path withStyle:[attrDict valueForKey:@"style"] andIdentifier:identifier];
 		CGPathRelease(path);
 		
 	}
@@ -846,15 +839,7 @@ didStartElement:(NSString *)elementName
 		CGContextSetFontSize(cgContext, currentStyle.fontSize);
 		CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
 		
-		// TODO: Messy! Centralize.
-		CGFloat red   = ((currentStyle.strokeColor & 0xFF0000) >> 16) / 255.0f;
-		CGFloat green = ((currentStyle.strokeColor & 0x00FF00) >>  8) / 255.0f;
-		CGFloat blue  =  (currentStyle.strokeColor & 0x0000FF) / 255.0f;
-		CGContextSetRGBStrokeColor(cgContext, red, green, blue, currentStyle.strokeOpacity);
-		CGContextSetLineWidth(cgContext, currentStyle.strokeWidth);
-		CGContextSetLineCap(cgContext, currentStyle.lineCapStyle);
-		CGContextSetLineJoin(cgContext, currentStyle.lineJoinStyle);
-		CGContextSetMiterLimit(cgContext, currentStyle.miterLimit);
+		[currentStyle setUpStroke:cgContext];
 		
 		
 		CGTextDrawingMode drawingMode = kCGTextInvisible;			
@@ -931,90 +916,47 @@ didStartElement:(NSString *)elementName
 
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
-- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style
+- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style andIdentifier:(NSString*)identifier
 {		
 	CGContextSaveGState(cgContext);
 	if(style)
 		[currentStyle setStyleContext:style withDefDict:defDict];
 	
-    [self drawPath:path withSVGStyle:currentStyle];	
+	SVGStyle* idStyle;
+	if (identifier)
+	{
+		
+		NSObject* obj = [pathDict objectForKey:identifier];
+		if (!obj)
+		{
+			SVGStyle* newStyle = [currentStyle copyWithZone:nil];
+			[pathDict setObject:newStyle forKey:identifier];
+			[newStyle release];
+			idStyle = currentStyle;
+			
+		}else {
+			idStyle = (SVGStyle*)obj;
+		}
+
+
+	}
+	
+	
+	if ([identifier isEqualToString:@"starry_night"] || [identifier isEqualToString:@"self_portrait"])
+	{
+	    idStyle.isActive = YES; 
+	}
+	
+	FILL_COLOR oldColor;
+	if (idStyle.isActive)
+		[currentStyle setFillColorFromInt:0x00FF0000];
+	
+    [currentStyle drawPath:path withContext:cgContext];	
+	if (idStyle.isActive)
+	  currentStyle.fillColor = oldColor;
 	CGContextRestoreGState(cgContext);
 	
 }
-
-// Draw a path based on style information
-// -----------------------------------------------------------------------------
-- (void)drawPath:(CGMutablePathRef)path withSVGStyle:(SVGStyle *)style
-{				
-	if(style.doFill) {
-		if ([style.fillType isEqualToString:@"solid"]) {
-			
-			//NSLog(@"Setting fill color R:%f, G:%f, B:%f, A:%f", style.fillColor.r, style.fillColor.g, style.fillColor.b, style.fillColor.a);
-			CGContextSetRGBFillColor(cgContext, style.fillColor.r, style.fillColor.g, style.fillColor.b, style.fillColor.a);
-			
-		} else if([style.fillType isEqualToString:@"pattern"]) {
-			
-			CGColorSpaceRef myColorSpace = CGColorSpaceCreatePattern(NULL);
-			CGContextSetFillColorSpace(cgContext, myColorSpace);
-			CGColorSpaceRelease(myColorSpace);
-			
-			CGFloat alpha = style.fillColor.a;
-			CGContextSetFillPattern (cgContext,
-									 style.fillPattern,
-									 &alpha);
-			
-		} else if([style.fillType isEqualToString:@"linearGradient"]) {
-			
-			style.doFill = NO;
-			CGContextAddPath(cgContext, path);
-			CGContextSaveGState(cgContext);
-			CGContextClip(cgContext);
-			CGContextDrawLinearGradient(cgContext, style.fillGradient, style.fillGradientPoints.start, style.fillGradientPoints.end, 3);
-			CGContextRestoreGState(cgContext);
-			
-		} else if([style.fillType isEqualToString:@"radialGradient"]) {
-			
-			style.doFill = NO;
-			CGContextAddPath(cgContext, path);
-			CGContextSaveGState(cgContext);
-			CGContextClip(cgContext);
-			CGContextDrawRadialGradient(cgContext, style.fillGradient, style.fillGradientCenterPoint, 0, style.fillGradientCenterPoint, style.fillGradientPoints.start.y, 3);
-			CGContextRestoreGState(cgContext);
-			
-		}
-	}
-	
-	// Do the drawing
-	// -------------------------------------------------------------------------
-	if(style.doStroke) {
-		CGFloat red   = ((style.strokeColor & 0xFF0000) >> 16) / 255.0f;
-		CGFloat green = ((style.strokeColor & 0x00FF00) >>  8) / 255.0f;
-		CGFloat blue  =  (style.strokeColor & 0x0000FF) / 255.0f;
-		CGContextSetLineWidth(cgContext, style.strokeWidth);
-		CGContextSetLineCap(cgContext, style.lineCapStyle);
-		CGContextSetLineJoin(cgContext, style.lineJoinStyle);
-		CGContextSetMiterLimit(cgContext, style.miterLimit);
-		CGContextSetRGBStrokeColor(cgContext, red, green, blue, style.strokeOpacity);
-		
-	}
-	
-	if(style.doFill || style.doStroke) {
-		CGContextAddPath(cgContext, path);
-		//NSLog(@"Adding path to contextl");
-	}
-	
-	if(style.doFill && style.doStroke) {
-		CGContextDrawPath(cgContext, kCGPathFillStroke);
-	} else if(style.doFill) {
-		CGContextFillPath(cgContext);
-		//NSLog(@"Filling path in contextl");
-	} else if(style.doStroke) {
-		CGContextStrokePath(cgContext);
-	}
-	
-	
-}
-
 
 - (void)applyTransformations:(NSString *)transformations
 {
@@ -1180,6 +1122,7 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 {
 	[self cleanupAfterFinishedParsing];
 	[xmlParser release];
+	[pathDict release];
 	[super dealloc];
 }
 
@@ -1201,6 +1144,7 @@ void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
 	curFlowRegion = nil;
 	[currentStyle release];
 	currentStyle = nil;
+
 	
 }
 

@@ -2879,7 +2879,7 @@
     <path
        sodipodi:type="star"
        style="fill:#000080;fill-opacity:1"
-       id="path8717"
+       id="self_portrait"
        sodipodi:sides="5"
        sodipodi:cx="453.41614"
        sodipodi:cy="172.40683"
@@ -2893,10 +2893,8 @@
        d="m 469.56521,191.04037 -15.0929,-6.35002 -13.78739,8.83324 1.37527,-16.31646 -12.66144,-10.38297 15.94285,-3.7341 5.96219,-15.25026 8.47796,14.00865 16.34627,0.95778 -10.70319,12.39193 z"
        transform="matrix(0.8,0,0,0.8,11.925466,35.776398)"
        inkscape:transform-center-x="0.6527522"
-       inkscape:transform-center-y="-1.7251389">
-      <title
-         id="title3839">starry-night</title>
-    </path>
+       inkscape:transform-center-y="-1.7251389"
+       inkscape:label="#path8717" />
     <text
        xml:space="preserve"
        style="font-size:9px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
@@ -2912,7 +2910,7 @@
     <path
        sodipodi:type="star"
        style="fill:#000080;fill-opacity:1"
-       id="path3728"
+       id="starry_night"
        sodipodi:sides="5"
        sodipodi:cx="397.51553"
        sodipodi:cy="183.58696"
@@ -2926,6 +2924,7 @@
        d="m 406.21119,192.90373 -7.91632,-2.99247 -6.95301,4.8248 0.39973,-8.45359 -6.73725,-5.12176 8.16337,-2.23214 2.78915,-7.99021 4.64551,7.07405 8.46104,0.18353 -5.29228,6.60414 z"
        transform="scale(0.8,0.8)"
        inkscape:transform-center-x="0.4816556"
-       inkscape:transform-center-y="-0.74975227" />
+       inkscape:transform-center-y="-0.74975227"
+       inkscape:label="#path3728" />
   </g>
 </svg>

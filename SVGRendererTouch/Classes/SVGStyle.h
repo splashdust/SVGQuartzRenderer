@@ -51,6 +51,7 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 	CGPoint fillGradientCenterPoint;
 	NSString *font;
 	float fontSize;
+	BOOL isActive;
 }
 
 @property (nonatomic) FILL_GRADIENT_POINTS fillGradientPoints;
@@ -71,11 +72,16 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 @property (nonatomic) CGPoint fillGradientCenterPoint; 
 @property (nonatomic, copy) NSString* font; 
 @property (nonatomic) float fontSize;
+@property (nonatomic) BOOL isActive;
 
 
 - (void)reset;
--(void) setFillColorFromInt:(unsigned int)color;
+- (void) setFillColorFromAttribute:(NSString *)attr;
+- (void) setFillColorFromInt:(unsigned int)color;
 - (void)setStyleContext:(NSString *)style withDefDict:(NSDictionary*)defDict;
+- (void)drawPath:(CGMutablePathRef)path withContext:(CGContextRef)context;
+-(void) setUpStroke:(CGContextRef)context;
++(unsigned int) extractColorFromAttribute:(NSString*)attr;
 
 CGImageRef imageFromBase64(NSString *b64Data);
 
