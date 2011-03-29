@@ -922,7 +922,7 @@ didStartElement:(NSString *)elementName
 	if(style)
 		[currentStyle setStyleContext:style withDefDict:defDict];
 	
-	SVGStyle* idStyle;
+	SVGStyle* idStyle = nil;
 	if (identifier)
 	{
 		
