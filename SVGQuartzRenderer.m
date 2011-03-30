@@ -397,7 +397,7 @@ didStartElement:(NSString *)elementName
 					
 					// Move to relative coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"m"]) {
+					else if([currentCommand isEqualToString:@"m"]) {
 						curCmdType = @"line";
 						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
 						
@@ -411,7 +411,7 @@ didStartElement:(NSString *)elementName
 					
 					// Line to absolute coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"L"]) {
+					else if([currentCommand isEqualToString:@"L"]) {
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
@@ -420,7 +420,7 @@ didStartElement:(NSString *)elementName
 					
 					// Line to relative coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"l"]) {
+					else if([currentCommand isEqualToString:@"l"]) {
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
@@ -433,7 +433,7 @@ didStartElement:(NSString *)elementName
 					
 					// Horizontal line to absolute coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"H"]) {
+					else if([currentCommand isEqualToString:@"H"]) {
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
@@ -441,7 +441,7 @@ didStartElement:(NSString *)elementName
 					
 					// Horizontal line to relative coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"h"]) {
+					else if([currentCommand isEqualToString:@"h"]) {
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
@@ -449,7 +449,7 @@ didStartElement:(NSString *)elementName
 					
 					// Vertical line to absolute coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"V"]) {
+					else if([currentCommand isEqualToString:@"V"]) {
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
@@ -457,7 +457,7 @@ didStartElement:(NSString *)elementName
 					
 					// Vertical line to relative coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"v"]) {
+					else if([currentCommand isEqualToString:@"v"]) {
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
@@ -465,7 +465,7 @@ didStartElement:(NSString *)elementName
 					
 					// Curve to absolute coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"C"]) {
+					else if([currentCommand isEqualToString:@"C"]) {
 						curCmdType = @"curve";
 						
 						curCtrlPoint1.x = [[params objectAtIndex:prm_i++] floatValue];
@@ -480,7 +480,7 @@ didStartElement:(NSString *)elementName
 					
 					// Curve to relative coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"c"]) {
+					else if([currentCommand isEqualToString:@"c"]) {
 						curCmdType = @"curve";
 						
 						curCtrlPoint1.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
@@ -495,7 +495,7 @@ didStartElement:(NSString *)elementName
 					
 					// Shorthand curve to absolute coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"S"]) {
+					else if([currentCommand isEqualToString:@"S"]) {
 						curCmdType = @"curve";
 						
 						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
@@ -515,7 +515,7 @@ didStartElement:(NSString *)elementName
 					
 					// Shorthand curve to relative coord
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"s"]) {
+					else if([currentCommand isEqualToString:@"s"]) {
 						curCmdType = @"curve";
 						
 						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
@@ -535,7 +535,7 @@ didStartElement:(NSString *)elementName
 					
 					// Absolute elliptical arc
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"A"]) {
+					else if([currentCommand isEqualToString:@"A"]) {
 						curArcRadius.x = [[params objectAtIndex:prm_i++] floatValue];
 						curArcRadius.y = [[params objectAtIndex:prm_i++] floatValue];
 						
@@ -553,7 +553,7 @@ didStartElement:(NSString *)elementName
 					
 					// Relative elliptical arc
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"a"]) {
+					else if([currentCommand isEqualToString:@"a"]) {
 						curCmdType = @"arc";
 						curArcRadius.x += [[params objectAtIndex:prm_i++] floatValue];
 						curArcRadius.y += [[params objectAtIndex:prm_i++] floatValue];
@@ -573,7 +573,7 @@ didStartElement:(NSString *)elementName
 					
 					// Not yet implemented commands
 					//-----------------------------------------
-					if([currentCommand isEqualToString:@"q"]
+					else if([currentCommand isEqualToString:@"q"]
 					   || [currentCommand isEqualToString:@"Q"]
 					   || [currentCommand isEqualToString:@"t"]
 					   || [currentCommand isEqualToString:@"T"]) {
