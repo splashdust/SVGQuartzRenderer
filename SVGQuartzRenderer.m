@@ -26,11 +26,11 @@
 
 @interface SVGQuartzRenderer (hidden)
 
-- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style andIdentifier:(NSString*)identifier;
+    - (void)drawPath;
 	- (void)applyTransformations:(NSString *)transformations;
 	- (void) cleanupAfterFinishedParsing;
 
-	void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius);
+	void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius);
 
 	-(BOOL) doLocate:(CGPoint)location withBoundingBox:(CGSize)box;
 
@@ -68,6 +68,8 @@ NSMutableDictionary *curFilter;
 NSMutableDictionary *curLayer;
 NSDictionary *curText;
 NSDictionary *curFlowRegion;
+CGMutablePathRef currPath;
+NSString* currId;
 
 BOOL inDefSection = NO;
 
@@ -159,6 +161,8 @@ didStartElement:(NSString *)elementName
 	attributes:(NSDictionary *)attrDict
 {
 	NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
+	
+	currId = [attrDict valueForKey:@"id"]; 
 	
 	// Top level SVG node
 	// -------------------------------------------------------------------------
@@ -342,12 +346,10 @@ didStartElement:(NSString *)elementName
 		// For now, we'll ignore paths in definitions
 		if(inDefSection)
 			return;
+	
+		currPath = CGPathCreateMutable();
 		
-		NSString* identifier = [attrDict valueForKey:@"id"]; 
-
-		CGMutablePathRef path = CGPathCreateMutable();
-		
-		// Create a scanner for parsing path data
+		// Create a scanner for parsing currPath data
 		NSString *d = [attrDict valueForKey:@"d"];
 		
 		// Space before the first command messes stuff up.
@@ -581,13 +583,13 @@ didStartElement:(NSString *)elementName
 					// Set initial point
 					if(firstVertex) {
 						firstPoint = curPoint;
-						CGPathMoveToPoint(path, NULL, firstPoint.x, firstPoint.y);
+						CGPathMoveToPoint(currPath, NULL, firstPoint.x, firstPoint.y);
 					}
 					
-					// Close path
+					// Close currPath
 					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
-						CGPathAddLineToPoint(path, NULL, firstPoint.x, firstPoint.y);
-						CGPathCloseSubpath(path);
+						CGPathAddLineToPoint(currPath, NULL, firstPoint.x, firstPoint.y);
+						CGPathCloseSubpath(currPath);
 						curPoint = CGPointMake(-1, -1);
 						firstPoint = CGPointMake(-1, -1);
 						firstVertex = YES;
@@ -597,19 +599,19 @@ didStartElement:(NSString *)elementName
 					if(curCmdType) {
 						if([curCmdType isEqualToString:@"line"]) {
 							if(mCount>1) {
-								CGPathAddLineToPoint(path, NULL, curPoint.x, curPoint.y);
+								CGPathAddLineToPoint(currPath, NULL, curPoint.x, curPoint.y);
 							} else {
-								CGPathMoveToPoint(path, NULL, curPoint.x, curPoint.y);
+								CGPathMoveToPoint(currPath, NULL, curPoint.x, curPoint.y);
 							}
 						}
 						
 						if([curCmdType isEqualToString:@"curve"])
-							CGPathAddCurveToPoint(path,NULL,curCtrlPoint1.x, curCtrlPoint1.y,
+							CGPathAddCurveToPoint(currPath,NULL,curCtrlPoint1.x, curCtrlPoint1.y,
 												  curCtrlPoint2.x, curCtrlPoint2.y,
 												  curPoint.x,curPoint.y);
 						
 						if([curCmdType isEqualToString:@"arc"]) {
-							CGPathAddArc (path, NULL,
+							CGPathAddArc (currPath, NULL,
 										  curArcPoint.x,
 										  curArcPoint.y,
 										  curArcRadius.y,
@@ -640,9 +642,8 @@ didStartElement:(NSString *)elementName
 			[currentStyle setFillColorFromAttribute:[attrDict valueForKey:@"fill"]];
 		}
 		
-		//CGContextClosePath(cgContext);
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"] andIdentifier:identifier];
-		CGPathRelease(path);
+		currentStyle.styleString = [attrDict valueForKey:@"style"];
+
 	}
 	
 	
@@ -654,8 +655,6 @@ didStartElement:(NSString *)elementName
 		if(curFlowRegion)
 			return;
 		
-		NSString* identifier = [attrDict valueForKey:@"id"]; 
-
 		
 		float xPos = [[attrDict valueForKey:@"x"] floatValue];
 		float yPos = [[attrDict valueForKey:@"y"] floatValue];
@@ -667,8 +666,8 @@ didStartElement:(NSString *)elementName
 		if (ry==-1.0) ry = rx;
 		if (rx==-1.0) rx = ry;
 		
-		CGMutablePathRef path = CGPathCreateMutable();
-		CGPathAddRoundRect(path, CGRectMake(xPos,yPos ,width,height), rx);
+		 currPath = CGPathCreateMutable();
+		CGPathAddRoundRect(currPath, CGRectMake(xPos,yPos ,width,height), rx);
 		
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
@@ -682,8 +681,8 @@ didStartElement:(NSString *)elementName
 			[currentStyle setFillColorFromAttribute:[attrDict valueForKey:@"fill"]];
 		}
 		
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"] andIdentifier:identifier];
-		CGPathRelease(path);
+		currentStyle.styleString = [attrDict valueForKey:@"style"];
+
 	}
 	
 	
@@ -697,8 +696,6 @@ didStartElement:(NSString *)elementName
 			NSLog(@"In curFlowRegion");
 			return;
 		}
-		
-		NSString* identifier = [attrDict valueForKey:@"id"]; 
 
 		
 		NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
@@ -716,7 +713,7 @@ didStartElement:(NSString *)elementName
 		}
 		
 		// Extract the points attribute and parse into a CGMutablePath
-		CGMutablePathRef path = CGPathCreateMutable();
+		 currPath = CGPathCreateMutable();
 		BOOL firstPoint = YES;
 		NSString *pointsString = [attrDict valueForKey:@"points"];
 		NSArray *pointPairs = [pointsString componentsSeparatedByCharactersInSet:charset];
@@ -732,16 +729,15 @@ didStartElement:(NSString *)elementName
 				if (firstPoint)
 				{
 					firstPoint = NO;
-					CGPathMoveToPoint(path, NULL, x, y);
+					CGPathMoveToPoint(currPath, NULL, x, y);
 				}
 				else
 				{
-					CGPathAddLineToPoint(path, NULL, x, y);
+					CGPathAddLineToPoint(currPath, NULL, x, y);
 				}
 			}
 		}
-		[self drawPath:path withStyle:[attrDict valueForKey:@"style"] andIdentifier:identifier];
-		CGPathRelease(path);
+		currentStyle.styleString = [attrDict valueForKey:@"style"];
 		
 	}
 	
@@ -881,8 +877,20 @@ didStartElement:(NSString *)elementName
 	}
 
 	else if([elementName isEqualToString:@"path"]) {
+		[self drawPath];
+		CGPathRelease(currPath);
+		currPath = NULL;
 	}
-	
+	else if([elementName isEqualToString:@"rect"]) {
+		[self drawPath];
+		CGPathRelease(currPath);
+		currPath = NULL;
+	}
+	else if([elementName isEqualToString:@"polygon"]) {
+		[self drawPath];
+		CGPathRelease(currPath);
+		currPath = NULL;
+	}
 	else if([elementName isEqualToString:@"text"]) {
 		if(curText) {
 			[curText release];
@@ -914,23 +922,23 @@ didStartElement:(NSString *)elementName
 }
 
 
-// Draw a path based on style information
+// Draw a currPath based on style information
 // -----------------------------------------------------------------------------
-- (void)drawPath:(CGMutablePathRef)path withStyle:(NSString *)style andIdentifier:(NSString*)identifier
+- (void)drawPath
 {		
 	CGContextSaveGState(cgContext);
-	if(style)
-		[currentStyle setStyleContext:style withDefDict:defDict];
+	if(currentStyle.styleString)
+		[currentStyle setStyleContext:currentStyle.styleString withDefDict:defDict];
 	
 	SVGStyle* idStyle = nil;
-	if (identifier)
+	if (currId)
 	{
 		
-		NSObject* obj = [pathDict objectForKey:identifier];
+		NSObject* obj = [pathDict objectForKey:currId];
 		if (!obj)
 		{
 			SVGStyle* newStyle = [currentStyle copyWithZone:nil];
-			[pathDict setObject:newStyle forKey:identifier];
+			[pathDict setObject:newStyle forKey:currId];
 			[newStyle release];
 			idStyle = currentStyle;
 			
@@ -942,7 +950,7 @@ didStartElement:(NSString *)elementName
 	}
 	
 	
-	if ([identifier isEqualToString:@"starry_night"] || [identifier isEqualToString:@"self_portrait"])
+	if ([currId isEqualToString:@"starry_night"] || [currId isEqualToString:@"self_portrait"])
 	{
 	    idStyle.isActive = YES; 
 	}
@@ -951,7 +959,7 @@ didStartElement:(NSString *)elementName
 	if (idStyle != nil && idStyle.isActive)
 		[currentStyle setFillColorFromInt:0x00FF0000];
 	
-    [currentStyle drawPath:path withContext:cgContext];	
+    [currentStyle drawPath:currPath withContext:cgContext];	
 	if (idStyle != nil && idStyle.isActive)
 	  currentStyle.fillColor = oldColor;
 	CGContextRestoreGState(cgContext);
@@ -1096,25 +1104,25 @@ didStartElement:(NSString *)elementName
 
 
 
-void CGPathAddRoundRect(CGMutablePathRef path, CGRect rect, float radius)
+void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 {
-	CGPathMoveToPoint(path, NULL, rect.origin.x, rect.origin.y + radius);
+	CGPathMoveToPoint(currPath, NULL, rect.origin.x, rect.origin.y + radius);
 	
-	CGPathAddLineToPoint(path, NULL, rect.origin.x, rect.origin.y + rect.size.height - radius);
-	CGPathAddArc(path, NULL, rect.origin.x + radius, rect.origin.y + rect.size.height - radius, 
+	CGPathAddLineToPoint(currPath, NULL, rect.origin.x, rect.origin.y + rect.size.height - radius);
+	CGPathAddArc(currPath, NULL, rect.origin.x + radius, rect.origin.y + rect.size.height - radius, 
 					radius, M_PI / 1, M_PI / 2, 1);
 	
-	CGPathAddLineToPoint(path, NULL, rect.origin.x + rect.size.width - radius, 
+	CGPathAddLineToPoint(currPath, NULL, rect.origin.x + rect.size.width - radius, 
 							rect.origin.y + rect.size.height);
-	CGPathAddArc(path, NULL, rect.origin.x + rect.size.width - radius, 
+	CGPathAddArc(currPath, NULL, rect.origin.x + rect.size.width - radius, 
 					rect.origin.y + rect.size.height - radius, radius, M_PI / 2, 0.0f, 1);
 	
-	CGPathAddLineToPoint(path, NULL, rect.origin.x + rect.size.width, rect.origin.y + radius);
-	CGPathAddArc(path, NULL, rect.origin.x + rect.size.width - radius, rect.origin.y + radius, 
+	CGPathAddLineToPoint(currPath, NULL, rect.origin.x + rect.size.width, rect.origin.y + radius);
+	CGPathAddArc(currPath, NULL, rect.origin.x + rect.size.width - radius, rect.origin.y + radius, 
 					radius, 0.0f, -M_PI / 2, 1);
 	
-	CGPathAddLineToPoint(path, NULL, rect.origin.x + radius, rect.origin.y);
-	CGPathAddArc(path, NULL, rect.origin.x + radius, rect.origin.y + radius, radius, 
+	CGPathAddLineToPoint(currPath, NULL, rect.origin.x + radius, rect.origin.y);
+	CGPathAddArc(currPath, NULL, rect.origin.x + radius, rect.origin.y + radius, radius, 
 					-M_PI / 2, M_PI, 1);
 }
 

@@ -23,6 +23,7 @@
 
 @implementation SVGStyle
 
+@synthesize styleString;
 @synthesize fillGradientPoints;
 @synthesize fillColor;
 @synthesize doFill;
@@ -61,6 +62,8 @@
 	SVGStyle *another = [SVGStyle new];
 	another.doFill = doFill;
 	
+	
+	another.styleString = styleString;
 	another.fillColor = fillColor;
 	another.fillOpacity = fillOpacity;
 	another.doStroke = doStroke;
@@ -100,6 +103,7 @@
 	fillType = @"solid";
 	fillGradientAngle = 0;
 	fillGradientCenterPoint = CGPointMake(0, 0);
+	styleString = nil;
 }
 
 
