@@ -24,12 +24,10 @@
 
 @protocol SVGQuartzRenderDelegate
 
-	- (void)svgRenderer:(id)renderer
-			finishedRenderingInCGContext:(CGContextRef)context;
-
-	- (CGContextRef)svgRenderer:(id)renderer
-	requestedCGContextWithSize:(CGSize)size;
-
+	- (void)svgRenderer:(id)renderer finishedRenderingInCGContext:(CGContextRef)context;
+	- (CGContextRef)svgRenderer:(id)renderer requestedCGContextWithSize:(CGSize)size;
+//    -(void) svgRenderer:(id)renderer tapped:(NSString*)name;
+ //   -(void) svgRenderer:(id)renderer doubleTapped:(NSString*)name;
 @end
 
 

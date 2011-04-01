@@ -52,7 +52,7 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 	CGPoint fillGradientCenterPoint;
 	NSString *font;
 	float fontSize;
-	BOOL isActive;
+
 }
 @property (nonatomic, copy) NSString *styleString;
 @property (nonatomic) FILL_GRADIENT_POINTS fillGradientPoints;
@@ -73,7 +73,7 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 @property (nonatomic) CGPoint fillGradientCenterPoint; 
 @property (nonatomic, copy) NSString* font; 
 @property (nonatomic) float fontSize;
-@property (nonatomic) BOOL isActive;
+
 
 
 - (void)reset;

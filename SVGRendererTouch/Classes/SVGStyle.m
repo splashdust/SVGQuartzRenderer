@@ -42,7 +42,7 @@
 @synthesize fillGradientCenterPoint; 
 @synthesize font; 
 @synthesize fontSize;
-@synthesize isActive;
+
 
 - (id)init {
     if (self = [super init]) {
@@ -51,7 +51,6 @@
 		 strokeWidth = 1.0;
 		fillPattern=NULL;
 		fillGradient=NULL;
-		isActive = NO;
     }
     return self;
 }
@@ -81,7 +80,7 @@
 	another.fillGradientCenterPoint = fillGradientCenterPoint;
 	another.font = font;
 	another.fontSize = fontSize;
-	another.isActive = isActive;
+
 	
 	return another;
 }

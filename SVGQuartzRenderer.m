@@ -23,6 +23,7 @@
 #import "SVGQuartzRenderer.h"
 #import "NSData+Base64.h"
 #import "SVGStyle.h"
+#import "Sprite.h"
 
 @interface SVGQuartzRenderer (hidden)
 
@@ -74,6 +75,7 @@ NSString* currId;
 BOOL inDefSection = NO;
 
 SVGStyle* currentStyle;
+Sprite* currentInfo;
 
 - (id)init {
     self = [super init];
@@ -201,6 +203,7 @@ didStartElement:(NSString *)elementName
 	    CGContextConcatCTM(cgContext,transform);
 		
 		currentStyle = [SVGStyle new];
+		currentInfo = [Sprite new];
 	
 
 	}
@@ -922,7 +925,7 @@ didStartElement:(NSString *)elementName
 }
 
 
-// Draw a currPath based on style information
+// Draw a path based on style information
 // -----------------------------------------------------------------------------
 - (void)drawPath
 {		
@@ -930,37 +933,34 @@ didStartElement:(NSString *)elementName
 	if(currentStyle.styleString)
 		[currentStyle setStyleContext:currentStyle.styleString withDefDict:defDict];
 	
-	SVGStyle* idStyle = nil;
+	Sprite* info = nil;
 	if (currId)
 	{
 		
 		NSObject* obj = [pathDict objectForKey:currId];
 		if (!obj)
 		{
-			SVGStyle* newStyle = [currentStyle copyWithZone:nil];
-			[pathDict setObject:newStyle forKey:currId];
-			[newStyle release];
-			idStyle = currentStyle;
-			
+			info = [Sprite new];
+			[pathDict setObject:info forKey:currId];
+			[info release];
+			info  =  [pathDict objectForKey:currId];			
 		}else {
-			idStyle = (SVGStyle*)obj;
+			info = (Sprite*)obj;
 		}
-
-
 	}
 	
 	
 	if ([currId isEqualToString:@"starry_night"] || [currId isEqualToString:@"self_portrait"])
 	{
-	    idStyle.isActive = YES; 
+	    info.isHighlighted = YES; 
 	}
 	
 	FILL_COLOR oldColor;
-	if (idStyle != nil && idStyle.isActive)
+	if (info != nil && info.isHighlighted)
 		[currentStyle setFillColorFromInt:0x00FF0000];
 	
     [currentStyle drawPath:currPath withContext:cgContext];	
-	if (idStyle != nil && idStyle.isActive)
+	if (info != nil && info.isHighlighted)
 	  currentStyle.fillColor = oldColor;
 	CGContextRestoreGState(cgContext);
 	
@@ -1152,7 +1152,8 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 	curFlowRegion = nil;
 	[currentStyle release];
 	currentStyle = nil;
-
+	[currentInfo release];
+	currentInfo = nil;
 	
 }
 

@@ -122,7 +122,11 @@
 				CGPoint relativeImagePoint = [svgRenderer relativeImagePointFrom:pt];
 				if (relativeImagePoint.x <= 1 && relativeImagePoint.y <= 1 && relativeImagePoint.x >= 0 && relativeImagePoint.y >= 0)
 				{
-					[self locate:relativeImagePoint withBoundingBox:CGSizeMake(0.3,0.3)];
+					
+					//show text if a star is highlighted
+					//[self locate:relativeImagePoint withBoundingBox:CGSizeMake(0.3,0.3)];
+					
+					
 				} else {					
 					origin = self.frame.origin;
 					svgRenderer.offsetX = self.frame.origin.x;
@@ -259,7 +263,16 @@
 			
 				[self open:filePath];	
 				
+			}else {
+				
+				
+				UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];				
+				CGPoint point1 = [touch1 locationInView:self];
+				//highlight nearby star
+				
+				
 			}
+
 			break;
         default:
 			if (initialDistance > 0)
