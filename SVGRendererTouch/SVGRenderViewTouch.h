@@ -24,6 +24,7 @@
 #import "SVGQuartzRenderer.h"
 
 @interface SVGRenderViewTouch : UIView <SVGQuartzRenderDelegate> {
+@private
 	CGPoint origin;
 	CGImageRef svgDrawing;
 	CGFloat initialDistance;

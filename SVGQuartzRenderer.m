@@ -24,6 +24,8 @@
 #import "NSData+Base64.h"
 #import "SVGStyle.h"
 #import "Sprite.h"
+#import "math.h"
+#import "QuadTreeNode.h"
 
 @interface SVGQuartzRenderer (hidden)
 
@@ -33,8 +35,11 @@
 
 	void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius);
 
-	-(BOOL) doLocate:(CGPoint)location withBoundingBox:(CGSize)box;
+	-(BOOL) doCenter:(CGPoint)location withBoundingBox:(CGSize)box;
 
+    -(void) createCurrentSprite;
+
+    -(CGPoint) relativeImagePointFromPathPoint:(CGPoint)pathPoint;
 
 @end
 
@@ -44,38 +49,10 @@
 @synthesize documentSize;
 @synthesize delegate;
 @synthesize scaleX, scaleY, offsetX, offsetY,rotation;
-
-
+@synthesize curLayerName;
 
 typedef void (*CGPatternDrawPatternCallback) (void * info,
 											  CGContextRef context);
-
-NSXMLParser* xmlParser;
-NSData *svgXml;
-CGAffineTransform transform;
-CGContextRef cgContext=NULL;
-float initialScaleX = 1;
-float initialScaleY = 1;
-float width=0;
-float height=0;
-BOOL firstRender = YES;
-NSMutableDictionary *defDict;
-
-
-
-NSMutableDictionary *curPat;
-NSMutableDictionary *curGradient;
-NSMutableDictionary *curFilter;
-NSMutableDictionary *curLayer;
-NSDictionary *curText;
-NSDictionary *curFlowRegion;
-CGMutablePathRef currPath;
-NSString* currId;
-
-BOOL inDefSection = NO;
-
-SVGStyle* currentStyle;
-Sprite* currentInfo;
 
 - (id)init {
     self = [super init];
@@ -84,7 +61,10 @@ Sprite* currentInfo;
 		offsetX = 0;
 		offsetY = 0;
 		rotation = 0;
-		pathDict = [NSMutableDictionary new];
+		sprites = [NSMutableDictionary new];
+		firstRender = YES;
+		inDefSection = NO;
+		rootNode = [QuadTreeNode new];
 		
     }
     return self;
@@ -113,19 +93,27 @@ Sprite* currentInfo;
 	scaleY = initialScaleY;
 	
 	
-	[self doLocate:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
+	[self doCenter:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
 
 	
 }
 
--(CGPoint) relativeImagePointFrom:(CGPoint)viewPoint
+
+-(CGPoint) relativeImagePointFromPathPoint:(CGPoint)pathPoint
+{
+    float x = pathPoint.x/(scaleX*width);
+	float y = pathPoint.y/(scaleY*height);
+	return CGPointMake(x,y);
+}
+
+-(CGPoint) relativeImagePointFromViewPoint:(CGPoint)viewPoint
 {
     float x = (offsetX + viewPoint.x)/(scaleX*width);
 	float y = (offsetY + viewPoint.y)/(scaleY*height);
 	return CGPointMake(x,y);
 }
 
--(BOOL) doLocate:(CGPoint)location withBoundingBox:(CGSize)box
+-(BOOL) doCenter:(CGPoint)location withBoundingBox:(CGSize)box
 {
 	//reject locations outside of the image
 	if (location.x <0 || location.y < 0 || location.x > 1 || location.y > 1)
@@ -147,12 +135,28 @@ Sprite* currentInfo;
 }
 
 
--(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
+-(void) center:(CGPoint)location withBoundingBox:(CGSize)box
 {
 
-	if ([self doLocate:location withBoundingBox:box])
+	if ([self doCenter:location withBoundingBox:box])
 	     [self drawSVGFile:nil];
 }
+
+-(NSString*) find:(CGPoint)viewPoint
+{
+	NSArray* group = [rootNode groupContainingPoint:[self relativeImagePointFromViewPoint:viewPoint]];
+	if (group != nil && [group count] > 0)
+	{
+	
+		Sprite* sprite =  (Sprite*)[group objectAtIndex:0];
+		sprite.isHighlighted = YES;
+		return sprite.name;
+		
+	}
+	return nil;
+	
+}
+
 
 // Element began
 // -----------------------------------------------------------------------------
@@ -164,7 +168,9 @@ didStartElement:(NSString *)elementName
 {
 	NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
 	
-	currId = [attrDict valueForKey:@"id"]; 
+	NSString* temp = [attrDict valueForKey:@"id"];
+	if (temp)
+	   currId = [NSString stringWithString:temp]; 
 	
 	// Top level SVG node
 	// -------------------------------------------------------------------------
@@ -185,7 +191,7 @@ didStartElement:(NSString *)elementName
 			scaleX = initialScaleX;
 			scaleY = initialScaleY;
 			
-			[self doLocate:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
+			[self doCenter:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
 		
 			firstRender = NO;
 		} 
@@ -203,7 +209,7 @@ didStartElement:(NSString *)elementName
 	    CGContextConcatCTM(cgContext,transform);
 		
 		currentStyle = [SVGStyle new];
-		currentInfo = [Sprite new];
+		currentSprite = [Sprite new];
 	
 
 	}
@@ -329,6 +335,7 @@ didStartElement:(NSString *)elementName
 			[curLayer setObject:obj forKey:key];
 		}
 		
+		self.curLayerName = currId;
 		
 		// Reset styles for each layer
 		[currentStyle reset];
@@ -350,6 +357,8 @@ didStartElement:(NSString *)elementName
 		if(inDefSection)
 			return;
 	
+		[self createCurrentSprite];
+		
 		currPath = CGPathCreateMutable();
 		
 		// Create a scanner for parsing currPath data
@@ -452,7 +461,8 @@ didStartElement:(NSString *)elementName
 					
 					// Vertical line to absolute coord
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"V"]) {
+					else if([currentCommand isEqualToString:@"V"]) 
+					{
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
@@ -460,7 +470,8 @@ didStartElement:(NSString *)elementName
 					
 					// Vertical line to relative coord
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"v"]) {
+					else if([currentCommand isEqualToString:@"v"]) 
+					{
 						curCmdType = @"line";
 						mCount = 2;
 						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
@@ -468,7 +479,8 @@ didStartElement:(NSString *)elementName
 					
 					// Curve to absolute coord
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"C"]) {
+					else if([currentCommand isEqualToString:@"C"]) 
+					{
 						curCmdType = @"curve";
 						
 						curCtrlPoint1.x = [[params objectAtIndex:prm_i++] floatValue];
@@ -483,7 +495,8 @@ didStartElement:(NSString *)elementName
 					
 					// Curve to relative coord
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"c"]) {
+					else if([currentCommand isEqualToString:@"c"]) 
+					{
 						curCmdType = @"curve";
 						
 						curCtrlPoint1.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
@@ -498,7 +511,8 @@ didStartElement:(NSString *)elementName
 					
 					// Shorthand curve to absolute coord
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"S"]) {
+					else if([currentCommand isEqualToString:@"S"]) 
+					{
 						curCmdType = @"curve";
 						
 						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
@@ -518,7 +532,8 @@ didStartElement:(NSString *)elementName
 					
 					// Shorthand curve to relative coord
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"s"]) {
+					else if([currentCommand isEqualToString:@"s"]) 
+					{
 						curCmdType = @"curve";
 						
 						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
@@ -538,7 +553,8 @@ didStartElement:(NSString *)elementName
 					
 					// Absolute elliptical arc
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"A"]) {
+					else if([currentCommand isEqualToString:@"A"]) 
+					{
 						curArcRadius.x = [[params objectAtIndex:prm_i++] floatValue];
 						curArcRadius.y = [[params objectAtIndex:prm_i++] floatValue];
 						
@@ -556,7 +572,8 @@ didStartElement:(NSString *)elementName
 					
 					// Relative elliptical arc
 					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"a"]) {
+					else if([currentCommand isEqualToString:@"a"]) 
+					{
 						curCmdType = @"arc";
 						curArcRadius.x += [[params objectAtIndex:prm_i++] floatValue];
 						curArcRadius.y += [[params objectAtIndex:prm_i++] floatValue];
@@ -579,18 +596,21 @@ didStartElement:(NSString *)elementName
 					else if([currentCommand isEqualToString:@"q"]
 					   || [currentCommand isEqualToString:@"Q"]
 					   || [currentCommand isEqualToString:@"t"]
-					   || [currentCommand isEqualToString:@"T"]) {
+					   || [currentCommand isEqualToString:@"T"]) 
+					{
 						prm_i++;
 					}
 					
 					// Set initial point
-					if(firstVertex) {
+					if(firstVertex)
+					{
 						firstPoint = curPoint;
 						CGPathMoveToPoint(currPath, NULL, firstPoint.x, firstPoint.y);
 					}
 					
 					// Close currPath
-					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"]) {
+					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"])
+					{
 						CGPathAddLineToPoint(currPath, NULL, firstPoint.x, firstPoint.y);
 						CGPathCloseSubpath(currPath);
 						curPoint = CGPointMake(-1, -1);
@@ -599,21 +619,27 @@ didStartElement:(NSString *)elementName
 						prm_i++;
 					}
 					
-					if(curCmdType) {
-						if([curCmdType isEqualToString:@"line"]) {
-							if(mCount>1) {
+					if(curCmdType) 
+					{
+						
+						if([curCmdType isEqualToString:@"line"]) 
+						{
+							if(mCount>1)
+							{
 								CGPathAddLineToPoint(currPath, NULL, curPoint.x, curPoint.y);
-							} else {
+							} else 
+							{
 								CGPathMoveToPoint(currPath, NULL, curPoint.x, curPoint.y);
 							}
 						}
-						
-						if([curCmdType isEqualToString:@"curve"])
+						else if([curCmdType isEqualToString:@"curve"])
+						{
 							CGPathAddCurveToPoint(currPath,NULL,curCtrlPoint1.x, curCtrlPoint1.y,
 												  curCtrlPoint2.x, curCtrlPoint2.y,
 												  curPoint.x,curPoint.y);
-						
-						if([curCmdType isEqualToString:@"arc"]) {
+						}
+						else if([curCmdType isEqualToString:@"arc"])
+						{
 							CGPathAddArc (currPath, NULL,
 										  curArcPoint.x,
 										  curArcPoint.y,
@@ -623,7 +649,9 @@ didStartElement:(NSString *)elementName
 										  TRUE);							
 						}
 					}
-				} else {
+				} 
+				else
+				{
 					prm_i++;
 				}
 				
@@ -658,11 +686,12 @@ didStartElement:(NSString *)elementName
 		if(curFlowRegion)
 			return;
 		
+		[self createCurrentSprite];
 		
 		float xPos = [[attrDict valueForKey:@"x"] floatValue];
 		float yPos = [[attrDict valueForKey:@"y"] floatValue];
-		float width = [[attrDict valueForKey:@"width"] floatValue];
-		float height = [[attrDict valueForKey:@"height"] floatValue];
+		float widthR = [[attrDict valueForKey:@"width"] floatValue];
+		float heightR = [[attrDict valueForKey:@"height"] floatValue];
 		float ry = [attrDict valueForKey:@"ry"]?[[attrDict valueForKey:@"ry"] floatValue]:-1.0;
 		float rx = [attrDict valueForKey:@"rx"]?[[attrDict valueForKey:@"rx"] floatValue]:-1.0;
 		
@@ -670,7 +699,7 @@ didStartElement:(NSString *)elementName
 		if (rx==-1.0) rx = ry;
 		
 		 currPath = CGPathCreateMutable();
-		CGPathAddRoundRect(currPath, CGRectMake(xPos,yPos ,width,height), rx);
+		CGPathAddRoundRect(currPath, CGRectMake(xPos,yPos ,widthR,heightR), rx);
 		
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
@@ -699,6 +728,8 @@ didStartElement:(NSString *)elementName
 			NSLog(@"In curFlowRegion");
 			return;
 		}
+		
+		[self createCurrentSprite];
 
 		
 		NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
@@ -757,19 +788,19 @@ didStartElement:(NSString *)elementName
 		
 		float xPos = [[attrDict valueForKey:@"x"] floatValue];
 		float yPos = [[attrDict valueForKey:@"y"] floatValue];
-		float width = [[attrDict valueForKey:@"width"] floatValue];
-		float height = [[attrDict valueForKey:@"height"] floatValue];
+		float widthI = [[attrDict valueForKey:@"width"] floatValue];
+		float heightI = [[attrDict valueForKey:@"height"] floatValue];
 		
 	
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
 		} 
 		
-		yPos-=height/2;
+		yPos-=heightI/2;
 		CGImageRef theImage = imageFromBase64([attrDict valueForKey:@"xlink:href"]);
-		CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, height);
+		CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, heightI);
 		CGContextConcatCTM(cgContext, flipVertical);
-		CGContextDrawImage(cgContext, CGRectMake(xPos, yPos, width, height), theImage);
+		CGContextDrawImage(cgContext, CGRectMake(xPos, yPos, widthI, heightI), theImage);
 		CGContextConcatCTM(cgContext, CGAffineTransformInvert(flipVertical));
 		CGImageRelease(theImage);
 	}
@@ -873,6 +904,7 @@ didStartElement:(NSString *)elementName
 	}
 	
 	else if([elementName isEqualToString:@"g"]) {
+		self.curLayerName = nil;
 	}
 	
 	else if([elementName isEqualToString:@"defs"]) {
@@ -924,6 +956,25 @@ didStartElement:(NSString *)elementName
 	}
 }
 
+-(void) createCurrentSprite
+{
+	if (!currId || ![curLayerName isEqualToString:@"location_overlay"] )
+		return;
+			
+	
+	NSObject* obj = [sprites objectForKey:currId];
+	if (!obj)
+	{
+		Sprite* info = [Sprite new];
+		info.name = currId;
+		[sprites setObject:info forKey:currId];
+		[info release];		
+	}
+
+	
+	
+}
+
 
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
@@ -933,34 +984,17 @@ didStartElement:(NSString *)elementName
 	if(currentStyle.styleString)
 		[currentStyle setStyleContext:currentStyle.styleString withDefDict:defDict];
 	
-	Sprite* info = nil;
-	if (currId)
-	{
-		
-		NSObject* obj = [pathDict objectForKey:currId];
-		if (!obj)
-		{
-			info = [Sprite new];
-			[pathDict setObject:info forKey:currId];
-			[info release];
-			info  =  [pathDict objectForKey:currId];			
-		}else {
-			info = (Sprite*)obj;
-		}
-	}
-	
-	
-	if ([currId isEqualToString:@"starry_night"] || [currId isEqualToString:@"self_portrait"])
-	{
-	    info.isHighlighted = YES; 
-	}
+	Sprite* info = (Sprite*)[sprites objectForKey:currId];;
+	 if (info && ([info.name isEqualToString:@"starry_night"] || [info.name isEqualToString:@"self_portrait"]) )
+		 info.isHighlighted = YES; 
+
 	
 	FILL_COLOR oldColor;
-	if (info != nil && info.isHighlighted)
+	if (info && info.isHighlighted)
 		[currentStyle setFillColorFromInt:0x00FF0000];
 	
     [currentStyle drawPath:currPath withContext:cgContext];	
-	if (info != nil && info.isHighlighted)
+	if (info && info.isHighlighted)
 	  currentStyle.fillColor = oldColor;
 	CGContextRestoreGState(cgContext);
 	
@@ -980,7 +1014,8 @@ didStartElement:(NSString *)elementName
 	
 	NSString *value;
 	NSArray *values;
-	float sx = scaleX, sy = scaleY;
+	currentScaleX = scaleX;
+	currentScaleY = scaleY;
 	
 	// Matrix
 	BOOL hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
@@ -998,15 +1033,17 @@ didStartElement:(NSString *)elementName
 			
 	
 			// local translation, with correction for global scale		
-			float tx = [[values objectAtIndex:4] floatValue]*sx;
-			float ty = [[values objectAtIndex:5] floatValue]*sy;
+			float tx = [[values objectAtIndex:4] floatValue]*currentScaleX;
+			float ty = [[values objectAtIndex:5] floatValue]*currentScaleY;
 
 			//move all scaling into separate transformation
 			float scl = sqrtf(a*d - b*c);  //!!!!!!!  assume local x scale = local y scale
 			a /= scl;
 			d /= scl;
-			if (sx != 1.0 || sy != 1.0)
-				transform = CGAffineTransformScale(transform, sx*scl, sy*scl);
+			currentScaleX *= scl;
+			currentScaleY *= scl;
+			if (currentScaleX != 1.0 || currentScaleY != 1.0)
+				transform = CGAffineTransformScale(transform, currentScaleX, currentScaleY);
 			
 			//global rotation
 			if (rotation != 0)
@@ -1038,13 +1075,13 @@ didStartElement:(NSString *)elementName
 
 		if([values count] == 2)
 		{
-			sx *= 	[[values objectAtIndex:0] floatValue];
-			sy *=  [[values objectAtIndex:1] floatValue];		
+			currentScaleX *= [[values objectAtIndex:0] floatValue];
+			currentScaleY *= [[values objectAtIndex:1] floatValue];		
 		}
 
 	}
-	if (sx != 1.0 || sy != 1.0)
-		transform = CGAffineTransformScale(transform, sx, sy);
+	if (currentScaleX != 1.0 || currentScaleY != 1.0)
+		transform = CGAffineTransformScale(transform, currentScaleX, currentScaleY);
 	
 	
 	// Rotate
@@ -1065,8 +1102,8 @@ didStartElement:(NSString *)elementName
 
 	
 	// Translate
-	float transX = -offsetX/sx;
-	float transY = -offsetY/sy;
+	float transX = -offsetX/currentScaleX;
+	float transY = -offsetY/currentScaleY;
 	
 	BOOL hasTrans = [scanner scanString:@"translate(" intoString:nil];
 	if (hasTrans)
@@ -1130,7 +1167,8 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 {
 	[self cleanupAfterFinishedParsing];
 	[xmlParser release];
-	[pathDict release];
+	[sprites release];
+	[rootNode release];
 	[super dealloc];
 }
 
@@ -1152,8 +1190,8 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 	curFlowRegion = nil;
 	[currentStyle release];
 	currentStyle = nil;
-	[currentInfo release];
-	currentInfo = nil;
+	[currentSprite release];
+	currentSprite = nil;
 	
 }
 

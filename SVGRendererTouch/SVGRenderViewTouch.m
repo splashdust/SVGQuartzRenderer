@@ -119,7 +119,7 @@
 			panning = NO;	
 			if (tapCount == 2)
 			{
-				CGPoint relativeImagePoint = [svgRenderer relativeImagePointFrom:pt];
+				CGPoint relativeImagePoint = [svgRenderer relativeImagePointFromViewPoint:pt];
 				if (relativeImagePoint.x <= 1 && relativeImagePoint.y <= 1 && relativeImagePoint.x >= 0 && relativeImagePoint.y >= 0)
 				{
 					
@@ -270,6 +270,8 @@
 				CGPoint point1 = [touch1 locationInView:self];
 				//highlight nearby star
 				
+				NSString* name = [svgRenderer find:point1];
+				
 				
 			}
 
@@ -319,7 +321,7 @@
 //location is (x,y) coordinate of point in unscaled image
 -(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
 {
-	[svgRenderer locate:location withBoundingBox:box];	
+	[svgRenderer center:location withBoundingBox:box];	
 }
 
 

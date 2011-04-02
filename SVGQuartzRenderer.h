@@ -22,6 +22,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class Sprite;
+@class SVGStyle;
+@class QuadTreeNode;
+
 @protocol SVGQuartzRenderDelegate
 
 	- (void)svgRenderer:(id)renderer finishedRenderingInCGContext:(CGContextRef)context;
@@ -32,15 +36,48 @@
 
 
 @interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate> {
+@private
 	CGSize documentSize;
 	id<SVGQuartzRenderDelegate> delegate;
 	CGFloat scaleX;
 	CGFloat scaleY;
+	CGFloat currentScaleX;
+	CGFloat currentScaleY;
 	CGFloat offsetX;
 	CGFloat offsetY;
 	CGFloat rotation;
 	CGRect viewFrame;
-	NSMutableDictionary* pathDict;
+	float initialScaleX ;
+	float initialScaleY ;
+	float width;
+	float height;	
+	
+	NSXMLParser* xmlParser;
+	NSData *svgXml;
+	CGAffineTransform transform;
+	CGContextRef cgContext;
+	
+	BOOL firstRender;
+	NSMutableDictionary *defDict;
+		
+	NSMutableDictionary *curPat;
+	NSMutableDictionary *curGradient;
+	NSMutableDictionary *curFilter;
+	NSMutableDictionary *curLayer;
+	NSString* curLayerName;
+	NSDictionary *curText;
+	NSDictionary *curFlowRegion;
+	CGMutablePathRef currPath;
+	NSString* currId;
+	
+	BOOL inDefSection;
+	
+	SVGStyle* currentStyle;
+	Sprite* currentSprite;
+	
+	
+	NSMutableDictionary* sprites;
+	QuadTreeNode* rootNode;
 }
 
 @property (readonly) CGSize documentSize;
@@ -51,12 +88,14 @@
 @property (readwrite) CGFloat offsetY;
 @property (readwrite) CGFloat rotation;
 @property (readwrite) CGRect viewFrame;
+@property (readwrite, copy) NSString* curLayerName;
 
 - (void) resetScale;
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
 - (CGContextRef)createBitmapContext;
--(CGPoint) relativeImagePointFrom:(CGPoint)viewPoint;
--(void) locate:(CGPoint)location withBoundingBox:(CGSize)box;
+-(CGPoint) relativeImagePointFromViewPoint:(CGPoint)viewPoint;
+-(void) center:(CGPoint)location withBoundingBox:(CGSize)box;
+-(NSString*) find:(CGPoint)viewPoint;
 
 @end
