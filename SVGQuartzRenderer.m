@@ -25,6 +25,7 @@
 #import "SVGStyle.h"
 #import "Sprite.h"
 #import "math.h"
+#import "float.h"
 #import "QuadTreeNode.h"
 
 @interface SVGQuartzRenderer (hidden)
@@ -37,9 +38,8 @@
 
 	-(BOOL) doCenter:(CGPoint)location withBoundingBox:(CGSize)box;
 
-    -(void) createCurrentSprite;
+    -(Sprite*) currentSprite;
 
-    -(CGPoint) relativeImagePointFromPathPoint:(CGPoint)pathPoint;
 
 @end
 
@@ -48,7 +48,7 @@
 @synthesize viewFrame;
 @synthesize documentSize;
 @synthesize delegate;
-@synthesize scaleX, scaleY, offsetX, offsetY,rotation;
+@synthesize globalScaleX, globalScaleY, offsetX, offsetY,rotation;
 @synthesize curLayerName;
 
 typedef void (*CGPatternDrawPatternCallback) (void * info,
@@ -64,7 +64,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 		sprites = [NSMutableDictionary new];
 		firstRender = YES;
 		inDefSection = NO;
-		rootNode = [QuadTreeNode new];
+		rootNode = [[QuadTreeNode alloc] initWithRect:CGRectMake(0,0,1,1)]; 
 		
     }
     return self;
@@ -89,8 +89,8 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 
 - (void) resetScale
 {
-	scaleX = initialScaleX;
-	scaleY = initialScaleY;
+	globalScaleX = initialScaleX;
+	globalScaleY = initialScaleY;
 	
 	
 	[self doCenter:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
@@ -99,17 +99,11 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 }
 
 
--(CGPoint) relativeImagePointFromPathPoint:(CGPoint)pathPoint
-{
-    float x = pathPoint.x/(scaleX*width);
-	float y = pathPoint.y/(scaleY*height);
-	return CGPointMake(x,y);
-}
 
 -(CGPoint) relativeImagePointFromViewPoint:(CGPoint)viewPoint
 {
-    float x = (offsetX + viewPoint.x)/(scaleX*width);
-	float y = (offsetY + viewPoint.y)/(scaleY*height);
+    float x = (offsetX + viewPoint.x)/(globalScaleX*width);
+	float y = (offsetY + viewPoint.y)/(globalScaleY*height);
 	return CGPointMake(x,y);
 }
 
@@ -123,12 +117,12 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 	if (box.width <0 || box.height < 0 || box.width > 1 || box.height > 1)
 		return NO;
 	
-	scaleX = initialScaleX/box.width;
-	scaleY = initialScaleY/box.height;
+	globalScaleX = initialScaleX/box.width;
+	globalScaleY = initialScaleY/box.height;
 	
 	//reverse calculation from relativeImagePointFrom above, with viewPoint set to middle of screen
-	offsetX = -viewFrame.size.width/2 +  location.x* scaleX* width;
-	offsetY = -viewFrame.size.height/2 + location.y * scaleY* height;
+	offsetX = -viewFrame.size.width/2 +  location.x* globalScaleX* width;
+	offsetY = -viewFrame.size.height/2 + location.y * globalScaleY* height;
 	
 	
 	return YES;
@@ -188,8 +182,8 @@ didStartElement:(NSString *)elementName
 			float scale =  fmax(sx,sy);
 			initialScaleX =scale;
 			initialScaleY = scale;
-			scaleX = initialScaleX;
-			scaleY = initialScaleY;
+			globalScaleX = initialScaleX;
+			globalScaleY = initialScaleY;
 			
 			[self doCenter:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
 		
@@ -202,16 +196,13 @@ didStartElement:(NSString *)elementName
 		}
 		
 		//default transformation
-	    transform = CGAffineTransformScale(CGAffineTransformIdentity, scaleX, scaleY);	
+	    transform = CGAffineTransformScale(CGAffineTransformIdentity, globalScaleX, globalScaleY);	
 		if (rotation != 0)
 			transform = CGAffineTransformRotate(transform, rotation);	
-		transform = CGAffineTransformTranslate(transform, -offsetX/scaleX, -offsetY/scaleY);
+		transform = CGAffineTransformTranslate(transform, -offsetX/globalScaleX, -offsetY/globalScaleY);
 	    CGContextConcatCTM(cgContext,transform);
 		
-		currentStyle = [SVGStyle new];
-		currentSprite = [Sprite new];
-	
-
+		currentStyle = [SVGStyle new];	
 	}
 	
 	// Definitions
@@ -357,7 +348,7 @@ didStartElement:(NSString *)elementName
 		if(inDefSection)
 			return;
 	
-		[self createCurrentSprite];
+		Sprite* sprite = [self currentSprite];
 		
 		currPath = CGPathCreateMutable();
 		
@@ -601,6 +592,9 @@ didStartElement:(NSString *)elementName
 						prm_i++;
 					}
 					
+					if (sprite)
+						[sprite adjustBoundingBox:curPoint];
+					
 					// Set initial point
 					if(firstVertex)
 					{
@@ -663,7 +657,6 @@ didStartElement:(NSString *)elementName
 		
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
-
 		} 		
 		// Respect the 'fill' attribute
 		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
@@ -674,6 +667,19 @@ didStartElement:(NSString *)elementName
 		}
 		
 		currentStyle.styleString = [attrDict valueForKey:@"style"];
+		
+		if (sprite)
+		{
+			//transform to non-offset image coordinates
+			CGAffineTransform temp = CGAffineTransformTranslate(transform, offsetX/currentScaleX, offsetY/currentScaleY);
+			
+			//scale down to relative image coordinates
+			temp = CGAffineTransformConcat(temp,
+												CGAffineTransformMakeScale(1.0/(globalScaleX*width),1.0/(globalScaleY*height) ));
+
+			[sprite finishCalBoundingBox:temp];			
+			[rootNode addSprite:sprite];
+		}
 
 	}
 	
@@ -686,7 +692,7 @@ didStartElement:(NSString *)elementName
 		if(curFlowRegion)
 			return;
 		
-		[self createCurrentSprite];
+		Sprite* sprite =  [self currentSprite];
 		
 		float xPos = [[attrDict valueForKey:@"x"] floatValue];
 		float yPos = [[attrDict valueForKey:@"y"] floatValue];
@@ -729,7 +735,7 @@ didStartElement:(NSString *)elementName
 			return;
 		}
 		
-		[self createCurrentSprite];
+		Sprite* sprite =  [self currentSprite];
 
 		
 		NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
@@ -956,20 +962,21 @@ didStartElement:(NSString *)elementName
 	}
 }
 
--(void) createCurrentSprite
+-(Sprite*) currentSprite
 {
 	if (!currId || ![curLayerName isEqualToString:@"location_overlay"] )
-		return;
+		return nil;
 			
 	
 	NSObject* obj = [sprites objectForKey:currId];
 	if (!obj)
 	{
-		Sprite* info = [Sprite new];
-		info.name = currId;
-		[sprites setObject:info forKey:currId];
-		[info release];		
+		Sprite* sprite = [Sprite new];
+		sprite.name = currId;
+		[sprites setObject:sprite forKey:currId];
+		[sprite release];		
 	}
+	return (Sprite*)[sprites objectForKey:currId];
 
 	
 	
@@ -1014,8 +1021,8 @@ didStartElement:(NSString *)elementName
 	
 	NSString *value;
 	NSArray *values;
-	currentScaleX = scaleX;
-	currentScaleY = scaleY;
+	currentScaleX = globalScaleX;
+	currentScaleY = globalScaleY;
 	
 	// Matrix
 	BOOL hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
@@ -1031,28 +1038,34 @@ didStartElement:(NSString *)elementName
 			float c = [[values objectAtIndex:2] floatValue];
 			float d = [[values objectAtIndex:3] floatValue];
 			
-	
-			// local translation, with correction for global scale		
-			float tx = [[values objectAtIndex:4] floatValue]*currentScaleX;
-			float ty = [[values objectAtIndex:5] floatValue]*currentScaleY;
+		
 
-			//move all scaling into separate transformation
-			float scl = sqrtf(a*d - b*c);  //!!!!!!!  assume local x scale = local y scale
-			a /= scl;
-			d /= scl;
-			currentScaleX *= scl;
-			currentScaleY *= scl;
-			if (currentScaleX != 1.0 || currentScaleY != 1.0)
-				transform = CGAffineTransformScale(transform, currentScaleX, currentScaleY);
+			// local translation, with correction for global scale, and global offset	
+			float tx = [[values objectAtIndex:4] floatValue]*globalScaleX - offsetX;
+			float ty = [[values objectAtIndex:5] floatValue]*globalScaleY - offsetY;
 			
-			//global rotation
+			// transfer all scaling to single transformation
+			currentScaleX *= a;
+			currentScaleY *= d;
+
+			a = 1;
+			b /= d;
+			c /= a;
+			d = 1;
+			
+			//move all scaling into separate transformation
+			if (currentScaleX != 1.0 || currentScaleY != 1.0)
+				transform = CGAffineTransformMakeScale(currentScaleX, currentScaleY);
+			
+			//global rotation (assumes no local rotation)
 			if (rotation != 0)
 				transform = CGAffineTransformRotate(transform, rotation);
 			
 			
-			CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx - offsetX, ty - offsetY);
+			CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx, ty);
 
 			transform = CGAffineTransformConcat(transform, matrixTransform);
+			
 			
 			// Apply to graphics context
 			CGContextConcatCTM(cgContext,transform);
@@ -1190,8 +1203,7 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 	curFlowRegion = nil;
 	[currentStyle release];
 	currentStyle = nil;
-	[currentSprite release];
-	currentSprite = nil;
+
 	
 }
 

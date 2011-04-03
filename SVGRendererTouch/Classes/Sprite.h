@@ -31,11 +31,23 @@
 @interface Sprite : NSObject
 {
 @public
+	//in path space
+	CGFloat minX;
+	CGFloat minY;
+	CGFloat maxX;
+	CGFloat maxY;
+	
+	//in relative image space
     CGRect boundingRect;
+	
 	BOOL isHighlighted;
 	NSString* name;
 
 }
+
+-(void) adjustBoundingBox:(CGPoint)pathPoint;
+-(void) finishCalBoundingBox:(CGAffineTransform)xform;
+
 @property (nonatomic) BOOL isHighlighted;
 @property (nonatomic) CGRect boundingRect;
 @property (nonatomic, copy) NSString* name;

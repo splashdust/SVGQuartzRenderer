@@ -163,8 +163,8 @@
 			if (initialDistance == 0)
 				initialDistance = -1;
 			
-			initialScaleX = svgRenderer.scaleX;
-			initialScaleY = svgRenderer.scaleY;			
+			initialScaleX = svgRenderer.globalScaleX;
+			initialScaleY = svgRenderer.globalScaleY;			
 
 
 
@@ -208,10 +208,10 @@
 				CGFloat currentDistance = [self distanceBetweenTwoPoints:point1
 																 toPoint:point2];
 				
-				float oldScale = svgRenderer.scaleX;
+				float oldScale = svgRenderer.globalScaleX;
 				float pinchScale = currentDistance / initialDistance;
-				svgRenderer.scaleX = initialScaleX * pinchScale;
-				svgRenderer.scaleY = initialScaleY * pinchScale;
+				svgRenderer.globalScaleX = initialScaleX * pinchScale;
+				svgRenderer.globalScaleY = initialScaleY * pinchScale;
 				
 		
 				 
@@ -221,7 +221,7 @@
 				 middle.y = (point1.y + point2.y)/2;
 				
 				 
-				float factor = svgRenderer.scaleX/oldScale;
+				float factor = svgRenderer.globalScaleX/oldScale;
 				
 				origin.x = (1-factor)*middle.x + factor*origin.x;
 				origin.y = (1-factor)*middle.y + factor*origin.y;
@@ -301,8 +301,8 @@
 				// (originBegin * finalScale + middle * ( finalScale - initialScale))/initialScale = originEnd
 								
 				
-				svgRenderer.offsetX = (svgRenderer.offsetX * svgRenderer.scaleX + middle.x * (svgRenderer.scaleX - initialScaleX))/initialScaleX;
-				svgRenderer.offsetY = (svgRenderer.offsetY * svgRenderer.scaleY + middle.y * (svgRenderer.scaleY - initialScaleY))/initialScaleY;
+				svgRenderer.offsetX = (svgRenderer.offsetX * svgRenderer.globalScaleX + middle.x * (svgRenderer.globalScaleX - initialScaleX))/initialScaleX;
+				svgRenderer.offsetY = (svgRenderer.offsetY * svgRenderer.globalScaleY + middle.y * (svgRenderer.globalScaleY - initialScaleY))/initialScaleY;
 				
 
 				origin = self.frame.origin;

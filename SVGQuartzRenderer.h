@@ -39,8 +39,8 @@
 @private
 	CGSize documentSize;
 	id<SVGQuartzRenderDelegate> delegate;
-	CGFloat scaleX;
-	CGFloat scaleY;
+	CGFloat globalScaleX;
+	CGFloat globalScaleY;
 	CGFloat currentScaleX;
 	CGFloat currentScaleY;
 	CGFloat offsetX;
@@ -72,9 +72,7 @@
 	
 	BOOL inDefSection;
 	
-	SVGStyle* currentStyle;
-	Sprite* currentSprite;
-	
+	SVGStyle* currentStyle;	
 	
 	NSMutableDictionary* sprites;
 	QuadTreeNode* rootNode;
@@ -82,8 +80,8 @@
 
 @property (readonly) CGSize documentSize;
 @property (readonly) id delegate;
-@property (readwrite) CGFloat scaleX;
-@property (readwrite) CGFloat scaleY;
+@property (readwrite) CGFloat globalScaleX;
+@property (readwrite) CGFloat globalScaleY;
 @property (readwrite) CGFloat offsetX;
 @property (readwrite) CGFloat offsetY;
 @property (readwrite) CGFloat rotation;

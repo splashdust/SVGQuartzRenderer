@@ -25,6 +25,7 @@
 
 
 #import "Sprite.h"
+#import "float.h"
 
 
 
@@ -33,5 +34,41 @@
 @synthesize isHighlighted;
 @synthesize boundingRect;
 @synthesize name;
+
+
+-(id) init
+{
+  if (self = [super init])
+  {
+	  minX = FLT_MAX;
+	  minY = FLT_MAX;
+	  maxX = FLT_MIN;
+	  maxY = FLT_MIN;
+	  
+  }
+	
+  return self; 	
+}
+
+-(void) adjustBoundingBox:(CGPoint)pathPoint
+{
+	if (pathPoint.x < minX)
+		minX = pathPoint.x;
+	if (pathPoint.y < minY)
+		minY = pathPoint.y;	
+	if (pathPoint.x > maxX)
+		maxX = pathPoint.x;
+	if (pathPoint.y > maxY)
+		maxY = pathPoint.y;		
+	
+}
+
+-(void) finishCalBoundingBox:(CGAffineTransform)xform
+{
+
+	boundingRect = CGRectMake(minX, minY, maxX-minX, maxY-minY);	
+	boundingRect = CGRectApplyAffineTransform(boundingRect, xform);
+	
+}
 
 @end
