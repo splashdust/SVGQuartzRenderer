@@ -119,7 +119,7 @@
 			panning = NO;	
 			if (tapCount == 2)
 			{
-				CGPoint relativeImagePoint = [svgRenderer relativeImagePointFromViewPoint:pt];
+				CGPoint relativeImagePoint = [svgRenderer scaledImagePointFromViewPoint:pt];
 				if (relativeImagePoint.x <= 1 && relativeImagePoint.y <= 1 && relativeImagePoint.x >= 0 && relativeImagePoint.y >= 0)
 				{
 					
@@ -272,6 +272,8 @@
 				
 				NSString* name = [svgRenderer find:point1];
 				
+				
+				[self open:filePath];		
 				
 			}
 

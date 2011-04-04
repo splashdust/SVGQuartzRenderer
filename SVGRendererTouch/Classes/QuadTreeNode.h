@@ -33,7 +33,7 @@
 
 
 
-#define MAX_NODE_CAPACITY   10
+#define MAX_NODE_CAPACITY   3
 
 
 @interface QuadTreeNode : NSObject
@@ -43,7 +43,7 @@
     NSMutableArray *sprites;
     BOOL isLeaf;
     QuadTreeNode *children[2][2];
-    int childWidth, childHeight;
+    float childWidth, childHeight;
 }
 - (id)initWithRect:(CGRect)r;
 - (void)addSprite:(Sprite *)sprite;

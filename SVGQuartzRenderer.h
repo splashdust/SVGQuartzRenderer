@@ -92,7 +92,7 @@
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
 - (CGContextRef)createBitmapContext;
--(CGPoint) relativeImagePointFromViewPoint:(CGPoint)viewPoint;
+-(CGPoint) scaledImagePointFromViewPoint:(CGPoint)viewPoint;
 -(void) center:(CGPoint)location withBoundingBox:(CGSize)box;
 -(NSString*) find:(CGPoint)viewPoint;
 

@@ -94,13 +94,11 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 	
 	
 	[self doCenter:CGPointMake(0.5,0.5) withBoundingBox:CGSizeMake(1,1)];
-
 	
 }
 
 
-
--(CGPoint) relativeImagePointFromViewPoint:(CGPoint)viewPoint
+-(CGPoint) scaledImagePointFromViewPoint:(CGPoint)viewPoint
 {
     float x = (offsetX + viewPoint.x)/(globalScaleX*width);
 	float y = (offsetY + viewPoint.y)/(globalScaleY*height);
@@ -138,7 +136,15 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 
 -(NSString*) find:(CGPoint)viewPoint
 {
-	NSArray* group = [rootNode groupContainingPoint:[self relativeImagePointFromViewPoint:viewPoint]];
+	// un-highlight all sprites
+	NSEnumerator *enumerator = [sprites keyEnumerator];
+	id key;
+	while ((key = [enumerator nextObject])) {
+		Sprite* sprite = [sprites objectForKey:key];
+		sprite.isHighlighted = NO;
+	}
+	
+	NSArray* group = [rootNode groupContainingPoint:[self scaledImagePointFromViewPoint:viewPoint]];
 	if (group != nil && [group count] > 0)
 	{
 	
@@ -348,7 +354,9 @@ didStartElement:(NSString *)elementName
 		if(inDefSection)
 			return;
 	
-		Sprite* sprite = [self currentSprite];
+		Sprite* currentSprite = [self currentSprite];
+		if ([currentSprite isInitialized])
+			currentSprite = nil;
 		
 		currPath = CGPathCreateMutable();
 		
@@ -592,8 +600,8 @@ didStartElement:(NSString *)elementName
 						prm_i++;
 					}
 					
-					if (sprite)
-						[sprite adjustBoundingBox:curPoint];
+					if (currentSprite)
+						[currentSprite adjustBoundingBox:curPoint];
 					
 					// Set initial point
 					if(firstVertex)
@@ -668,17 +676,16 @@ didStartElement:(NSString *)elementName
 		
 		currentStyle.styleString = [attrDict valueForKey:@"style"];
 		
-		if (sprite)
+		if (currentSprite)
 		{
 			//transform to non-offset image coordinates
 			CGAffineTransform temp = CGAffineTransformTranslate(transform, offsetX/currentScaleX, offsetY/currentScaleY);
 			
 			//scale down to relative image coordinates
-			temp = CGAffineTransformConcat(temp,
-												CGAffineTransformMakeScale(1.0/(globalScaleX*width),1.0/(globalScaleY*height) ));
+			temp = CGAffineTransformConcat(temp, CGAffineTransformMakeScale(1.0/(globalScaleX*width),1.0/(globalScaleY*height) ));
 
-			[sprite finishCalBoundingBox:temp];			
-			[rootNode addSprite:sprite];
+			[currentSprite finishCalcBoundingBox:temp];			
+			[rootNode addSprite:currentSprite];
 		}
 
 	}
@@ -992,10 +999,6 @@ didStartElement:(NSString *)elementName
 		[currentStyle setStyleContext:currentStyle.styleString withDefDict:defDict];
 	
 	Sprite* info = (Sprite*)[sprites objectForKey:currId];;
-	 if (info && ([info.name isEqualToString:@"starry_night"] || [info.name isEqualToString:@"self_portrait"]) )
-		 info.isHighlighted = YES; 
-
-	
 	FILL_COLOR oldColor;
 	if (info && info.isHighlighted)
 		[currentStyle setFillColorFromInt:0x00FF0000];

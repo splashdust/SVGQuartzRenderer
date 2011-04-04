@@ -45,10 +45,13 @@
 	  maxX = FLT_MIN;
 	  maxY = FLT_MIN;
 	  
+	  initialized = NO;
+	  
   }
 	
   return self; 	
 }
+
 
 -(void) adjustBoundingBox:(CGPoint)pathPoint
 {
@@ -63,12 +66,20 @@
 	
 }
 
--(void) finishCalBoundingBox:(CGAffineTransform)xform
+-(void) finishCalcBoundingBox:(CGAffineTransform)xform
 {
 
 	boundingRect = CGRectMake(minX, minY, maxX-minX, maxY-minY);	
 	boundingRect = CGRectApplyAffineTransform(boundingRect, xform);
 	
+	initialized = TRUE;
+	
+}
+
+-(BOOL) isInitialized
+{
+	
+	return initialized;	
 }
 
 @end

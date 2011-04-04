@@ -37,6 +37,8 @@
 	CGFloat maxX;
 	CGFloat maxY;
 	
+	BOOL initialized;
+	
 	//in relative image space
     CGRect boundingRect;
 	
@@ -46,7 +48,8 @@
 }
 
 -(void) adjustBoundingBox:(CGPoint)pathPoint;
--(void) finishCalBoundingBox:(CGAffineTransform)xform;
+-(void) finishCalcBoundingBox:(CGAffineTransform)xform;
+-(BOOL) isInitialized;
 
 @property (nonatomic) BOOL isHighlighted;
 @property (nonatomic) CGRect boundingRect;
