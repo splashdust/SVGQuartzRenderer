@@ -68,7 +68,8 @@
 		}
     } else {
 		BOOL visited[2][2] = {{NO,NO},{NO,NO}};
-		int i, j, x, y, xIndex, yIndex;
+		float x,y;
+		int i, j,xIndex, yIndex;
 		// Loop through the (x,y) coordinates of the four corners
 		// of the sprite's bounding rectangle.
 		for (i = 0; i < 2; i++) {
@@ -184,7 +185,7 @@
 	
 	 for (int i = 0; i < 2; i++) 
 	 {
-	     for (int j = 0; j < 2; i++) 
+	     for (int j = 0; j < 2; j++) 
 		 {
 			 if (children[i][j])
 			      [group addObjectsFromArray:[children[i][j] groupContainingPoint:point]];
