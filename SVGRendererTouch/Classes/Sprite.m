@@ -52,6 +52,21 @@
   return self; 	
 }
 
+-(id) initWithBoundingRect:(CGRect)rect
+{
+	
+	if (self = [super init])
+	{
+		boundingRect = rect;
+		
+		initialized = YES;
+		
+	}
+	
+	return self; 
+	
+}
+
 
 -(void) adjustBoundingBox:(CGPoint)pathPoint
 {
@@ -68,10 +83,8 @@
 
 -(void) finishCalcBoundingBox:(CGAffineTransform)xform
 {
-
-	boundingRect = CGRectMake(minX, minY, maxX-minX, maxY-minY);	
-	boundingRect = CGRectApplyAffineTransform(boundingRect, xform);
 	
+	boundingRect = CGRectApplyAffineTransform(CGRectMake(minX, minY, maxX-minX, maxY-minY), xform);	
 	initialized = TRUE;
 	
 }

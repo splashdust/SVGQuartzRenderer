@@ -27,11 +27,8 @@
 @class QuadTreeNode;
 
 @protocol SVGQuartzRenderDelegate
-
 	- (void)svgRenderer:(id)renderer finishedRenderingInCGContext:(CGContextRef)context;
 	- (CGContextRef)svgRenderer:(id)renderer requestedCGContextWithSize:(CGSize)size;
-//    -(void) svgRenderer:(id)renderer tapped:(NSString*)name;
- //   -(void) svgRenderer:(id)renderer doubleTapped:(NSString*)name;
 @end
 
 
@@ -88,6 +85,7 @@
 @property (readwrite) CGRect viewFrame;
 @property (readwrite, copy) NSString* curLayerName;
 
+-(void) setSprites:(NSArray*)someSprites;
 - (void) resetScale;
 - (void)drawSVGFile:(NSString *)file;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;

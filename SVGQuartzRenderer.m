@@ -70,6 +70,23 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
     return self;
 }
 
+-(void) setSprites:(NSArray*)someSprites
+{
+   if (!someSprites)
+	   return;
+	for (int i = 0; i < [someSprites count]; ++i)
+	{
+		Sprite* newSprite = [someSprites objectAtIndex:i];
+		Sprite* oldSprite = [sprites objectForKey:newSprite.name];
+		if (!oldSprite)
+		{
+			[sprites setObject:newSprite forKey:newSprite.name];	
+		}
+	}
+	
+	
+}
+
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate
 {
 	delegate = rendererDelegate;

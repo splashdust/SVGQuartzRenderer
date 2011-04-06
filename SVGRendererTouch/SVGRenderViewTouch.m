@@ -124,7 +124,7 @@
 				{
 					
 					//show text if a star is highlighted
-					//[self locate:relativeImagePoint withBoundingBox:CGSizeMake(0.3,0.3)];
+					//use selectedLocation, and call delegate method
 					
 					
 				} else {					
@@ -249,6 +249,24 @@
 	{
         case 1:
             panning = NO;
+			UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];				
+			CGPoint point1 = [touch1 locationInView:self];
+			//highlight nearby star				
+			NSString* name = [svgRenderer find:point1];
+			BOOL doRender = NO;
+			if (!name)
+				doRender = selectedLocation ? YES : NO;	
+			else
+				doRender = ![name isEqualToString:selectedLocation];
+			
+			if (doRender)
+				[self open:filePath];
+			
+			if (!name)
+				selectedLocation = nil;
+			else 
+				selectedLocation = [NSString stringWithString:name];	
+			
 			if (origin.x != self.frame.origin.x || origin.y != self.frame.origin.y)
 			{
 				
@@ -258,25 +276,11 @@
 				//shift origin in renderer
 				svgRenderer.offsetX -= (origin.x - self.frame.origin.x);
 				svgRenderer.offsetY -= (origin.y - self.frame.origin.y);
-				origin = self.frame.origin;
-				
+				origin = self.frame.origin;				
 			
 				[self open:filePath];	
 				
-			}else {
-				
-				
-				UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];				
-				CGPoint point1 = [touch1 locationInView:self];
-				//highlight nearby star
-				
-				NSString* name = [svgRenderer find:point1];
-				
-				
-				[self open:filePath];		
-				
 			}
-
 			break;
         default:
 			if (initialDistance > 0)

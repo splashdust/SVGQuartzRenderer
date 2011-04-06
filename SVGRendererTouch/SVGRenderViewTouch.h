@@ -33,9 +33,8 @@
 	CGFloat initialScaleY;
 	BOOL panning;
 	SVGQuartzRenderer *svgRenderer;
-	CGContextRef viewContext;
 	NSString* filePath;
-	
+	NSString* selectedLocation;
 	CALayer* svgLayer;
 }
 

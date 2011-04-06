@@ -47,6 +47,7 @@
 
 }
 
+-(id) initWithBoundingRect:(CGRect)rect;
 -(void) adjustBoundingBox:(CGPoint)pathPoint;
 -(void) finishCalcBoundingBox:(CGAffineTransform)xform;
 -(BOOL) isInitialized;
