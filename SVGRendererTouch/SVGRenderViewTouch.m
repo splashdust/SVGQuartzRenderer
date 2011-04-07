@@ -31,7 +31,7 @@
 
 @implementation SVGRenderViewTouch
 
-@synthesize filePath;
+@synthesize filePath, selectedLocation;
 
 
 
@@ -55,6 +55,12 @@
 		
     }
     return self;
+}
+
+-(void) setSprites:(NSArray*)someSprites
+{
+	[svgRenderer setSprites:someSprites];	
+	
 }
 
 -(void) open:(NSString*)path{
