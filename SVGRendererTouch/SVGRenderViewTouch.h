@@ -23,8 +23,15 @@
 #import <UIKit/UIKit.h>
 #import "SVGQuartzRenderer.h"
 
+@protocol SVGRenderViewTouchDelegate
+  - (void) doubleTap:(NSString*)location;
+  - (void) singleTap:(NSString*)location;
+@end
+
+
 @interface SVGRenderViewTouch : UIView <SVGQuartzRenderDelegate> {
 @private
+	id<SVGRenderViewTouchDelegate> delegate;
 	CGPoint origin;
 	CGImageRef svgDrawing;
 	CGFloat initialDistance;
@@ -41,6 +48,7 @@
 -(void) open:(NSString*)path;
 -(void) locate:(CGPoint)location withBoundingBox:(CGSize)box;
 -(void) setSprites:(NSArray*)someSprites;
+-(void) setDelegate:(id<SVGRenderViewTouchDelegate>)del;
 
 @property (nonatomic, copy) NSString* filePath;
 @property (nonatomic, copy) NSString* selectedLocation;

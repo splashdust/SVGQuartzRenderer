@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SVGRenderViewTouch.h"
 
-@interface SVGRendererTouchAppDelegate : NSObject <UIApplicationDelegate> {
+@interface SVGRendererTouchAppDelegate : NSObject <UIApplicationDelegate, SVGRenderViewTouchDelegate> {
     UIWindow *window;
 }
 

@@ -57,6 +57,11 @@
     return self;
 }
 
+-(void) setDelegate:(id<SVGRenderViewTouchDelegate>)del
+{
+	delegate = del;	  
+}
+
 -(void) setSprites:(NSArray*)someSprites
 {
 	[svgRenderer setSprites:someSprites];	
@@ -131,6 +136,8 @@
 					
 					//show text if a star is highlighted
 					//use selectedLocation, and call delegate method
+					if (delegate)
+						[delegate doubleTap:selectedLocation];
 					
 					
 				} else {					

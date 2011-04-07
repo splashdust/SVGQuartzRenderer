@@ -38,8 +38,8 @@
 	[topView addSubview:svgView];
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"map" ofType:@"svg"];
 	[svgView open:path];
-
-
+ 
+	[svgView setDelegate:self];
 	[svgView release];
     
     return YES;
@@ -99,5 +99,17 @@
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark SVGRenderViewTouchDelegate methods
+
+- (void) doubleTap:(NSString*)location
+{
+	
+}
+- (void) singleTap:(NSString*)location
+{
+	
+	
+}
 
 @end
