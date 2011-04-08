@@ -269,10 +269,7 @@
 			if (!name)
 				doRender = selectedLocation ? YES : NO;	
 			else
-				doRender = ![name isEqualToString:selectedLocation];
-			
-			if (delegate)
-				[delegate singleTap:selectedLocation];
+				doRender = ![name isEqualToString:selectedLocation];			
 			
 			if (doRender)
 				[self open:filePath];
@@ -281,6 +278,10 @@
 				selectedLocation = nil;
 			else 
 				selectedLocation = [NSString stringWithString:name];	
+			
+			if (delegate)
+				[delegate singleTap:selectedLocation];
+
 			
 			if (origin.x != self.frame.origin.x || origin.y != self.frame.origin.y)
 			{
