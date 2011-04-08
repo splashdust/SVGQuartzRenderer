@@ -134,7 +134,6 @@
 				if (relativeImagePoint.x <= 1 && relativeImagePoint.y <= 1 && relativeImagePoint.x >= 0 && relativeImagePoint.y >= 0)
 				{
 					
-					//show text if a star is highlighted
 					//use selectedLocation, and call delegate method
 					if (delegate)
 						[delegate doubleTap:selectedLocation];
@@ -271,6 +270,9 @@
 				doRender = selectedLocation ? YES : NO;	
 			else
 				doRender = ![name isEqualToString:selectedLocation];
+			
+			if (delegate)
+				[delegate singleTap:selectedLocation];
 			
 			if (doRender)
 				[self open:filePath];
