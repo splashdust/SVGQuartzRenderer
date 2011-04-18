@@ -239,6 +239,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SVGRendererTouch-Info.plist";
 				PRODUCT_NAME = SVGRendererTouch;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};

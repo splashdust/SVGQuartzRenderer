@@ -38,7 +38,7 @@
 
 -(id) init
 {
-  if (self = [super init])
+  if ((self = [super init]))
   {
 	  minX = FLT_MAX;
 	  minY = FLT_MAX;
@@ -55,7 +55,7 @@
 -(id) initWithBoundingRect:(CGRect)rect
 {
 	
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		boundingRect = rect;
 		

@@ -718,7 +718,7 @@ didStartElement:(NSString *)elementName
 		if(curFlowRegion)
 			return;
 		
-		Sprite* sprite =  [self currentSprite];
+	//Sprite* sprite =  [self currentSprite];
 		
 		float xPos = [[attrDict valueForKey:@"x"] floatValue];
 		float yPos = [[attrDict valueForKey:@"y"] floatValue];
@@ -761,13 +761,13 @@ didStartElement:(NSString *)elementName
 			return;
 		}
 		
-		Sprite* sprite =  [self currentSprite];
+	//	Sprite* sprite =  [self currentSprite];
 
 		
 		NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@" \n"];
 		
 		// Extract the fill-rule attribute
-		NSString* fill_rule = [attrDict valueForKey:@"fill-rule"];
+	//	NSString* fill_rule = [attrDict valueForKey:@"fill-rule"];
 		
 		
 		// Respect the 'fill' attribute
@@ -931,7 +931,8 @@ didStartElement:(NSString *)elementName
  qualifiedName:(NSString *)qName
 {
 	if([elementName isEqualToString:@"svg"]) {
-		delegate?[delegate svgRenderer:self finishedRenderingInCGContext:cgContext]:nil;
+        if (delegate)
+		    [delegate svgRenderer:self finishedRenderingInCGContext:cgContext];
 		[self cleanupAfterFinishedParsing];
 	}
 	

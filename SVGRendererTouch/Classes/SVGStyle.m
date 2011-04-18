@@ -64,7 +64,7 @@
 
 
 - (id)init {
-    if (self = [super init]) {
+    if ((self = [super init])) {
       	 doStroke = NO;
 		strokeColor = 0;
 		 strokeWidth = 1.0;

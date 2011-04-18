@@ -76,7 +76,7 @@
 }
 
 @property (readonly) CGSize documentSize;
-@property (readonly) id delegate;
+@property (readonly) id<SVGQuartzRenderDelegate> delegate;
 @property (readwrite) CGFloat globalScaleX;
 @property (readwrite) CGFloat globalScaleY;
 @property (readwrite) CGFloat offsetX;

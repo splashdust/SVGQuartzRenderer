@@ -8,3 +8,6 @@ SVGRender.xcodeproj/*.perspectivev3
 SVGRendererTouch/SVGRendererTouch.xcodeproj/*.mode1v3
 SVGRendererTouch/SVGRendererTouch.xcodeproj/*.pbxuser
 SVGRendererTouch/SVGRendererTouch.xcodeproj/*.perspectivev3
+SVGRendererTouch/SVGRendererTouch.xcodeproj/xcuserdata
+SVGRendererTouch/SVGRendererTouch.xcodeproj/project.xcworkspace
+
