@@ -29,6 +29,8 @@
 
 @end
 
+CGPoint middle;
+
 @implementation SVGRenderViewTouch
 
 @synthesize filePath, selectedLocation;
@@ -168,6 +170,9 @@
 			
 			CGPoint viewPoint1 = [touch1 locationInView:self];
 			CGPoint viewPoint2 = [touch2 locationInView:self];
+            
+            middle.x = (viewPoint1.x + viewPoint2.x)/2;
+            middle.y = (viewPoint1.y + viewPoint2.y)/2;
 			
 
 			initialDistance = [self distanceBetweenTwoPoints:viewPoint1 toPoint:viewPoint2]; 	
@@ -224,13 +229,6 @@
 				float pinchScale = currentDistance / initialDistance;
 				svgRenderer.globalScaleX = initialScaleX * pinchScale;
 				svgRenderer.globalScaleY = initialScaleY * pinchScale;
-				
-		
-				 
-				 //fix point in middle of two touches during zoom 
-				 CGPoint middle;
-				 middle.x = (point1.x + point2.x)/2;
-				 middle.y = (point1.y + point2.y)/2;
 				
 				 
 				float factor = svgRenderer.globalScaleX/oldScale;
@@ -305,19 +303,8 @@
 				svgLayer.frame = CGRectMake(self.frame.origin.x,self.frame.origin.y, svgRenderer.documentSize.width, 
 											svgRenderer.documentSize.height);
 				
-				
-				UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
-				UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
-				
-				CGPoint point1 = [touch1 locationInView:self];
-				CGPoint point2 = [touch2 locationInView:self];
 								
-				
-				//fix point in middle of two touches during zoom 
-				CGPoint middle;
-				middle.x = (point1.x + point2.x)/2;
-				middle.y = (point1.y + point2.y)/2;
-				
+
 				// (originBegin + middle)/initialScale = (originEnd + middle)/finalScale
 				// originBegin * finalScale + middle * finalScale = originEnd * initialScale + middle * initialScale
 				// (originBegin * finalScale + middle * ( finalScale - initialScale))/initialScale = originEnd

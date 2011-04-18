@@ -57,7 +57,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 - (id)init {
     self = [super init];
     if (self) {
-        xmlParser = [NSXMLParser alloc];
+
 		offsetX = 0;
 		offsetY = 0;
 		rotation = 0;
@@ -96,11 +96,13 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 - (void)drawSVGFile:(NSString *)file
 {
 	if (svgXml == nil)
+    {
 	    svgXml = [NSData dataWithContentsOfFile:file];
-	xmlParser = [xmlParser initWithData:svgXml];
-	
-	[xmlParser setDelegate:self];
-	[xmlParser setShouldResolveExternalEntities:NO];
+        xmlParser = [[NSXMLParser alloc] initWithData:svgXml];
+ 
+        [xmlParser setDelegate:self];
+        [xmlParser setShouldResolveExternalEntities:NO];
+    }
 	[xmlParser parse];
 }
 
