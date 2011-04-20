@@ -27,10 +27,13 @@
 #import "math.h"
 #import "float.h"
 #import "QuadTreeNode.h"
+#import "PathFrag.h"
 
 @interface SVGQuartzRenderer (hidden)
 
-    - (void)drawPath;
+    - (void) prepareToDraw;
+     -(void) drawPath;
+    - (void)drawPath:(CGPathRef)path withStyle:(SVGStyle*)style;
 	- (void)applyTransformations:(NSString *)transformations;
 	- (void) cleanupAfterFinishedParsing;
 
@@ -51,8 +54,7 @@
 @synthesize globalScaleX, globalScaleY, offsetX, offsetY,rotation;
 @synthesize curLayerName;
 
-typedef void (*CGPatternDrawPatternCallback) (void * info,
-											  CGContextRef context);
+typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context);
 
 - (id)init {
     self = [super init];
@@ -62,6 +64,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 		offsetY = 0;
 		rotation = 0;
 		sprites = [NSMutableDictionary new];
+        fragments = [NSMutableArray new];
 		firstRender = YES;
 		inDefSection = NO;
 		rootNode = [[QuadTreeNode alloc] initWithRect:CGRectMake(0,0,1,1)]; 
@@ -104,6 +107,20 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
         [xmlParser setShouldResolveExternalEntities:NO];
     }
 	[xmlParser parse];
+}
+
+-(void) redraw
+{
+    [self prepareToDraw];
+    for (int i = 0; i < [fragments count]; ++i)
+    {
+        PathFrag* frag = (PathFrag*)[fragments objectAtIndex:i];
+        [frag draw:cgContext];
+    }
+    if (delegate)
+        [delegate svgRenderer:self finishedRenderingInCGContext:cgContext];
+    
+    
 }
 
 - (void) resetScale
@@ -176,6 +193,21 @@ typedef void (*CGPatternDrawPatternCallback) (void * info,
 	
 }
 
+- (void) prepareToDraw
+{
+    if(delegate) {
+        
+        cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
+    }
+    
+    //default transformation
+    transform = CGAffineTransformScale(CGAffineTransformIdentity, globalScaleX, globalScaleY);	
+    if (rotation != 0)
+        transform = CGAffineTransformRotate(transform, rotation);	
+    transform = CGAffineTransformTranslate(transform, -offsetX/globalScaleX, -offsetY/globalScaleY);
+    CGContextConcatCTM(cgContext,transform);
+    
+}
 
 // Element began
 // -----------------------------------------------------------------------------
@@ -215,17 +247,7 @@ didStartElement:(NSString *)elementName
 			firstRender = NO;
 		} 
 			
-		if(delegate) {
-			
-			cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
-		}
-		
-		//default transformation
-	    transform = CGAffineTransformScale(CGAffineTransformIdentity, globalScaleX, globalScaleY);	
-		if (rotation != 0)
-			transform = CGAffineTransformRotate(transform, rotation);	
-		transform = CGAffineTransformTranslate(transform, -offsetX/globalScaleX, -offsetY/globalScaleY);
-	    CGContextConcatCTM(cgContext,transform);
+        [self prepareToDraw];
 		
 		currentStyle = [SVGStyle new];	
 	}
@@ -946,18 +968,12 @@ didStartElement:(NSString *)elementName
 
 	else if([elementName isEqualToString:@"path"]) {
 		[self drawPath];
-		CGPathRelease(currPath);
-		currPath = NULL;
 	}
 	else if([elementName isEqualToString:@"rect"]) {
-		[self drawPath];
-		CGPathRelease(currPath);
-		currPath = NULL;
+        [self drawPath];
 	}
 	else if([elementName isEqualToString:@"polygon"]) {
 		[self drawPath];
-		CGPathRelease(currPath);
-		currPath = NULL;
 	}
 	else if([elementName isEqualToString:@"text"]) {
 		if(curText) {
@@ -1009,23 +1025,32 @@ didStartElement:(NSString *)elementName
 	
 }
 
-
+-(void) drawPath
+{
+    PathFrag* frag = [[PathFrag alloc] initWithPath:currPath style:currentStyle transform:transform];
+    [fragments addObject:frag];
+    [frag release];
+    
+    [self drawPath:currPath withStyle:currentStyle];
+    CGPathRelease(currPath);
+    currPath = NULL;
+}
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
-- (void)drawPath
+- (void)drawPath:(CGPathRef)path withStyle:(SVGStyle*)style
 {		
 	CGContextSaveGState(cgContext);
-	if(currentStyle.styleString)
-		[currentStyle setStyleContext:currentStyle.styleString withDefDict:defDict];
+	if(style.styleString)
+		[style setStyleContext:currentStyle.styleString withDefDict:defDict];
 	
 	Sprite* info = (Sprite*)[sprites objectForKey:currId];;
 	FILL_COLOR oldColor;
 	if (info && info.isHighlighted)
-		[currentStyle setFillColorFromInt:0x00FF0000];
+		[style setFillColorFromInt:0x00FF0000];
 	
-    [currentStyle drawPath:currPath withContext:cgContext];	
+    [style drawPath:path withContext:cgContext];	
 	if (info && info.isHighlighted)
-	  currentStyle.fillColor = oldColor;
+	  style.fillColor = oldColor;
 	CGContextRestoreGState(cgContext);
 	
 }
@@ -1204,6 +1229,8 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 	[self cleanupAfterFinishedParsing];
 	[xmlParser release];
 	[sprites release];
+    
+    [fragments release];
 	[rootNode release];
 	[super dealloc];
 }

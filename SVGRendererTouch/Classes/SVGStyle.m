@@ -91,9 +91,9 @@
 	another.lineJoinStyle = lineJoinStyle;
 	another.lineCapStyle = lineCapStyle;
 	another.miterLimit = miterLimit;
-	another.fillPattern = NULL;
+	another.fillPattern = CGPatternRetain(fillPattern);
 	another.fillType = fillType;
-	another.fillGradient = NULL;
+	another.fillGradient = CGGradientRetain(fillGradient);
 	another.fillGradientPoints = fillGradientPoints;
 	another.fillGradientAngle = fillGradientAngle;
 	another.fillGradientCenterPoint = fillGradientCenterPoint;
@@ -122,6 +122,12 @@
 	fillGradientAngle = 0;
 	fillGradientCenterPoint = CGPointMake(0, 0);
 	styleString = nil;
+    [font release];
+	font = nil;
+	CGGradientRelease(fillGradient);
+	fillGradient = NULL;
+	CGPatternRelease(fillPattern);
+	fillPattern = NULL;
 }
 
 
@@ -418,7 +424,7 @@
 
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
-- (void)drawPath:(CGMutablePathRef)path withContext:(CGContextRef)context
+- (void)drawPath:(CGPathRef)path withContext:(CGContextRef)context
 {				
 	if(doFill) {
 		if ([fillType isEqualToString:@"solid"]) {
@@ -524,12 +530,7 @@ CGImageRef imageFromBase64(NSString *b64Data)
 
 - (void)dealloc
 {
-	[font release];
-	font = nil;
-	CGGradientRelease(fillGradient);
-	fillGradient = NULL;
-	CGPatternRelease(fillPattern);
-	fillPattern = NULL;
+	[self reset];
 	[super dealloc];
 }
 

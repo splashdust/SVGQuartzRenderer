@@ -19,6 +19,8 @@
 		F10A772A133B7C2500C8F3D4 /* SVGStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F10A7729133B7C2500C8F3D4 /* SVGStyle.m */; };
 		F10D76D8126D51CC00D5CA7A /* text.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D7126D51CC00D5CA7A /* text.svg */; };
 		F10D76DA126D51D700D5CA7A /* skull.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D9126D51D700D5CA7A /* skull.svg */; };
+		F12576A3135DC4DB00D6249F /* GraphicFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A2135DC4DB00D6249F /* GraphicFrag.m */; };
+		F12576A6135DC5FB00D6249F /* PathFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A5135DC5FB00D6249F /* PathFrag.m */; };
 		F1625B061288DC10003129E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1625B051288DC10003129E2 /* QuartzCore.framework */; };
 		F1E1603E132B0AA800836330 /* drawing.svg in Resources */ = {isa = PBXBuildFile; fileRef = F1E1603D132B0AA800836330 /* drawing.svg */; };
 		F1FE97681269523100F6D66F /* SVGRenderViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FE97671269523100F6D66F /* SVGRenderViewTouch.m */; };
@@ -47,6 +49,10 @@
 		F10A7729133B7C2500C8F3D4 /* SVGStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyle.m; sourceTree = "<group>"; };
 		F10D76D7126D51CC00D5CA7A /* text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = text.svg; path = ../Resources/text.svg; sourceTree = SOURCE_ROOT; };
 		F10D76D9126D51D700D5CA7A /* skull.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = skull.svg; path = ../Resources/skull.svg; sourceTree = SOURCE_ROOT; };
+		F12576A1135DC4DB00D6249F /* GraphicFrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicFrag.h; sourceTree = "<group>"; };
+		F12576A2135DC4DB00D6249F /* GraphicFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphicFrag.m; sourceTree = "<group>"; };
+		F12576A4135DC5FA00D6249F /* PathFrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFrag.h; sourceTree = "<group>"; };
+		F12576A5135DC5FB00D6249F /* PathFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathFrag.m; sourceTree = "<group>"; };
 		F1625B051288DC10003129E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F1E1603D132B0AA800836330 /* drawing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = drawing.svg; path = ../Resources/drawing.svg; sourceTree = SOURCE_ROOT; };
 		F1FE97661269523100F6D66F /* SVGRenderViewTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGRenderViewTouch.h; sourceTree = SOURCE_ROOT; };
@@ -90,6 +96,10 @@
 				F102760913452147004F7796 /* QuadTreeNode.m */,
 				F102760B13452161004F7796 /* Sprite.h */,
 				F102760C13452161004F7796 /* Sprite.m */,
+				F12576A1135DC4DB00D6249F /* GraphicFrag.h */,
+				F12576A2135DC4DB00D6249F /* GraphicFrag.m */,
+				F12576A4135DC5FA00D6249F /* PathFrag.h */,
+				F12576A5135DC5FB00D6249F /* PathFrag.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -221,6 +231,8 @@
 				F10A772A133B7C2500C8F3D4 /* SVGStyle.m in Sources */,
 				F102760A13452147004F7796 /* QuadTreeNode.m in Sources */,
 				F102760D13452161004F7796 /* Sprite.m in Sources */,
+				F12576A3135DC4DB00D6249F /* GraphicFrag.m in Sources */,
+				F12576A6135DC5FB00D6249F /* PathFrag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

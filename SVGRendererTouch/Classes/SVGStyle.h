@@ -100,7 +100,7 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 - (void) setFillColorFromAttribute:(NSString *)attr;
 - (void) setFillColorFromInt:(unsigned int)color;
 - (void)setStyleContext:(NSString *)style withDefDict:(NSDictionary*)defDict;
-- (void)drawPath:(CGMutablePathRef)path withContext:(CGContextRef)context;
+- (void)drawPath:(CGPathRef)path withContext:(CGContextRef)context;
 -(void) setUpStroke:(CGContextRef)context;
 +(unsigned int) extractColorFromAttribute:(NSString*)attr;
 

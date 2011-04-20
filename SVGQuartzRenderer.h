@@ -64,13 +64,13 @@
 	NSString* curLayerName;
 	NSDictionary *curText;
 	NSDictionary *curFlowRegion;
+    
+	SVGStyle* currentStyle;	    
 	CGMutablePathRef currPath;
-	NSString* currId;
-	
-	BOOL inDefSection;
-	
-	SVGStyle* currentStyle;	
-	
+	NSString* currId;	
+	BOOL inDefSection;	
+    
+	NSMutableArray* fragments;
 	NSMutableDictionary* sprites;
 	QuadTreeNode* rootNode;
 }
@@ -87,7 +87,9 @@
 
 -(void) setSprites:(NSArray*)someSprites;
 - (void) resetScale;
+
 - (void)drawSVGFile:(NSString *)file;
+-(void) redraw;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
 - (CGContextRef)createBitmapContext;
 -(CGPoint) scaledImagePointFromViewPoint:(CGPoint)viewPoint;

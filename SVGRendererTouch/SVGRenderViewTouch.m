@@ -269,8 +269,6 @@ CGPoint middle;
 			else
 				doRender = ![name isEqualToString:selectedLocation];			
 			
-			if (doRender)
-				[self open:filePath];
 			
 			if (!name)
 				selectedLocation = nil;
@@ -292,9 +290,12 @@ CGPoint middle;
 				svgRenderer.offsetY -= (origin.y - self.frame.origin.y);
 				origin = self.frame.origin;				
 			
-				[self open:filePath];	
-				
+					
+				doRender = true;
 			}
+            if (doRender)
+                //[self open:filePath];
+                [svgRenderer redraw];
 			break;
         default:
 			if (initialDistance > 0)
