@@ -43,7 +43,6 @@
 	NSString* filePath;
 	NSString* selectedLocation;
 	CALayer* svgLayer;
-    CGAffineTransform layerTransform;
 }
 
 -(void) open:(NSString*)path;

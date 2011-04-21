@@ -251,10 +251,12 @@
 						
 						
 						CGGradientRelease(fillGradient);
-						fillGradient = CGGradientCreateWithColorComponents(CGColorSpaceCreateDeviceRGB(),
+                        CGColorSpaceRef colourSpace = CGColorSpaceCreateDeviceRGB();
+						fillGradient = CGGradientCreateWithColorComponents(colourSpace,
 																						colors, 
 																						locations,
 																						[stops count]);
+                        CGColorSpaceRelease(colourSpace);
 					}
 				}
 			} else {

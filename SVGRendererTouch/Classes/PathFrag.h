@@ -11,9 +11,9 @@
 
 @interface PathFrag : GraphicFrag {
 @private
-   	CGMutablePathRef path; 
+   	CGPathRef path; 
 }
-@property (nonatomic) CGMutablePathRef path;
+@property (nonatomic) CGPathRef path;
 
--(id) initWithPath:(CGPathRef)apath style:(SVGStyle*) astyle transform:(CGAffineTransform)atransform;
+-(void) wrap:(CGPathRef)apath style:(SVGStyle*) astyle transform:(CGAffineTransform)atransform;
 @end

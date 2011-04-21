@@ -147,7 +147,7 @@ CGPoint middle;
 					svgRenderer.offsetY = self.frame.origin.y;
 					[svgRenderer resetScale];
 					
-					[self open:filePath];
+                    [svgRenderer redraw];
 					initialScaleX = -1;
 					initialScaleY = -1;
 
@@ -294,7 +294,6 @@ CGPoint middle;
 				doRender = true;
 			}
             if (doRender)
-                //[self open:filePath];
                 [svgRenderer redraw];
 			break;
         default:
@@ -317,7 +316,7 @@ CGPoint middle;
 
 				origin = self.frame.origin;
 				
-				[self open:filePath];									
+				 [svgRenderer redraw];									
 			}
 			initialDistance = -1;			
             break;

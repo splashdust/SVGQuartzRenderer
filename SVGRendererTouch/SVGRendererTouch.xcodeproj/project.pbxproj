@@ -45,6 +45,7 @@
 		F102760B13452161004F7796 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		F102760C13452161004F7796 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
 		F104A1741319E77100E91D4F /* map.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map.svg; sourceTree = "<group>"; };
+		F1060337135FBE3D00840593 /* IDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; path = IDrawable.h; sourceTree = "<group>"; };
 		F10A7728133B7C2500C8F3D4 /* SVGStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyle.h; sourceTree = "<group>"; };
 		F10A7729133B7C2500C8F3D4 /* SVGStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyle.m; sourceTree = "<group>"; };
 		F10D76D7126D51CC00D5CA7A /* text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = text.svg; path = ../Resources/text.svg; sourceTree = SOURCE_ROOT; };
@@ -100,6 +101,7 @@
 				F12576A2135DC4DB00D6249F /* GraphicFrag.m */,
 				F12576A4135DC5FA00D6249F /* PathFrag.h */,
 				F12576A5135DC5FB00D6249F /* PathFrag.m */,
+				F1060337135FBE3D00840593 /* IDrawable.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

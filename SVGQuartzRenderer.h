@@ -42,7 +42,6 @@
 	CGFloat currentScaleY;
 	CGFloat offsetX;
 	CGFloat offsetY;
-	CGFloat rotation;
 	CGRect viewFrame;
 	float initialScaleX ;
 	float initialScaleY ;
@@ -81,7 +80,6 @@
 @property (readwrite) CGFloat globalScaleY;
 @property (readwrite) CGFloat offsetX;
 @property (readwrite) CGFloat offsetY;
-@property (readwrite) CGFloat rotation;
 @property (readwrite) CGRect viewFrame;
 @property (readwrite, copy) NSString* curLayerName;
 

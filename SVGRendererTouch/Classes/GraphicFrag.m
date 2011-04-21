@@ -28,16 +28,13 @@
     
 }
 
--(id) initWithStyle:(SVGStyle*)astyle transform:(CGAffineTransform)atransform
+-(void) wrap:(SVGStyle*)astyle transform:(CGAffineTransform)atransform
 {
-    if ( (self = [super init]) )
-    {
-        self.style = [astyle copyWithZone:nil];
-        self.transform = atransform;
-        
-    }
-    return self;
-    
+
+    self.style = astyle;
+    self.transform = atransform;
+
+
 }
 
 - (void)dealloc

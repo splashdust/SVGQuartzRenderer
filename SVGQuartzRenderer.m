@@ -51,7 +51,7 @@
 @synthesize viewFrame;
 @synthesize documentSize;
 @synthesize delegate;
-@synthesize globalScaleX, globalScaleY, offsetX, offsetY,rotation;
+@synthesize globalScaleX, globalScaleY, offsetX, offsetY;
 @synthesize curLayerName;
 
 typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context);
@@ -62,7 +62,6 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 		offsetX = 0;
 		offsetY = 0;
-		rotation = 0;
 		sprites = [NSMutableDictionary new];
         fragments = [NSMutableArray new];
 		firstRender = YES;
@@ -111,7 +110,17 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 -(void) redraw
 {
-    [self prepareToDraw];
+   // [self drawSVGFile:nil];
+   
+    if(delegate) {
+        
+        CGContextRelease(cgContext);
+        cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
+    }
+    
+    transform = CGAffineTransformScale(CGAffineTransformIdentity, globalScaleX, globalScaleY);	
+    transform = CGAffineTransformTranslate(transform, -offsetX/globalScaleX, -offsetY/globalScaleY);
+    CGContextConcatCTM(cgContext,transform);
     for (int i = 0; i < [fragments count]; ++i)
     {
         PathFrag* frag = (PathFrag*)[fragments objectAtIndex:i];
@@ -119,6 +128,8 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
     }
     if (delegate)
         [delegate svgRenderer:self finishedRenderingInCGContext:cgContext];
+    
+    [self cleanupAfterFinishedParsing];
     
     
 }
@@ -197,13 +208,12 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 {
     if(delegate) {
         
+        CGContextRelease(cgContext);
         cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
     }
     
     //default transformation
     transform = CGAffineTransformScale(CGAffineTransformIdentity, globalScaleX, globalScaleY);	
-    if (rotation != 0)
-        transform = CGAffineTransformRotate(transform, rotation);	
     transform = CGAffineTransformTranslate(transform, -offsetX/globalScaleX, -offsetY/globalScaleY);
     CGContextConcatCTM(cgContext,transform);
     
@@ -1027,13 +1037,16 @@ didStartElement:(NSString *)elementName
 
 -(void) drawPath
 {
-    PathFrag* frag = [[PathFrag alloc] initWithPath:currPath style:currentStyle transform:transform];
-    [fragments addObject:frag];
-    [frag release];
     
     [self drawPath:currPath withStyle:currentStyle];
-    CGPathRelease(currPath);
-    currPath = NULL;
+    
+    PathFrag* frag = [PathFrag new];
+    [frag wrap:currPath style:currentStyle transform:transform];
+    [currentStyle release];
+    currentStyle = [SVGStyle new];
+    [fragments addObject:frag];
+    [frag release];
+
 }
 // Draw a path based on style information
 // -----------------------------------------------------------------------------
@@ -1105,10 +1118,6 @@ didStartElement:(NSString *)elementName
 			if (currentScaleX != 1.0 || currentScaleY != 1.0)
 				transform = CGAffineTransformMakeScale(currentScaleX, currentScaleY);
 			
-			//global rotation (assumes no local rotation)
-			if (rotation != 0)
-				transform = CGAffineTransformRotate(transform, rotation);
-			
 			
 			CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx, ty);
 
@@ -1146,14 +1155,14 @@ didStartElement:(NSString *)elementName
 	
 	
 	// Rotate
-	float currentRotation = rotation;
+	float currentRotation = 0;
 	BOOL hasRotate = [scanner scanString:@"rotate(" intoString:nil];
 	if (hasRotate)
 	{
 		[scanner scanUpToString:@")" intoString:&value];
 		
 		if(value)
-			currentRotation += [value floatValue];
+			currentRotation = [value floatValue];
 		
 	}
 	

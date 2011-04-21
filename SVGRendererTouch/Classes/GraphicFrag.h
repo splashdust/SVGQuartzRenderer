@@ -8,17 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "SVGStyle.h"
+#import "IDrawable.h"
 
-@interface GraphicFrag : NSObject {
+const enum TRANSFORMATION_TYPE {TRANS,ROT,SCALE,AFFINE};
+
+@interface GraphicFrag : NSObject<IDrawable> {
 @protected
     CGAffineTransform transform;
     SVGStyle* style;
+    enum TRANSFORMATION_TYPE transformType;
 }
 
 @property (retain, nonatomic) SVGStyle* style;
 @property (nonatomic) CGAffineTransform transform;
 
 -(void) draw:(CGContextRef)context;
--(id) initWithStyle:(SVGStyle*) astyle transform:(CGAffineTransform)atransform;
+-(void) wrap:(SVGStyle*) astyle transform:(CGAffineTransform)atransform;
 
 @end

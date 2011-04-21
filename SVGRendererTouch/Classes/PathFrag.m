@@ -34,14 +34,10 @@
     CGContextConcatCTM(context,CGAffineTransformInvert(transform));
 }
 
--(id) initWithPath:(CGPathRef)apath style:(SVGStyle*) astyle transform:(CGAffineTransform)atransform
+-(void) wrap:(CGPathRef)apath style:(SVGStyle*) astyle transform:(CGAffineTransform)atransform
 {
-    if (( self = [super initWithStyle:astyle transform:atransform]))
-    {
-        self.path = CGPathCreateMutableCopy(apath);
-    }
-    
-    return self;
+    [self wrap:astyle transform:atransform];
+    self.path = apath;
     
 }
 
