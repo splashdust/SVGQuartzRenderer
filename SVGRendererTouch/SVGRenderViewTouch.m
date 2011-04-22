@@ -263,6 +263,7 @@ CGPoint middle;
 			CGPoint point1 = [touch1 locationInView:self];
 			//highlight nearby star				
 			NSString* name = [svgRenderer find:point1];
+            NSLog(@"name %@",name);
 			BOOL doRender = NO;
 			if (!name)
 				doRender = selectedLocation ? YES : NO;	

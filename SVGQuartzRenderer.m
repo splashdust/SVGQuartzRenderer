@@ -120,7 +120,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 -(void) redraw
 {
-  if (YES)
+  if (NO)
   {
      [self drawSVGFile:nil];
    
@@ -132,10 +132,7 @@ else
         CGContextRelease(cgContext);
         cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
     }
-    
-    transform = CGAffineTransformScale(CGAffineTransformIdentity, globalScaleX, globalScaleY);	
-    transform = CGAffineTransformTranslate(transform, -offsetX/globalScaleX, -offsetY/globalScaleY);
-    CGContextConcatCTM(cgContext,transform);
+
     for (int i = 0; i < [fragments count]; ++i)
     {
         PathFrag* frag = (PathFrag*)[fragments objectAtIndex:i];
@@ -734,7 +731,7 @@ didStartElement:(NSString *)elementName
         currentScaleY = globalScaleY;
 		
 		if([attrDict valueForKey:@"transform"]) {
-			[self applyTransformations:[attrDict valueForKey:@"transform"]];
+			localTransform = [self applyTransformations:[attrDict valueForKey:@"transform"]];
 		} 		
 		// Respect the 'fill' attribute
 		// TODO: This hex parsing stuff is in a bunch of places. It should be cetralized in a function instead.
@@ -1060,7 +1057,7 @@ didStartElement:(NSString *)elementName
     [self drawPath:currPath withStyle:currentStyle];
     
     PathFrag* frag = [[PathFrag alloc] init:self];
-    [frag wrap:currPath style:currentStyle transform:transform type:SCALE];
+    [frag wrap:currPath style:currentStyle transform:localTransform.transform type:localTransform.type];
     [currentStyle release];
     currentStyle = [SVGStyle new];
     [fragments addObject:frag];

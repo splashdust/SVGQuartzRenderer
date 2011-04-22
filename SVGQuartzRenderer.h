@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ITransProvider.h"
+#import "GraphicFrag.h"
 
 @class Sprite;
 @class SVGStyle;
@@ -52,6 +53,7 @@
 	NSXMLParser* xmlParser;
 	NSData *svgXml;
 	CGAffineTransform transform;
+    SVG_TRANS localTransform;
 	CGContextRef cgContext;
 	
 	BOOL firstRender;
