@@ -34,7 +34,8 @@
     - (void) prepareToDraw;
      -(void) drawPath;
     - (void)drawPath:(CGPathRef)path withStyle:(SVGStyle*)style;
-	- (void)applyTransformations:(NSString *)transformations;
+	- (SVG_TRANS)applyTransformations:(NSString *)transformations;
+    - (void)applyTransformation:(SVG_TRANS)trans;
 	- (void) cleanupAfterFinishedParsing;
 
 	void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius);
@@ -70,6 +71,15 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 		
     }
     return self;
+}
+
+-(CGPoint) getTranslation
+{
+    return CGPointMake(-offsetX, -offsetY);
+}
+-(CGPoint) getScale
+{
+    return CGPointMake(globalScaleX, globalScaleY);
 }
 
 -(void) setSprites:(NSArray*)someSprites
@@ -110,8 +120,13 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 -(void) redraw
 {
-   // [self drawSVGFile:nil];
+  if (YES)
+  {
+     [self drawSVGFile:nil];
    
+  }
+else
+{
     if(delegate) {
         
         CGContextRelease(cgContext);
@@ -130,7 +145,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
         [delegate svgRenderer:self finishedRenderingInCGContext:cgContext];
     
     [self cleanupAfterFinishedParsing];
-    
+}   
     
 }
 
@@ -211,6 +226,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
         CGContextRelease(cgContext);
         cgContext = [delegate svgRenderer:self requestedCGContextWithSize:documentSize];
     }
+    
     
     //default transformation
     transform = CGAffineTransformScale(CGAffineTransformIdentity, globalScaleX, globalScaleY);	
@@ -713,6 +729,9 @@ didStartElement:(NSString *)elementName
 			currentParams = nil;
 		}
 		
+        // set the current scale, in case there is no transform
+        currentScaleX = globalScaleX;
+        currentScaleY = globalScaleY;
 		
 		if([attrDict valueForKey:@"transform"]) {
 			[self applyTransformations:[attrDict valueForKey:@"transform"]];
@@ -1040,8 +1059,8 @@ didStartElement:(NSString *)elementName
     
     [self drawPath:currPath withStyle:currentStyle];
     
-    PathFrag* frag = [PathFrag new];
-    [frag wrap:currPath style:currentStyle transform:transform];
+    PathFrag* frag = [[PathFrag alloc] init:self];
+    [frag wrap:currPath style:currentStyle transform:transform type:SCALE];
     [currentStyle release];
     currentStyle = [SVGStyle new];
     [fragments addObject:frag];
@@ -1068,136 +1087,184 @@ didStartElement:(NSString *)elementName
 	
 }
 
-- (void)applyTransformations:(NSString *)transformations
+- (SVG_TRANS)applyTransformations:(NSString *)transformations
 {
-	
-	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
-	
-	// Reset transformation matrix
-	transform = CGAffineTransformIdentity;
-	
 	NSScanner *scanner = [NSScanner scannerWithString:transformations];
 	[scanner setCaseSensitive:YES];
 	[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
 	
 	NSString *value;
 	NSArray *values;
-	currentScaleX = globalScaleX;
-	currentScaleY = globalScaleY;
-	
-	// Matrix
-	BOOL hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
+    
+    float a=1,b=0,c=0,d=1,tx=0,ty=0;
+    
+    BOOL hasMatrix = NO, hasScale = NO, hasRotate = NO, hasTrans = NO;
+    enum TRANSFORMATION_TYPE type;
+    
+    hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
 	if (hasMatrix)
 	{
-		[scanner scanUpToString:@")" intoString:&value];
-		
-		values = [value componentsSeparatedByString:@","];
-		
-		if([values count] == 6) {
-			float a = [[values objectAtIndex:0] floatValue];
-			float b = [[values objectAtIndex:1] floatValue];
-			float c = [[values objectAtIndex:2] floatValue];
-			float d = [[values objectAtIndex:3] floatValue];
-			
-		
+		[scanner scanUpToString:@")" intoString:&value];		
+		values = [value componentsSeparatedByString:@","];	
+        hasMatrix = [values count] == 6; 
+		if (hasMatrix) 
+        {
+            a = [[values objectAtIndex:0] floatValue];
+            b = [[values objectAtIndex:1] floatValue];
+            c = [[values objectAtIndex:2] floatValue];
+            d = [[values objectAtIndex:3] floatValue];	
+            tx = [[values objectAtIndex:4] floatValue];
+            ty = [[values objectAtIndex:5] floatValue];
+            
+            type = AFFINE;
+        }
+    }
+    else
+    {
+        hasScale = [scanner scanString:@"scale(" intoString:nil];
+        if (hasScale)
+        {
+            
+            [scanner scanUpToString:@")" intoString:&value];		
+            values = [value componentsSeparatedByString:@","];
+            hasScale =[values count] == 2; 
+            if(hasScale)
+            {
+                a = [[values objectAtIndex:0] floatValue];
+                d = [[values objectAtIndex:1] floatValue];	
+                
+                type = SCALE;
+            }
+            
+        }
+        else
+        {
+            hasRotate = [scanner scanString:@"rotate(" intoString:nil];
+            if (hasRotate)
+            {
+                [scanner scanUpToString:@")" intoString:&value];
+                hasRotate = value != nil;
+                if(hasRotate)
+                {
+                    a = [value floatValue];		
+                    type = ROT;   
+                }
+            }
+            else
+            {               
+                hasTrans = [scanner scanString:@"translate(" intoString:nil];
+                if (hasTrans)
+                {
+                    
+                    [scanner scanUpToString:@")" intoString:&value];		
+                    values = [value componentsSeparatedByString:@","];	
+                    hasTrans = [values count] == 2;
+                    if(hasTrans)
+                    {
+                        tx = [[values objectAtIndex:0] floatValue] ;
+                        ty =  [[values objectAtIndex:1] floatValue];
+						type = TRANS;
+                    }		
+                }
+            }
+        }
+    }
+    
+    SVG_TRANS localTransformation;
+    localTransformation.transform = CGAffineTransformMake(a,b,c,d,tx,ty);
+    localTransformation.type = type;
+    [self applyTransformation:localTransformation];  
+    
+    return localTransformation;
+    
+}
 
-			// local translation, with correction for global scale, and global offset	
-			float tx = [[values objectAtIndex:4] floatValue]*globalScaleX - offsetX;
-			float ty = [[values objectAtIndex:5] floatValue]*globalScaleY - offsetY;
-			
-			// transfer all scaling to single transformation
-			currentScaleX *= a;
-			currentScaleY *= d;
+- (void)applyTransformation:(SVG_TRANS)trans
+{
+    currentScaleX = globalScaleX;
+	currentScaleY = globalScaleY;
+    
+	CGContextConcatCTM(cgContext,CGAffineTransformInvert(transform));
+	transform = CGAffineTransformIdentity;
+    
+    float a = trans.transform.a;
+    float b = trans.transform.b;
+    float c = trans.transform.c;
+    float d = trans.transform.d;
+    float tx = trans.transform.tx;
+    float ty = trans.transform.ty;
 
-			a = 1;
-			b /= d;
-			c /= a;
-			d = 1;
-			
-			//move all scaling into separate transformation
-			if (currentScaleX != 1.0 || currentScaleY != 1.0)
-				transform = CGAffineTransformMakeScale(currentScaleX, currentScaleY);
-			
-			
-			CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx, ty);
-
-			transform = CGAffineTransformConcat(transform, matrixTransform);
-			
-			
-			// Apply to graphics context
-			CGContextConcatCTM(cgContext,transform);
-						
-			return;
-			
-		}
+    
+	// Matrix
+	if (trans.type == AFFINE)
+	{	
+        
+        // local translation, with correction for global scale, and global offset	
+        tx = tx*globalScaleX - offsetX;
+        ty = ty*globalScaleY - offsetY;
+        
+        // transfer all scaling to single transformation
+        currentScaleX *= a;
+        currentScaleY *= d;
+        
+        a = 1;
+        b /= d;
+        c /= a;
+        d = 1;
+        
+        //move all scaling into separate transformation
+        if (currentScaleX != 1.0 || currentScaleY != 1.0)
+            transform = CGAffineTransformMakeScale(currentScaleX, currentScaleY);
+        
+        
+        CGAffineTransform matrixTransform = CGAffineTransformMake (a,b,c,d, tx, ty);
+        
+        transform = CGAffineTransformConcat(transform, matrixTransform);
+        
+        
+        // Apply to graphics context
+        CGContextConcatCTM(cgContext,transform);
+        
+        return;
+        
 		
 	}
 	
 	
 	// Scale
-	BOOL hasScale = [scanner scanString:@"scale(" intoString:nil];
-	if (hasScale)
-	{
-			
-		[scanner scanUpToString:@")" intoString:&value];
-		
-		values = [value componentsSeparatedByString:@","];
-
-		if([values count] == 2)
-		{
-			currentScaleX *= [[values objectAtIndex:0] floatValue];
-			currentScaleY *= [[values objectAtIndex:1] floatValue];		
-		}
-
+	if (trans.type == SCALE)
+	{			
+        currentScaleX *= a;
+        currentScaleY *= d;		
+        
 	}
 	if (currentScaleX != 1.0 || currentScaleY != 1.0)
 		transform = CGAffineTransformScale(transform, currentScaleX, currentScaleY);
 	
 	
 	// Rotate
-	float currentRotation = 0;
-	BOOL hasRotate = [scanner scanString:@"rotate(" intoString:nil];
-	if (hasRotate)
+	if ( (trans.type == ROT) && a != 0)
 	{
-		[scanner scanUpToString:@")" intoString:&value];
-		
-		if(value)
-			currentRotation = [value floatValue];
-		
+        transform = CGAffineTransformRotate(transform, a);		
 	}
-	
-	if (currentRotation != 0)
-		transform = CGAffineTransformRotate(transform, currentRotation);
-	
-
+    
 	
 	// Translate
 	float transX = -offsetX/currentScaleX;
 	float transY = -offsetY/currentScaleY;
-	
-	BOOL hasTrans = [scanner scanString:@"translate(" intoString:nil];
-	if (hasTrans)
-	{
-		
-		[scanner scanUpToString:@")" intoString:&value];
-		
-		values = [value componentsSeparatedByString:@","];
-		
-		
-		if([values count] == 2)
-		{
-			transX += 	[[values objectAtIndex:0] floatValue] ;
-			transY += [[values objectAtIndex:1] floatValue];			
-			
-		}
-		
+    
+	if (trans.type == TRANS)
+	{	
+        transX += tx;
+        transY += ty;								
 	}
 	
 	if (transX != 0 || transY != 0)
 		transform = CGAffineTransformTranslate(transform, transX, transY);			
-
+    
 	// Apply to graphics context
 	CGContextConcatCTM(cgContext,transform);
+    
 }
 
 

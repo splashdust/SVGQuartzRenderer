@@ -21,6 +21,7 @@
 *--------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
+#import "ITransProvider.h"
 
 @class Sprite;
 @class SVGStyle;
@@ -32,7 +33,7 @@
 @end
 
 
-@interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate> {
+@interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate, ITransProvider> {
 @private
 	CGSize documentSize;
 	id<SVGQuartzRenderDelegate> delegate;

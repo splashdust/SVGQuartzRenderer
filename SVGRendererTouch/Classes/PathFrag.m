@@ -34,9 +34,9 @@
     CGContextConcatCTM(context,CGAffineTransformInvert(transform));
 }
 
--(void) wrap:(CGPathRef)apath style:(SVGStyle*) astyle transform:(CGAffineTransform)atransform
+-(void) wrap:(CGPathRef)apath style:(SVGStyle*) astyle transform:(CGAffineTransform)atransform type:(enum TRANSFORMATION_TYPE)atype
 {
-    [self wrap:astyle transform:atransform];
+    [super wrap:astyle transform:atransform type:atype];
     self.path = apath;
     
 }

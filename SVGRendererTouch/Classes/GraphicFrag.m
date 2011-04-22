@@ -28,17 +28,30 @@
     
 }
 
--(void) wrap:(SVGStyle*)astyle transform:(CGAffineTransform)atransform
+-(void) wrap:(SVGStyle*)astyle transform:(CGAffineTransform)atransform type:(enum TRANSFORMATION_TYPE)atype;
 {
 
     self.style = astyle;
     self.transform = atransform;
+    transformType = atype;
 
 
 }
 
+-(id) init:(id<ITransProvider>)provider
+{
+    if ((self = [super init]))
+    {
+        transProvider = [provider retain];
+        
+    }
+    return self;
+    
+}
+
 - (void)dealloc
 {
+    [transProvider release];
     [style release];
     [super dealloc];
     
