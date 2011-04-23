@@ -26,7 +26,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "GraphicFrag.h"
 
 @interface Sprite : NSObject
 {
@@ -41,9 +41,9 @@
 	
 	//in relative image space
     CGRect boundingRect;
-	
-	BOOL isHighlighted;
+
 	NSString* name;
+    GraphicFrag* frag;
 
 }
 
@@ -55,5 +55,6 @@
 @property (nonatomic) BOOL isHighlighted;
 @property (nonatomic) CGRect boundingRect;
 @property (nonatomic, copy) NSString* name;
+@property (nonatomic, retain) GraphicFrag* frag;
 @end
 

@@ -82,23 +82,6 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
     return CGPointMake(globalScaleX, globalScaleY);
 }
 
--(void) setSprites:(NSArray*)someSprites
-{
-   if (!someSprites)
-	   return;
-	for (int i = 0; i < [someSprites count]; ++i)
-	{
-		Sprite* newSprite = [someSprites objectAtIndex:i];
-		Sprite* oldSprite = [sprites objectForKey:newSprite.name];
-		if (!oldSprite)
-		{
-			[sprites setObject:newSprite forKey:newSprite.name];	
-		}
-	}
-	
-	
-}
-
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate
 {
 	delegate = rendererDelegate;
@@ -1061,6 +1044,9 @@ didStartElement:(NSString *)elementName
     [currentStyle release];
     currentStyle = [SVGStyle new];
     [fragments addObject:frag];
+    Sprite* currentSprite = [self currentSprite];
+    if (currentSprite)
+        currentSprite.frag = frag;
     [frag release];
 
 }
@@ -1072,14 +1058,10 @@ didStartElement:(NSString *)elementName
 	if(style.styleString)
 		[style setStyleContext:currentStyle.styleString withDefDict:defDict];
 	
-	Sprite* info = (Sprite*)[sprites objectForKey:currId];;
-	FILL_COLOR oldColor;
-	if (info && info.isHighlighted)
-		[style setFillColorFromInt:0x00FF0000];
-	
+	Sprite* info = (Sprite*)[sprites objectForKey:currId];
+    style.isHighlighted = info.isHighlighted;	
     [style drawPath:path withContext:cgContext];	
-	if (info && info.isHighlighted)
-	  style.fillColor = oldColor;
+
 	CGContextRestoreGState(cgContext);
 	
 }

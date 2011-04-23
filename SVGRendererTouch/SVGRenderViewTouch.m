@@ -64,11 +64,6 @@ CGPoint middle;
 	delegate = del;	  
 }
 
--(void) setSprites:(NSArray*)someSprites
-{
-	[svgRenderer setSprites:someSprites];	
-	
-}
 
 -(void) open:(NSString*)path{
 	

@@ -61,7 +61,7 @@
 @synthesize fillGradientCenterPoint; 
 @synthesize font; 
 @synthesize fontSize;
-
+@synthesize isHighlighted;
 
 - (id)init {
     if ((self = [super init])) {
@@ -429,6 +429,9 @@
 - (void)drawPath:(CGPathRef)path withContext:(CGContextRef)context
 {				
 	if(doFill) {
+        FILL_COLOR oldColour = fillColor;
+        if (isHighlighted)
+            [self setFillColorFromInt:0x00FF0000]; 
 		if ([fillType isEqualToString:@"solid"]) {
 			
 			//NSLog(@"Setting fill color R:%f, G:%f, B:%f, A:%f", fillColor.r, fillColor.g, fillColor.b, fillColor.a);
@@ -464,6 +467,8 @@
 			CGContextRestoreGState(context);
 			
 		}
+        if (isHighlighted)
+            fillColor = oldColour;
 	}
 	
 	// Do the drawing

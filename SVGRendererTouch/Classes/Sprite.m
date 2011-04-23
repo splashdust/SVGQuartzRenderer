@@ -34,6 +34,7 @@
 @synthesize isHighlighted;
 @synthesize boundingRect;
 @synthesize name;
+@synthesize frag;
 
 
 -(id) init
@@ -95,4 +96,17 @@
 	return initialized;	
 }
 
+-(void) setIsHighlighted:(BOOL)highlighted
+{
+    if (frag)
+        frag.isHighlighted = highlighted;
+    
+}
+-(BOOL) isHighlighted
+{
+    BOOL rc = NO;
+    if (frag)
+        rc = frag.isHighlighted;
+    return rc;
+}
 @end

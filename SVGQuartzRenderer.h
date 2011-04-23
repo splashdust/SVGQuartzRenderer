@@ -73,6 +73,7 @@
 	BOOL inDefSection;	
     
 	NSMutableArray* fragments;
+    NSMutableDictionary* fragmentDict;
 	NSMutableDictionary* sprites;
 	QuadTreeNode* rootNode;
 }
@@ -86,7 +87,6 @@
 @property (readwrite) CGRect viewFrame;
 @property (readwrite, copy) NSString* curLayerName;
 
--(void) setSprites:(NSArray*)someSprites;
 - (void) resetScale;
 
 - (void)drawSVGFile:(NSString *)file;

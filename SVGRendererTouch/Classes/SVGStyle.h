@@ -72,6 +72,7 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 	CGPoint fillGradientCenterPoint;
 	NSString *font;
 	float fontSize;
+    BOOL isHighlighted;
 
 }
 @property (nonatomic, copy) NSString *styleString;
@@ -93,7 +94,7 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 @property (nonatomic) CGPoint fillGradientCenterPoint; 
 @property (nonatomic, copy) NSString* font; 
 @property (nonatomic) float fontSize;
-
+@property (nonatomic) BOOL isHighlighted;
 
 
 - (void)reset;

@@ -36,4 +36,6 @@ typedef struct
 -(void) wrap:(SVGStyle*) astyle transform:(CGAffineTransform)atransform type:(enum TRANSFORMATION_TYPE)atype;
 -(id) init:(id<ITransProvider>)provider;
 
+@property (nonatomic) BOOL isHighlighted;
+
 @end

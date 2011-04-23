@@ -47,7 +47,6 @@
 
 -(void) open:(NSString*)path;
 -(void) locate:(CGPoint)location withBoundingBox:(CGSize)box;
--(void) setSprites:(NSArray*)someSprites;
 -(void) setDelegate:(id<SVGRenderViewTouchDelegate>)del;
 
 @property (nonatomic, copy) NSString* filePath;

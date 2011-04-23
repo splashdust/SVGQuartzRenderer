@@ -11,7 +11,7 @@
 
 @implementation GraphicFrag
 
-@synthesize style, transform;
+@synthesize style, transform, isHighlighted;
 
 -(id)copyWithZone:(NSZone *)zone
 { 
@@ -26,6 +26,20 @@
 -(void) draw:(CGContextRef)context
 {
     
+}
+
+-(BOOL) isHighlighted
+{
+    BOOL rc = NO;
+    if (style)
+        rc = style.isHighlighted;
+    return rc;
+    
+}
+-(void) setIsHighlighted:(BOOL)highlighted
+{
+    if (style)
+        style.isHighlighted = highlighted;
 }
 
 -(void) wrap:(SVGStyle*)astyle transform:(CGAffineTransform)atransform type:(enum TRANSFORMATION_TYPE)atype;
