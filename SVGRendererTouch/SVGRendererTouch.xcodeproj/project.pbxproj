@@ -19,6 +19,7 @@
 		F10A772A133B7C2500C8F3D4 /* SVGStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F10A7729133B7C2500C8F3D4 /* SVGStyle.m */; };
 		F10D76D8126D51CC00D5CA7A /* text.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D7126D51CC00D5CA7A /* text.svg */; };
 		F10D76DA126D51D700D5CA7A /* skull.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D9126D51D700D5CA7A /* skull.svg */; };
+		F118E2541363B95B00AC0C3B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F118E2531363B95B00AC0C3B /* libxml2.dylib */; };
 		F12576A3135DC4DB00D6249F /* GraphicFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A2135DC4DB00D6249F /* GraphicFrag.m */; };
 		F12576A6135DC5FB00D6249F /* PathFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A5135DC5FB00D6249F /* PathFrag.m */; };
 		F1625B061288DC10003129E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1625B051288DC10003129E2 /* QuartzCore.framework */; };
@@ -50,6 +51,7 @@
 		F10A7729133B7C2500C8F3D4 /* SVGStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyle.m; sourceTree = "<group>"; };
 		F10D76D7126D51CC00D5CA7A /* text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = text.svg; path = ../Resources/text.svg; sourceTree = SOURCE_ROOT; };
 		F10D76D9126D51D700D5CA7A /* skull.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = skull.svg; path = ../Resources/skull.svg; sourceTree = SOURCE_ROOT; };
+		F118E2531363B95B00AC0C3B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = ../../../../../usr/lib/libxml2.dylib; sourceTree = "<group>"; };
 		F12576A1135DC4DB00D6249F /* GraphicFrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicFrag.h; sourceTree = "<group>"; };
 		F12576A2135DC4DB00D6249F /* GraphicFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphicFrag.m; sourceTree = "<group>"; };
 		F12576A4135DC5FA00D6249F /* PathFrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFrag.h; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F118E2541363B95B00AC0C3B /* libxml2.dylib in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -119,6 +122,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				F118E2531363B95B00AC0C3B /* libxml2.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -246,7 +250,7 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -255,6 +259,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SVGRendererTouch-Info.plist";
 				PRODUCT_NAME = SVGRendererTouch;
+				USER_HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
@@ -262,13 +267,14 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SVGRendererTouch_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "SVGRendererTouch-Info.plist";
 				PRODUCT_NAME = SVGRendererTouch;
+				USER_HEADER_SEARCH_PATHS = "$SDKROOT/usr/include/libxml2/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

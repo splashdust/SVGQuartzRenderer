@@ -29,6 +29,17 @@
 #import "QuadTreeNode.h"
 #import "PathFrag.h"
 
+
+// Function prototypes for SAX callbacks. This sample implements a minimal subset of SAX callbacks.
+// Depending on your application's needs, you might want to implement more callbacks.
+static void startElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI, int nb_namespaces, const xmlChar **namespaces, int nb_attributes, int nb_defaulted, const xmlChar **attributes);
+static void	endElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI);
+static void	charactersFoundSAX(void * ctx, const xmlChar * ch, int len);
+static void errorEncounteredSAX(void * ctx, const char * msg, ...);
+
+// Forward reference. The structure is defined in full at the end of the file.
+static xmlSAXHandler simpleSAXHandlerStruct;
+
 @interface SVGQuartzRenderer (hidden)
 
     - (void) prepareToDraw;
@@ -43,6 +54,10 @@
 	-(BOOL) doCenter:(CGPoint)location withBoundingBox:(CGSize)box;
 
     -(Sprite*) currentSprite;
+
+    -(void) copyDict:(NSDictionary*) src toDest:(NSMutableDictionary*) dest;
+    -(void) copyAttributes:(const xmlChar **) attributes size:(int)nb_attributes toDest:(NSMutableDictionary*) dest;
+ 
 
 
 @end
@@ -92,13 +107,41 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 {
 	if (svgXml == nil)
     {
+        
 	    svgXml = [NSData dataWithContentsOfFile:file];
+
         xmlParser = [[NSXMLParser alloc] initWithData:svgXml];
- 
         [xmlParser setDelegate:self];
         [xmlParser setShouldResolveExternalEntities:NO];
     }
+    NSDate* start;
+    NSTimeInterval timeInterval;
+  /*  
+      NSDate *start = [NSDate date];  
+     // This creates a context for "push" parsing in which chunks of data that are not "well balanced" can be passed
+     // to the context for streaming parsing. The handler structure defined above will be used for all the parsing. 
+     // The second argument, self, will be passed as user data to each of the SAX handlers. The last three arguments
+     // are left blank to avoid creating a tree in memory.
+     context = xmlCreatePushParserCtxt(&simpleSAXHandlerStruct, self, NULL, 0, NULL);
+     xmlParseChunk(context, (const char *)[svgXml bytes], [svgXml length], 0);
+     
+     
+     // Signal the context that parsing is complete by passing "1" as the last parameter.
+     xmlParseChunk(context, NULL, 0, 1);
+     
+     // Release resources used only in this thread.
+     xmlFreeParserCtxt(context);
+    
+    timeInterval = [start timeIntervalSinceNow];
+    NSLog(@"lib2xml Time to parse: %f",-timeInterval);    
+ */   
+    start = [NSDate date];
 	[xmlParser parse];
+    
+    timeInterval = [start timeIntervalSinceNow];
+    NSLog(@"NSXMLParser Time to parse: %f",-timeInterval);    
+    
+
 }
 
 -(void) redraw
@@ -215,6 +258,51 @@ else
     
 }
 
+-(void) copyDict:(NSDictionary*) src toDest:(NSMutableDictionary*) dest
+{
+  	NSEnumerator *enumerator = [src keyEnumerator];
+    id key;
+    while ((key = [enumerator nextObject])) {
+        NSDictionary *obj = [src objectForKey:key];
+        [dest setObject:obj forKey:key];
+    }  
+    
+}
+
+-(void) copyAttributes:(const xmlChar **) attributes size:(int)nb_attributes toDest:(NSMutableDictionary*) dest
+{
+    unsigned int index = 0;
+    for ( int indexAttribute = 0; 
+         indexAttribute < nb_attributes; 
+         ++indexAttribute, index += 5 )
+    {
+        const xmlChar *localname = attributes[index];
+      // const xmlChar *prefix = attributes[index+1];
+      //  const xmlChar *nsURI = attributes[index+2];
+        const xmlChar *valueBegin = attributes[index+3];
+        const xmlChar *valueEnd = attributes[index+4];
+        int vlen = valueEnd - valueBegin;
+        xmlChar val[vlen + 1];
+        strncpy((char*)val, (const char*)valueBegin, vlen);
+        val[vlen] = '\0';
+        NSString* key = [NSString stringWithUTF8String:(char*)localname];
+        NSString* nsval = [NSString stringWithUTF8String:(char*)val];
+        [dest setObject:nsval forKey:key];
+        /*
+        printf( "  attribute: localname='%s', prefix='%s', uri=(%p)'%s', value='%s'\n",
+               localname,
+               prefix,
+               nsURI,
+               nsURI,
+               val);
+         */
+    }
+
+    
+}
+
+
+
 // Element began
 // -----------------------------------------------------------------------------
 - (void)parser:(NSXMLParser *)parser
@@ -223,6 +311,7 @@ didStartElement:(NSString *)elementName
  qualifiedName:(NSString *)qualifiedName
 	attributes:(NSDictionary *)attrDict
 {
+    
 	NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
 	
 	NSString* temp = [attrDict valueForKey:@"id"];
@@ -237,6 +326,8 @@ didStartElement:(NSString *)elementName
 		{
 			width = [[attrDict valueForKey:@"width"] floatValue];
 			height = [[attrDict valueForKey:@"height"] floatValue];
+            
+            
 			documentSize = viewFrame.size;	
 			
 			float sx = viewFrame.size.width/width;
@@ -267,14 +358,9 @@ didStartElement:(NSString *)elementName
 	
 	else if([elementName isEqualToString:@"pattern"]) {
 		[curPat release];
-		curPat = [[NSMutableDictionary alloc] init];
-		
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[curPat setObject:obj forKey:key];
-		}
+		curPat = [[NSMutableDictionary alloc] init];		
+        [self copyDict:attrDict toDest:curPat];
+	
 		NSMutableArray* imagesArray = [NSMutableArray new];
 		[curPat setObject:imagesArray forKey:@"images"];
 		[imagesArray release];
@@ -282,12 +368,7 @@ didStartElement:(NSString *)elementName
 	}
 	else if([elementName isEqualToString:@"image"]) {
 		NSMutableDictionary *imageDict = [[NSMutableDictionary alloc] init];
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[imageDict setObject:obj forKey:key];
-		}
+        [self copyDict:attrDict toDest:imageDict];
 		[[curPat objectForKey:@"images"] addObject:imageDict];
 		[imageDict release];
 	}
@@ -295,12 +376,8 @@ didStartElement:(NSString *)elementName
 	else if([elementName isEqualToString:@"linearGradient"]) {
 		[curGradient release];
 		curGradient = [[NSMutableDictionary alloc] init];
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[curGradient setObject:obj forKey:key];
-		}
+        [self copyDict:attrDict toDest:curGradient];
+		
 		[curGradient setObject:@"linearGradient" forKey:@"type"];
 		NSMutableArray* stopsArray = [NSMutableArray new];
 		[curGradient setObject:stopsArray forKey:@"stops"];
@@ -308,12 +385,7 @@ didStartElement:(NSString *)elementName
 	}
 	else if([elementName isEqualToString:@"stop"]) {
 		NSMutableDictionary *stopDict = [[NSMutableDictionary alloc] init];
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[stopDict setObject:obj forKey:key];
-		}
+        [self copyDict:attrDict toDest:stopDict];        
 		[[curGradient objectForKey:@"stops"] addObject:stopDict];
 		[stopDict release];
 	}
@@ -321,63 +393,48 @@ didStartElement:(NSString *)elementName
 	else if([elementName isEqualToString:@"radialGradient"]) {
 		[curGradient release];
 		curGradient = [[NSMutableDictionary alloc] init];
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[curGradient setObject:obj forKey:key];
-		}
+        [self copyDict:attrDict toDest:curGradient];
+  
 		[curGradient setObject:@"radialGradient" forKey:@"type"];
 	}
 	
 	else if([elementName isEqualToString:@"filter"]) {
 		[curFilter release];
 		curFilter = [[NSMutableDictionary alloc] init];
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[curFilter setObject:obj forKey:key];
-		}
+        [self copyDict:attrDict toDest:curFilter];
+
 		NSMutableArray* gaussianBlursArray = [NSMutableArray new];
 		[curFilter setObject:gaussianBlursArray forKey:@"feGaussianBlurs"];
 		[gaussianBlursArray release];
 	}
 	else if([elementName isEqualToString:@"feGaussianBlur"]) {
 		NSMutableDictionary *blurDict = [[NSMutableDictionary alloc] init];
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[blurDict setObject:obj forKey:key];
-		}
+        [self copyDict:attrDict toDest:blurDict]; 
+
 		[[curFilter objectForKey:@"feGaussianBlurs"] addObject:blurDict];
 		[blurDict release];
 	}
-	else if([elementName isEqualToString:@"feColorMatrix"]) {
-		
-	}
-	else if([elementName isEqualToString:@"feFlood"]) {
-		
-	}
-	else if([elementName isEqualToString:@"feBlend"]) {
-		
-	}
-	else if([elementName isEqualToString:@"feComposite"]) {
-		
-	}
+   
+    //ToDo    
+//	else if([elementName isEqualToString:@"feColorMatrix"]) {
+//		
+//	}
+//	else if([elementName isEqualToString:@"feFlood"]) {
+//		
+//	}
+//	else if([elementName isEqualToString:@"feBlend"]) {
+//		
+//	}
+//	else if([elementName isEqualToString:@"feComposite"]) {
+//		
+//	}
 	
 	// Group node
 	// -------------------------------------------------------------------------
 	else if([elementName isEqualToString:@"g"]) {
 		[curLayer release];
 		curLayer = [[NSMutableDictionary alloc] init];
-		NSEnumerator *enumerator = [attrDict keyEnumerator];
-		id key;
-		while ((key = [enumerator nextObject])) {
-			NSDictionary *obj = [attrDict objectForKey:key];
-			[curLayer setObject:obj forKey:key];
-		}
+        [self copyDict:attrDict toDest:curLayer]; 
 		
 		self.curLayerName = currId;
 		
@@ -404,6 +461,9 @@ didStartElement:(NSString *)elementName
 		Sprite* currentSprite = [self currentSprite];
 		if ([currentSprite isInitialized])
 			currentSprite = nil;
+        
+        
+        ///////////////////////////////////////////////////////////////////
 		
 		currPath = CGPathCreateMutable();
 		
@@ -708,6 +768,8 @@ didStartElement:(NSString *)elementName
 			
 			currentParams = nil;
 		}
+        
+        //////////////////////////////////////////
 		
         // set the current scale, in case there is no transform
         currentScaleX = globalScaleX;
@@ -737,6 +799,7 @@ didStartElement:(NSString *)elementName
 			[currentSprite finishCalcBoundingBox:temp];			
 			[rootNode addSprite:currentSprite];
 		}
+        [self drawPath];
 
 	}
 	
@@ -777,6 +840,7 @@ didStartElement:(NSString *)elementName
 		}
 		
 		currentStyle.styleString = [attrDict valueForKey:@"style"];
+        [self drawPath];
 
 	}
 	
@@ -835,6 +899,7 @@ didStartElement:(NSString *)elementName
 			}
 		}
 		currentStyle.styleString = [attrDict valueForKey:@"style"];
+        [self drawPath];
 		
 	}
 	
@@ -974,16 +1039,6 @@ didStartElement:(NSString *)elementName
 	else if([elementName isEqualToString:@"defs"]) {
 		inDefSection = NO;
 	}
-
-	else if([elementName isEqualToString:@"path"]) {
-		[self drawPath];
-	}
-	else if([elementName isEqualToString:@"rect"]) {
-        [self drawPath];
-	}
-	else if([elementName isEqualToString:@"polygon"]) {
-		[self drawPath];
-	}
 	else if([elementName isEqualToString:@"text"]) {
 		if(curText) {
 			[curText release];
@@ -1067,87 +1122,74 @@ didStartElement:(NSString *)elementName
 }
 
 - (SVG_TRANS)applyTransformations:(NSString *)transformations
-{
-	NSScanner *scanner = [NSScanner scannerWithString:transformations];
-	[scanner setCaseSensitive:YES];
-	[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
-	
-	NSString *value;
-	NSArray *values;
+{    
+        
     
-    float a=1,b=0,c=0,d=1,tx=0,ty=0;
-    
+    float a=1;
+    float b=0;
+    float c=0;
+    float d=1;
+    float tx=0;
+    float ty=0;
     BOOL hasMatrix = NO, hasScale = NO, hasRotate = NO, hasTrans = NO;
     enum TRANSFORMATION_TYPE type;
     
-    hasMatrix = [scanner scanString:@"matrix(" intoString:nil];
-	if (hasMatrix)
-	{
-		[scanner scanUpToString:@")" intoString:&value];		
-		values = [value componentsSeparatedByString:@","];	
-        hasMatrix = [values count] == 6; 
-		if (hasMatrix) 
-        {
-            a = [[values objectAtIndex:0] floatValue];
-            b = [[values objectAtIndex:1] floatValue];
-            c = [[values objectAtIndex:2] floatValue];
-            d = [[values objectAtIndex:3] floatValue];	
-            tx = [[values objectAtIndex:4] floatValue];
-            ty = [[values objectAtIndex:5] floatValue];
-            
-            type = AFFINE;
-        }
-    }
-    else
+    const char* s = [transformations UTF8String];
+    if (strncmp(s,"matrix",strlen("matrix")-1) == 0)
     {
-        hasScale = [scanner scanString:@"scale(" intoString:nil];
-        if (hasScale)
+        int scanned = sscanf(s,"matrix(%f,%f,%f,%f,%f,%f)",&a,&b,&c,&d,&tx,&ty);
+        if (scanned == 6)
         {
-            
-            [scanner scanUpToString:@")" intoString:&value];		
-            values = [value componentsSeparatedByString:@","];
-            hasScale =[values count] == 2; 
-            if(hasScale)
-            {
-                a = [[values objectAtIndex:0] floatValue];
-                d = [[values objectAtIndex:1] floatValue];	
-                
-                type = SCALE;
-            }
-            
+          hasMatrix = YES;
+           type = AFFINE;
         }
         else
         {
-            hasRotate = [scanner scanString:@"rotate(" intoString:nil];
-            if (hasRotate)
-            {
-                [scanner scanUpToString:@")" intoString:&value];
-                hasRotate = value != nil;
-                if(hasRotate)
-                {
-                    a = [value floatValue];		
-                    type = ROT;   
-                }
-            }
-            else
-            {               
-                hasTrans = [scanner scanString:@"translate(" intoString:nil];
-                if (hasTrans)
-                {
-                    
-                    [scanner scanUpToString:@")" intoString:&value];		
-                    values = [value componentsSeparatedByString:@","];	
-                    hasTrans = [values count] == 2;
-                    if(hasTrans)
-                    {
-                        tx = [[values objectAtIndex:0] floatValue] ;
-                        ty =  [[values objectAtIndex:1] floatValue];
-						type = TRANS;
-                    }		
-                }
-            }
+            NSLog(@"Error scanning matrix tranform");
         }
+        
     }
+    else if (strncmp(s,"scale",strlen("scale")-1) == 0)
+    {
+        int scanned = sscanf(s,"scale(%f,%f)",&a,&d);
+        if (scanned == 2)
+        {
+           hasScale = YES;
+           type = SCALE;
+        }
+        else
+        {
+            NSLog(@"Error scanning scale tranform"); 
+        }
+    } 
+    else if (strncmp(s,"translate",strlen("translate")-1) == 0)
+    {
+        int scanned =  sscanf(s,"translate(%f,%f)",&tx,&ty);
+        if (scanned == 2)
+        {
+           hasTrans = YES;
+           type = TRANS;
+        }
+        else
+        {
+            NSLog(@"Error scanning matrix tranform");
+        }
+    } 
+    else if (strncmp(s,"rotate",strlen("rotate")-1) == 0)
+    {
+        int scanned = sscanf(s,"rotate(%f)",&a);
+        if (scanned == 1)
+        {
+            hasRotate = YES;
+            type = ROT;
+        }
+        else
+        {
+            NSLog(@"Error scanning rotate tranform");
+        }
+    }  
+    
+
     
     SVG_TRANS localTransformation;
     localTransformation.transform = CGAffineTransformMake(a,b,c,d,tx,ty);
@@ -1311,5 +1353,128 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 
 	
 }
+/////////////////////////////////////////////////////////
+
+#pragma mark SAX Parsing Callbacks
+
+/*
+ This callback is invoked when the parser finds the beginning of a node in the XML. For this application,
+ out parsing needs are relatively modest - we need only match the node name. An "item" node is a record of
+ data about a song. In that case we create a new Song object. The other nodes of interest are several of the
+ child nodes of the Song currently being parsed. For those nodes we want to accumulate the character data
+ in a buffer. Some of the child nodes use a namespace prefix. 
+ */
+static void startElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI, 
+                            int nb_namespaces, const xmlChar **namespaces, int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
+    SVGQuartzRenderer *parser = (SVGQuartzRenderer *)ctx;
+
+/*    
+    printf( "startElementNs: name = '%s' prefix = '%s' uri = (%p)'%s'\n", localname, prefix, URI, URI );
+    for ( int indexNamespace = 0; indexNamespace < nb_namespaces; ++indexNamespace )
+    {
+        const xmlChar *prefix = namespaces[indexNamespace*2];
+        const xmlChar *nsURI = namespaces[indexNamespace*2+1];
+        printf( "  namespace: name='%s' uri=(%p)'%s'\n", prefix, nsURI, nsURI );
+    }
+    
+    unsigned int index = 0;
+    for ( int indexAttribute = 0; 
+         indexAttribute < nb_attributes; 
+         ++indexAttribute, index += 5 )
+    {
+        const xmlChar *localname = attributes[index];
+        const xmlChar *prefix = attributes[index+1];
+        const xmlChar *nsURI = attributes[index+2];
+        const xmlChar *valueBegin = attributes[index+3];
+        const xmlChar *valueEnd = attributes[index+4];
+        int vlen = valueEnd - valueBegin;
+        unsigned char val[vlen + 1];
+        strncpy(val, valueBegin, vlen);
+        val[vlen] = '\0';
+        printf( "  %sattribute: localname='%s', prefix='%s', uri=(%p)'%s', value='%s'\n",
+               indexAttribute >= (nb_attributes - nb_defaulted) ? "defaulted " : "",
+               localname,
+               prefix,
+               nsURI,
+               nsURI,
+               val);
+    }
+ */
+    
+}
+
+/*
+ This callback is invoked when the parse reaches the end of a node. At that point we finish processing that node,
+ if it is of interest to us. For "item" nodes, that means we have completed parsing a Song object. We pass the song
+ to a method in the superclass which will eventually deliver it to the delegate. For the other nodes we
+ care about, this means we have all the character data. The next step is to create an NSString using the buffer
+ contents and store that with the current Song object.
+ */
+static void	endElementSAX(void *ctx, const xmlChar *localname, const xmlChar *prefix, const xmlChar *URI) {    
+    SVGQuartzRenderer *parser = (SVGQuartzRenderer *)ctx;
+  //  printf( "endElementNs: name = '%s' prefix = '%s' uri = '%s'\n", localname, prefix, URI );
+    
+
+}
+
+/*
+ This callback is invoked when the parser encounters character data inside a node. The parser class determines how to use the character data.
+ */
+static void	charactersFoundSAX(void *ctx, const xmlChar *ch, int len) {
+    SVGQuartzRenderer *parser = (SVGQuartzRenderer *)ctx;
+
+}
+
+/*
+ A production application should include robust error handling as part of its parsing implementation.
+ The specifics of how errors are handled depends on the application.
+ */
+static void errorEncounteredSAX(void *ctx, const char *msg, ...) {
+    // Handle errors as appropriate for your application.
+    NSCAssert(NO, @"Unhandled error encountered during SAX parse.");
+    va_list args;
+    va_start(args, msg);
+    vprintf( msg, args );
+    va_end(args);
+}
+
+// The handler struct has positions for a large number of callback functions. If NULL is supplied at a given position,
+// that callback functionality won't be used. Refer to libxml documentation at http://www.xmlsoft.org for more information
+// about the SAX callbacks.
+static xmlSAXHandler simpleSAXHandlerStruct = {
+    NULL,                       /* internalSubset */
+    NULL,                       /* isStandalone   */
+    NULL,                       /* hasInternalSubset */
+    NULL,                       /* hasExternalSubset */
+    NULL,                       /* resolveEntity */
+    NULL,                       /* getEntity */
+    NULL,                       /* entityDecl */
+    NULL,                       /* notationDecl */
+    NULL,                       /* attributeDecl */
+    NULL,                       /* elementDecl */
+    NULL,                       /* unparsedEntityDecl */
+    NULL,                       /* setDocumentLocator */
+    NULL,                       /* startDocument */
+    NULL,                       /* endDocument */
+    NULL,                       /* startElement*/
+    NULL,                       /* endElement */
+    NULL,                       /* reference */
+    charactersFoundSAX,         /* characters */
+    NULL,                       /* ignorableWhitespace */
+    NULL,                       /* processingInstruction */
+    NULL,                       /* comment */
+    NULL,                       /* warning */
+    errorEncounteredSAX,        /* error */
+    NULL,                       /* fatalError //: unused error() get all the errors */
+    NULL,                       /* getParameterEntity */
+    NULL,                       /* cdataBlock */
+    NULL,                       /* externalSubset */
+    XML_SAX2_MAGIC,             //
+    NULL,
+    startElementSAX,            /* startElementNs */
+    endElementSAX,              /* endElementNs */
+    NULL,                       /* serror */
+};
+#pragma mark
 
 @end

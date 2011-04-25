@@ -23,6 +23,7 @@
 #import <Foundation/Foundation.h>
 #import "ITransProvider.h"
 #import "GraphicFrag.h"
+#import <libxml/tree.h>
 
 @class Sprite;
 @class SVGStyle;
@@ -50,6 +51,8 @@
 	float width;
 	float height;	
 	
+    // Reference to the libxml parser context
+    xmlParserCtxtPtr context;
 	NSXMLParser* xmlParser;
 	NSData *svgXml;
 	CGAffineTransform transform;
