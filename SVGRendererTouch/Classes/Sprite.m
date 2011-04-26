@@ -37,55 +37,10 @@
 @synthesize frag;
 
 
--(id) init
-{
-  if ((self = [super init]))
-  {
-	  minX = FLT_MAX;
-	  minY = FLT_MAX;
-	  maxX = FLT_MIN;
-	  maxY = FLT_MIN;
-	  
-	  initialized = NO;
-	  
-  }
-	
-  return self; 	
-}
-
--(id) initWithBoundingRect:(CGRect)rect
+-(void) calcBoundingBox:(CGRect)bbox withTransform:(CGAffineTransform)xform
 {
 	
-	if ((self = [super init]))
-	{
-		boundingRect = rect;
-		
-		initialized = YES;
-		
-	}
-	
-	return self; 
-	
-}
-
-
--(void) adjustBoundingBox:(CGPoint)pathPoint
-{
-	if (pathPoint.x < minX)
-		minX = pathPoint.x;
-	if (pathPoint.y < minY)
-		minY = pathPoint.y;	
-	if (pathPoint.x > maxX)
-		maxX = pathPoint.x;
-	if (pathPoint.y > maxY)
-		maxY = pathPoint.y;		
-	
-}
-
--(void) finishCalcBoundingBox:(CGAffineTransform)xform
-{
-	
-	boundingRect = CGRectApplyAffineTransform(CGRectMake(minX, minY, maxX-minX, maxY-minY), xform);	
+	boundingRect = CGRectApplyAffineTransform(bbox, xform);	
 	initialized = TRUE;
 	
 }

@@ -71,7 +71,7 @@
 	NSDictionary *curFlowRegion;
     
 	SVGStyle* currentStyle;	    
-	CGMutablePathRef currPath;
+	CGPathRef currPath;
 	NSString* currId;	
 	BOOL inDefSection;	
     

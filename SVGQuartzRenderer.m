@@ -28,6 +28,7 @@
 #import "float.h"
 #import "QuadTreeNode.h"
 #import "PathFrag.h"
+#import "CGPathReader.h"
 
 
 // Function prototypes for SAX callbacks. This sample implements a minimal subset of SAX callbacks.
@@ -146,7 +147,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 -(void) redraw
 {
-  if (NO)
+  if (YES)
   {
      [self drawSVGFile:nil];
    
@@ -319,6 +320,7 @@ didStartElement:(NSString *)elementName
 	   currId = [NSString stringWithString:temp]; 
 	
 	// Top level SVG node
+    const char* element = [elementName UTF8String];
 	// -------------------------------------------------------------------------
 	if([elementName isEqualToString:@"svg"]) {
 
@@ -461,315 +463,10 @@ didStartElement:(NSString *)elementName
 		Sprite* currentSprite = [self currentSprite];
 		if ([currentSprite isInitialized])
 			currentSprite = nil;
+        NSString *d = [attrDict valueForKey:@"d"];
+        CFErrorRef error;
+        currPath = CGPathCreateFromSVG([d UTF8String], &error);
         
-        
-        ///////////////////////////////////////////////////////////////////
-		
-		currPath = CGPathCreateMutable();
-		
-		// Create a scanner for parsing currPath data
-		NSString *d = [attrDict valueForKey:@"d"];
-		
-		// Space before the first command messes stuff up.
-		if([d hasPrefix:@" "])
-			d = [d stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
-		
-		NSScanner *scanner = [NSScanner scannerWithString:d];
-		[scanner setCaseSensitive:YES];
-		[scanner setCharactersToBeSkipped:[NSCharacterSet newlineCharacterSet]];
-		
-		CGPoint curPoint = CGPointMake(0,0);
-		CGPoint curCtrlPoint1 = CGPointMake(-1,-1);
-		CGPoint curCtrlPoint2 = CGPointMake(-1,-1);
-		CGPoint curArcPoint = CGPointMake(-1,-1);
-		CGPoint curArcRadius = CGPointMake(-1,-1);
-		CGFloat curArcXRotation = 0.0;
-		CGPoint firstPoint = CGPointMake(-1,-1);
-		NSString *curCmdType = nil;
-		
-		NSCharacterSet *cmdCharSet = [NSCharacterSet characterSetWithCharactersInString:@"mMlLhHvVcCsSqQtTaAzZ"];
-		NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" ,"];
-		NSString *currentCommand = nil;
-		NSString *currentParams = nil;
-		while ([scanner scanCharactersFromSet:cmdCharSet intoString:&currentCommand]) {
-			[scanner scanUpToCharactersFromSet:cmdCharSet intoString:&currentParams];
-			
-			NSArray *params = [currentParams componentsSeparatedByCharactersInSet:separatorSet];
-			
-			int paramCount = [params count];
-			int mCount = 0;
-			
-			for (int prm_i = 0; prm_i < paramCount;) {
-				if(![[params objectAtIndex:prm_i] isEqualToString:@""]) {
-					
-					BOOL firstVertex = (firstPoint.x == -1 && firstPoint.y == -1);
-					
-					// Move to absolute coord
-					//-----------------------------------------
-					if([currentCommand isEqualToString:@"M"]) {
-						curCmdType = @"line";
-						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
-						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-						mCount++;
-					}
-					
-					// Move to relative coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"m"]) {
-						curCmdType = @"line";
-						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
-						
-						if(firstVertex) {
-							curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-						} else {
-							curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
-						}
-						mCount++;
-					}
-					
-					// Line to absolute coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"L"]) {
-						curCmdType = @"line";
-						mCount = 2;
-						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
-						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Line to relative coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"l"]) {
-						curCmdType = @"line";
-						mCount = 2;
-						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
-						if(firstVertex) {
-							curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-						} else {
-							curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
-						}
-					}
-					
-					// Horizontal line to absolute coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"H"]) {
-						curCmdType = @"line";
-						mCount = 2;
-						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Horizontal line to relative coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"h"]) {
-						curCmdType = @"line";
-						mCount = 2;
-						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Vertical line to absolute coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"V"]) 
-					{
-						curCmdType = @"line";
-						mCount = 2;
-						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Vertical line to relative coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"v"]) 
-					{
-						curCmdType = @"line";
-						mCount = 2;
-						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Curve to absolute coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"C"]) 
-					{
-						curCmdType = @"curve";
-						
-						curCtrlPoint1.x = [[params objectAtIndex:prm_i++] floatValue];
-						curCtrlPoint1.y = [[params objectAtIndex:prm_i++] floatValue];
-						
-						curCtrlPoint2.x = [[params objectAtIndex:prm_i++] floatValue];
-						curCtrlPoint2.y = [[params objectAtIndex:prm_i++] floatValue];
-						
-						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
-						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Curve to relative coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"c"]) 
-					{
-						curCmdType = @"curve";
-						
-						curCtrlPoint1.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
-						curCtrlPoint1.y = curPoint.y + [[params objectAtIndex:prm_i++] floatValue];
-						
-						curCtrlPoint2.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
-						curCtrlPoint2.y = curPoint.y + [[params objectAtIndex:prm_i++] floatValue];
-						
-						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
-						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Shorthand curve to absolute coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"S"]) 
-					{
-						curCmdType = @"curve";
-						
-						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
-							curCtrlPoint1.x = curCtrlPoint2.x;
-							curCtrlPoint1.y = curCtrlPoint2.y;
-						} else {
-							curCtrlPoint1.x = curPoint.x;
-							curCtrlPoint1.y = curPoint.y;
-						}
-						
-						curCtrlPoint2.x = [[params objectAtIndex:prm_i++] floatValue];
-						curCtrlPoint2.y = [[params objectAtIndex:prm_i++] floatValue];
-						
-						curPoint.x = [[params objectAtIndex:prm_i++] floatValue];
-						curPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Shorthand curve to relative coord
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"s"]) 
-					{
-						curCmdType = @"curve";
-						
-						if(curCtrlPoint2.x != -1 && curCtrlPoint2.y != -1) {
-							curCtrlPoint1.x = curPoint.x + curCtrlPoint2.x;
-							curCtrlPoint1.y = curPoint.y + curCtrlPoint2.x;
-						} else {
-							curCtrlPoint1.x = curPoint.x;
-							curCtrlPoint1.y = curPoint.y;
-						}
-						
-						curCtrlPoint2.x = curPoint.x + [[params objectAtIndex:prm_i++] floatValue];
-						curCtrlPoint2.y = curPoint.y + [[params objectAtIndex:prm_i++] floatValue];
-						
-						curPoint.x += [[params objectAtIndex:prm_i++] floatValue];
-						curPoint.y += [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Absolute elliptical arc
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"A"]) 
-					{
-						curArcRadius.x = [[params objectAtIndex:prm_i++] floatValue];
-						curArcRadius.y = [[params objectAtIndex:prm_i++] floatValue];
-						
-						curArcXRotation = [[params objectAtIndex:prm_i++] floatValue];
-						
-						//Ignore large-arc-flag
-						prm_i++;
-						
-						//Ignore sweep-flag
-						prm_i++;
-						
-						curArcPoint.x = [[params objectAtIndex:prm_i++] floatValue];
-						curArcPoint.y = [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					// Relative elliptical arc
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"a"]) 
-					{
-						curCmdType = @"arc";
-						curArcRadius.x += [[params objectAtIndex:prm_i++] floatValue];
-						curArcRadius.y += [[params objectAtIndex:prm_i++] floatValue];
-						
-						curArcXRotation = [[params objectAtIndex:prm_i++] floatValue];
-						
-						//Ignore large-arc-flag
-						prm_i++;
-						
-						//Ignore sweep-flag
-						prm_i++;
-						
-						curArcPoint.x += [[params objectAtIndex:prm_i++] floatValue];
-						curArcPoint.y += [[params objectAtIndex:prm_i++] floatValue];
-					}
-					
-					
-					// Not yet implemented commands
-					//-----------------------------------------
-					else if([currentCommand isEqualToString:@"q"]
-					   || [currentCommand isEqualToString:@"Q"]
-					   || [currentCommand isEqualToString:@"t"]
-					   || [currentCommand isEqualToString:@"T"]) 
-					{
-						prm_i++;
-					}
-					
-					if (currentSprite)
-						[currentSprite adjustBoundingBox:curPoint];
-					
-					// Set initial point
-					if(firstVertex)
-					{
-						firstPoint = curPoint;
-						CGPathMoveToPoint(currPath, NULL, firstPoint.x, firstPoint.y);
-					}
-					
-					// Close currPath
-					if([currentCommand isEqualToString:@"z"] || [currentCommand isEqualToString:@"Z"])
-					{
-						CGPathAddLineToPoint(currPath, NULL, firstPoint.x, firstPoint.y);
-						CGPathCloseSubpath(currPath);
-						curPoint = CGPointMake(-1, -1);
-						firstPoint = CGPointMake(-1, -1);
-						firstVertex = YES;
-						prm_i++;
-					}
-					
-					if(curCmdType) 
-					{
-						
-						if([curCmdType isEqualToString:@"line"]) 
-						{
-							if(mCount>1)
-							{
-								CGPathAddLineToPoint(currPath, NULL, curPoint.x, curPoint.y);
-							} else 
-							{
-								CGPathMoveToPoint(currPath, NULL, curPoint.x, curPoint.y);
-							}
-						}
-						else if([curCmdType isEqualToString:@"curve"])
-						{
-							CGPathAddCurveToPoint(currPath,NULL,curCtrlPoint1.x, curCtrlPoint1.y,
-												  curCtrlPoint2.x, curCtrlPoint2.y,
-												  curPoint.x,curPoint.y);
-						}
-						else if([curCmdType isEqualToString:@"arc"])
-						{
-							CGPathAddArc (currPath, NULL,
-										  curArcPoint.x,
-										  curArcPoint.y,
-										  curArcRadius.y,
-										  curArcXRotation,
-										  curArcXRotation,
-										  TRUE);							
-						}
-					}
-				} 
-				else
-				{
-					prm_i++;
-				}
-				
-			}
-			
-			currentParams = nil;
-		}
-        
-        //////////////////////////////////////////
 		
         // set the current scale, in case there is no transform
         currentScaleX = globalScaleX;
@@ -796,7 +493,7 @@ didStartElement:(NSString *)elementName
 			//scale down to relative image coordinates
 			temp = CGAffineTransformConcat(temp, CGAffineTransformMakeScale(1.0/(globalScaleX*width),1.0/(globalScaleY*height) ));
 
-			[currentSprite finishCalcBoundingBox:temp];			
+			[currentSprite calcBoundingBox:CGPathGetBoundingBox(currPath) withTransform:temp];			
 			[rootNode addSprite:currentSprite];
 		}
         [self drawPath];

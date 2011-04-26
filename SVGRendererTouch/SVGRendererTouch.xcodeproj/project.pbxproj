@@ -22,6 +22,16 @@
 		F118E2541363B95B00AC0C3B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F118E2531363B95B00AC0C3B /* libxml2.dylib */; };
 		F12576A3135DC4DB00D6249F /* GraphicFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A2135DC4DB00D6249F /* GraphicFrag.m */; };
 		F12576A6135DC5FB00D6249F /* PathFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A5135DC5FB00D6249F /* PathFrag.m */; };
+		F13A9FEA13664C6F00CDA583 /* CGPathReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FD913664C6F00CDA583 /* CGPathReader.m */; };
+		F13A9FEB13664C6F00CDA583 /* CGPathWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FDA13664C6F00CDA583 /* CGPathWriter.c */; };
+		F13A9FEC13664C6F00CDA583 /* MROCGPointMath.c in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FDC13664C6F00CDA583 /* MROCGPointMath.c */; };
+		F13A9FED13664C6F00CDA583 /* NSCoder_MROCGPath.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FDF13664C6F00CDA583 /* NSCoder_MROCGPath.m */; };
+		F13A9FEE13664C6F00CDA583 /* PathBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FE113664C6F00CDA583 /* PathBuilder.m */; };
+		F13A9FEF13664C6F00CDA583 /* PathParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FE313664C6F00CDA583 /* PathParser.m */; };
+		F13A9FF013664C6F00CDA583 /* PathParser.rl in Resources */ = {isa = PBXBuildFile; fileRef = F13A9FE413664C6F00CDA583 /* PathParser.rl */; };
+		F13A9FF113664C6F00CDA583 /* RagelParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FE613664C6F00CDA583 /* RagelParser.m */; };
+		F13A9FF213664C6F00CDA583 /* TrafoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FE813664C6F00CDA583 /* TrafoParser.m */; };
+		F13A9FF313664C6F00CDA583 /* TrafoParser.rl in Resources */ = {isa = PBXBuildFile; fileRef = F13A9FE913664C6F00CDA583 /* TrafoParser.rl */; };
 		F1625B061288DC10003129E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1625B051288DC10003129E2 /* QuartzCore.framework */; };
 		F1E1603E132B0AA800836330 /* drawing.svg in Resources */ = {isa = PBXBuildFile; fileRef = F1E1603D132B0AA800836330 /* drawing.svg */; };
 		F1FE97681269523100F6D66F /* SVGRenderViewTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = F1FE97671269523100F6D66F /* SVGRenderViewTouch.m */; };
@@ -56,6 +66,24 @@
 		F12576A2135DC4DB00D6249F /* GraphicFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphicFrag.m; sourceTree = "<group>"; };
 		F12576A4135DC5FA00D6249F /* PathFrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFrag.h; sourceTree = "<group>"; };
 		F12576A5135DC5FB00D6249F /* PathFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathFrag.m; sourceTree = "<group>"; };
+		F13A9FD813664C6F00CDA583 /* CGPathReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGPathReader.h; path = ../../lib/MROGeometry/CGPathReader.h; sourceTree = "<group>"; };
+		F13A9FD913664C6F00CDA583 /* CGPathReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGPathReader.m; path = ../../lib/MROGeometry/CGPathReader.m; sourceTree = "<group>"; };
+		F13A9FDA13664C6F00CDA583 /* CGPathWriter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CGPathWriter.c; path = ../../lib/MROGeometry/CGPathWriter.c; sourceTree = "<group>"; };
+		F13A9FDB13664C6F00CDA583 /* CGPathWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGPathWriter.h; path = ../../lib/MROGeometry/CGPathWriter.h; sourceTree = "<group>"; };
+		F13A9FDC13664C6F00CDA583 /* MROCGPointMath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = MROCGPointMath.c; path = ../../lib/MROGeometry/MROCGPointMath.c; sourceTree = "<group>"; };
+		F13A9FDD13664C6F00CDA583 /* MROCGPointMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MROCGPointMath.h; path = ../../lib/MROGeometry/MROCGPointMath.h; sourceTree = "<group>"; };
+		F13A9FDE13664C6F00CDA583 /* NSCoder_MROCGPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSCoder_MROCGPath.h; path = ../../lib/MROGeometry/NSCoder_MROCGPath.h; sourceTree = "<group>"; };
+		F13A9FDF13664C6F00CDA583 /* NSCoder_MROCGPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCoder_MROCGPath.m; path = ../../lib/MROGeometry/NSCoder_MROCGPath.m; sourceTree = "<group>"; };
+		F13A9FE013664C6F00CDA583 /* PathBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathBuilder.h; path = ../../lib/MROGeometry/PathBuilder.h; sourceTree = "<group>"; };
+		F13A9FE113664C6F00CDA583 /* PathBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PathBuilder.m; path = ../../lib/MROGeometry/PathBuilder.m; sourceTree = "<group>"; };
+		F13A9FE213664C6F00CDA583 /* PathParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PathParser.h; path = ../../lib/MROGeometry/PathParser.h; sourceTree = "<group>"; };
+		F13A9FE313664C6F00CDA583 /* PathParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PathParser.m; path = ../../lib/MROGeometry/PathParser.m; sourceTree = "<group>"; };
+		F13A9FE413664C6F00CDA583 /* PathParser.rl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PathParser.rl; path = ../../lib/MROGeometry/PathParser.rl; sourceTree = "<group>"; };
+		F13A9FE513664C6F00CDA583 /* RagelParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RagelParser.h; path = ../../lib/MROGeometry/RagelParser.h; sourceTree = "<group>"; };
+		F13A9FE613664C6F00CDA583 /* RagelParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RagelParser.m; path = ../../lib/MROGeometry/RagelParser.m; sourceTree = "<group>"; };
+		F13A9FE713664C6F00CDA583 /* TrafoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrafoParser.h; path = ../../lib/MROGeometry/TrafoParser.h; sourceTree = "<group>"; };
+		F13A9FE813664C6F00CDA583 /* TrafoParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrafoParser.m; path = ../../lib/MROGeometry/TrafoParser.m; sourceTree = "<group>"; };
+		F13A9FE913664C6F00CDA583 /* TrafoParser.rl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TrafoParser.rl; path = ../../lib/MROGeometry/TrafoParser.rl; sourceTree = "<group>"; };
 		F1625B051288DC10003129E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F1E1603D132B0AA800836330 /* drawing.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = drawing.svg; path = ../Resources/drawing.svg; sourceTree = SOURCE_ROOT; };
 		F1FAC4A21360CA3000569E4C /* ITransProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITransProvider.h; sourceTree = "<group>"; };
@@ -87,6 +115,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F1297E4913652C0E00DB3E1C /* MROGeometry */,
 				F1FE97691269524F00F6D66F /* NSData+Base64.h */,
 				F1FE976A1269524F00F6D66F /* NSData+Base64.m */,
 				F1FE976B1269524F00F6D66F /* SVGQuartzRenderer.h */,
@@ -166,6 +195,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F1297E4913652C0E00DB3E1C /* MROGeometry */ = {
+			isa = PBXGroup;
+			children = (
+				F13A9FD813664C6F00CDA583 /* CGPathReader.h */,
+				F13A9FD913664C6F00CDA583 /* CGPathReader.m */,
+				F13A9FDA13664C6F00CDA583 /* CGPathWriter.c */,
+				F13A9FDB13664C6F00CDA583 /* CGPathWriter.h */,
+				F13A9FDC13664C6F00CDA583 /* MROCGPointMath.c */,
+				F13A9FDD13664C6F00CDA583 /* MROCGPointMath.h */,
+				F13A9FDE13664C6F00CDA583 /* NSCoder_MROCGPath.h */,
+				F13A9FDF13664C6F00CDA583 /* NSCoder_MROCGPath.m */,
+				F13A9FE013664C6F00CDA583 /* PathBuilder.h */,
+				F13A9FE113664C6F00CDA583 /* PathBuilder.m */,
+				F13A9FE213664C6F00CDA583 /* PathParser.h */,
+				F13A9FE313664C6F00CDA583 /* PathParser.m */,
+				F13A9FE413664C6F00CDA583 /* PathParser.rl */,
+				F13A9FE513664C6F00CDA583 /* RagelParser.h */,
+				F13A9FE613664C6F00CDA583 /* RagelParser.m */,
+				F13A9FE713664C6F00CDA583 /* TrafoParser.h */,
+				F13A9FE813664C6F00CDA583 /* TrafoParser.m */,
+				F13A9FE913664C6F00CDA583 /* TrafoParser.rl */,
+			);
+			name = MROGeometry;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -221,6 +275,8 @@
 				F10D76DA126D51D700D5CA7A /* skull.svg in Resources */,
 				F104A1751319E77100E91D4F /* map.svg in Resources */,
 				F1E1603E132B0AA800836330 /* drawing.svg in Resources */,
+				F13A9FF013664C6F00CDA583 /* PathParser.rl in Resources */,
+				F13A9FF313664C6F00CDA583 /* TrafoParser.rl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +297,14 @@
 				F102760D13452161004F7796 /* Sprite.m in Sources */,
 				F12576A3135DC4DB00D6249F /* GraphicFrag.m in Sources */,
 				F12576A6135DC5FB00D6249F /* PathFrag.m in Sources */,
+				F13A9FEA13664C6F00CDA583 /* CGPathReader.m in Sources */,
+				F13A9FEB13664C6F00CDA583 /* CGPathWriter.c in Sources */,
+				F13A9FEC13664C6F00CDA583 /* MROCGPointMath.c in Sources */,
+				F13A9FED13664C6F00CDA583 /* NSCoder_MROCGPath.m in Sources */,
+				F13A9FEE13664C6F00CDA583 /* PathBuilder.m in Sources */,
+				F13A9FEF13664C6F00CDA583 /* PathParser.m in Sources */,
+				F13A9FF113664C6F00CDA583 /* RagelParser.m in Sources */,
+				F13A9FF213664C6F00CDA583 /* TrafoParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

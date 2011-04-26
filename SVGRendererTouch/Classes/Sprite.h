@@ -31,11 +31,6 @@
 @interface Sprite : NSObject
 {
 @public
-	//in path space
-	CGFloat minX;
-	CGFloat minY;
-	CGFloat maxX;
-	CGFloat maxY;
 	
 	BOOL initialized;
 	
@@ -47,9 +42,8 @@
 
 }
 
--(id) initWithBoundingRect:(CGRect)rect;
--(void) adjustBoundingBox:(CGPoint)pathPoint;
--(void) finishCalcBoundingBox:(CGAffineTransform)xform;
+
+-(void) calcBoundingBox:(CGRect)bbox withTransform:(CGAffineTransform)xform;
 -(BOOL) isInitialized;
 
 @property (nonatomic) BOOL isHighlighted;

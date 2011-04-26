@@ -1,0 +1,3 @@
+[submodule "lib/MROGeometry"]
+	path = lib/MROGeometry
+	url = git://github.com/boxerab/MROGeometry.git
