@@ -35,7 +35,7 @@
 @end
 
 
-@interface SVGQuartzRenderer : NSObject <NSXMLParserDelegate, ITransProvider> {
+@interface SVGQuartzRenderer : NSObject <ITransProvider> {
 @private
 	CGSize documentSize;
 	id<SVGQuartzRenderDelegate> delegate;
@@ -53,7 +53,6 @@
 	
     // Reference to the libxml parser context
     xmlParserCtxtPtr context;
-	NSXMLParser* xmlParser;
 	NSData *svgXml;
 	CGAffineTransform transform;
     SVG_TRANS localTransform;
