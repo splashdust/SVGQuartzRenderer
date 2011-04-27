@@ -146,7 +146,7 @@
 		NSArray *attrAr = [currentAttribute componentsSeparatedByString:@":"];
 		
 		NSString *attrName = [attrAr objectAtIndex:0];
-		NSString *attrValue = [attrAr objectAtIndex:1];
+		NSString *attrValue = [attrAr objectAtIndex:1];                                                 
 		
 		// --------------------- FILL
 		if([attrName isEqualToString:@"fill"]) {
@@ -266,13 +266,13 @@
 		}
 		
 		// --------------------- FILL-OPACITY
-		if([attrName isEqualToString:@"fill-opacity"]) {
+		else if([attrName isEqualToString:@"fill-opacity"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
 			[floatScanner scanFloat:&fillColor.a];
 		}
 		
 		// --------------------- STROKE
-		if([attrName isEqualToString:@"stroke"]) {
+		else if([attrName isEqualToString:@"stroke"]) {
 			if(![attrValue isEqualToString:@"none"]) {
 				doStroke = YES;
 				strokeColor = [SVGStyle extractColorFromAttribute:attrValue];
@@ -284,13 +284,13 @@
 		}
 		
 		// --------------------- STROKE-OPACITY
-		if([attrName isEqualToString:@"stroke-opacity"]) {
+		else if([attrName isEqualToString:@"stroke-opacity"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
 			[floatScanner scanFloat:&strokeOpacity];
 		}
 		
 		// --------------------- STROKE-WIDTH
-		if([attrName isEqualToString:@"stroke-width"]) {
+		else if([attrName isEqualToString:@"stroke-width"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:
 									   [attrValue stringByReplacingOccurrencesOfString:@"px" withString:@""]];
 			[floatScanner scanFloat:&strokeWidth];
@@ -298,7 +298,7 @@
 		}
 		
 		// --------------------- STROKE-LINECAP
-		if([attrName isEqualToString:@"stroke-linecap"]) {
+		else if([attrName isEqualToString:@"stroke-linecap"]) {
 			NSScanner *stringScanner = [NSScanner scannerWithString:attrValue];
 			NSString *lineCapValue;
 			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
@@ -306,15 +306,15 @@
 			if([lineCapValue isEqualToString:@"butt"])
 				lineCapStyle = kCGLineCapButt;
 			
-			if([lineCapValue isEqualToString:@"round"])
+			else if([lineCapValue isEqualToString:@"round"])
 				lineCapStyle = kCGLineCapRound;
 			
-			if([lineCapValue isEqualToString:@"square"])
+			else if([lineCapValue isEqualToString:@"square"])
 				lineCapStyle = kCGLineCapSquare;
 		}
 		
 		// --------------------- STROKE-LINEJOIN
-		if([attrName isEqualToString:@"stroke-linejoin"]) {
+		else if([attrName isEqualToString:@"stroke-linejoin"]) {
 			NSScanner *stringScanner = [NSScanner scannerWithString:attrValue];
 			NSString *lineCapValue;
 			[stringScanner scanUpToString:@";" intoString:&lineCapValue];
@@ -322,52 +322,52 @@
 			if([lineCapValue isEqualToString:@"miter"])
 				lineJoinStyle = kCGLineJoinMiter;
 			
-			if([lineCapValue isEqualToString:@"round"])
+			else if([lineCapValue isEqualToString:@"round"])
 				lineJoinStyle = kCGLineJoinRound;
 			
-			if([lineCapValue isEqualToString:@"bevel"])
+			else if([lineCapValue isEqualToString:@"bevel"])
 				lineJoinStyle = kCGLineJoinBevel;
 		}
 		
 		// --------------------- STROKE-MITERLIMIT
-		if([attrName isEqualToString:@"stroke-miterlimit"]) {
+		else if([attrName isEqualToString:@"stroke-miterlimit"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
 			[floatScanner scanFloat:&miterLimit];
 		}
-		
+		/*
 		// --------------------- FONT-SIZE
-		if([attrName isEqualToString:@"font-size"]) {
+		else if([attrName isEqualToString:@"font-size"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
 			[floatScanner scanFloat:&fontSize];
 		}
 		
 		// --------------------- FONT-STYLE
-		if([attrName isEqualToString:@"font-style"]) {
+		else if([attrName isEqualToString:@"font-style"]) {
 			
 		}
 		
 		// --------------------- FONT-WEIGHT
-		if([attrName isEqualToString:@"font-weight"]) {
+		else if([attrName isEqualToString:@"font-weight"]) {
 			
 		}
 		
 		// --------------------- LINE-HEIGHT
-		if([attrName isEqualToString:@"line-height"]) {
+		else if([attrName isEqualToString:@"line-height"]) {
 			
 		}
 		
 		// --------------------- LETTER-SPACING
-		if([attrName isEqualToString:@"letter-spacing"]) {
+		else if([attrName isEqualToString:@"letter-spacing"]) {
 			
 		}
 		
 		// --------------------- WORD-SPACING
-		if([attrName isEqualToString:@"word-spacing"]) {
+		else if([attrName isEqualToString:@"word-spacing"]) {
 			
 		}
-		
+		*/
 		// --------------------- FONT-FAMILY
-		if([attrName isEqualToString:@"font-family"]) {
+		else if([attrName isEqualToString:@"font-family"]) {
 			font = [attrValue retain];
 			if([font isEqualToString:@"Sans"])
 				font = @"Helvetica";
@@ -390,7 +390,7 @@
 		if([linkedDef objectForKey:@"images"])
 			[def setObject:[linkedDef objectForKey:@"images"] forKey:@"images"];
 		
-		if([linkedDef objectForKey:@"stops"])
+		else if([linkedDef objectForKey:@"stops"])
 			[def setObject:[linkedDef objectForKey:@"stops"] forKey:@"stops"];
 		
 		xlink = [linkedDef objectForKey:@"xlink:href"];

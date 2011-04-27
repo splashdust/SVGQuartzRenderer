@@ -117,7 +117,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 	if (svgXml == nil)
     {
         
-	    svgXml = [NSData dataWithContentsOfFile:file];
+	    svgXml = [[NSData alloc ] initWithContentsOfFile:file];
 
     }
     NSDate* start;
@@ -141,7 +141,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
     context = NULL;
     
     timeInterval = [start timeIntervalSinceNow];
-    NSLog(@"lib2xml Time to parse: %f",-timeInterval);    
+    NSLog(@"lib2xml parse and draw: %f seconds",-timeInterval);    
     
 
 }
@@ -155,6 +155,10 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
   }
 else
 {
+    NSDate* start;
+    NSTimeInterval timeInterval;
+    
+    start = [NSDate date];  
     if(delegate) {
         
         CGContextRelease(cgContext);
@@ -170,6 +174,9 @@ else
         [delegate svgRenderer:self finishedRenderingInCGContext:cgContext];
     
     [self cleanupAfterFinishedParsing];
+    
+    timeInterval = [start timeIntervalSinceNow];
+    NSLog(@"Redraw: %f seconds",-timeInterval);  
 }   
     
 }
@@ -323,8 +330,6 @@ else
     
     PathFrag* frag = [[PathFrag alloc] init:self];
     [frag wrap:currPath style:currentStyle transform:localTransform.transform type:localTransform.type];
-    [currentStyle release];
-    currentStyle = [SVGStyle new];
     [fragments addObject:frag];
     Sprite* currentSprite = [self currentSprite];
     if (currentSprite)
@@ -360,7 +365,7 @@ else
     
     if (strncmp(transformations,"matrix",strlen("matrix")-1) == 0)
     {
-        int scanned = sscanf(transformations,"matrix(%f,%f,%f,%f,%f,%f)",&a,&b,&c,&d,&tx,&ty);
+        int scanned = sscanf(transformations+7,"%f,%f,%f,%f,%f,%f)",&a,&b,&c,&d,&tx,&ty);
         if (scanned == 6)
         {
            type = AFFINE;
@@ -373,7 +378,7 @@ else
     }
     else if (strncmp(transformations,"scale",strlen("scale")-1) == 0)
     {
-        int scanned = sscanf(transformations,"scale(%f,%f)",&a,&d);
+        int scanned = sscanf(transformations+6,"%f,%f)",&a,&d);
         if (scanned == 2)
         {
            type = SCALE;
@@ -385,7 +390,7 @@ else
     } 
     else if (strncmp(transformations,"translate",strlen("translate")-1) == 0)
     {
-        int scanned =  sscanf(transformations,"translate(%f,%f)",&tx,&ty);
+        int scanned =  sscanf(transformations+10,"%f,%f)",&tx,&ty);
         if (scanned == 2)
         {
            type = TRANS;
@@ -397,7 +402,7 @@ else
     } 
     else if (strncmp(transformations,"rotate",strlen("rotate")-1) == 0)
     {
-        int scanned = sscanf(transformations,"rotate(%f)",&a);
+        int scanned = sscanf(transformations+7,"%f)",&a);
         if (scanned == 1)
         {
             type = ROT;
@@ -547,6 +552,7 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
     
     [fragments release];
 	[rootNode release];
+    [svgXml release];
 	[super dealloc];
 }
 
@@ -566,14 +572,12 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 	cgContext = NULL;
 	[curFlowRegion release];
 	curFlowRegion = nil;
-	[currentStyle release];
-	currentStyle = nil;
 
 	
 }
 
 
--(void) startElementSAX:(const xmlChar *)element :(const xmlChar *)prefix :(const xmlChar *)URI  :(int) nb_namespaces :(const xmlChar **)namespaces :(int) nb_attributes :(int) nb_defaulted :(const xmlChar **)attributes
+-(void) startElementSAX:(const xmlChar *)elt :(const xmlChar *)prefix :(const xmlChar *)URI  :(int) nb_namespaces :(const xmlChar **)namespaces :(int) nb_attributes :(int) nb_defaulted :(const xmlChar **)attributes
 {
     /*    
      printf( "startElementNs: name = '%s' prefix = '%s' uri = (%p)'%s'\n", localname, prefix, URI, URI );
@@ -609,10 +613,89 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
      */ 
     
     NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
+    
+    const char* element = (const char*)elt;
 	
-
+    // Path node
 	// -------------------------------------------------------------------------
-	if(strcmp(element,"svg")==0) {
+    if(strcmp(element,"path")==0) {
+		
+		// For now, we'll ignore paths in definitions
+		if(inDefSection)
+			return;
+        
+        // set the current scale, in case there is no transform
+        currentScaleX = globalScaleX;
+        currentScaleY = globalScaleY;
+        
+        Sprite* currentSprite = nil;
+        
+        
+        unsigned int index = 0;
+        for ( int indexAttribute = 0; 
+             indexAttribute < nb_attributes; 
+             ++indexAttribute, index += 5 )
+        {
+            const xmlChar *attr = attributes[index];
+            const xmlChar *valueBegin = attributes[index+3];
+            const xmlChar *valueEnd = attributes[index+4];
+            int vlen = valueEnd - valueBegin;
+            char val[vlen + 1];
+            strncpy(val, (const char*)valueBegin, vlen);
+            val[vlen] = '\0';
+            
+            if (!currId && strcmp((const char*)attr,"id")==0)
+            {
+                currId = [NSString stringWithUTF8String:val] ;
+                currentSprite = [self currentSprite];
+                if ([currentSprite isInitialized])
+                    currentSprite = nil;                
+            }
+            else if (!currentStyle && strcmp((const char*)attr,"style")==0)
+            {
+                [currentStyle release];
+                currentStyle = [SVGStyle new];
+                [currentStyle setStyleContext:[NSString stringWithUTF8String:val] withDefDict:defDict];
+                
+            }
+            else if (strcmp((const char*)attr,"transform")==0)
+            {
+                localTransform = [self applyTransformations:val];
+                
+            }  
+            else if (strcmp((const char*)attr,"d")==0)
+            {
+                CFErrorRef error;
+                currPath = CGPathCreateFromSVG(val, &error);
+                
+            }
+            else if (strcmp((const char*)attr,"fill")==0)
+            {
+                localTransform = [self applyTransformations:val];
+                currentStyle.doFill = YES;
+                currentStyle.fillType = @"solid";
+                [currentStyle setFillColorFromAttribute:[NSString stringWithUTF8String:val]];
+            }  
+        }
+        
+        
+        
+		if (currentSprite)
+		{
+			//transform to non-offset image coordinates
+			CGAffineTransform temp = CGAffineTransformTranslate(transform, offsetX/currentScaleX, offsetY/currentScaleY);
+			
+			//scale down to relative image coordinates
+			temp = CGAffineTransformConcat(temp, CGAffineTransformMakeScale(1.0/(globalScaleX*width),1.0/(globalScaleY*height) ));
+            
+			[currentSprite calcBoundingBox:CGPathGetBoundingBox(currPath) withTransform:temp];			
+			[rootNode addSprite:currentSprite];
+		}
+        [self drawPath];
+        
+	}
+	// -------------------------------------------------------------------------
+	else if(strcmp(element,"svg")==0) {
         
 		if (firstRender)
 		{
@@ -628,15 +711,15 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
                 const xmlChar *valueBegin = attributes[index+3];
                 const xmlChar *valueEnd = attributes[index+4];
                 int vlen = valueEnd - valueBegin;
-                unsigned char val[vlen + 1];
-                strncpy(val, valueBegin, vlen);
+                char val[vlen + 1];
+                strncpy(val, (char *)valueBegin, vlen);
                 val[vlen] = '\0';
                
-                if (width == -1 && strcmp(attr,"width")==0)
+                if (width == -1 && strcmp((const char*)attr,"width")==0)
                 {
                     width = atof(val);
                 }
-                else if (height == -1 && strcmp(attr,"height")==0)
+                else if (height == -1 && strcmp((const char*)attr,"height")==0)
                 {
                     height = atof(val);
                 }
@@ -660,8 +743,6 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 		} 
         
         [self prepareToDraw];
-		
-		currentStyle = [SVGStyle new];	
 	}
 	
     
@@ -751,8 +832,6 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 		curLayer = [[NSMutableDictionary alloc] init];
         [self copyAttributes:attributes size:nb_attributes toDest:curLayer]; 
         
-        
-        
         unsigned int index = 0;
         for ( int indexAttribute = 0; 
              indexAttribute < nb_attributes; 
@@ -762,23 +841,24 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
             const xmlChar *valueBegin = attributes[index+3];
             const xmlChar *valueEnd = attributes[index+4];
             int vlen = valueEnd - valueBegin;
-            unsigned char val[vlen + 1];
-            strncpy(val, valueBegin, vlen);
+            char val[vlen + 1];
+            strncpy(val, (const char*)valueBegin, vlen);
             val[vlen] = '\0';
             
-            if (!currId && strcmp(attr,"id")==0)
+            if (!currId && strcmp((const char*)attr,"id")==0)
             {
                 currId = [NSString stringWithUTF8String:val] ;
                 self.curLayerName = currId;
                 
             }
-            else if (strcmp(attr,"style")==0)
+            else if (!currentStyle && strcmp((const char*)attr,"style")==0)
             {
-                [currentStyle reset];
+                [currentStyle release];
+                currentStyle = [SVGStyle new];
                 [currentStyle setStyleContext:[NSString stringWithUTF8String:val] withDefDict:defDict];
                 
             }
-            else if (strcmp(attr,"transform")==0)
+            else if (strcmp((const char*)attr,"transform")==0)
             {
                 [self applyTransformations:val];
                 
@@ -788,83 +868,7 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
  	}
 	
 	
-	// Path node
-	// -------------------------------------------------------------------------
-	else if(strcmp(element,"path")==0) {
-		
-		// For now, we'll ignore paths in definitions
-		if(inDefSection)
-			return;
-        
-        // set the current scale, in case there is no transform
-        currentScaleX = globalScaleX;
-        currentScaleY = globalScaleY;
-        
-        Sprite* currentSprite = nil;
-        
-        
-        unsigned int index = 0;
-        for ( int indexAttribute = 0; 
-             indexAttribute < nb_attributes; 
-             ++indexAttribute, index += 5 )
-        {
-            const xmlChar *attr = attributes[index];
-            const xmlChar *valueBegin = attributes[index+3];
-            const xmlChar *valueEnd = attributes[index+4];
-            int vlen = valueEnd - valueBegin;
-            unsigned char val[vlen + 1];
-            strncpy(val, valueBegin, vlen);
-            val[vlen] = '\0';
-            
-            if (!currId && strcmp(attr,"id")==0)
-            {
-                currId = [NSString stringWithUTF8String:val] ;
-                currentSprite = [self currentSprite];
-                if ([currentSprite isInitialized])
-                    currentSprite = nil;                
-            }
-            else if (strcmp(attr,"style")==0)
-            {
-                [currentStyle reset];
-                [currentStyle setStyleContext:[NSString stringWithUTF8String:val] withDefDict:defDict];
-                
-            }
-            else if (strcmp(attr,"transform")==0)
-            {
-                localTransform = [self applyTransformations:val];
-                
-            }  
-            else if (strcmp(attr,"d")==0)
-            {
-                CFErrorRef error;
-                currPath = CGPathCreateFromSVG(val, &error);
-                
-            }
-            else if (strcmp(attr,"fill")==0)
-            {
-                localTransform = [self applyTransformations:val];
-                currentStyle.doFill = YES;
-                currentStyle.fillType = @"solid";
-                [currentStyle setFillColorFromAttribute:[NSString stringWithUTF8String:val]];
-            }  
-        }
 
- 		        
-        
-		if (currentSprite)
-		{
-			//transform to non-offset image coordinates
-			CGAffineTransform temp = CGAffineTransformTranslate(transform, offsetX/currentScaleX, offsetY/currentScaleY);
-			
-			//scale down to relative image coordinates
-			temp = CGAffineTransformConcat(temp, CGAffineTransformMakeScale(1.0/(globalScaleX*width),1.0/(globalScaleY*height) ));
-            
-			[currentSprite calcBoundingBox:CGPathGetBoundingBox(currPath) withTransform:temp];			
-			[rootNode addSprite:currentSprite];
-		}
-        [self drawPath];
-        
-	}
 	
 	/*
      // Rect node
@@ -1047,9 +1051,10 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
     
 }
 
--(void)	endElementSAX:(const xmlChar *)element :(const xmlChar *)prefix :(const xmlChar *)URI
+-(void)	endElementSAX:(const xmlChar *)elt :(const xmlChar *)prefix :(const xmlChar *)URI
 {
     //  printf( "endElementNs: name = '%s' prefix = '%s' uri = '%s'\n", element, prefix, URI );  
+    const char* element = (const char*)elt;
 	if(strcmp(element,"svg")==0) {
         if (delegate)
 		    [delegate svgRenderer:self finishedRenderingInCGContext:cgContext];
@@ -1092,45 +1097,49 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
             [defDict setObject:curGradient forKey:[curGradient objectForKey:@"id"]];
 	}
     currId = nil;
+    [currentStyle release];
+	currentStyle = nil;
+
 
     
 }
 
 -(void)	charactersFoundSAX:(const xmlChar *)ch :(int) len
 {
-    /*
+    
      // TODO: Text rendering shouldn't occur in this method
-     if(curText) {
+     if(curText)
+     {
+         
+         if(!currentStyle.font)
+         currentStyle.font = @"Helvetica";
+         
+         CGContextSetRGBFillColor(cgContext, currentStyle.fillColor.r, currentStyle.fillColor.g, currentStyle.fillColor.b, currentStyle.fillColor.a);
+         
+         CGContextSelectFont(cgContext, [currentStyle.font UTF8String], currentStyle.fontSize, kCGEncodingMacRoman);
+         CGContextSetFontSize(cgContext, currentStyle.fontSize);
+         CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
+         
+         [currentStyle setUpStroke:cgContext];
+         
+         
+         CGTextDrawingMode drawingMode = kCGTextInvisible;			
+         if(currentStyle.doStroke && currentStyle.doFill)
+         drawingMode = kCGTextFillStroke;
+         else if(currentStyle.doFill)
+         drawingMode = kCGTextFill;				
+         else if(currentStyle.doStroke)
+         drawingMode = kCGTextStroke;
+         
+         CGContextSetTextDrawingMode(cgContext, drawingMode);
+         CGContextShowTextAtPoint(cgContext,
+         [[curText valueForKey:@"x"] floatValue],
+         [[curText valueForKey:@"y"] floatValue],
+         (const char*)ch,
+         len);
      
-     if(!currentStyle.font)
-     currentStyle.font = @"Helvetica";
-     
-     CGContextSetRGBFillColor(cgContext, currentStyle.fillColor.r, currentStyle.fillColor.g, currentStyle.fillColor.b, currentStyle.fillColor.a);
-     
-     CGContextSelectFont(cgContext, [currentStyle.font UTF8String], currentStyle.fontSize, kCGEncodingMacRoman);
-     CGContextSetFontSize(cgContext, currentStyle.fontSize);
-     CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
-     
-     [currentStyle setUpStroke:cgContext];
-     
-     
-     CGTextDrawingMode drawingMode = kCGTextInvisible;			
-     if(currentStyle.doStroke && currentStyle.doFill)
-     drawingMode = kCGTextFillStroke;
-     else if(currentStyle.doFill)
-     drawingMode = kCGTextFill;				
-     else if(currentStyle.doStroke)
-     drawingMode = kCGTextStroke;
-     
-     CGContextSetTextDrawingMode(cgContext, drawingMode);
-     CGContextShowTextAtPoint(cgContext,
-     [[curText valueForKey:@"x"] floatValue],
-     [[curText valueForKey:@"y"] floatValue],
-     [chars UTF8String],
-     [chars length]);
      }
-     */
- 
+  
     
 }
 
