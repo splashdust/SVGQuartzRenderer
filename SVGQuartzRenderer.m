@@ -148,7 +148,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 -(void) redraw
 {
-  if (YES)
+  if (NO)
   {
      [self drawSVGFile:nil];
    
@@ -331,6 +331,7 @@ else
     PathFrag* frag = [[PathFrag alloc] init:self];
     [frag wrap:currPath style:currentStyle transform:localTransform.transform type:localTransform.type];
     [fragments addObject:frag];
+    currPath = nil;
     Sprite* currentSprite = [self currentSprite];
     if (currentSprite)
         currentSprite.frag = frag;
