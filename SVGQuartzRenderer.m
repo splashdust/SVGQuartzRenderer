@@ -44,8 +44,8 @@ static xmlSAXHandler simpleSAXHandlerStruct;
 @interface SVGQuartzRenderer (hidden)
 
     - (void) prepareToDraw;
+    -(void) createFrag;
      -(void) drawPath;
-    - (void)drawPath:(CGPathRef)path withStyle:(SVGStyle*)style;
 	- (SVG_TRANS)applyTransformations:(const char *)transformations;
     - (void)applyTransformation:(SVG_TRANS)trans;
 	- (void) cleanupAfterFinishedParsing;
@@ -112,14 +112,11 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 }
 
 
-- (void)drawSVGFile:(NSString *)file
+- (void)parse:(NSString *)file
 {
-	if (svgXml == nil)
-    {
-        
-	    svgXml = [[NSData alloc ] initWithContentsOfFile:file];
+  
+    svgXml = [[NSData alloc ] initWithContentsOfFile:file];
 
-    }
     NSDate* start;
     NSTimeInterval timeInterval;
     
@@ -141,20 +138,16 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
     context = NULL;
     
     timeInterval = [start timeIntervalSinceNow];
-    NSLog(@"lib2xml parse and draw: %f seconds",-timeInterval);    
+    NSLog(@"lib2xml parse: %f seconds",-timeInterval);    
+    
+   [svgXml release];
     
 
 }
 
 -(void) redraw
 {
-  if (NO)
-  {
-     [self drawSVGFile:nil];
-   
-  }
-else
-{
+
     NSDate* start;
     NSTimeInterval timeInterval;
     
@@ -177,7 +170,7 @@ else
     
     timeInterval = [start timeIntervalSinceNow];
     NSLog(@"Redraw: %f seconds",-timeInterval);  
-}   
+  
     
 }
 
@@ -225,7 +218,10 @@ else
 {
 
 	if ([self doCenter:location withBoundingBox:box])
-	     [self drawSVGFile:nil];
+    {
+         [self redraw];
+        
+    }
 }
 
 -(NSString*) find:(CGPoint)viewPoint
@@ -323,11 +319,8 @@ else
 	
 }
 
--(void) drawPath
+-(void) createFrag
 {
-    
-    [self drawPath:currPath withStyle:currentStyle];
-    
     PathFrag* frag = [[PathFrag alloc] init:self];
     [frag wrap:currPath style:currentStyle transform:localTransform.transform type:localTransform.type];
     [fragments addObject:frag];
@@ -335,24 +328,25 @@ else
     Sprite* currentSprite = [self currentSprite];
     if (currentSprite)
         currentSprite.frag = frag;
-    [frag release];
-
+    [frag release];   
 }
-// Draw a path based on style information
-// -----------------------------------------------------------------------------
-- (void)drawPath:(CGPathRef)path withStyle:(SVGStyle*)style
-{		
-	CGContextSaveGState(cgContext);
-	if(style.styleString)
-		[style setStyleContext:currentStyle.styleString withDefDict:defDict];
+
+-(void) drawPath
+{
+        
+ 	CGContextSaveGState(cgContext);
+    
 	
 	Sprite* info = (Sprite*)[sprites objectForKey:currId];
-    style.isHighlighted = info.isHighlighted;	
-    [style drawPath:path withContext:cgContext];	
-
+    currentStyle.isHighlighted = info.isHighlighted;	
+    [currentStyle drawPath:currPath withContext:cgContext];	
+    
 	CGContextRestoreGState(cgContext);
-	
+    
+
+
 }
+
 
 - (SVG_TRANS)applyTransformations:(const char *)transformations
 {                
@@ -549,11 +543,9 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 - (void)dealloc
 {
 	[self cleanupAfterFinishedParsing];
-	[sprites release];
-    
+	[sprites release];    
     [fragments release];
 	[rootNode release];
-    [svgXml release];
 	[super dealloc];
 }
 
@@ -656,7 +648,7 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
             {
                 [currentStyle release];
                 currentStyle = [SVGStyle new];
-                [currentStyle setStyleContext:[NSString stringWithUTF8String:val] withDefDict:defDict];
+                [currentStyle setStyleContext:val withDefDict:defDict];
                 
             }
             else if (strcmp((const char*)attr,"transform")==0)
@@ -692,8 +684,7 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 			[currentSprite calcBoundingBox:CGPathGetBoundingBox(currPath) withTransform:temp];			
 			[rootNode addSprite:currentSprite];
 		}
-        [self drawPath];
-        
+        [self createFrag];
 	}
 	// -------------------------------------------------------------------------
 	else if(strcmp(element,"svg")==0) {
@@ -854,9 +845,8 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
             }
             else if (!currentStyle && strcmp((const char*)attr,"style")==0)
             {
-                [currentStyle release];
                 currentStyle = [SVGStyle new];
-                [currentStyle setStyleContext:[NSString stringWithUTF8String:val] withDefDict:defDict];
+                [currentStyle setStyleContext:val withDefDict:defDict];
                 
             }
             else if (strcmp((const char*)attr,"transform")==0)

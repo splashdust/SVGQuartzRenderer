@@ -68,7 +68,8 @@ CGPoint middle;
 -(void) open:(NSString*)path{
 	
 	self.filePath = path;
-	[svgRenderer drawSVGFile:path];
+	[svgRenderer parse:path];
+    [svgRenderer redraw];
 		
 }
 
@@ -84,8 +85,6 @@ CGPoint middle;
 - (void)svgRenderer:(id)renderer
 		finishedRenderingInCGContext:(CGContextRef)context
 {
-	NSLog(@"Finished we are!");
-	
 	
 	[svgLayer removeAllAnimations];
 	[svgLayer removeFromSuperlayer];

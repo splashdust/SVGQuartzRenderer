@@ -53,7 +53,6 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 
 @interface SVGStyle : NSObject <NSCopying>  {
 
-	NSString* styleString;
 	BOOL doFill;
 	FILL_COLOR fillColor;
 	float fillOpacity;
@@ -75,7 +74,6 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
     BOOL isHighlighted;
 
 }
-@property (nonatomic, copy) NSString *styleString;
 @property (nonatomic) FILL_GRADIENT_POINTS fillGradientPoints;
 @property (nonatomic) FILL_COLOR fillColor;
 @property (nonatomic) BOOL doFill;
@@ -100,7 +98,7 @@ typedef struct FillPatternDescriptor FillPatternDescriptor;
 - (void)reset;
 - (void) setFillColorFromAttribute:(NSString *)attr;
 - (void) setFillColorFromInt:(unsigned int)color;
-- (void)setStyleContext:(NSString *)style withDefDict:(NSDictionary*)defDict;
+- (void)setStyleContext:(char*)styleString withDefDict:(NSDictionary*)defDict;
 - (void)drawPath:(CGPathRef)path withContext:(CGContextRef)context;
 -(void) setUpStroke:(CGContextRef)context;
 +(unsigned int) extractColorFromAttribute:(NSString*)attr;

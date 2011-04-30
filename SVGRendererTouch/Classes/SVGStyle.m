@@ -37,12 +37,12 @@
 
     void drawImagePattern(void * fillPatDescriptor, CGContextRef context);
     - (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier withDefDict:(NSDictionary*)defDict;
+    -(void) parseStyle:(char*)begin :(char*)colon :(char*)end;
 
 @end
 
 @implementation SVGStyle
 
-@synthesize styleString;
 @synthesize fillGradientPoints;
 @synthesize fillColor;
 @synthesize doFill;
@@ -79,9 +79,6 @@
 	// We'll ignore the zone for now
 	SVGStyle *another = [SVGStyle new];
 	another.doFill = doFill;
-	
-	
-	another.styleString = styleString;
 	another.fillColor = fillColor;
 	another.fillOpacity = fillOpacity;
 	another.doStroke = doStroke;
@@ -121,7 +118,6 @@
 	fillType = @"solid";
 	fillGradientAngle = 0;
 	fillGradientCenterPoint = CGPointMake(0, 0);
-	styleString = nil;
     [font release];
 	font = nil;
 	CGGradientRelease(fillGradient);
@@ -130,10 +126,83 @@
 	fillPattern = NULL;
 }
 
-
-- (void)setStyleContext:(NSString *)style withDefDict:(NSDictionary*)defDict
+-(void) parseStyle:(char*)begin :(char*)colon :(char*)end
 {
-	NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
+   if (colon - begin == strlen("fill"))
+   {
+       doFill = YES;
+       fillType = @"solid";
+       unsigned int colour;
+       colon+=2;
+       int vlen = end - colon+1;
+       char val[vlen + 1];
+       strncpy(val, (const char*)colon, vlen);
+       val[vlen] = '\0';
+       colour = strtoul(colon,NULL, 16); 
+       [self setFillColorFromInt:colour];
+       
+   } else if (colon - begin == strlen("fill-opacity"))
+   {
+       colon++;
+       int vlen = end - colon+1;
+       char val[vlen + 1];
+       strncpy(val, (const char*)colon, vlen);
+       val[vlen] = '\0';
+       fillColor.a = atof(val); 
+       
+   }
+}
+
+- (void)setStyleContext:(char*)styleString withDefDict:(NSDictionary*)defDict
+{
+    
+    char* styleBegin = styleString;
+    char* styleEnd = styleString;
+    char* styleColon = 0;
+    char* final = styleString + strlen(styleString);
+    char ch = *styleBegin;
+    bool newLine = false;
+    while (styleEnd <= final)
+    {   
+        //parse final line
+        if (styleEnd == final)
+        {
+            [self parseStyle:styleBegin :styleColon :styleEnd];
+            break;
+        }
+        
+        ch = *styleEnd;
+        switch(ch)
+        {
+         case ':':
+                styleColon = styleEnd;
+                break;
+         case ';':
+                //parse line
+                [self parseStyle:styleBegin :styleColon :styleEnd];
+                newLine = true;                
+                break;
+        default:
+                if (newLine )
+                {
+                    if (ch != '\n')
+                    {
+                        styleBegin = styleEnd;
+                        styleColon = 0;
+                        newLine = false;
+                    }
+                }  
+                break;                
+        }
+        styleEnd++;   
+            
+    }
+   
+    return;
+    /*
+    
+ 	NSAutoreleasePool *pool =  [[NSAutoreleasePool alloc] init];
+    
 	
 	// Scan the style string and parse relevant data
 	// -------------------------------------------------------------------------
@@ -154,6 +223,7 @@
 				
 				doFill = YES;
 				fillType = @"solid";
+                NSLog(attrValue);
 				[self setFillColorFromAttribute:attrValue];
 				
 			} else if([attrValue rangeOfString:@"url"].location != NSNotFound) {
@@ -188,14 +258,14 @@
 						
 						CGPatternRelease(fillPattern);
 						fillPattern = CGPatternCreate (
-																	/* info */		&desc,
-																	/* bounds */	desc.rect,
-																	/* matrix */	CGAffineTransformIdentity,
-																	/* xStep */		desc.rect.size.width,
-																	/* yStep */		desc.rect.size.height,
-																	/* tiling */	kCGPatternTilingConstantSpacing,
-																	/* isColored */	true,
-																	/* callbacks */	&callbacks);
+																			&desc,
+																		desc.rect,
+																		CGAffineTransformIdentity,
+																		desc.rect.size.width,
+																		desc.rect.size.height,
+																		kCGPatternTilingConstantSpacing,
+																		true,
+																		&callbacks);
 						
 						
 					} else if([def objectForKey:@"stops"] && [[def objectForKey:@"stops"] count] > 0) {
@@ -334,7 +404,6 @@
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
 			[floatScanner scanFloat:&miterLimit];
 		}
-		/*
 		// --------------------- FONT-SIZE
 		else if([attrName isEqualToString:@"font-size"]) {
 			NSScanner *floatScanner = [NSScanner scannerWithString:attrValue];
@@ -365,7 +434,7 @@
 		else if([attrName isEqualToString:@"word-spacing"]) {
 			
 		}
-		*/
+		
 		// --------------------- FONT-FAMILY
 		else if([attrName isEqualToString:@"font-family"]) {
 			font = [attrValue retain];
@@ -375,7 +444,14 @@
 		
 		[cssScanner scanString:@";" intoString:nil];
 	}
+    
+    
+    
+    
+    
+    
 	[pool release];
+     */
 }
 
 - (NSDictionary *)getCompleteDefinitionFromID:(NSString *)identifier withDefDict:(NSDictionary*)defDict

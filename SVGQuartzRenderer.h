@@ -91,7 +91,7 @@
 
 - (void) resetScale;
 
-- (void)drawSVGFile:(NSString *)file;
+- (void)parse:(NSString *)file;
 -(void) redraw;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
 - (CGContextRef)createBitmapContext;
