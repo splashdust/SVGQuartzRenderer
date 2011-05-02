@@ -54,6 +54,7 @@
     // Reference to the libxml parser context
     xmlParserCtxtPtr context;
 	NSData *svgXml;
+    NSString* svgFile;
 	CGAffineTransform transform;
     SVG_TRANS localTransform;
 	CGContextRef cgContext;

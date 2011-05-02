@@ -114,8 +114,11 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 - (void)parse:(NSString *)file
 {
-  
-    svgXml = [[NSData alloc ] initWithContentsOfFile:file];
+ 
+    if (!svgFile)
+        svgFile = [[NSString alloc ] initWithString:file];
+    
+    svgXml = [[NSData alloc ] initWithContentsOfFile:svgFile];
 
     NSDate* start;
     NSTimeInterval timeInterval;
@@ -147,7 +150,6 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
 -(void) redraw
 {
-
     NSDate* start;
     NSTimeInterval timeInterval;
     
