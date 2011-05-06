@@ -1049,8 +1049,6 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
     //  printf( "endElementNs: name = '%s' prefix = '%s' uri = '%s'\n", element, prefix, URI );  
     const char* element = (const char*)elt;
 	if(strcmp(element,"svg")==0) {
-        if (delegate)
-		    [delegate svgRenderer:self finishedRenderingInCGContext:cgContext];
 		[self cleanupAfterFinishedParsing];
 	}
 	
