@@ -11,9 +11,13 @@
 
 @interface SVGRendererTouchAppDelegate : NSObject <UIApplicationDelegate, SVGRenderViewTouchDelegate> {
     UIWindow *window;
+    NSOperationQueue *queue;
+    SVGRenderViewTouch* svgView;
+    
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (retain) SVGRenderViewTouch* svgView;
 
 @end
 

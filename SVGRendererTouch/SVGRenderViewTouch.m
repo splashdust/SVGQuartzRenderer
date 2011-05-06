@@ -33,7 +33,7 @@ CGPoint middle;
 
 @implementation SVGRenderViewTouch
 
-@synthesize filePath, selectedLocation;
+@synthesize selectedLocation;
 
 
 
@@ -53,7 +53,16 @@ CGPoint middle;
 		initialScaleX = -1;
 		initialScaleY = -1;
 		panning = NO;
-		
+        
+        ////SPINNER///////////////////
+        
+        spinner = [[UIActivityIndicatorView alloc]
+                   initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+        spinner.center = CGPointMake(frame.size.width/2, frame.size.height/2);
+        
+        [self addSubview: spinner];
+        [spinner startAnimating];		
 		
     }
     return self;
@@ -64,13 +73,21 @@ CGPoint middle;
 	delegate = del;	  
 }
 
-
--(void) open:(NSString*)path{
-	
-	self.filePath = path;
-	[svgRenderer parse:path];
+-(void) render
+{
+    if (spinner)
+    {
+        [spinner stopAnimating];
+        [spinner removeFromSuperview];
+        [spinner release];
+        spinner = nil;
+    }
     [svgRenderer redraw];
-		
+ 
+}
+
+-(void) open:(NSString*)path{	
+	[svgRenderer parse:path];       
 }
 
 
@@ -89,6 +106,7 @@ CGPoint middle;
 	[svgLayer removeAllAnimations];
 	[svgLayer removeFromSuperlayer];
 	[svgLayer release];
+    
 	
     svgLayer= [[CALayer layer] retain];
     svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
@@ -334,6 +352,7 @@ CGPoint middle;
 	[svgRenderer release];
 	CGImageRelease(svgDrawing);
 	[svgLayer release];
+    [spinner release];
 	[super dealloc];
 }
 

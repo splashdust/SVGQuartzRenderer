@@ -40,16 +40,17 @@
 	CGFloat initialScaleY;
 	BOOL panning;
 	SVGQuartzRenderer *svgRenderer;
-	NSString* filePath;
 	NSString* selectedLocation;
 	CALayer* svgLayer;
+    
+    UIActivityIndicatorView* spinner;
 }
 
 -(void) open:(NSString*)path;
+-(void) render;
 -(void) locate:(CGPoint)location withBoundingBox:(CGSize)box;
 -(void) setDelegate:(id<SVGRenderViewTouchDelegate>)del;
 
-@property (nonatomic, copy) NSString* filePath;
 @property (nonatomic, copy) NSString* selectedLocation;
 
 @end

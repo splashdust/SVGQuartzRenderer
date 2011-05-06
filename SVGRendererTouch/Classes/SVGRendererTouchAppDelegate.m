@@ -9,9 +9,18 @@
 #import "SVGRendererTouchAppDelegate.h"
 #import "SVGRenderViewTouch.h"
 
+@interface SVGRendererTouchAppDelegate (private)
+
+    -(void) parse;
+    -(void) render;
+@end
+
+
+
 @implementation SVGRendererTouchAppDelegate
 
-@synthesize window;
+@synthesize window, svgView;
+
 
 
 #pragma mark -
@@ -34,15 +43,38 @@
 
 	//set origin to (0,0)
 	bounds.origin.y = 0;
-	SVGRenderViewTouch* svgView = [[SVGRenderViewTouch alloc] initWithFrame:bounds];
-	[topView addSubview:svgView];
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"map" ofType:@"svg"];
-	[svgView open:path];
- 
-	[svgView setDelegate:self];
-	[svgView release];
+	SVGRenderViewTouch* view = [[SVGRenderViewTouch alloc] initWithFrame:bounds];
+    self.svgView = view;
+    [view release];
+    
+	[svgView setDelegate:self];    
+    [topView addSubview:svgView];    
+    [svgView release];
+    
+    queue = [[NSOperationQueue alloc] init];
+    
+    NSInvocationOperation *updateOperation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(parse) object:nil];
+    [queue addOperation:updateOperation];
+    [updateOperation release];
     
     return YES;
+}
+
+
+-(void) parse
+{
+  	NSString *path = [[NSBundle mainBundle] pathForResource:@"map" ofType:@"svg"];
+	[self.svgView open:path];     
+    [self performSelectorOnMainThread:@selector(render)
+                                           withObject:nil
+                                        waitUntilDone:NO];
+ 
+    
+}
+
+-(void) render
+{
+    [self.svgView render];      
 }
 
 
@@ -96,6 +128,8 @@
 
 - (void)dealloc {
     [window release];
+    [queue release];
+    queue = nil;
     [super dealloc];
 }
 
