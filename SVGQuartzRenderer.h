@@ -76,7 +76,6 @@
 	BOOL inDefSection;	
     
 	NSMutableArray* fragments;
-    NSMutableDictionary* fragmentDict;
 	NSMutableDictionary* sprites;
 	QuadTreeNode* rootNode;
 }

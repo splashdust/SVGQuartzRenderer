@@ -395,7 +395,6 @@
     char* styleEnd = styleString;
     char* styleColon = 0;
     char* final = styleString + strlen(styleString);
-    char ch = *styleBegin;
     bool newLine = false;
     while (styleEnd <= final)
     {   
@@ -406,7 +405,7 @@
             break;
         }
         
-        ch = *styleEnd;
+        char ch = *styleEnd;
         switch(ch)
         {
          case ':':
