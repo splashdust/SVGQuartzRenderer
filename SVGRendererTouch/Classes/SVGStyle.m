@@ -21,7 +21,7 @@
  *--------------------------------------------------*/
 
 //
-//  SVGStyle.m
+//  SVGm
 //  SVGRendererTouch
 
 
@@ -733,6 +733,37 @@
 	return color;
 }
 
+
+- (void)drawText:(char*)text :(CGPoint)location  withContext:(CGContextRef)context
+{
+    if(font)
+        self.font = @"Helvetica";
+    
+    CGContextSetRGBFillColor(context, fillColor.r, fillColor.g, fillColor.b, fillColor.a);
+    
+    CGContextSelectFont(context, [font UTF8String], fontSize, kCGEncodingMacRoman);
+    CGContextSetFontSize(context, fontSize);
+    CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0, -1.0));
+    
+    [self setUpStroke:context];
+    
+    
+    CGTextDrawingMode drawingMode = kCGTextInvisible;			
+    if(doStroke && doFill)
+        drawingMode = kCGTextFillStroke;
+    else if(doFill)
+        drawingMode = kCGTextFill;				
+    else if(doStroke)
+        drawingMode = kCGTextStroke;
+    
+    CGContextSetTextDrawingMode(context, drawingMode);
+    CGContextShowTextAtPoint(context,
+                             location.x,
+                             location.y,
+                             (const char*)text,
+                             strlen(text));     
+    
+}
 
 // Draw a path based on style information
 // -----------------------------------------------------------------------------

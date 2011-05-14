@@ -29,7 +29,7 @@
 #import "QuadTreeNode.h"
 #import "PathFrag.h"
 #import "CGPathReader.h"
-
+#import "TextFrag.h"
 
 // Function prototypes for SAX callbacks. This sample implements a minimal subset of SAX callbacks.
 // Depending on your application's needs, you might want to implement more callbacks.
@@ -44,7 +44,9 @@ static xmlSAXHandler simpleSAXHandlerStruct;
 @interface SVGQuartzRenderer (hidden)
 
     - (void) prepareToDraw;
-    -(void) createFrag;
+    -(void) createPathFrag;
+    -(void) createTextFrag:(const xmlChar *)ch :(int) len;
+
      -(void) drawPath;
 	- (SVG_TRANS)applyTransformations:(const char *)transformations;
     - (void)applyTransformation:(SVG_TRANS)trans;
@@ -162,7 +164,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 
     for (int i = 0; i < [fragments count]; ++i)
     {
-        PathFrag* frag = (PathFrag*)[fragments objectAtIndex:i];
+        GraphicFrag* frag = (GraphicFrag*)[fragments objectAtIndex:i];
         [frag draw:cgContext];
     }
     if (delegate)
@@ -321,7 +323,23 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 	
 }
 
--(void) createFrag
+-(void) createTextFrag:(const xmlChar *)ch :(int) len;
+{
+    TextFrag* frag = [[TextFrag alloc] init:self];
+    CGPoint location = CGPointMake([[curText valueForKey:@"x"] floatValue],
+                                   [[curText valueForKey:@"y"] floatValue]);
+    
+   // location = CGPointMake(50,50);
+    char* val = malloc(len+1);
+    strncpy(val, (const char*)ch, len);
+    val[len] = '\0';
+    
+    [frag wrap:val location:location style:currentStyle transform:localTransform.transform type:localTransform.type]; 
+    [fragments addObject:frag];
+    [frag release];
+}
+
+-(void) createPathFrag
 {
     PathFrag* frag = [[PathFrag alloc] init:self];
     [frag wrap:currPath style:currentStyle transform:localTransform.transform type:localTransform.type];
@@ -686,7 +704,7 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 			[currentSprite calcBoundingBox:CGPathGetBoundingBox(currPath) withTransform:temp];			
 			[rootNode addSprite:currentSprite];
 		}
-        [self createFrag];
+        [self createPathFrag];
 	}
 	// -------------------------------------------------------------------------
 	else if(strcmp(element,"svg")==0) {
@@ -739,86 +757,7 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
         [self prepareToDraw];
 	}
 	
-    
-    /*
-     else if(strcmp(element,"defs")==0) {
-     defDict = [[NSMutableDictionary alloc] init];
-     inDefSection = YES;
-     }
-     
-     else if(strcmp(element,"pattern")==0) {
-     [curPat release];
-     curPat = [[NSMutableDictionary alloc] init];		
-     [self copyDict:attrDict toDest:curPat];
-     
-     NSMutableArray* imagesArray = [NSMutableArray new];
-     [curPat setObject:imagesArray forKey:@"images"];
-     [imagesArray release];
-     [curPat setObject:@"pattern" forKey:@"type"];
-     }
-     else if(strcmp(element,"image")==0) {
-     NSMutableDictionary *imageDict = [[NSMutableDictionary alloc] init];
-     [self copyDict:attrDict toDest:imageDict];
-     [[curPat objectForKey:@"images"] addObject:imageDict];
-     [imageDict release];
-     }
-     
-     else if(strcmp(element,"linearGradient")==0) {
-     [curGradient release];
-     curGradient = [[NSMutableDictionary alloc] init];
-     [self copyDict:attrDict toDest:curGradient];
-     
-     [curGradient setObject:@"linearGradient" forKey:@"type"];
-     NSMutableArray* stopsArray = [NSMutableArray new];
-     [curGradient setObject:stopsArray forKey:@"stops"];
-     [stopsArray release];
-     }
-     else if(strcmp(element,"stop")==0) {
-     NSMutableDictionary *stopDict = [[NSMutableDictionary alloc] init];
-     [self copyDict:attrDict toDest:stopDict];        
-     [[curGradient objectForKey:@"stops"] addObject:stopDict];
-     [stopDict release];
-     }
-     
-     else if(strcmp(element,"radialGradient")==0) {
-     [curGradient release];
-     curGradient = [[NSMutableDictionary alloc] init];
-     [self copyDict:attrDict toDest:curGradient];
-     
-     [curGradient setObject:@"radialGradient" forKey:@"type"];
-     }
-     
-     else if(strcmp(element,"filter")==0) {
-     [curFilter release];
-     curFilter = [[NSMutableDictionary alloc] init];
-     [self copyDict:attrDict toDest:curFilter];
-     
-     NSMutableArray* gaussianBlursArray = [NSMutableArray new];
-     [curFilter setObject:gaussianBlursArray forKey:@"feGaussianBlurs"];
-     [gaussianBlursArray release];
-     }
-     else if(strcmp(element,"feGaussianBlur")==0) {
-     NSMutableDictionary *blurDict = [[NSMutableDictionary alloc] init];
-     [self copyDict:attrDict toDest:blurDict]; 
-     
-     [[curFilter objectForKey:@"feGaussianBlurs"] addObject:blurDict];
-     [blurDict release];
-     }
-     */
-    //ToDo    
-    //	else if(strcmp(element,"feColorMatrix"]) {
-    //		
-    //	}
-    //	else if(strcmp(element,"feFlood"]) {
-    //		
-    //	}
-    //	else if(strcmp(element,"feBlend"]) {
-    //		
-    //	}
-    //	else if(strcmp(element,"feComposite"]) {
-    //		
-    //	}
-	
+
 	// Group node
 	// -------------------------------------------------------------------------
 	else if(strcmp(element,"g")==0) {
@@ -860,8 +799,207 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 
  	}
 	
-	
+     else if(strcmp(element,"defs")==0) {
+         defDict = [[NSMutableDictionary alloc] init];
+         inDefSection = YES;
+     }
+     
+     else if(strcmp(element,"pattern")==0) {
+         [curPat release];
+         curPat = [[NSMutableDictionary alloc] init];	
+         [self copyAttributes:attributes size:nb_attributes toDest:curPat]; 
+     
+         NSMutableArray* imagesArray = [NSMutableArray new];
+         [curPat setObject:imagesArray forKey:@"images"];
+         [imagesArray release];
+         [curPat setObject:@"pattern" forKey:@"type"];
+     }
+     else if(strcmp(element,"image")==0) {
+         NSMutableDictionary *imageDict = [[NSMutableDictionary alloc] init];
+         [self copyAttributes:attributes size:nb_attributes toDest:imageDict]; 
+         [[curPat objectForKey:@"images"] addObject:imageDict];
+         [imageDict release];
+     }
+     
+     else if(strcmp(element,"linearGradient")==0) {
+         [curGradient release];
+         curGradient = [[NSMutableDictionary alloc] init];
+         [self copyAttributes:attributes size:nb_attributes toDest:curGradient]; 
+         [curGradient setObject:@"linearGradient" forKey:@"type"];
+         NSMutableArray* stopsArray = [NSMutableArray new];
+         [curGradient setObject:stopsArray forKey:@"stops"];
+         [stopsArray release];
+     }
+     else if(strcmp(element,"stop")==0) {
+         NSMutableDictionary *stopDict = [[NSMutableDictionary alloc] init];
+          [self copyAttributes:attributes size:nb_attributes toDest:stopDict];        
+         [[curGradient objectForKey:@"stops"] addObject:stopDict];
+         [stopDict release];
+     }
+     
+     else if(strcmp(element,"radialGradient")==0) {
+         [curGradient release];
+         curGradient = [[NSMutableDictionary alloc] init];
+        [self copyAttributes:attributes size:nb_attributes toDest:curGradient]; 
+         [curGradient setObject:@"radialGradient" forKey:@"type"];
+     }
+     
+     else if(strcmp(element,"filter")==0) {
+         [curFilter release];
+         curFilter = [[NSMutableDictionary alloc] init];
+         [self copyAttributes:attributes size:nb_attributes toDest:curFilter]; 
 
+         NSMutableArray* gaussianBlursArray = [NSMutableArray new];
+         [curFilter setObject:gaussianBlursArray forKey:@"feGaussianBlurs"];
+         [gaussianBlursArray release];
+     }
+     else if(strcmp(element,"feGaussianBlur")==0) {
+         NSMutableDictionary *blurDict = [[NSMutableDictionary alloc] init];
+        [self copyAttributes:attributes size:nb_attributes toDest:blurDict];          
+         [[curFilter objectForKey:@"feGaussianBlurs"] addObject:blurDict];
+         [blurDict release];
+     }
+     
+    
+
+     
+     // Text node
+     // -------------------------------------------------------------------------
+     else if(strcmp(element,"text")==0) {
+     
+         if(inDefSection)
+         return;
+         
+         if(curText)
+             [curText release];
+         
+         
+         NSMutableDictionary* temp = [NSMutableDictionary new];
+         
+         unsigned int index = 0;
+         for ( int indexAttribute = 0; 
+              indexAttribute < nb_attributes; 
+              ++indexAttribute, index += 5 )
+         {
+             const xmlChar *attr = attributes[index];
+             const xmlChar *valueBegin = attributes[index+3];
+             const xmlChar *valueEnd = attributes[index+4];
+             int vlen = valueEnd - valueBegin;
+             char val[vlen + 1];
+             strncpy(val, (const char*)valueBegin, vlen);
+             val[vlen] = '\0';
+             
+
+            if (strcmp((const char*)attr,"style")==0)
+             {
+                 if (!currentStyle)
+                 {
+                     currentStyle = [SVGStyle new];
+                     [currentStyle setStyleContext:val withDefDict:defDict];
+                 }
+                 
+             }
+             else if (strcmp((const char*)attr,"transform")==0)
+             {
+                 localTransform = [self applyTransformations:val];
+                 
+             }  
+             else if (strcmp((const char*)attr,"id")==0)
+             {
+  
+                 [temp setObject:[NSString stringWithUTF8String:val] forKey:@"id"];
+                 
+             }               
+             else if (strcmp((const char*)attr,"x")==0)
+             {
+             
+                 [temp setObject:[NSString stringWithUTF8String:val] forKey:@"x"];
+                 
+             }  
+             else if (strcmp((const char*)attr,"y")==0)
+             {
+        
+                 [temp setObject:[NSString stringWithUTF8String:val] forKey:@"y"];
+                 
+             }  
+             else if (strcmp((const char*)attr,"width")==0)
+             {
+               
+                 [temp setObject:[NSString stringWithUTF8String:val] forKey:@"width"];
+   
+             }  
+             else if (strcmp((const char*)attr,"height")==0)
+             {
+           
+                 [temp setObject:[NSString stringWithUTF8String:val] forKey:@"height"];
+                 
+             }   
+             
+         }
+
+        curText = temp;
+         
+         
+
+
+    }
+         
+         // TSpan node
+         // Assumed to always be a child of a Text node
+         // ---------------------------------------------------------------------
+     else if(strcmp(element,"tspan")==0) {
+         
+         if(inDefSection)
+             return;
+         
+         unsigned int index = 0;
+         for ( int indexAttribute = 0; 
+              indexAttribute < nb_attributes; 
+              ++indexAttribute, index += 5 )
+         {
+             const xmlChar *attr = attributes[index];
+             const xmlChar *valueBegin = attributes[index+3];
+             const xmlChar *valueEnd = attributes[index+4];
+             int vlen = valueEnd - valueBegin;
+             char val[vlen + 1];
+             strncpy(val, (const char*)valueBegin, vlen);
+             val[vlen] = '\0';
+             
+             
+             if (strcmp((const char*)attr,"style")==0)
+             {
+                [currentStyle setStyleContext:val withDefDict:defDict];
+             }
+         }
+         
+        
+     }
+     
+     // FlowRegion node
+     // -------------------------------------------------------------------------
+     else if(strcmp(element,"flowRegion")==0) {
+         [curFlowRegion release];		
+         curFlowRegion = [NSDictionary new];
+     }
+    
+    
+    
+    
+    //ToDo    
+    //	else if(strcmp(element,"feColorMatrix"]) {
+    //		
+    //	}
+    //	else if(strcmp(element,"feFlood"]) {
+    //		
+    //	}
+    //	else if(strcmp(element,"feBlend"]) {
+    //		
+    //	}
+    //	else if(strcmp(element,"feComposite"]) {
+    //		
+    //	}
+	
+    
 	
 	/*
      // Rect node
@@ -992,53 +1130,8 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
      CGContextConcatCTM(cgContext, CGAffineTransformInvert(flipVertical));
      CGImageRelease(theImage);
      }
-     
-     // Text node
-     // -------------------------------------------------------------------------
-     else if(strcmp(element,"text")==0) {
-     
-     if(inDefSection)
-     return;
-     
-     if(curText)
-     [curText release];
-     
-     // TODO: This chunk of code appears in almost every node. It could probably
-     // be centralized
-     if([attrDict valueForKey:@"transform"]) {
-     [self applyTransformations:[attrDict valueForKey:@"transform"]];
-     } 
-     
-     curText = [[[NSDictionary alloc] initWithObjectsAndKeys:
-     [attrDict valueForKey:@"id"], @"id",
-     [attrDict valueForKey:@"style"], @"style",
-     [attrDict valueForKey:@"x"], @"x",
-     [attrDict valueForKey:@"y"], @"y",
-     [attrDict valueForKey:@"width"], @"width",
-     [attrDict valueForKey:@"height"], @"height",
-     nil] retain];
-     
-     [currentStyle setStyleContext:[attrDict valueForKey:@"style"] withDefDict:defDict];
-     }
-     
-     // TSpan node
-     // Assumed to always be a child of a Text node
-     // ---------------------------------------------------------------------
-     else if(strcmp(element,"tspan")==0) {
-     
-     if(inDefSection)
-     return;
-     
-     [currentStyle setStyleContext:[attrDict valueForKey:@"style"] withDefDict:defDict];
-     }
-     
-     // FlowRegion node
-     // -------------------------------------------------------------------------
-     else if(strcmp(element,"flowRegion")==0) {
-     [curFlowRegion release];		
-     curFlowRegion = [NSDictionary new];
-     }
      */
+    
 	[pool release];
 
     
@@ -1097,41 +1190,13 @@ void CGPathAddRoundRect(CGMutablePathRef currPath, CGRect rect, float radius)
 
 -(void)	charactersFoundSAX:(const xmlChar *)ch :(int) len
 {
-    
-     // TODO: Text rendering shouldn't occur in this method
-     if(curText)
-     {
-         
-         if(!currentStyle.font)
-         currentStyle.font = @"Helvetica";
-         
-         CGContextSetRGBFillColor(cgContext, currentStyle.fillColor.r, currentStyle.fillColor.g, currentStyle.fillColor.b, currentStyle.fillColor.a);
-         
-         CGContextSelectFont(cgContext, [currentStyle.font UTF8String], currentStyle.fontSize, kCGEncodingMacRoman);
-         CGContextSetFontSize(cgContext, currentStyle.fontSize);
-         CGContextSetTextMatrix(cgContext, CGAffineTransformMakeScale(1.0, -1.0));
-         
-         [currentStyle setUpStroke:cgContext];
-         
-         
-         CGTextDrawingMode drawingMode = kCGTextInvisible;			
-         if(currentStyle.doStroke && currentStyle.doFill)
-         drawingMode = kCGTextFillStroke;
-         else if(currentStyle.doFill)
-         drawingMode = kCGTextFill;				
-         else if(currentStyle.doStroke)
-         drawingMode = kCGTextStroke;
-         
-         CGContextSetTextDrawingMode(cgContext, drawingMode);
-         CGContextShowTextAtPoint(cgContext,
-         [[curText valueForKey:@"x"] floatValue],
-         [[curText valueForKey:@"y"] floatValue],
-         (const char*)ch,
-         len);
-     
-     }
+    // TODO: Text rendering shouldn't occur in this method
+    if(curText)
+    {
+        [self createTextFrag:ch :len];   
+        
+    }
   
-    
 }
 
 

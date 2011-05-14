@@ -13,6 +13,7 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		F102169A137DDCDD008D1E1F /* TextFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F1021699137DDCDD008D1E1F /* TextFrag.m */; };
 		F102760A13452147004F7796 /* QuadTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F102760913452147004F7796 /* QuadTreeNode.m */; };
 		F102760D13452161004F7796 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F102760C13452161004F7796 /* Sprite.m */; };
 		F104A1751319E77100E91D4F /* map.svg in Resources */ = {isa = PBXBuildFile; fileRef = F104A1741319E77100E91D4F /* map.svg */; };
@@ -51,6 +52,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SVGRendererTouch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGRendererTouch_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SVGRendererTouch-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SVGRendererTouch-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		F1021698137DDCDD008D1E1F /* TextFrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFrag.h; sourceTree = "<group>"; };
+		F1021699137DDCDD008D1E1F /* TextFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFrag.m; sourceTree = "<group>"; };
 		F102760813452147004F7796 /* QuadTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuadTreeNode.h; sourceTree = "<group>"; };
 		F102760913452147004F7796 /* QuadTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTreeNode.m; sourceTree = "<group>"; };
 		F102760B13452161004F7796 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F1021697137DDCA4008D1E1F /* GraphicFragments */,
 				F1297E4913652C0E00DB3E1C /* MROGeometry */,
 				F1FE97691269524F00F6D66F /* NSData+Base64.h */,
 				F1FE976A1269524F00F6D66F /* NSData+Base64.m */,
@@ -130,10 +134,6 @@
 				F102760913452147004F7796 /* QuadTreeNode.m */,
 				F102760B13452161004F7796 /* Sprite.h */,
 				F102760C13452161004F7796 /* Sprite.m */,
-				F12576A1135DC4DB00D6249F /* GraphicFrag.h */,
-				F12576A2135DC4DB00D6249F /* GraphicFrag.m */,
-				F12576A4135DC5FA00D6249F /* PathFrag.h */,
-				F12576A5135DC5FB00D6249F /* PathFrag.m */,
 				F1060337135FBE3D00840593 /* IDrawable.h */,
 				F1FAC4A21360CA3000569E4C /* ITransProvider.h */,
 			);
@@ -193,6 +193,19 @@
 				F1625B051288DC10003129E2 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1021697137DDCA4008D1E1F /* GraphicFragments */ = {
+			isa = PBXGroup;
+			children = (
+				F12576A1135DC4DB00D6249F /* GraphicFrag.h */,
+				F12576A2135DC4DB00D6249F /* GraphicFrag.m */,
+				F12576A4135DC5FA00D6249F /* PathFrag.h */,
+				F12576A5135DC5FB00D6249F /* PathFrag.m */,
+				F1021698137DDCDD008D1E1F /* TextFrag.h */,
+				F1021699137DDCDD008D1E1F /* TextFrag.m */,
+			);
+			name = GraphicFragments;
 			sourceTree = "<group>";
 		};
 		F1297E4913652C0E00DB3E1C /* MROGeometry */ = {
@@ -305,6 +318,7 @@
 				F13AA0131366516000CDA583 /* PathParser.m in Sources */,
 				F13AA0151366516000CDA583 /* RagelParser.m in Sources */,
 				F13AA0161366516000CDA583 /* TrafoParser.m in Sources */,
+				F102169A137DDCDD008D1E1F /* TextFrag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

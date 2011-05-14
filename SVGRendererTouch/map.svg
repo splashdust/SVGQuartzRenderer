@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3748,4 +3748,16 @@
        inkscape:transform-center-x="0.08812815"
        inkscape:transform-center-y="-0.63915236" />
   </g>
+  <text
+     xml:space="preserve"
+     style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+     x="445.10638"
+     y="195.37234"
+     id="text4463"
+     sodipodi:linespacing="125%"
+     transform="scale(0.8,0.8)"><tspan
+       sodipodi:role="line"
+       id="tspan4465"
+       x="445.10638"
+       y="195.37234">Starry Night</tspan></text>
 </svg>

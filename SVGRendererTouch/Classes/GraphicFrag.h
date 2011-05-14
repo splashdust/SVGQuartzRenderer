@@ -33,8 +33,10 @@ typedef struct
 @property (nonatomic) CGAffineTransform transform;
 
 -(void) draw:(CGContextRef)context;
+-(void) doDraw:(CGContextRef)context;
 -(void) wrap:(SVGStyle*) astyle transform:(CGAffineTransform)atransform type:(enum TRANSFORMATION_TYPE)atype;
 -(id) init:(id<ITransProvider>)provider;
+- (CGAffineTransform)getTransform;
 
 @property (nonatomic) BOOL isHighlighted;
 
