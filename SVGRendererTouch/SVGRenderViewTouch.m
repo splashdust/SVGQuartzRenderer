@@ -115,6 +115,7 @@ CGPoint middle;
 	svgDrawing = CGBitmapContextCreateImage(context);
     svgLayer.contents = (id)svgDrawing;
 	CGImageRelease(svgDrawing);
+    svgDrawing = NULL;
     [self.layer addSublayer:svgLayer];
 
 
@@ -350,7 +351,8 @@ CGPoint middle;
 -(void)dealloc
 {
 	[svgRenderer release];
-	CGImageRelease(svgDrawing);
+    if (svgDrawing != NULL)
+	   CGImageRelease(svgDrawing);
 	[svgLayer release];
     [spinner release];
 	[super dealloc];
