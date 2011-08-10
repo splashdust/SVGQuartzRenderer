@@ -27,6 +27,11 @@
 
 - (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
 
+-(SVGQuartzRenderer*) getCurrentRenderer;
+-(SVGQuartzRenderer*) nextRenderer;
+-(SVGQuartzRenderer*) previousRenderer;
+
+
 @end
 
 CGPoint middle;
@@ -42,7 +47,12 @@ CGPoint middle;
     if (self) {
 		[self setMultipleTouchEnabled:YES];
 	
-        svgRenderer = [[SVGQuartzRenderer alloc] init];
+        svgRenderers = [NSMutableArray new];
+        
+        SVGQuartzRenderer* svgRenderer = [[SVGQuartzRenderer alloc] init];
+        [svgRenderers addObject:svgRenderer];
+        currentRenderer = 0;
+        
 		[svgRenderer setDelegate:self];
 		svgRenderer.viewFrame = frame;
 		origin = frame.origin;
@@ -82,12 +92,12 @@ CGPoint middle;
         [spinner release];
         spinner = nil;
     }
-    [svgRenderer redraw];
+    [[self getCurrentRenderer] redraw];
  
 }
 
 -(void) open:(NSString*)path{	
-	[svgRenderer parse:path];       
+	[[self getCurrentRenderer] parse:path];       
 }
 
 
@@ -109,8 +119,8 @@ CGPoint middle;
     
 	
     svgLayer= [[CALayer layer] retain];
-    svgLayer.frame = CGRectMake(origin.x,origin.y, svgRenderer.documentSize.width, 
-							svgRenderer.documentSize.height);
+    svgLayer.frame = CGRectMake(origin.x,origin.y, [self getCurrentRenderer].documentSize.width, 
+							[self getCurrentRenderer].documentSize.height);
 	[svgLayer setAffineTransform:CGAffineTransformMake(1,0,0,-1,0,0)]; 	
 	svgDrawing = CGBitmapContextCreateImage(context);
     svgLayer.contents = (id)svgDrawing;
@@ -137,6 +147,7 @@ CGPoint middle;
 	NSUInteger tapCount = [touch tapCount];
 	NSSet* allTouches =  [event allTouches];
 	int touchCount = [allTouches count];
+    SVGQuartzRenderer* svgRenderer = [self getCurrentRenderer];
 	
 	switch (touchCount) {
         case 1:
@@ -210,6 +221,7 @@ CGPoint middle;
 {
 	
 	NSSet* allTouches =  [event allTouches];
+    SVGQuartzRenderer* svgRenderer = [self getCurrentRenderer];
 	switch ([allTouches count])
 	{
         case 1:
@@ -268,6 +280,7 @@ CGPoint middle;
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event 
 {
 	NSSet* allTouches =  [event allTouches];
+    SVGQuartzRenderer* svgRenderer = [self getCurrentRenderer];
 	switch ([allTouches count])
 	{
         case 1:
@@ -344,13 +357,45 @@ CGPoint middle;
 //location is (x,y) coordinate of point in unscaled image
 -(void) locate:(CGPoint)location withBoundingBox:(CGSize)box
 {
-	[svgRenderer center:location withBoundingBox:box];	
+	[[self getCurrentRenderer] center:location withBoundingBox:box];	
+}
+
+-(SVGQuartzRenderer*) getCurrentRenderer
+{
+    if (currentRenderer == -1 || [svgRenderers count] == 0)
+        return nil;
+    return [svgRenderers objectAtIndex:currentRenderer];
+}
+-(SVGQuartzRenderer*) nextRenderer
+{
+    if (currentRenderer == -1 || [svgRenderers count] == 0)
+        return nil;
+
+    currentRenderer = (currentRenderer+1)%[svgRenderers count];
+     return [svgRenderers objectAtIndex:currentRenderer];
+}
+-(SVGQuartzRenderer*) previousRenderer
+{
+    if (currentRenderer == -1 || [svgRenderers count] == 0)
+        return nil;
+
+    if (currentRenderer == 0)
+        currentRenderer = [svgRenderers count]-1;
+    else
+       currentRenderer = (currentRenderer-1)%[svgRenderers count];
+     return [svgRenderers objectAtIndex:currentRenderer];
 }
 
 
 -(void)dealloc
 {
-	[svgRenderer release];
+    for (int i = 0; i < [svgRenderers count]; ++i)
+    {
+        SVGQuartzRenderer* renderer = [svgRenderers objectAtIndex:i];
+        if (renderer != nil)
+            [renderer release];
+            
+    }
     if (svgDrawing != NULL)
 	   CGImageRelease(svgDrawing);
 	[svgLayer release];

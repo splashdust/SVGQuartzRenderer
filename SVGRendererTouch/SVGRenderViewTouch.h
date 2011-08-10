@@ -39,7 +39,8 @@
 	CGFloat initialScaleX;
 	CGFloat initialScaleY;
 	BOOL panning;
-	SVGQuartzRenderer *svgRenderer;
+	NSMutableArray* svgRenderers;
+    int currentRenderer;
 	NSString* selectedLocation;
 	CALayer* svgLayer;
     

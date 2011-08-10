@@ -117,10 +117,9 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 - (void)parse:(NSString *)file
 {
  
-    if (!svgFile)
-        svgFile = [[NSString alloc ] initWithString:file];
-    
+    svgFile = [[NSString alloc ] initWithString:file];    
     svgXml = [[NSData alloc ] initWithContentsOfFile:svgFile];
+    [svgFile release];
 
     NSDate* start;
     NSTimeInterval timeInterval;
