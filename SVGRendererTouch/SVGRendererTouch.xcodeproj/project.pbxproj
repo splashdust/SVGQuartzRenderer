@@ -16,13 +16,15 @@
 		F102169A137DDCDD008D1E1F /* TextFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F1021699137DDCDD008D1E1F /* TextFrag.m */; };
 		F102760A13452147004F7796 /* QuadTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F102760913452147004F7796 /* QuadTreeNode.m */; };
 		F102760D13452161004F7796 /* Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F102760C13452161004F7796 /* Sprite.m */; };
-		F104A1751319E77100E91D4F /* map.svg in Resources */ = {isa = PBXBuildFile; fileRef = F104A1741319E77100E91D4F /* map.svg */; };
+		F102788C13F5D1C400D8C56B /* map1.svg in Resources */ = {isa = PBXBuildFile; fileRef = F102788A13F5D1C400D8C56B /* map1.svg */; };
+		F102788D13F5D1C400D8C56B /* map0.svg in Resources */ = {isa = PBXBuildFile; fileRef = F102788B13F5D1C400D8C56B /* map0.svg */; };
 		F10A772A133B7C2500C8F3D4 /* SVGStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = F10A7729133B7C2500C8F3D4 /* SVGStyle.m */; };
 		F10D76D8126D51CC00D5CA7A /* text.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D7126D51CC00D5CA7A /* text.svg */; };
 		F10D76DA126D51D700D5CA7A /* skull.svg in Resources */ = {isa = PBXBuildFile; fileRef = F10D76D9126D51D700D5CA7A /* skull.svg */; };
 		F118E2541363B95B00AC0C3B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F118E2531363B95B00AC0C3B /* libxml2.dylib */; };
 		F12576A3135DC4DB00D6249F /* GraphicFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A2135DC4DB00D6249F /* GraphicFrag.m */; };
 		F12576A6135DC5FB00D6249F /* PathFrag.m in Sources */ = {isa = PBXBuildFile; fileRef = F12576A5135DC5FB00D6249F /* PathFrag.m */; };
+		F130C03D13F95A08008815EB /* maps.plist in Resources */ = {isa = PBXBuildFile; fileRef = F130C03C13F95A08008815EB /* maps.plist */; };
 		F13AA00E1366516000CDA583 /* CGPathReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FFD1366516000CDA583 /* CGPathReader.m */; };
 		F13AA00F1366516000CDA583 /* CGPathWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = F13A9FFE1366516000CDA583 /* CGPathWriter.c */; };
 		F13AA0101366516000CDA583 /* MROCGPointMath.c in Sources */ = {isa = PBXBuildFile; fileRef = F13AA0001366516000CDA583 /* MROCGPointMath.c */; };
@@ -58,7 +60,8 @@
 		F102760913452147004F7796 /* QuadTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuadTreeNode.m; sourceTree = "<group>"; };
 		F102760B13452161004F7796 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
 		F102760C13452161004F7796 /* Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sprite.m; sourceTree = "<group>"; };
-		F104A1741319E77100E91D4F /* map.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map.svg; sourceTree = "<group>"; };
+		F102788A13F5D1C400D8C56B /* map1.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map1.svg; sourceTree = "<group>"; };
+		F102788B13F5D1C400D8C56B /* map0.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = map0.svg; sourceTree = "<group>"; };
 		F1060337135FBE3D00840593 /* IDrawable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDrawable.h; sourceTree = "<group>"; };
 		F10A7728133B7C2500C8F3D4 /* SVGStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGStyle.h; sourceTree = "<group>"; };
 		F10A7729133B7C2500C8F3D4 /* SVGStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGStyle.m; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		F12576A2135DC4DB00D6249F /* GraphicFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphicFrag.m; sourceTree = "<group>"; };
 		F12576A4135DC5FA00D6249F /* PathFrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFrag.h; sourceTree = "<group>"; };
 		F12576A5135DC5FB00D6249F /* PathFrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathFrag.m; sourceTree = "<group>"; };
+		F130C03C13F95A08008815EB /* maps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = maps.plist; sourceTree = "<group>"; };
 		F13A9FFC1366516000CDA583 /* CGPathReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGPathReader.h; path = ../../lib/MROGeometry/CGPathReader.h; sourceTree = "<group>"; };
 		F13A9FFD1366516000CDA583 /* CGPathReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGPathReader.m; path = ../../lib/MROGeometry/CGPathReader.m; sourceTree = "<group>"; };
 		F13A9FFE1366516000CDA583 /* CGPathWriter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CGPathWriter.c; path = ../../lib/MROGeometry/CGPathWriter.c; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				F130C03C13F95A08008815EB /* maps.plist */,
 				F118E2531363B95B00AC0C3B /* libxml2.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -173,8 +178,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F102788A13F5D1C400D8C56B /* map1.svg */,
+				F102788B13F5D1C400D8C56B /* map0.svg */,
 				F1E1603D132B0AA800836330 /* drawing.svg */,
-				F104A1741319E77100E91D4F /* map.svg */,
 				F10D76D9126D51D700D5CA7A /* skull.svg */,
 				F10D76D7126D51CC00D5CA7A /* text.svg */,
 				F1FE97711269533000F6D66F /* tiger.svg */,
@@ -286,10 +292,12 @@
 				F1FE97721269533000F6D66F /* tiger.svg in Resources */,
 				F10D76D8126D51CC00D5CA7A /* text.svg in Resources */,
 				F10D76DA126D51D700D5CA7A /* skull.svg in Resources */,
-				F104A1751319E77100E91D4F /* map.svg in Resources */,
 				F1E1603E132B0AA800836330 /* drawing.svg in Resources */,
 				F13AA0141366516000CDA583 /* PathParser.rl in Resources */,
 				F13AA0171366516000CDA583 /* TrafoParser.rl in Resources */,
+				F102788C13F5D1C400D8C56B /* map1.svg in Resources */,
+				F102788D13F5D1C400D8C56B /* map0.svg in Resources */,
+				F130C03D13F95A08008815EB /* maps.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,8 +28,7 @@
 - (CGFloat)distanceBetweenTwoPoints:(CGPoint)fromPoint toPoint:(CGPoint)toPoint;
 
 -(SVGQuartzRenderer*) getCurrentRenderer;
--(SVGQuartzRenderer*) nextRenderer;
--(SVGQuartzRenderer*) previousRenderer;
+
 
 
 @end
@@ -48,16 +47,35 @@ CGPoint middle;
 		[self setMultipleTouchEnabled:YES];
 	
         svgRenderers = [NSMutableArray new];
+        currentRenderer = -1;
+        //1. read in map plist and create renderers
+        NSString *path = [[NSBundle mainBundle] bundlePath];
         
-        SVGQuartzRenderer* svgRenderer = [[SVGQuartzRenderer alloc] init];
-        [svgRenderers addObject:svgRenderer];
-        currentRenderer = 0;
-        
-		[svgRenderer setDelegate:self];
-		svgRenderer.viewFrame = frame;
+        NSString *finalPath = [path stringByAppendingPathComponent:@"maps.plist"];
+        NSDictionary* plistDictionary = [NSDictionary dictionaryWithContentsOfFile:finalPath];
+        NSArray* maps = [plistDictionary objectForKey:@"maps"];	
+        if ([maps count] > 0)
+        {
+            NSEnumerator* enumerator = [maps objectEnumerator];
+            id itemId;
+            while ((itemId = [enumerator nextObject])) {
+                NSDictionary* item = (NSDictionary*)itemId;
+                NSString* name  = [item objectForKey:@"name"];                
+                NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"svg"];
+                SVGQuartzRenderer* svgRenderer = [[SVGQuartzRenderer alloc] init];
+                [svgRenderers addObject:svgRenderer];
+                [svgRenderer setDelegate:self];
+                svgRenderer.viewFrame = [self frame];
+                svgRenderer.offsetX = origin.x;
+                svgRenderer.offsetY = origin.y;
+                svgRenderer.svgFile = path;
+                
+                [svgRenderer release];
+            }
+            
+            currentRenderer = 0;
+        }
 		origin = frame.origin;
-		svgRenderer.offsetX = origin.x;
-		svgRenderer.offsetY = origin.y;
 		initialDistance = -1;
 		svgDrawing = NULL;
 		initialScaleX = -1;
@@ -96,8 +114,8 @@ CGPoint middle;
  
 }
 
--(void) open:(NSString*)path{	
-	[[self getCurrentRenderer] parse:path];       
+-(void) open{
+	[[self getCurrentRenderer] parse];       
 }
 
 
@@ -366,24 +384,25 @@ CGPoint middle;
         return nil;
     return [svgRenderers objectAtIndex:currentRenderer];
 }
--(SVGQuartzRenderer*) nextRenderer
+-(void) nextRenderer
 {
     if (currentRenderer == -1 || [svgRenderers count] == 0)
-        return nil;
+        return;
 
     currentRenderer = (currentRenderer+1)%[svgRenderers count];
-     return [svgRenderers objectAtIndex:currentRenderer];
+    [self open];
+
 }
--(SVGQuartzRenderer*) previousRenderer
+-(void) previousRenderer
 {
     if (currentRenderer == -1 || [svgRenderers count] == 0)
-        return nil;
+        return;
 
     if (currentRenderer == 0)
         currentRenderer = [svgRenderers count]-1;
     else
        currentRenderer = (currentRenderer-1)%[svgRenderers count];
-     return [svgRenderers objectAtIndex:currentRenderer];
+    [self open];
 }
 
 
@@ -396,6 +415,7 @@ CGPoint middle;
             [renderer release];
             
     }
+    [svgRenderers release];
     if (svgDrawing != NULL)
 	   CGImageRelease(svgDrawing);
 	[svgLayer release];

@@ -58,6 +58,7 @@
 	CGAffineTransform transform;
     SVG_TRANS localTransform;
 	CGContextRef cgContext;
+    BOOL isParsed;
 	
 	BOOL firstRender;
 	NSMutableDictionary *defDict;
@@ -88,10 +89,11 @@
 @property (readwrite) CGFloat offsetY;
 @property (readwrite) CGRect viewFrame;
 @property (readwrite, copy) NSString* curLayerName;
+@property (readwrite, copy) NSString* svgFile;
 
 - (void) resetScale;
 
-- (void)parse:(NSString *)file;
+- (void)parse;
 -(void) redraw;
 - (void)setDelegate:(id<SVGQuartzRenderDelegate>)rendererDelegate;
 - (CGContextRef)createBitmapContext;

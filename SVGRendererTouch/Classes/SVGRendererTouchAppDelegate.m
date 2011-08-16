@@ -63,13 +63,11 @@
 
 -(void) parse
 {
-  	NSString *path = [[NSBundle mainBundle] pathForResource:@"map" ofType:@"svg"];
-	[self.svgView open:path];     
+	[self.svgView open];     
     [self performSelectorOnMainThread:@selector(render)
                                            withObject:nil
                                         waitUntilDone:NO];
  
-    
 }
 
 -(void) render
@@ -138,7 +136,8 @@
 
 - (void) doubleTap:(NSString*)location
 {
-	
+	[self.svgView nextRenderer];     
+    [self render];
 }
 - (void) singleTap:(NSString*)location
 {

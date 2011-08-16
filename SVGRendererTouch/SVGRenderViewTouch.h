@@ -47,10 +47,13 @@
     UIActivityIndicatorView* spinner;
 }
 
--(void) open:(NSString*)path;
+-(void) open;
 -(void) render;
 -(void) locate:(CGPoint)location withBoundingBox:(CGSize)box;
 -(void) setDelegate:(id<SVGRenderViewTouchDelegate>)del;
+
+-(void) nextRenderer;
+-(void) previousRenderer;
 
 @property (nonatomic, copy) NSString* selectedLocation;
 

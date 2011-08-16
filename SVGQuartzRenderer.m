@@ -80,6 +80,7 @@ static xmlSAXHandler simpleSAXHandlerStruct;
 @synthesize delegate;
 @synthesize globalScaleX, globalScaleY, offsetX, offsetY;
 @synthesize curLayerName;
+@synthesize svgFile;
 
 typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context);
 
@@ -94,6 +95,7 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 		firstRender = YES;
 		inDefSection = NO;
 		rootNode = [[QuadTreeNode alloc] initWithRect:CGRectMake(0,0,1,1)]; 
+        isParsed = NO;
 		
     }
     return self;
@@ -114,11 +116,12 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
 }
 
 
-- (void)parse:(NSString *)file
+- (void)parse
 {
- 
-    svgFile = [[NSString alloc ] initWithString:file];    
-    svgXml = [[NSData alloc ] initWithContentsOfFile:svgFile];
+    if (isParsed)
+        return;
+    
+     svgXml = [[NSData alloc ] initWithContentsOfFile:svgFile];
     [svgFile release];
 
     NSDate* start;
@@ -145,6 +148,8 @@ typedef void (*CGPatternDrawPatternCallback) (void * info, CGContextRef context)
     NSLog(@"lib2xml parse: %f seconds",-timeInterval);    
     
    [svgXml release];
+    svgXml = nil;
+    isParsed = YES;
     
 
 }
