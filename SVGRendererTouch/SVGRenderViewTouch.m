@@ -408,13 +408,6 @@ CGPoint middle;
 
 -(void)dealloc
 {
-    for (int i = 0; i < [svgRenderers count]; ++i)
-    {
-        SVGQuartzRenderer* renderer = [svgRenderers objectAtIndex:i];
-        if (renderer != nil)
-            [renderer release];
-            
-    }
     [svgRenderers release];
     if (svgDrawing != NULL)
 	   CGImageRelease(svgDrawing);
