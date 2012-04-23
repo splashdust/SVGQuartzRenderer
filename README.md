@@ -1,3 +1,10 @@
+Note
+====
+
+SVGQuartzRenderer has not been updated in a log time, nor is it likely that it will be in the future. I had plans to refactor SVGQuartzRenderer to make it more maintainable and to make it easier to implement more of the SVG profile, but due to a lack of time I never got around to it. Also, back when I started this project there were no other SVG renderers available for iOS. Now there is SVGKit (https://github.com/mattrajca/SVGKit), which appears to be more complete and a lot less messy than SVGQuartzRenderer. So I highly recommend using that one instead. If you still need SVGQuartzRenderer for some reson, there is a newer fork available at https://github.com/adamgit/SVGQuartzRenderer
+
+Thanks to boxerab, who contributed a lot, and to adamgit for forking :)
+
 SVGQuartzRenderer
 =================
 
